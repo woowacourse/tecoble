@@ -1,9 +1,9 @@
 # 근로장학 코드리뷰 모으기
 
 ## 요청 방법
-> **요청 환경 설정 - Fork** 를 반드시 선행한다.
+> https://github.com/woowacourse/review 저장소 Fork 를 반드시 선행한다.
 
-1. Fork한 나의 Repository에서 `Create new file` 버튼 클릭
+1. **Fork한 나의 Repository**에서 `Create new file` 버튼 클릭
 ![image.png](https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/2020-04-03T22%3A45%3A32.928image.png)
 
 2. 파일을 작성한다.
@@ -25,9 +25,4 @@
 
 5. 내용을 확인한 후 `Create pull request` 버튼을 클릭한다.
 ![image.png](https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/2020-04-03T22%3A40%3A43.853image.png)
-
-## 리뷰요청 환경 설정 
-1. https://github.com/woowacourse/review 를 Fork 한다.
-
-![Screenshot_2020-04-03 22.22.17_ZYmihz.png](https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/2020-04-03T22%3A50%3A03.384Screenshot_2020-04-03%2022.22.17_ZYmihz.png)
 
