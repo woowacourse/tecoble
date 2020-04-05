@@ -1,7 +1,9 @@
 ### 👉 [문자열 계산기 저장소 풀리퀘스트 목록](https://github.com/woowacourse/java-calculator/pulls?q=is%3Apr+is%3Aclosed)
----
+### 👉 주제 선정 기준
+<img width="600" alt="Screen Shot 2020-04-06 at 12 15 49 AM" src="https://user-images.githubusercontent.com/42382027/78502422-1cccaa80-779c-11ea-99e6-84db08acbd22.png">
 
-## 문자열 계산기 : Enum VS Map
+---
+# 문자열 계산기 : Enum VS Map
 ### 리뷰 개요
 입력받은 수식 계산을 위해 `"+"`, `"-"`, `"*"`, `"/"`에 해당하는 네 가지 연산자를 인식하고 용도에 맞게 연산하는 기능이 필요하다.  
 **연산자**와 **실제 연산 작업**을 연관시켜 저장하는 두 가지 방식에 대해서 살펴보자.
