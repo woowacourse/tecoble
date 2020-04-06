@@ -39,12 +39,7 @@ public class Calculator {
 public enum Operator {
     PLUS("+", (first, second) -> first + second),
     MINUS("-", (first, second) -> first - second),
-    DIVIDE("/", (first, second) -> {
-        if (second == 0) {
-            throw new DivideByZeroException();
-        }
-        return first / second;
-    }),
+    DIVIDE("/", (first, second) -> first / second),
     MULTIPLY("*", (first, second) -> first * second);
 
     private final String operator;
@@ -122,38 +117,39 @@ public static Operator getOperatorForChar(char charOperator) {
 public enum Operator {
   PLUS("+", (first, second) -> first + second),
   MINUS("-", (first, second) -> first - second),
-  DIVIDE("/", (first, second) -> {
-      if (second == 0) {
-          throw new DivideByZeroException();
-      }
-      return first / second;
-  }),
+  DIVIDE("/", (first, second) -> first / second),
   MULTIPLY("*", (first, second) -> first * second);
 
-  private final static Map<String, Operator> valuesWithStringMap = new HashMap<>();
+  private final static Map<String, Operator> ENUM_MAP = new HashMap<>();
 
   static {
-      valueWithStringMap.put("+", PLUS);
-      valueWithStringMap.put("-", MINUS);
-      valueWithStringMap.put("/", DIVIDE);
-      valueWithStringMap.put("*", MULTIPLY);
-  }
+        for (Operator operator: values()) {
+            ENUM_MAP.put(representation, operator);
+        }
+    }
 
-  private final String operator;
+  private final String representation;
   private final BinaryOperator<Double> expression;
 
 
-  Operator(final String operator, final BinaryOperator<Double> expression) {
-      this.operator = operator;
+  Operator(final String representation, final BinaryOperator<Double> expression) {
+      this.operator = representation;
       this.expression = expression;
   }
 }
+
+public static Operator valueOfRepresentation(String representation) {
+        if (ENUM_MAP.containsKey(representation)) {
+            return ENUM_MAP.get(representation);
+        }
+        throw new IllegalArgumentException("매치되는 연산자가 없습니다.");
+    }
 ```
 
-이렇게 하면 Enum과 Map의 장점을 모두 살릴 수 있다.  
+이렇게 `캐싱하는` 방식으로 구현하면 Enum과 Map의 장점을 모두 살릴 수 있다.  
 클래스로서의 기능을 하는 Enum 덕분에 관련 책임을 한 곳에서 처리할 수 있다는 장점을 유지하면서,  
 Map으로 인해 value에 대한 검색이 빨라진다는 장점까지 가져갈 수 있다.
 하지만 이는 일반적으로 많이 사용되는 방법은 아니다.  
-보통은 정의되는 enum의 요소가 많아봐야 10개 정도 이기 때문에 그냥 정적 메서드를 사용하여 value값을 검색하곤 한다. 
+보통은 정의되는 enum의 요소가 많아봐야 10개 정도 이기 때문에 그냥 정적 메서드를 사용하여 value값을 검색하곤한다.
 
 도메인 상황에 맞게 처리해야 할 `Enum 갯수`와 `검색 메서드 호출 주기`등을 고려하여 참고해볼 수 있는 방법 정도로 알아두면 좋을 것이다. 
