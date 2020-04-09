@@ -43,11 +43,11 @@
         - move 메서드를 수정하고 ***(세세한 커밋 작성)***
         - Getter 메소드를 추가한다. ***(세세한 커밋 작성)***
 
-            ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/920810d5-63c1-4afc-b64e-fe2abf876195/Screen_Shot_2020-04-09_at_4.04.31_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/920810d5-63c1-4afc-b64e-fe2abf876195/Screen_Shot_2020-04-09_at_4.04.31_PM.png)
+            <img width="695" alt="git_commit1" src="https://user-images.githubusercontent.com/49060374/78888519-bb0e8800-7a9c-11ea-9192-e953136e78d5.png">
 
         - 이 둘의 커밋을 하나로 합친다. 아래와 같이 하나의 커밋 메세지 안에 (Knight 관련 수정(move,getter)) 합쳐진 커밋 메시지를 함께 볼 수 있다.  → ***보다 일반화된 단위로 커밋 병합***
 
-            ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/360857a4-e37f-468f-81d2-fb92ec39b2ee/Screen_Shot_2020-04-09_at_4.06.29_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/360857a4-e37f-468f-81d2-fb92ec39b2ee/Screen_Shot_2020-04-09_at_4.06.29_PM.png)
+            <img width="610" alt="git_commit2" src="https://user-images.githubusercontent.com/49060374/78888514-b9dd5b00-7a9c-11ea-8dae-17e93a39868f.png">
 
     - 위와 같은 방식으로 수정에서 발생하는 사소한 부분들을 Commit을 하고 최종적으로 하나의 단위의 변경이 끝났다고 생각되는 경우 `rebase , squash` 를 통해 하나의 커밋으로 합쳐서 `push` 한다.
-    - 이렇게 하는 경우 위에서 언급한 것처럼 전체적인 수정 사항을 한 눈에 볼 수 있고***(일반화된 단위의 커밋)*** 전체적인 수정 사항을 이루고 있는 작은 커밋 단위***(세세한 커밋 내역)***에 대해서도 확인할 수 있기 때문에 변경에 대해 미시적, 거시적으로 둘 다 확인 할 수 있다.
+    - 이렇게 하는 경우 위에서 언급한 것처럼 전체적인 수정 사항을 한 눈에 볼 수 있고 ***(일반화된 단위의 커밋)*** 전체적인 수정 사항을 이루고 있는 작은 커밋 단위 ***(세세한 커밋 내역)*** 에 대해서도 확인할 수 있기 때문에 변경에 대해 미시적, 거시적으로 둘 다 확인 할 수 있다.
