@@ -1,100 +1,144 @@
-# 문자열 계산기 PR
+## 변수 명 네이밍에 대한 리뷰 / 피드백 모음
 
-## Exception 관련 이슈
- ##### Exception을 class 로 분리
- ###### throw new IllegalArgumentException() 부분이 중복되어 호출된다. 
- ###### throw 하는 메세지들을 Exception 클래스로 따로 관리해 주는게 더 좋을까?
+
+
+#### 변수명 네이밍 규칙
+
++ 변수의 이름은 소문자의 명사 형태
+
++ 상수값 (final static)은 항시 대문자로 적고, 단어와 단어사이에 '_'를 넣는다.
+
+  MAX_NUMBER
+
+  
+
+#### 특정의미를 갖는 숫자는 항상 의미를 나타내는 상수로 바꿔서 사용하도록 한다. (매직넘버 상수화)
+
 ``` java
-private static void checkPosition(String[] equation, int index) {
-        if (isNotNumberPosition(index) && isNumber(equation[index])) {
-            throw new IllegalArgumentException(String.format(INCORRECT_POSITION_MESSAGE, INCORRECT_POSITION_NUMBER));
-        }
-        if (isNumberPosition(index) && isNotNumber(equation[index])) {
-            throw new IllegalArgumentException(String.format(INCORRECT_POSITION_MESSAGE, INCORRECT_POSITION_OPERATOR));
-        }
-    } 
- ```
-   - 새로 만든 Exception을 호출하는 부분이 똑같이 중복될 수 있다.
-   - Custom Exception이 발생했을때 비즈니스 로직적으로 어떤 액션을 취해야 하는 경우가 아니라면 굳이 Exception을 만들지 않아도 될 것 같다.
-   - 각 상황에 맞는 네이밍을 갖는 Exception을 만들어 한번 더 맵핑하면 규모가 커질수록 Exception이 점점 늘어나고, 관리하기 힘들어질 수도 있다.
- - 참고 링크 : https://jaehun2841.github.io/2019/03/10/effective-java-item72/#서론
- 
- ##### 예외의 상세 메시지에 실패 관련 정보를 담기 (이펙티브 자바 아이템 75)
- ``` java
- return Arrays.stream(values())
-			.filter(operator -> value.equals(operator.symbol))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException());
+        if (randomNumber >= 4) {
+        public Car moveCar(int randomNumber) {
+```
 
- ```
-  - 추후에 구조적 수정 등 문제가 발생하면 무슨 예외인지 판별이 어려울 수 있음.
++ 4 대신 MOVE_STANDATD_NUMBER 등으로 상수화해서 사용
 
- 
- 
- ## 네이밍 이슈
-  ##### 의도를 분명히 밝혀라
- - 좋은 이름을 지으려면 시간이 걸리지만 좋은 이름으로 절약하는 시간이 훨씬 더 많다.
- - 그러므로 이름을 주의 깊게 살펴 더 나은 이름이 떠오르면 개선하기 바란다. 그러면 (자신을 포함해) 코드를 읽는 사람이 좀더 행복해지리라.
- - 따로 주석이 필요하다면 의도를 분명히 드러내지 못했다는 소리다.
- 
-  ##### 인라인으로 메소드가 여러번 호출되는 코드를 봤을 때 한눈에 알아 볼 수 없으면 변수로 분리
-  ``` java
-     public void run() {
-        try {
-            RawEquationDTO rawEquationDTO = inputEquation();
-            OutputView.showResult(calculate(rawEquationDTO));
-        } catch (RuntimeException e) {
-            OutputView.showExceptionMessage(e);
-            run();
-        }
-    }
 
-    private RawEquationDTO inputEquation() {
-        return new RawEquationDTO(inputView.inputEquation());
-    }
-  ```
-   - RawEquationDTO rawEquationDTO = new RawEquationDTO(inputView.inputEquation()) 로 변경
-   
-   ##### Java 에서는 테스트 코드가 아니면 메서드에 _ 를 사용하지 않습니다.
-   ##### 변수 이름에 자료형이 들어간다면?
-   ``` java
-    private List<Double> numberList = new ArrayList<>();
-    private List<String> operatorList = new ArrayList<>();
-   ```
- - 추후 List 대신 다른 자료형(Set...)이 사용되는 경우에 원래 사용되던 변수명이 그 변수의 의미를 나타내지 못하게 됨 -> 결국 변수명을 변경해야 함.
-    
-    
-## 단위 테스트 이슈
- ##### 테스트 당 하나의 단위에 대해서만 테스트 -> 어떤 케이스에서 실패했는지 파악하기 용이함
- ##### 테스트 당 하나의 테스트 케이스에 대해서만 테스트
- ##### 테스트의 조건이 되는 것은 코드가 중복되더라도 각 테스트에 존재하는 것이 가장 좋다
- ##### 예외 케이스도 테스트하기
- ##### private 인 메서드를 테스트하고 싶다
- - 보통 테스트는 public 메서드를 테스트한다. 
- - 리플렉션까지 사용해 private 메서드를 테스트를 해야하는 경우라면 이 클래스에서 해야하는 역할이 맞는지 고민해보고 클래스를 분리할 수 있다면 분리해서 테스트를 진행하기.
- 
- 
-## enum 관련 이슈
- ##### 연산자와 같이 값이 정해진 경우에는 enum도 매우 훌륭한 도구
- ```java
- private static double calculateBinomialByRawData(double firstOperand,
-            Operator operator, double secondOperand) {
 
-         if (operator.isAdd()) {
-            return firstOperand + secondOperand;
-        }
++ 단, 매직넘버로서의 의미가 없는 경우 상수로 바꿀 필요 없다.
 
-         if (operator.isSubtract()) {
-            return firstOperand - secondOperand;
-        }
+``` java
+	private static final int ONE = 1;
+	private static final int TWO = 2;
+	private static final int ZERO = 0;
+```
 
-         if (operator.isMultiply()) {
-            return firstOperand * secondOperand;
-        }
++ ZERO, ONE, TWO라는 명칭으로서는 현재 코드상에선 0, 1, 2 그대로의 의미 이상을 가지고 있지 않는 것 같네요.
+  특히 for문에 사용하신 ONE의 경우 매직넘버로서의 의미는 없어 보임.
 
-         return firstOperand / secondOperand;
-    }
- ```
-  - 클래스 대신 enum 으로 대체 가능
-  - 관련 링크 : https://woowabros.github.io/tools/2017/07/10/java-enum-uses.html
- 
+  매직넘버를 기호 상수로 변경하는 가장 큰 목적은 숫자가 가진 의미를 직관적으로 알수 있게하기 위함이지 동일한 숫자가 사용된 부분을 치환하기 위해서가 아닙니다. 
+
+  그런 부분에서 for문에서의 ONE의 사용은 기호 상수의 명칭을 현재의 모호한 ONE으로 귀결시킨 원인 중 하나로 보이네요.
+  추가적으로 코드상에 직접 사용된 모든 숫자가 매직넘버를 의미하진 않습니다. (대표적으로 일반적인 for문에서 나오는 i = 0 )
+
+참고링크 : https://hoonmaro.tistory.com/4
+
+
+
+#### 의도를 분명히 밝혀라
+
+- 좋은 이름을 지으려면 시간이 걸리지만 좋은 이름으로 절약하는 시간이 훨씬 더 많다.
+
+- 그러므로 이름을 주의 깊게 살펴 더 나은 이름이 떠오르면 개선하기 바란다. 그러면 (자신을 포함해) 코드를 읽는 사람이 좀더 행복해지리라.
+
+- 따로 주석이 필요하다면 의도를 분명히 드러내지 못했다는 소리다.
+
+- 변수 이름이 변수가 표현하고 있는 것을 완벽하고 정확하게 설명해야 한다.
+
+- 이름은 가능한 구체적이어야 한다. 모호하거나 하나 이상의 목적으로 사용될 수 있는 일반적인 이름은 보통 나쁜 이름이다.
+
+   -> x, temp, i와 같은 이름은 적절한 정보를 제공해 주지 않는다
+
+
+
+#### 최적의 이름 길이
+
+- 변수 이름의 길이가 평균적으로 10~16일 때 프로그램을 디버깅하기 위해서 들이는 노력을 최소화 할 수 있고, 변수의 평균 길이가 8~20인 프로그램은 디버깅하기가 쉽다.
+
+
+
+#### 불린 변수
+
++ 전형적인 불린 변수의 이름을 사용.
+  + done
+  + error
+  + found
+  + success나 ok
+    단, 성공했다는 것을 정확하게 설명하는 구체적인 이름이 있다면 다른 이름으로 대체하는 것이 좋다.
+    (예: processingComplete, found, 등)
+
++ 참이나 거짓의 의미를 함축하는 불린 변수의 이름을 사용한다.
+  + status, sourceFile 같은 변수들은 참이나 거짓이 명백하지 않기 때문에 좋지 못한 불린 이름이다.
+    statusOK, sourceFileAvailable 또는 sourceFileFound와 같은 이름으로 대체해야 한다.
+
++ 긍정적인 불린 변수 이름을 사용한다
+  notFound, nonDone, notSuccessful과 같은 부정적인 이름은 이 변수의 값이 부정이 되었을 때 읽기가 어려워진다.
+
+```java
+if(notFound ==  false) ...
+```
+
++ if(found == true) 가 훨씬 더 자연스럽다.
+
+
+
+#### 협업을 염두에 두고 작성해야 한다. 
+
+```java
+private void validateNumericPosition(String[] expressionAsArray) {		
+  for (int i = 0; i < expressionAsArray.length; i+=2)
+```
+
++ 2가 의미하는게 뭘까?
+
++ 다른 사람이 봤을 때 i+2를 통해 어떤 처리를 하는지 파악하려면 코드를 분석해야 한다.
+
+  -> 하지만 2에 의미있는 변수명을 붙여주면(예를 들면 number index) 숫자만 걸러내기 위한 식이구나 알 수 있다.
+
+
+
+#### 인라인으로 메소드가 여러번 호출되는 코드를 봤을 때 한눈에 알아 볼 수 없으면 변수로 분리
+
+```java
+   public void run() {
+      try {
+          RawEquationDTO rawEquationDTO = inputEquation();
+          OutputView.showResult(calculate(rawEquationDTO));
+      } catch (RuntimeException e) {
+          OutputView.showExceptionMessage(e);
+          run();
+      }
+  }
+
+  private RawEquationDTO inputEquation() {
+      return new RawEquationDTO(inputView.inputEquation());
+  }
+```
+
+- RawEquationDTO rawEquationDTO = new RawEquationDTO(inputView.inputEquation()) 로 변경
+
+  
+
+#### 변수 이름에 자료형이 들어간다면?
+
+```java
+ private List<Double> numberList = new ArrayList<>();
+ private List<String> operatorList = new ArrayList<>();
+```
+
+- 추후 List 대신 다른 자료형(Set...)이 사용되는 경우에 원래 사용되던 변수명이 그 변수의 의미를 나타내지 못하게 됨 -> 결국 변수명을 변경해야 함.
+- 타입을 보면 충분히 어떤 변수인지 파악할 수 있다
+
+
+
+
+
+참고 링크 : https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/
