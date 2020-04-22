@@ -34,17 +34,17 @@ public static Integer findMinMultiple(List<Integer> numbers, int anyNumber) {
 ```java
 Member member = findMember("tiger");
 if (member != null) {
-	Address address = member.getAddress();
-	if (address != null) {
-		String city = address.getCity();
-		if (city != null) {
-			return city;
-		}
-	}
+    Address address = member.getAddress();
+    if (address != null) {
+        String city = address.getCity();
+        if (city != null) {
+            return city;
+        }
+    }
 }
 ```
 
-위의 예시처럼 방어를 위한 null 체크 로직은
+위의 예시처럼 방어를 위한 null 체크 로직은  
 코드 가독성을 떨어지게 하고, 프로그래머의 생산성을 저하시킨다.
 
 ---
@@ -82,8 +82,8 @@ public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) 
         .sorted()
         .filter(number -> number % anyNumber == 0)
         .findFirst()
-        .map(OptionalInt::of)
-        .orElse(OptionalInt.empty());
+	.map(OptionalInt::of)
+	.orElseGet(OptionalInt::empty);
 }
 
 ```
@@ -108,7 +108,7 @@ null을 반환하는 것은 위에서 살펴봤듯이 좋지 않은 방식이다
 **하지만 Optional은 신중히 사용해야 한다.**
 
 Optional은 값을 포장하고 다시 풀고, 값이 없을 때 대체하는 값을 넣는 등의 오버헤드가 있으므로,  
-무분별하게 사용된다면 성능 저하가 뒤따르기 때문이다.
+무분별하게, 적절하지 않게 사용된다면 성능 저하가 뒤따르기 때문이다.
 
 학습을 통해 Optional을 설계자의 의도에 맞게 활용하면서 **null-safety** 한 코드를 작성하자.
 
