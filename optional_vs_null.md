@@ -82,8 +82,8 @@ public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) 
         .sorted()
         .filter(number -> number % anyNumber == 0)
         .findFirst()
-	.map(OptionalInt::of)
-	.orElseGet(OptionalInt::empty);
+        .map(OptionalInt::of)
+        .orElseGet(OptionalInt::empty);
 }
 
 ```
@@ -109,6 +109,37 @@ null을 반환하는 것은 위에서 살펴봤듯이 좋지 않은 방식이다
 
 Optional은 값을 포장하고 다시 풀고, 값이 없을 때 대체하는 값을 넣는 등의 오버헤드가 있으므로,  
 무분별하게, 적절하지 않게 사용된다면 성능 저하가 뒤따르기 때문이다.
+
+적절하지 않게 사용되는 예로 Optional의 orElse 메소드가 있다.
+
+`orElse(...)` 에서 `...`는 Optional에 값이 있든 없든 무조건 실행된다.  
+Optional에 값이 있다면 `orElse`의 인자로서 실행된 값은 무시되고 버려지는 것이다.
+
+따라서 이미 생성되었거나 계산된 값이 아니라면 orElseGet 메소드를 쓰는 것이 적절하다.
+
+```java
+// orElse()를 사용한 부적절한 예
+public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) {
+	return numbers.stream()
+		.sorted()
+		.filter(number -> number % anyNumber == 0)
+		.findFirst()
+		.map(OptionalInt::of)
+		.orElse(OptionalInt.empty());
+}
+
+// orElseGet()을 사용한 적절한 예
+public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) {
+	return numbers.stream()
+		.sorted()
+		.filter(number -> number % anyNumber == 0)
+		.findFirst()
+		.map(OptionalInt::of)
+		.orElseGet(OptionalInt::empty);
+}
+```
+
+위 예시 뿐 아니라, Optional을 적절하지 않게 사용하는 경우는 매우 많다.
 
 학습을 통해 Optional을 설계자의 의도에 맞게 활용하면서 **null-safety** 한 코드를 작성하자.
 
