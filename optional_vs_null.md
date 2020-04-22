@@ -31,6 +31,22 @@ public static Integer findMinMultiple(List<Integer> numbers, int anyNumber) {
 -   NPE(NullPointerException) 방어를 위한 null 체크 로직이 필요하다.
 -   null 체크 로직 때문에 코드 가독성이 떨어진다.
 
+```java
+Member member = findMember("tiger");
+if (member != null) {
+	Address address = member.getAddress();
+	if (address != null) {
+		String city = address.getCity();
+		if (city != null) {
+			return city;
+		}
+	}
+}
+```
+
+위의 예시처럼 방어를 위한 null 체크 로직은
+코드 가독성을 떨어지게 하고, 프로그래머의 생산성을 저하시킨다.
+
 ---
 
 ## 해결 방법
