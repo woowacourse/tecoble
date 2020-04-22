@@ -27,7 +27,7 @@ public static Integer findMinMultiple(List<Integer> numbers, int anyNumber) {
 
 메소드에서 null을 반환한다면 해당 메소드를 사용하는 여러 곳에서 다음과 같은 문제점이 있다.
 
--   NPE(NullPointerException)을 발생시킬 위험이 있다.
+-   NPE(NullPointerException)를 발생시킬 위험이 있다.
 -   NPE(NullPointerException) 방어를 위한 null 체크 로직이 필요하다.
 -   null 체크 로직 때문에 코드 가독성이 떨어진다.
 
@@ -45,7 +45,7 @@ if (member != null) {
 ```
 
 위의 예시처럼 방어를 위한 null 체크 로직은  
-코드 가독성을 떨어지게 하고, 프로그래머의 생산성을 저하시킨다.
+코드 가독성을 떨어지게 하고, 프로그래머의 생산성을 저하한다.
 
 ---
 
@@ -120,26 +120,26 @@ Optional에 값이 있다면 `orElse`의 인자로서 실행된 값은 무시되
 ```java
 // orElse()를 사용한 부적절한 예
 public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) {
-	return numbers.stream()
-		.sorted()
-		.filter(number -> number % anyNumber == 0)
-		.findFirst()
-		.map(OptionalInt::of)
-		.orElse(OptionalInt.empty());
+    return numbers.stream()
+        .sorted()
+        .filter(number -> number % anyNumber == 0)
+        .findFirst()
+        .map(OptionalInt::of)
+        .orElse(OptionalInt.empty());
 }
 
 // orElseGet()을 사용한 적절한 예
 public static OptionalInt findMinMultiple(List<Integer> numbers, int anyNumber) {
-	return numbers.stream()
-		.sorted()
-		.filter(number -> number % anyNumber == 0)
-		.findFirst()
-		.map(OptionalInt::of)
-		.orElseGet(OptionalInt::empty);
+    return numbers.stream()
+        .sorted()
+        .filter(number -> number % anyNumber == 0)
+        .findFirst()
+        .map(OptionalInt::of)
+        .orElseGet(OptionalInt::empty);
 }
 ```
 
-위 예시 뿐 아니라, Optional을 적절하지 않게 사용하는 경우는 매우 많다.
+위 예시뿐 아니라, Optional을 적절하지 않게 사용하는 경우는 매우 많다.
 
 학습을 통해 Optional을 설계자의 의도에 맞게 활용하면서 **null-safety** 한 코드를 작성하자.
 
