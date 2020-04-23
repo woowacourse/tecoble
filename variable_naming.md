@@ -18,7 +18,7 @@
 
 
 프레임워크마다 코드 컨벤션이 달라지긴 하지만, 보통 자바는 오라클의 자바 코드 컨벤션을 따른다. 
-이 글에서는 모든 자바 네이밍 규칙을 다루지는 않고, 변수명 네이밍에 대한 규칙을 간단히 소개해 보려고 한다.
+이 글에서는 모든 자바 네이밍 규칙을 다루지는 않고, 변수의 네이밍에 대한 규칙을 간단히 소개해 보려고 한다.
 
 
 
@@ -162,31 +162,6 @@ List 대신 다른 자료형(Set...)을 써야하는 경우가 오면 어떻게 
 List, Collection 등의 자료형은 복수형으로 표현하는 것이 좋다.
 
 
-
-
-
-## 상수 변수의 네이밍 컨벤션
-
-#### 상수값(final static)은  ` 대문자로 작성하고, 띄어쓰기는 _ 로 표시한다. `
-
-
-
-보통 특정 의미를 갖는 숫자(매직넘버)는 상수로 바꿔서 사용한다.
-
-``` java
-if (randomNumber >= 4) {
-   public Car moveCar(int randomNumber) {
-```
-
-위 코드에서 숫자 4는 자동차가 움직이는 기준이 되는 숫자이므로 매직넘버라고 할 수 있다.
-
-``` java
-private final static int MOVE_STANDARD_NUMBER = 4;
-if (randomNumber >= MOVE_STANDARD_NUMBER) {
-   public Car moveCar(int randomNumber) {
-```
-
-매직넘버 4를 상수화하면 위와 같은 코드가 된다.
 
 
 
