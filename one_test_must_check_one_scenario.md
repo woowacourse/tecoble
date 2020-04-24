@@ -17,9 +17,9 @@ public class MyService {
 
 - `isGreaterThanFive`라는 메서드가 테스트 할 수 있는 방법은 2가지가 있다.
 
-  - `number`가 5보다 커 `true`를 리턴하는 경우
+  - `number`가 5보다 커서 `true`를 리턴하는 경우
 
-  - `number`가 5보다 작거나 같아 `false`를 리턴하는 경우
+  - `number`가 5보다 작거나 같아서 `false`를 리턴하는 경우
 
 - 이 두 가지 경우를 모두 테스트하기 위해서는 2개의 단위 테스트 메서드가 필요하고, 아래가 해당하는 2개의 단위 테스트 메서드들이다.
 
@@ -36,34 +36,33 @@ public class MyServiceTest {
     public void isGreaterThanFive_GreaterThanFiveNumber_ReturnTrue() {
         // Given
         final MyService myService = new MyService();
-        final int value = 10;
+        final int value = 6;
 
         // When
         final boolean actual = myService.isGreaterThanFive(value);
 
         // Then
-        final boolean expected = true;
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isTrue();
     }
 
     @Test
     public void isGreaterThanFive_NotGreaterThanFiveNumber_ReturnFalse() {
         // Given
         final MyService myService = new MyService();
-        final int value = 1;
+        final int value = 5;
 
         // When
         final boolean actual = myService.isGreaterThanFive(value);
 
         // Then
         final boolean expected = false;
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isFalse();
     }
 
 }
 ```
 
-- 이처럼 테스트를 해야 하는 경우가 5가지가 존재한다면 5가지 모두 작성해야 하는 경우도 존재한다.
+- 만약 테스트를 해야 하는 경우가 5가지가 존재한다면 그 5가지 경우도 모두 작성해야 할 것이다.
 
 <br/>
 
@@ -79,7 +78,6 @@ public class MyServiceTest {
 
 ```java
 /* Operator Test */
-
 @DisplayName("calculate test")
 @Test
 void testCalculate() {
@@ -96,9 +94,8 @@ void testCalculate() {
     Operator divide = new Operator("/");
     final Number zero = new Number("0");
 
-    assertThatThrownBy(() -> {
-        divide.calculate(one, zero);
-    }).isInstanceOf(IllegalArgumentException.class)
+    assertThatThrownBy(() -> divide.calculate(one, zero))
+        .isInstanceOf(IllegalArgumentException.class)
         .hasMessage(("0 으로 나눌 수 없습니다."));
 
     final double expected2 = 0.5;
@@ -112,7 +109,7 @@ void testCalculate() {
 
 - 아래는 이 코드에 대한 피드백으로 달린 내용이다.
 
-  ![feedback image 01](./images/2020_04_07_image01.png)
+  ![feedback image 01](./images/one_test_must_check_one_scenario_01.png)
 
 - 피드백에서는 아래와 같이 물어본다.
 
@@ -142,37 +139,47 @@ void testCalculate() {
 
 ```java
 /* Operator Test */
-
 @Test
 void calculate_AddOperator_AddNumbers() {
-    Operator plus = new Operator("+");
+    // Given
+    final Operator plus = new Operator("+");
     final Number one = new Number("1");
     final Number two = new Number("2");
 
-    final double expected = 3;
+    // When
     final double actual = plus.calculate(one, two);
 
+    // Then
+    final double expected = 3;
     assertThat(actual).isEqualTo(expected);
 }
 
 @Test
 void calculator_DivideOperatorOperandIsZero_ExceptionThrown() {
-    Operator divide = new Operator("/");
+    // Given
+    final Operator divide = new Operator("/");
+    final Number one = new Number("1");
     final Number zero = new Number("0");
 
-    assertThatThrownBy(() -> {
-        divide.calculate(one, zero);
-    }).isInstanceOf(IllegalArgumentException.class)
+    // Then
+    assertThatThrownBy(() -> divide.calculate(one, zero))
+        .isInstanceOf(IllegalArgumentException.class)
         .hasMessage(("0 으로 나눌 수 없습니다."));
 }
 
 @Test
 void calculator_DivideOperator_DivideNumbers() {
-    Operator divide = new Operator("/");
-    final double expected2 = 0.5;
-    final double actual2 = divide.calculate(one, two);
+    // Given
+    final Operator divide = new Operator("/");
+    final Number one = new Number("1");
+    final Number two = new Number("2");
+    
+    // When
+    final double actual = divide.calculate(one, two);
 
-    assertThat(actual2).isEqualTo(expected2);
+    // Then
+    final double expected = 0.5;
+    assertThat(actual).isEqualTo(expected);
 }
 
 ```
@@ -189,7 +196,7 @@ void calculator_DivideOperator_DivideNumbers() {
 
 - 따라서 **테스트 코드를 작성할 때 하나의 테스트 메서드는 하나의 시나리오에 대한 검증만 해서 어떠한 시나리오에서 문제가 발생했는지 명확히 알 수 있도록 하자!**
 
-<br/s>
+<br/>
 
 > ## 참고 링크
 >
