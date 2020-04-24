@@ -29,7 +29,7 @@ public enum Operator {
         return Arrays.stream(Operator.values())
                   .filter(operator -> operator.representation.equals(input))
                   .findAny()
-                  .orElseThrow(IllegalArgumentException::new);
+                  .orElseThrow(() -> new IllegalArgumentException("연산자를 찾을 수 없습니다."));
     }
 }
 ```
@@ -59,11 +59,11 @@ public enum Operator {
       this.representation = representation;
     }
     
-    public static Optional<Operator> find(String representation) {
+    public static Operator find(String representation) {
         if (OPERATOR_MAP.containsKey(representation)) {
-            return Optional.of(OPERATOR_MAP.get(representation));
+            return OPERATOR_MAP.get(representation);
         }
-        return Optional.empty();
+        throw new IllegalArgumentException("연산자를 찾을 수 없습니다.")
     }
     
     public String getRepresentation() {
