@@ -110,7 +110,7 @@ void testCalculate() {
 
 - 아래는 이 코드에 대한 피드백으로 달린 내용이다.
 
-  ![feedback image 01](./images/one_test_must_check_one_scenario_01.png)
+  ![feedback image 01](./images/2020-04-24-one-test-must-check-one-scenario_01.png)
 
 - 피드백에서는 아래와 같이 물어본다.
 
