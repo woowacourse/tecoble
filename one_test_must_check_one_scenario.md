@@ -36,10 +36,9 @@ public class MyServiceTest {
     public void isGreaterThanFive_GreaterThanFiveNumber_ReturnTrue() {
         // Given
         final MyService myService = new MyService();
-        final int value = 6;
 
         // When
-        final boolean actual = myService.isGreaterThanFive(value);
+        final boolean actual = myService.isGreaterThanFive(6);
 
         // Then
         assertThat(actual).isTrue();
@@ -49,13 +48,11 @@ public class MyServiceTest {
     public void isGreaterThanFive_NotGreaterThanFiveNumber_ReturnFalse() {
         // Given
         final MyService myService = new MyService();
-        final int value = 5;
 
         // When
-        final boolean actual = myService.isGreaterThanFive(value);
+        final boolean actual = myService.isGreaterThanFive(5);
 
         // Then
-        final boolean expected = false;
         assertThat(actual).isFalse();
     }
 
@@ -150,8 +147,7 @@ void calculate_AddOperator_AddNumbers() {
     final double actual = plus.calculate(one, two);
 
     // Then
-    final double expected = 3;
-    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).isEqualTo(3);
 }
 
 @Test
@@ -159,10 +155,9 @@ void calculator_DivideOperatorOperandIsZero_ExceptionThrown() {
     // Given
     final Operator divide = new Operator("/");
     final Number one = new Number("1");
-    final Number zero = new Number("0");
 
     // Then
-    assertThatThrownBy(() -> divide.calculate(one, zero))
+    assertThatThrownBy(() -> divide.calculate(one, new Number("0")))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage(("0 으로 나눌 수 없습니다."));
 }
@@ -178,8 +173,7 @@ void calculator_DivideOperator_DivideNumbers() {
     final double actual = divide.calculate(one, two);
 
     // Then
-    final double expected = 0.5;
-    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).isEqualTo(0.5);
 }
 
 ```
