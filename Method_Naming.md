@@ -17,12 +17,28 @@
 
     ```java
     // Example
+    // 동사
     public void getData()
     public void setData()
     public void inputData(String input)
+        
+    // 전치사
+    public String toString()
+    public User of()
     ```
 
-- JUnit 테스트 메소드 이름에 언더스코어(_)이 표시되어 이름의 논리 컴포넌트를 구분하고 각 컴포넌트는 lowerCamelCase로 작성됩니다 .
+- JUnit 테스트 메소드 이름에 언더스코어(_)이 표시되어 이름의 논리 컴포넌트를 구분하고 각 컴포넌트는 lowerCamelCase로 작성됩니다.
+
+  ```java
+  // Example
+  // 1. MethodName_StateUnderTest_ExpectedBehavior (메서드명_테스트상태_기대행위)
+  @Test
+  void isAdult_AgeLessThan18_False()
+  // 2. MethodName_ExpectedBehavior_StateUnderTest (메서드명_기대행위_테스트상태)
+  @Test
+  void isAdult_False_AgeLessThan18()
+  ```
+
 
 ## 메서드 자주  사용되는 동사
 
@@ -37,7 +53,7 @@
 - is/has/can
   - 위의 3개는 boolean 값을 리턴한다.
 
-  - is는 맞는지 틀린지 판단하는 메서드 명에 쓰인다. 
+  - is는 맞는지 틀린지 판단하는 메서드 명에 쓰인다.
 
     ```java
     // Ex) 숫자인지 판단하는 메서드
@@ -75,6 +91,8 @@
 [효과적인 이름짓기](<https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/>)
 
 [자바 명명 규칙](<https://m.blog.naver.com/reona7140/221306141987>)
+
+[7 Popular Unit Test Naming Conventions](<https://dzone.com/articles/7-popular-unit-test-naming>)
 
 [Google Java Style Guide](<https://google.github.io/styleguide/javaguide.html#s5.3-camel-case>)
 
