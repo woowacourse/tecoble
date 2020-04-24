@@ -1,3 +1,8 @@
+---
+layout: post
+title: "좋은 코드를 위한 자바 변수명 네이밍"
+author: "오렌지"
+---
 # JAVA 변수명 네이밍 규칙
 
 보통 읽기 좋은 코드를 좋은 코드라고 한다. 
@@ -124,7 +129,7 @@ if(found == true)
 #### 메소드가 여러번 호출되는 코드를 봤을 때, 한 눈에 알아보지 못하면 변수로 분리하기
 
 ```java
-   public void run() {
+ public void run() {
       try {
           RawEquationDTO rawEquationDTO = inputEquation();
           OutputView.showResult(calculate(rawEquationDTO));
@@ -132,11 +137,11 @@ if(found == true)
           OutputView.showExceptionMessage(e);
           run();
       }
-  }
+ }
 
-  private RawEquationDTO inputEquation() {
+ private RawEquationDTO inputEquation() {
       return new RawEquationDTO(inputView.inputEquation());
-  }
+ }
 ```
 
 - RawEquationDTO rawEquationDTO = new RawEquationDTO(inputView.inputEquation()) 로 변경
