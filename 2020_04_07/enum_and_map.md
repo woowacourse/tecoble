@@ -10,20 +10,24 @@ Enum에 정의된 함수들이나 상수를 호출하기 위해서는 특정 요
 
 ``` java
 public enum Operator {
-  PLUS("+", (first, second) -> first + second),
-  MINUS("-", (first, second) -> first - second),
-  DIVIDE("/", (first, second) -> first / second),
-  MULTIPLY("*", (first, second) -> first * second);
+    PLUS("+"),
+    MINUS("-"),
+    DIVIDE("/"),
+    MULTIPLY("*");
 
-  private final String representation;
-  private final BinaryOperator<Double> expression;
+    private final String representation;
 
-  public static Operator find(String input) {
-      return Arrays.stream(Operator.values())
-                .filter(x -> x.symbol == charOperator)
-                .findAny()
-                .orElseThrow(IllegalArgumentException::new);
-  }
+    Operator(final String representation) {
+      this.representation = representation;
+    }
+
+    public static Operator find(String input) {
+        return Arrays.stream(Operator.values())
+                  .filter(operator -> operator.representation.equals(input))
+                  .findAny()
+                  .orElseThrow(IllegalArgumentException::new);
+    }
+}
 ```
 find 메서드는 파라미터로 비교하고자 하는 값을 전달받고 stream의 filter를 통해 원하는 enum 요소를 찾아내고, 
 만약 원하는 enum 요소를 조회하지 못한다면 예외를 발생시킨다. 
@@ -36,34 +40,35 @@ find 메서드는 파라미터로 비교하고자 하는 값을 전달받고 str
 
 ``` java
 public enum Operator {
-    PLUS("+", (first, second) -> first + second),
-    MINUS("-", (first, second) -> first - second),
-    DIVIDE("/", (first, second) -> first / second),
-    MULTIPLY("*", (first, second) -> first * second);
-
+    PLUS("+"),
+    MINUS("-"),
+    DIVIDE("/"),
+    MULTIPLY("*");
+    
     private static final Map<String, Operator> OPERATOR_MAP =
             Collections.unmodifiableMap(Stream.of(values())
                     .collect(Collectors.toMap(Operator::getRepresentation, Function.identity())));
 
     private final String representation;
-    private final BinaryOperator<Double> expression;
 
-    Operator(final String representation, final BinaryOperator<Double> expression) {
-        this.representation = representation;
-        this.expression = expression;
+    Operator(final String representation) {
+      this.representation = representation;
     }
-
+    
     public static Optional<Operator> find(String representation) {
         if (OPERATOR_MAP.containsKey(representation)) {
-            return Optional.ofNullable(OPERATOR_MAP.get(representation));
+            return Optional.of(OPERATOR_MAP.get(representation));
         }
         return Optional.empty();
+    }
+    
+    public String getRepresentation() {
+        return representation;
     }
 }
 ```
 이전 방식에 비해 코드가 살짝 길어지긴 했지만, 이와 같이 Enum 안에서 HashMap을 통해 요소를 `캐싱` 하는 방식으로 구현하면 속도에서 장점을 확보할 수 있다.
 필요한 Stream 처리를 한 번만 하고 이후에는 map의 get() 메서드를 통해 시간 복잡도 O(1) 만에 요소를 조회할 수 있기 때문에 앞서 살펴본 팩토리 메서드를 사용했을 때보다 약 20배 정도 빠른 조회 성능을 얻을 수 있다.   
-단, 반환값이 Optional 이므로 어떤 것을 리턴할 지 모르기 때문에 메서드를 호출하는 곳에서 이를 적절히 처리해주어야 한다.
 
 ## 결론
 보통은 정의되는 enum의 요소가 많아봐야 10개 정도이기 때문에 프로그래밍 상의 편이를 위해 팩토리 메서드를 사용하는게 일반적이지만, 도메인 상황에 맞게 처리해야 할 `Enum 요소의 개수`와 `조회 메서드의 호출 주기` 등을 고려하여 캐싱하는 방법을 사용한다면 더욱 효율적인 성능을 얻을 수 있을 것이다.
