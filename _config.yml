@@ -1,0 +1,15 @@
+remote_theme: chesterhow/tale
+url: "https://woowacourse.github.io"
+baseurl: "/review"
+
+include:
+  - _pages
+
+permalink:    /:year-:month-:day/:title
+paginate:     5
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
