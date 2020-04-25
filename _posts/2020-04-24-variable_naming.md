@@ -71,13 +71,13 @@ String userName;
 + 이름은 가능한 구체적이어야 한다. 모호하거나 하나 이상의 목적으로 사용될 수 있는 일반적인 이름은 보통 좋지 않은 이름이다.
 
 ```java
-Set<BoardSquare> findSquaresToRemove(BoardSquare s)
+Set<BoardSquare> findSquaresToRemove(BoardSquare s) {...}
 ```
 
 `s` 라는 이름을 봤을 때 String 의 s인지, Square의 s인지 바로 알 수가 없다.
 
 ```java
-Set<BoardSquare> findSquaresToRemove(BoardSquare boardSquare)
+Set<BoardSquare> findSquaresToRemove(BoardSquare boardSquare) {...}
 ```
 
 `boardSquare` 라고 변경함으로써 이름을 통해 적절한 의미를 나타내줄 수 있다.
@@ -95,7 +95,7 @@ private void validateNumericPosition(String[] expressionAsArray) {
 ```
 
 위 코드에서 2가 의미하는게 뭘까?
-다른 사람이 봤을 때 `i+=2`를 통해 어떤 처리를 하는지 파악하려면 코드를 분석해야 한다.
+다른 사람이 봤을 때 `i += 2`를 통해 어떤 처리를 하는지 파악하려면 코드를 분석해야 한다.
 
 ```java
 private void validateNumericPosition(String[] expressionAsArray) {
@@ -111,7 +111,6 @@ private void validateNumericPosition(String[] expressionAsArray) {
 
 
 #### 최적의 이름 길이
-
 + 변수 이름의 길이가 평균적으로 `10~16` 일 때 프로그램을 디버깅하기 위해서 들이는 노력을 최소화 할 수 있고, 변수의 평균 길이가 `8~20` 인 프로그램은 디버깅하기가 쉽다.
 
 
@@ -129,14 +128,27 @@ private void validateNumericPosition(String[] expressionAsArray) {
 
 + 긍정적인 불린 변수 이름을 사용한다.
 
-  아래 코드에서 어떤 경우가 더 읽기 쉬운가?
+아래 코드에서 어떤 경우가 더 읽기 쉬운가?
 
 ```java
-if(notFound == false)
-if(found == true)
+if(notFound == false) {...}
+if(found == true) {...}
 ```
 
-   `notFound`, `nonDone`, `notSuccessful` 과 같은 이름은 변수의 값이 부정이 됐을 때 읽기 어렵다. 
+`notFound`, `nonDone`, `notSuccessful` 과 같은 이름은 변수의 값이 부정이 됐을 때 읽기 어렵다. 
+
++ 접두어 `is`
+  
+
+자바에서는 접두어 `is`를 붙여 불린 메소드나 변수명을 짓는다.
+그러나, 접두어가 없는 이름이 읽고 이해하는데 더 쉬운 경우가 있다.
+
+```java
+if(isfound){...}
+if(found){...}
+```
+접두어 `isfound`보다 `is`를 붙이지 않은 `found`가 오히려 더 쉽게 읽힌다.
+
 
 
 
