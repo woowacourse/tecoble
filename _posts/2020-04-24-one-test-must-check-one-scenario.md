@@ -193,8 +193,8 @@ void calculator_DivideOperator_DivideNumbers() {
 
 ## 참고 링크
 
-[단위 테스트 사용 방법 : JUnit 참조 가이드](https://brunch.co.kr/@pubjinson/16)
-
-[유닛 테스트에 대한 생각](https://blog.outsider.ne.kr/1275)
-
-[설마 아직도 테스트 코드 작성 안 하시나요?](https://medium.com/@ssowonny/%EC%84%A4%EB%A7%88-%EC%95%84%EC%A7%81%EB%8F%84-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9E%91%EC%84%B1-%EC%95%88-%ED%95%98%EC%8B%9C%EB%82%98%EC%9A%94-b54ec61ef91a)
+> [단위 테스트 사용 방법 : JUnit 참조 가이드](https://brunch.co.kr/@pubjinson/16)
+>
+> [유닛 테스트에 대한 생각](https://blog.outsider.ne.kr/1275)
+>
+> [설마 아직도 테스트 코드 작성 안 하시나요?](https://medium.com/@ssowonny/%EC%84%A4%EB%A7%88-%EC%95%84%EC%A7%81%EB%8F%84-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%9E%91%EC%84%B1-%EC%95%88-%ED%95%98%EC%8B%9C%EB%82%98%EC%9A%94-b54ec61ef91a)
