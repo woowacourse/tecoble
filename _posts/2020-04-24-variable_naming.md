@@ -18,7 +18,7 @@ author: "오렌지"
 #### 협업자에 대한 배려가 필요하다.
 
  + 협업자와 함께 개발을 하는 경우에는 이름을 통해 그것이 무엇인지 나타내야 한다. 
- + 그러므로 이름을 주의 깊게 살펴 더 나은 이름이 떠오르면 개선하는 것이 좋다. 그러면 (자신을 포함해) 코드를 읽는 사람이 좀더 행복해 질 것이다.
+ + 그러므로 이름을 주의 깊게 살펴 더 나은 이름이 떠오르면 개선하는 것이 좋다. 그러면 (자신을 포함해) 코드를 읽는 사람이 좀 더 행복해 질 것이다.
 
 
 
@@ -79,17 +79,23 @@ Set<BoardSquare> findSquaresToRemove(BoardSquare boardSquare)
 ####  협업을 염두해서 짓기
 
 ```java
-private void validateNumericPosition(String[] expressionAsArray) {    
-  for (int i = 0; i < expressionAsArray.length; i+=2)
+private void validateNumericPosition(String[] expressionAsArray) {
+    for (int i = 0; i < expressionAsArray.length; i += 2) {
+    	...
+    }
+}
 ```
 
 위 코드에서 2가 의미하는게 뭘까?
 다른 사람이 봤을 때 `i+=2`를 통해 어떤 처리를 하는지 파악하려면 코드를 분석해야 한다.
 
 ```java
-private void validateNumericPosition(String[] expressionAsArray) {    
-   int numberIndex = 2;
-  for (int i = 0; i < expressionAsArray.length; i+=numberIndex)
+private void validateNumericPosition(String[] expressionAsArray) {
+    int numberIndex = 2;
+    for (int i = 0; i < expressionAsArray.length; i += numberIndex) {
+    	...
+    }
+}
 ```
 
 2에 `numberIndex` 라는 의미있는 변수명을 붙여주면 숫자만 걸러내기 위한 식인지 알 수 있다.
@@ -129,19 +135,19 @@ if(found == true)
 #### 메소드가 여러번 호출되는 코드를 봤을 때, 한 눈에 알아보지 못하면 변수로 분리하기
 
 ```java
- public void run() {
-      try {
-          RawEquationDTO rawEquationDTO = inputEquation();
-          OutputView.showResult(calculate(rawEquationDTO));
-      } catch (RuntimeException e) {
-          OutputView.showExceptionMessage(e);
-          run();
-      }
- }
+public void run() {
+    try {
+        RawEquationDTO rawEquationDTO = inputEquation();
+        OutputView.showResult(calculate(rawEquationDTO));
+    } catch (RuntimeException e) {
+        OutputView.showExceptionMessage(e);
+        run();
+    }
+}
 
- private RawEquationDTO inputEquation() {
-      return new RawEquationDTO(inputView.inputEquation());
- }
+private RawEquationDTO inputEquation() {
+    return new RawEquationDTO(inputView.inputEquation());
+}
 ```
 
 - RawEquationDTO rawEquationDTO = new RawEquationDTO(inputView.inputEquation()) 로 변경
@@ -151,8 +157,8 @@ if(found == true)
 #### 변수 이름에 자료형이 들어간다면?
 
 ```java
- private List<Double> numberList = new ArrayList<>();
- private List<String> operatorList = new ArrayList<>();
+private List<Double> numberList = new ArrayList<>();
+private List<String> operatorList = new ArrayList<>();
 ```
 
 List 대신 다른 자료형(Set...)을 써야하는 경우가 오면 어떻게 해야 할까?
@@ -160,15 +166,18 @@ List 대신 다른 자료형(Set...)을 써야하는 경우가 오면 어떻게 
 변수 이름에 자료형을 쓰지 않아도 타입을 통해 충분이 어떤 변수인지 파악이 가능하다.
 
 ```java
- private List<Double> numbers = new ArrayList<>();
- private List<String> operators = new ArrayList<>();
+private List<Double> numbers = new ArrayList<>();
+private List<String> operators = new ArrayList<>();
 ```
 
 List, Collection 등의 자료형은 복수형으로 표현하는 것이 좋다.
 
 
 
+------
 
+#### 참고 링크
 
-참고하면 좋을 링크 : [효과적인 이름짓기](https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/), [의미 있는 이름-프로그래밍 네이밍방법](https://his2070.tistory.com/6)
++ [효과적인 이름짓기](https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/)
++ [의미 있는 이름-프로그래밍 네이밍방법](https://his2070.tistory.com/6)
 
