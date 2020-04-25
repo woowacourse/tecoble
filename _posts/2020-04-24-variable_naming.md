@@ -167,8 +167,8 @@ if(found == true) {...}
 그러나, 접두어가 없는 이름이 읽고 이해하는데 더 쉬운 경우가 있다.
 
 ```java
-if(isfound){...}
-if(found){...}
+if(isfound) {...}
+if(found) {...}
 ```
 접두어 `isfound` 보다 `is` 를 붙이지 않은 `found` 가 오히려 더 쉽게 읽힌다.
 
