@@ -175,25 +175,36 @@ if(found){...}
 
 
 
-#### 메소드가 여러번 호출되는 코드를 봤을 때, 한 눈에 알아보지 못하면 변수로 분리하기
+#### 메소드가 여러번 호출된 한눈에 보기 힘든 코드
 
 ```java
-public void run() {
-    try {
-        RawEquationDTO rawEquationDTO = inputEquation();
-        OutputView.showResult(calculate(rawEquationDTO));
-    } catch (RuntimeException e) {
-        OutputView.showExceptionMessage(e);
-        run();
-    }
-}
+private static final String FORMAT_SYMBOL = "//(.*)\\\\n(.*)";
 
-private RawEquationDTO inputEquation() {
-    return new RawEquationDTO(inputView.inputEquation());
+public static List<String> customSplit(String input) {
+    Matcher matcher = Pattern.compile(FORMAT_SYMBOL).matcher(input);
+    if (matcher.find()) {
+        return Arrays.asList(matcher.group(2).split(Pattern.quote(matcher.group(1))));
+    }
+    ...
 }
 ```
+위 코드의 리턴 부분을 보았을 때, 한 줄에 많은 기능이 있어서 코드 읽기가 어렵다.
 
-- RawEquationDTO rawEquationDTO = new RawEquationDTO(inputView.inputEquation()) 로 변경
+
+```java
+private static final String FORMAT_SYMBOL = "//(.*)\\\\n(.*)";
+
+public static List<String> customSplit(String input) {
+    Matcher matcher = Pattern.compile(FORMAT_SYMBOL).matcher(input);
+    if (matcher.find()) {
+        String splitSymbol = matcher.group(1);
+        String content = matcher.group(2);
+        return Arrays.asList(content.split(Pattern.quote(splitSymbol)));
+    }
+    ...
+}
+```
+`splitSymbol`, `content` 변수로 선언해줌으로써 이전보다 훨씬 읽기가 수월해진다.
 
  
 
@@ -222,5 +233,6 @@ List, Collection 등의 자료형은 복수형으로 표현하는 것이 좋다.
 #### 참고 링크
 
 + [효과적인 이름짓기](https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/)
-+ [의미 있는 이름-프로그래밍 네이밍방법](https://his2070.tistory.com/6)
++ [의미 있는 이름 - 프로그래밍 네이밍방법](https://his2070.tistory.com/6)
++ [Clean Code 2장 -  의미 있는 이름](https://devstarsj.github.io/study/2018/12/02/study.cleanCode.02/)
 
