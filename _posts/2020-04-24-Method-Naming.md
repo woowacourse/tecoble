@@ -19,8 +19,8 @@
 - 의도가 모호한 코드
 
     ```java
-   // 각 이름이 충분한 정보 제공을 하지 않음
-   public List<int[]> getThem() {
+    // 각 이름이 충분한 정보 제공을 하지 않음
+    public List<int[]> getThem() {
         List<int[]> list1 = new ArrayList<int[]>();
         for (int[] x : theList) {
             if (x[0] == 4) {
@@ -28,7 +28,7 @@
             }
         }
         return list1;
-   }
+    }
     ```
 
 - 의도가 분명한 코드
