@@ -22,14 +22,14 @@ public enum Operator {
     private final String representation;
 
     Operator(final String representation) {
-      this.representation = representation;
+        this.representation = representation;
     }
 
     public static Operator find(String input) {
         return Arrays.stream(Operator.values())
-                  .filter(operator -> operator.representation.equals(input))
-                  .findAny()
-                  .orElseThrow(() -> new IllegalArgumentException("연산자를 찾을 수 없습니다."));
+                .filter(operator -> operator.representation.equals(input))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("연산자를 찾을 수 없습니다."));
     }
 }
 ```
@@ -56,14 +56,14 @@ public enum Operator {
     private final String representation;
 
     Operator(final String representation) {
-      this.representation = representation;
+        this.representation = representation;
     }
     
     public static Operator find(String representation) {
         if (OPERATOR_MAP.containsKey(representation)) {
             return OPERATOR_MAP.get(representation);
         }
-        throw new IllegalArgumentException("연산자를 찾을 수 없습니다.")
+        throw new IllegalArgumentException("연산자를 찾을 수 없습니다.");
     }
     
     public String getRepresentation() {
