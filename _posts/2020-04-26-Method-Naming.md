@@ -19,8 +19,8 @@
 - 의도가 모호한 코드
 
     ```java
-// 각 이름이 충분한 정보 제공을 하지 않음
-public List<int[]> getThem() {
+    // 각 이름이 충분한 정보 제공을 하지 않음
+    public List<int[]> getThem() {
         List<int[]> list1 = new ArrayList<int[]>();
         for (int[] x : theList) {
             if (x[0] == 4) {
@@ -28,22 +28,22 @@ public List<int[]> getThem() {
             }
         }
         return list1;
-}
+    }
     ```
 
 - 의도가 분명한 코드
 
     ```java
-// 이름이 명확히 변경
-public List<int[]> getFlaggedCells() {
+    // 이름이 명확히 변경
+    public List<int[]> getFlaggedCells() {
         List<int[]> flaggedCells = new ArrayList<int[]>();
         for (int[] cell : gameBoard) {
             if (cell.isFlagged()) {
-                flaggedCells.add(cell);
+            	flaggedCells.add(cell);
             }
         }
         return flaggedCells;
-}
+    }
     ```
 
 첫 번째 코드는 getThem이 무엇을 하는 함수인지, 변수 list1이 무엇을 담고있는지 알 수 없다. 하지만 두 번째 코드는 이름만 봐도 getFlaggedCells는 FlaggedCells을 반환하고, FlaggedCells는 flag된 cell들을 담고 있는 것을 알 수 있다.
