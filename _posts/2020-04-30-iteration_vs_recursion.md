@@ -148,7 +148,7 @@ public int recursive(int n, int acc) {
 
 [재귀함수와 반복문의 차이](https://wonillism.github.io/algorithm/Algorithm-recursion-iteration/)
 
-[꼬리 재귀 최적화]([https://bozeury.tistory.com/entry/%EA%BC%AC%EB%A6%AC-%EC%9E%AC%EA%B7%80-%EC%B5%9C%EC%A0%81%ED%99%94Tail-Recursion](https://bozeury.tistory.com/entry/꼬리-재귀-최적화Tail-Recursion))
+[꼬리 재귀 최적화](https://bozeury.tistory.com/entry/%EA%BC%AC%EB%A6%AC-%EC%9E%AC%EA%B7%80-%EC%B5%9C%EC%A0%81%ED%99%94Tail-Recursion](https://bozeury.tistory.com/entry/꼬리-재귀-최적화Tail-Recursion))
 
 
 
