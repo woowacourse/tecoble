@@ -1,3 +1,9 @@
+---
+layout: post
+title: "하드코딩을 피해라."
+author: "둔덩"
+---
+
 안 좋은 코딩 습관을 얘기할 때면 꼭 언급되는 것이 하드코딩이다.
 
 선배 개발자들은 하드코딩을 피하며 코딩하는 것이 당연하지만,  
@@ -168,6 +174,8 @@ public double calculateMonthlyInterest() {
 
 현재 소스 코드에서 어느 방법이 최선의 방법인지를 항상 고민하는 습관을 지니자.
 
-참고 자료  
+---
+
+#### 참고 자료  
 [What is magic number, and why is it bad? - stack overflow](https://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad)  
 [magic number 사용을 최대한 자제하자 - SLIPP(자바지기)](https://www.slipp.net/questions/356)
