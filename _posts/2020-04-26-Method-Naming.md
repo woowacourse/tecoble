@@ -60,6 +60,15 @@
 
 - 어떻게 사용하는가
 
+- Example
+
+  ```java
+  public List<Piece> findPiecesByColor(Color color){}
+  // 왜 존재해야 하는가 - color에 대해 존재하는 piece들을 알기 위해.
+  // 무슨 작업을 하는가 - color에 맞는 piece들을 가져온다.
+  // 어떻게 사용하는가 - 체스판에서 흑색(or 백색)의 piece들을 가져와서 점수를 계산.
+  ```
+
 이름만으로도 언제 이 메서드를 호출해야 하는지 의미를 파악할 수 있도록 구체적으로 작성하도록 해야 한다.
 
 ## 메서드 명명 규칙
@@ -103,13 +112,50 @@
 
 - get/set
 
-  - 속성에 접근하는 메서드 명에 쓰인다.
+  - 먼저 getter/setter 관련하여 자바빈 규약이 있다.
 
     ```java
-    // score를 가져온다.
-    public int getScore(){}
-    // score를 내장시킨다.
-    public void setScore(int score){}
+    // 멤버변수마다 별도의 get/set메서드가 존재한다.
+    public class Student {
+        private String name;
+        private int age;
+        
+        public String getName() {
+            return name;
+        }
+        
+        public int getAge() {
+            return age;
+        }
+        
+        public String setName(String name) {
+            this.name = name;
+        }
+        
+        public int setAge(int age) {
+            this.age = age;
+        }
+    }
+    ```
+
+    이러한 상황이 아니라면 다음과 같은 말을 기억하면 좋을 것 같다.
+
+    > setter 하는 일이 단순하고, 객체 생성 시점에 필요한 모든 값들을 주입하지 않아 개발자의 실수가 발생할 수 있다. 또한, public 으로 공개해놓은 set 메서드는 코드 다른 부분에서 언제 호출되어 값이 바뀔지 알기 힘들다. 고민 없이 자바빈 규약에 따른 getter, setter는 객체지향적인 코드작성에 가장 큰 적이라고 할 수 있다.
+
+    > 객체의 데이터에 마음대로 접근할 수 있다면 메소드를 통해 만들어진 데이터는 의미가 없게 되는 문제가 생긴다.
+
+  - 되도록이면 상태 데이터를 가지는 객체에서 데이터를 (get)하지 말고 객체에 메시지를 보내는 것을 추천한다.
+
+    ```java
+    private boolean isMaxPosition(Car car) {
+    	return car.getPosition() == maxDistance;
+    }
+    ```
+
+    위와 같이 구현하지 않고 다음과 같이 Car에게 메시지를 보내 구현한다.
+
+    ```java
+    car.isMaxPosition(maxDistance);
     ```
 
 - init
@@ -191,3 +237,7 @@
 [Google Java Style Guide](<https://google.github.io/styleguide/javaguide.html#s5.3-camel-case>)
 
 [캠퍼스 핵데이 Java 코딩 컨벤션](<https://naver.github.io/hackday-conventions-java/#method-lower-camelcase>)
+
+[우리집앞마당](https://multifrontgarden.tistory.com/207) 
+
+[Dev 미티치 블로그](https://mititch.tistory.com/77)
