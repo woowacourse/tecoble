@@ -28,9 +28,7 @@ author: "스티치"
 
 라는 생각을 할 수도 있다.
 
-맞다! 테스트 코드를 쉽게 작성할 수 있다면 그냥 테스트 코드를 작성하면 된다. 그러나, 우리는 생각보다 테스트 코드를 작성하기에 까다로운 코드를 자주 마주하게 된다.
-
-어떤 코드가 테스트하기 어려운 코드인지, 그리고 어떻게 그러한 코드를 테스트하기 좋은 코드로 만들 수 있는지 알아보자.
+하지만, 우리는 테스트 코드를 작성하기 어려운 상황을 생각보다 자주 마주하게 된다. 어떤 코드가 테스트하기 어려운 코드인지, 그리고 어떻게 그러한 코드를 테스트하기 좋은 코드로 만들 수 있는지 알아보자.
 
 <br />
 
@@ -51,9 +49,9 @@ public class Car {
     }
 
     public void move() {
-        final int number = random.nextInt(RANDOM_NUMBER_UPPER_BOUND;
+        final int number = random.nextInt(RANDOM_NUMBER_UPPER_BOUND);
 
-        if (number >= MOVABLE_LOWER_BOUND)) {
+        if (number >= MOVABLE_LOWER_BOUND) {
             position++;
         }
     }
@@ -93,7 +91,7 @@ public void move(int number) {
 
 위의 코드는 기존의 `move` 메서드에서 매개변수로 `number` 를 받도록 수정한 코드이다. 
 
-이전에는 `number` 변수가 `move` 메서드 내부에서 랜덤 한 값으로 초기화되었기 때문에 `move` 가 의도하는 대로 움직이는지 확인할 수 없었다. 그러지 변경된 구조는 `number` 를 외부에서 주입받기 때문에 어떤 `number` 값에 따라 `move` 가 동작하는지 쉽게 테스트할 수 있다.
+이전에는 `number` 변수가 `move` 메서드 내부에서 랜덤 한 값으로 초기화되었기 때문에 `move` 가 의도하는 대로 움직이는지 확인할 수 없었다. 그러나 변경된 구조는 `number` 를 외부에서 주입받기 때문에 어떤 `number` 값에 따라 `move` 가 동작하는지 쉽게 테스트할 수 있다.
 
 `move` 메서드를 위와 같이 고친다면, 우리는 2가지 시나리오에 대한 테스트 코드를 아래와 같이 작성할 수 있을 것이다.
 
@@ -104,30 +102,26 @@ public class CarTest {
     @Test
     public void move_NumberIsLessThanFour_KeepPosition() {
         // Given
-        final int initPosition = 1;
-        final Car car = new Car("test", initPosition);
-        final int value = 3;
+        final Car car = new Car("test", 1);
 
         // When
-        car.move(value);
+        car.move(3);
 
         // Then
-        assertThat(car).extracting("position").isEqualTo(initPosition);
+        assertThat(car).extracting("position").isEqualTo(1);
     }
 
     @DisplayName("숫자가 4보다 크거나 같으면 위치를 1 증가")
     @Test
     public void move_NumberIsEqualOrGreaterThanFour_IncreasePositionByOne() {
         // Given
-        final int initPosition = 1;
-        final Car car = new Car("test", initPosition);
-        final int value = 4;
+        final Car car = new Car("test", 1);
 
         // When
-        car.move(value);
+        car.move(4);
 
         // Then
-        assertThat(car).extracting("position").isEqualTo(initPosition + 1);
+        assertThat(car).extracting("position").isEqualTo(2);
     }
 
 }
@@ -146,6 +140,8 @@ public class CarTest {
 우리는 이러한 의존을 어디에 두고, 어떻게 관리해야 할 것인지 고민을 해야 할 것이고, 그렇게 고민한 시간만큼 더 테스트하기 좋은 구조로 코드를 작성할 수 있을 것이다.
 
 다음에는 이러한 의존을 조금 더 줄일 수 있는 방법 중 하나로, 인터페이스를 분리하여 테스트하기 좋은 메서드로 만드는 방법에 대해 소개하도록 하겠다.
+
+<br />
 
 ## 참고 링크
 
