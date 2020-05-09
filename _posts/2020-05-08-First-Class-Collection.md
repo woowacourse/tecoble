@@ -4,7 +4,7 @@
 
 ## 일급 컬렉션이란?
 
-> 일급 컬렉션이란 단어는 소트웍스 앤솔로지의 **[객체지향 생활체조 규칙 8. 일급 콜렉션 사용](<https://developerfarm.wordpress.com/2012/02/01/object_calisthenics_/>)**에서 언급되었다.
+> 일급 컬렉션이란 단어는 소트웍스 앤솔로지의 [객체지향 생활체조 규칙 8. 일급 콜렉션 사용](<https://developerfarm.wordpress.com/2012/02/01/object_calisthenics_/>)에서 언급되었다.
 
 **Collection을 Wrapping**하면서, **그 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
 
@@ -115,7 +115,9 @@ public class LottoNumber {
 
 ### 2. 컬렉션의 불변성을 보장
 
-> **컬렉션의 값을 변경할 수 있는 메소드가 없는 컬렉션**을 만들면 불변 컬렉션이라고 검색하면 나올 것이다. 
+> 일급 컬렉션을 검색할 때 제일 많이 보는 블로그는 [일급 컬렉션 (First Class Collection)의 소개와 써야 할 이유](https://jojoldu.tistory.com/412) 이곳일 것이다.
+>
+> 또한 일급컬렉션의 이점 중 2번째는 컬렉션의 값을 변경할 수 있는 메소드가 없는 컬렉션(불편)** 과 같은 설명을 볼 수 있다. 
 >
 > 하지만 필자는 **2. 컬렉션의 불변성을 보장**에서 불변이라고 **확신하지 말라**는 메시지를 전하고 싶다.
 
@@ -233,7 +235,7 @@ public class Lotto {
 }
 ```
 
-getter가 return될 때 unmodifiableList로 보내주면 된다.
+getter가 return될 때 **unmodifiableList**로 감싸주면 된다.
 
 필자가 이렇게 긴 설명을 한 이유는 앞서 말했듯이 **불변성을 보장**이라고 했지만 시행착오 없이 확신하지 말하는 메시지를 전하기 위함이었다.
 
