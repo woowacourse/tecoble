@@ -45,6 +45,8 @@ public void move(int randomNumber) {
 
 ### 의미를 파악하기 어렵다.
 
+다음과 같이 `Car` 클래스가 있다.
+
 ```java
 public class Car {
     private final String name;
@@ -65,7 +67,7 @@ public class Car {
 }
 ```
 
-다음과 같이 `Car` 클래스가 있다.
+해당 클래스에서 선언된 두 개의 생성자를 살펴보자.
 
 ```java
 public Car(int position) {
@@ -77,7 +79,7 @@ public Car(String name) {
 }
 ```
 
-위 두 개의 생성자가 무엇을 의미하는지 바로 알 수 있는가?
+두 개의 생성자가 무엇을 의미하는지 바로 알 수 있는가?
 
 이처럼 하드코딩을 한 코드는 추리하게 만드는 위험한 코드가 될 확률이 높다.
 
@@ -104,7 +106,7 @@ public class Car {
 }
 ```
 
-위와 같이 상수를 활용한다면 `Car` 클래스의 "orange"와 0이 default name, default position이라는 의미를 명확히 전달할 수 있다.
+위와 같이 상수를 활용한다면 `Car` 클래스의 "orange"와 0이 default name, default position이라는 의미를 명확히 전달할 수 있다.  
 자연스럽게 가독성 좋은 코드가 된다.
 
 ### 유지 보수하기 어렵다.
@@ -125,7 +127,7 @@ public static double calculateMonthlyInterest(int principal) {
 ...
 ```
 
-예시로 보여준 메서드들 외에도 총이자를 구하는 메서드 등
+예시로 보여준 메서드들 외에도 총이자를 구하는 메서드 등  
 할부 개월 수인 **12**를 사용하는 코드들이 매우 많을 것이다.
 
 만약 할부가 10개월밖에 안되는 걸로 요구사항이 변경됐다면 어떻게 될까?
