@@ -122,7 +122,7 @@ public static double calculateMonthlyPrincipal(int principal) {
 
 /* 월 이자를 구하는 메서드 */
 public static double calculateMonthlyInterest(int principal) {
-        return principal * 0.1 / 12;
+    return principal * 0.1 / 12;
 }
 ...
 ```
