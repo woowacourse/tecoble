@@ -83,7 +83,7 @@ public class Car {
 
 ```java
 public void move(int number) {
-    if (number >= MOVABLE_LOWER_BOUND)) {
+    if (number >= MOVABLE_LOWER_BOUND) {
         position++;
     }
 }
