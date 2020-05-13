@@ -183,7 +183,7 @@ public void lotto_변화_테스트() {
 
 이런 상황이면 lotto를 get했을때 어떤 값을 가지고 있을까?
 
-정답은 **\[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}\]**이다.
+정답은 `[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}]`이다.
 
 **lottoNumbers**와 **lotto class의 멤버변수**와 주소값이 같기 때문에 영향을 받는다.
 
@@ -218,7 +218,7 @@ public void lotto_변화_테스트() {
 
 ```
 
-이러한 상황에도 **\[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}\]**가 나온다.
+이러한 상황에도 `[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}]`가 나온다.
 
 이를 또 해결하는 방법으로
 
