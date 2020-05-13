@@ -1,12 +1,14 @@
-| layout | title       | author |
-| ------ | ----------- | ------ |
-| post   | 일급 컬렉션 | 티거   |
+---
+layout : post
+title : "일급 컬렉션을 사용하는 이유"
+author : "티거"
+---
 
 ## 일급 컬렉션이란?
 
 > 일급 컬렉션이란 단어는 소트웍스 앤솔로지의 [객체지향 생활체조 규칙 8. 일급 콜렉션 사용](<https://developerfarm.wordpress.com/2012/02/01/object_calisthenics_/>)에서 언급되었다.
 
-**Collection을 Wrapping**하면서, **그 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
+**Collection을 Wrapping**하면서, **그(*밑에서 설명하겠다.*) 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
 
 이게 무슨 말일까?
 
@@ -44,7 +46,7 @@ public class LottoNumber {
 }
 ```
 
-위의 코드를 보면 눈치챘겠지만 일급 컬렉션은 **그 외 다른 멤버 변수가 없다.**
+위의 코드를 보면 눈치챘겠지만 일급 컬렉션은 **그(*List\<LottoNumber\> lotto*) 외 다른 멤버 변수가 없다.**
 
 이것이 **일급 컬렉션!!**
 
@@ -157,6 +159,7 @@ public class LottoNumber {
         this.lottoNumber = lottoNumber;
     }
     
+    // toString()은 로그를 찍기 위함이다.
     @Override
     public String toString() {
         return "LottoNumber{" +
@@ -165,8 +168,6 @@ public class LottoNumber {
     }
 }
 ```
-
-> **toString()**은 로그를 찍기 위함이다.
 
 위와 같은 코드가 있다고 가정하자.
 
@@ -182,7 +183,7 @@ public void lotto_변화_테스트() {
 
 이런 상황이면 lotto를 get했을때 어떤 값을 가지고 있을까?
 
-정답은 **[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}]**이다.
+정답은 **\[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}\]**이다.
 
 **lottoNumbers**와 **lotto class의 멤버변수**와 주소값이 같기 때문에 영향을 받는다.
 
@@ -217,7 +218,7 @@ public void lotto_변화_테스트() {
 
 ```
 
-이러한 상황에도 **[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}]**가 나온다.
+이러한 상황에도 **\[LottoNumber{lottoNumber=1}, LottoNumber{lottoNumber=2}\]**가 나온다.
 
 이를 또 해결하는 방법으로
 
@@ -237,7 +238,7 @@ public class Lotto {
 
 getter가 return될 때 **unmodifiableList**로 감싸주면 된다.
 
-필자가 이렇게 긴 설명을 한 이유는 앞서 말했듯이 **불변성을 보장**이라고 했지만 시행착오 없이 확신하지 말하는 메시지를 전하기 위함이었다.
+필자가 이렇게 긴 설명을 한 이유는 앞서 말했듯이 **불변성을 보장**한다고 했지만 시행착오 없이 확신하지 말하는 메시지를 전하기 위함이었다.
 
 ### 3. 상태와 행위를 한 곳에서 관리
 
@@ -296,8 +297,8 @@ List<Bus> buses = createBuses();
    1. 자동차들이 어떻게 사용되는지 검색을 하려면 변수명을 검색해야한다.
    2. 개발자마다 이름은 다르게 지을 수 있다.
 2. 명확한 표현 X
-   1. 분수명에 불과하기 때문에 의미 부여하기 어렵다.
-   2. 개발팀/운영팀간에 의사소통시 보편적인 언어로 사용하기가 어렵다.
+   1. 변수명에 불과하기 때문에 의미 부여하기 어렵다.
+   2. 개발팀/운영팀 간에 의사소통 시 보편적인 언어로 사용하기가 어렵다.
 
 이 또한 일급 컬렉션이 해결한다.
 
@@ -308,9 +309,9 @@ Buses buses = new Buses(createBuses());
 
 ......아직 마음에 와닿지 않는가?
 
-이렇게 코드를 만들면 **컬렉션 기반으로 용어사용과 검색**을 할 수 있다.
+이렇게 코드를 만들면 **컬렉션 기반으로 용어 사용과 검색**을 할 수 있다.
 
-**개발팀/운영팀간에 의사소통**은 일급 컬렉션으로 할 수 있게 되었다.
+**개발팀/운영팀 간에 의사소통**은 일급 컬렉션으로 할 수 있다.
 
 ## 참고 링크
 
