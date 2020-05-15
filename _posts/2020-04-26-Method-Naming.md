@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "getter를 사용하는 대신 객체에 메시지를 보내자"
+title: "좋은 코드를 위한 자바 메서드 네이밍"
 author: "티거"
 ---
 
