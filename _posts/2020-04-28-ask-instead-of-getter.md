@@ -4,27 +4,27 @@ title: "getter를 사용하는 대신 객체에 메시지를 보내자"
 author: "오렌지"
 ---
 
-# getter를 사용하는 대신 객체에 메시지를 보내자
-
-상태값을 갖는 객체에서는 데이터를 외부에서 직접 접근해 변경하지 못하도록 메소드만 노출시킨다.
-이때, 필드(데이터)는 접근 제한자를 private 으로 설정해 직접적인 접근을 막고, getter 와 setter 를 이용해서만 필드에 접근이 가능하도록 한다.
+상태값을 갖는 객체에서는 상태값을 외부에서 직접 접근해 변경하지 못하도록 메소드만 노출시킨다.
+이때, 멤버변수(상태값)는 접근 제한자를 private 으로 설정해 직접적인 접근을 막고, getter 와 setter 를 이용해서만 변수에 접근이 가능하도록 한다.
+ > getter 는 멤버변수의 값을 호출하는 메소드이고, setter 는 멤버변수의 값을 변경시키는 메소드이다.
 
 
 ```java
 private String name;
 
-//setter
+//setter name의 값을 변경시킨다.
 public void setName(String name){
     this.name = name;
 }
-//getter
+
+//getter name의 값을 호출한다.
 public String getName(){
     return this.name;
 }
 ```
 
-보통, 불변객체가 아닌 상태를 갖는 객체는 getter 를 통해 객체의 상태값을 가져오고 그 값을 통해 로직을 수행하는 경우가 있다.
-그러나 무조건적으로 모든 멤버변수에 대해 getter 를 생성해야 할까?
+불변객체가 아닌 **상태를 갖는** 객체는 getter 를 통해 가져온 상태값을 통해 로직을 수행하는 경우가 있다.
+그러나 무조건적으로 모든 멤버변수를 호출하는  getter 메소드를 생성하는 것이 맞을까?
 이 글에서는 getter 에 관한 이야기를 해보려고 한다.
 
 
@@ -32,7 +32,7 @@ public String getName(){
 
 ## 무분별한 getter? 객체에 메시지를 보내 객체가 로직을 수행하도록 하자
 
-간단히 말해서 객체지향적인 개발은 객체가 로직을 갖도록, 즉 객체가 일을 하도록 하는 개발이다.
+간단히 말해서 객체지향 프로그래밍은 객체가 로직을 갖도록, 즉 객체가 일을 하도록 하는 개발이다.
 모든 멤버변수에 getter 를 생성해 놓고 상태값을 꺼내 객체 외부에서 로직을 수행한다면, 이는 객체가 객체스럽지 못한 것이다. 
 
 
@@ -71,7 +71,7 @@ public class Cars {
 }
 ```
 
-여러 자동차들 중 position 값이 제일 큰 우승 자동차(들)를 구하는 `getWinners()` 메서드를 살펴보자. 
+여러 자동차들 중 position 값이 제일 큰 우승 자동차(들)를 구하는 `getWinners()` 메소드를 살펴보자. 
 
 ```java
 public List<String> getWinners() {
@@ -87,7 +87,7 @@ public List<String> getWinners() {
 } 
 ```
 
-Car 객체에서 `getPosition()` 을 사용해 position 상태값을 직접 꺼내 비교한다.
+Car 객체에서 `getPosition()` 을 사용해 **position 상태값**을 직접 꺼내 비교한다.
 그러나, Cars 에서 position 값을 비교하는 로직을 수행하는 게 맞을까?
 
 Car 의 접근 제한자가 private 인 멤버변수 position 값 끼리 비교하는 로직이다.
