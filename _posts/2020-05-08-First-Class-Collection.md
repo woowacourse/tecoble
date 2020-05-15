@@ -10,7 +10,7 @@ author : "티거"
 >
 > 일급 컬렉션이란 단어는 소트웍스 앤솔로지의 [객체지향 생활체조 규칙 8. 일급 콜렉션 사용](<https://developerfarm.wordpress.com/2012/02/01/object_calisthenics_/>)에서 언급되었다.
 
-**Collection을 Wrapping**하면서, **그(*밑에서 설명*) 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
+**Collection을 Wrapping**하면서, **Wrapping한 Collection(*밑에서 설명*) 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
 
 이게 무슨 말일까?
 
