@@ -6,23 +6,140 @@ author: "오렌지"
 
 
 
-처음 자바를 공부했을 때, 필자에게 Stream은 매우 어렵고 낯선 존재였다. (java8 에서는 Stream과 Lambda를 제공한다.)
-우선, 자바에서 Stream은 컬렉션, 배열 등의 요소를 하나씩 참조해 함수형 인터페이스(람다식)를 통해 반복적인 작업의 처리를 가능하게 해준다.
+(java8 부터는 Stream과 Lambda를 제공한다.)
+자바에서 Stream은 컬렉션 등의 요소를 하나씩 참조해 함수형 인터페이스(람다식)를 통해 반복적인 작업의 처리를 가능하게 해준다.
 Stream이 반복적인 처리가 가능하므로, 반복문(for-loop 등)을 대신해 Stream을 사용하는 경우가 많다.
 
-**요즘 함수형 프로그래밍이 대세니 무조건 반복문 대신 Stream을 써야지!**
+*요즘 함수형 프로그래밍이 대세니 **무조건** 반복문 대신 Stream을 써야지!*
 라는 생각을 하는 당신,
-모든 for문을 Stream의 foreach로 구현하려고 했다면... 그 손 키보드에서 떼길 바란다!
+모든 for문을 Stream의 foreach로 구현하려고 했다면... 그 손 키보드에서 떼기 바란다!
 
 
 
-## 왜?
+## Stream 좋은데?
 
-아니, 함수형 프로그래밍 하는 게 어때서 왜 막는 것인가!
+아니, 함수형 프로그래밍 하는 게 어때서 왜 막는 거지!
+Stream을 쓰면 가독성도 올라가고 좋은 것 아닌가??
+Stream을 쓰면 중첩된 for문/if문 여러 개를 보는 것보다 훨씬 읽기 쉽고 이해하기도 편해진다.
+
+간단한 리스트 순회 예시를 보아도 알 수 있다. 3줄짜리 코드를 바로 한 줄로 줄일 수 있다.
+```java
+//기존의 for-loop
+for (int i = 0; i < array.size(); i++) {
+  System.out.println(array.get(i));
+}
+
+//향상된 for-Each
+for (String arr : array) {
+  System.out.println(arr);
+}
+
+//stream.forEach()
+array.stream().forEach(System.out::println);
+```
+
+
+만약 지금 이 글을 읽고 있는 독자가 Stream과 친해지기 위해 모든 loop를 Stream으로 바꿔 사용하는 것이라면 상관없다. 
+
+그러나, 그런 것이 아니라면 특히, 모든 요소를 순회하는 **stream.forEach()** 사용에 대해선 생각해 볼 필요가 있다.
+
+
+
+## 언제 생각해 봐야 할까?
+ >Stream의 forEach는 요소를 돌면서 실행되는 stream 연산의 최종 작업이다. 보통 System.out.println 메소드를 넘겨서 결과를 출력할 때 사용한다.
+
+
+Stream.forEach()를 사용할 때, **로직이 들어가 있는 경우** 자신이 Stream을 잘 활용하고 있는 건지 생각해 보자.
+
+
+
+##### 종료 조건이 있는 로직을 짤 때 주의해야 한다.
+Stream 자체를 강제적으로 종료시키는 방법은 없다.
+무언가 강제적인 종료 조건에 대한 로직이 있는 for-loop를 stream.forEach()로 짠다면, 기존 for-loop에 비해 비효율이 발생한다.
+
+
+```java
+//for-loop로 짠 경우
+for (int i = 0; i < 100; i++) {
+  if (i > 50) {
+    break;
+    //50번 돌고 반복을 종료한다.
+  }
+  System.out.println(i);
+}
+
+IntStream.range(1, 100).forEach(i -> {
+  if (i > 50) {
+    return;
+    //각 수행에 대해 다음 수행을 막을 뿐, 100번 모두 조건을 확인한 후에야 종료한다.
+  }
+  System.out.println(i);
+});
+```
+위 예시처럼 반복문이라고 무작정 stream.forEach()를 사용하게 되면 동작은 정상적으로 할지 몰라도 for문에 비해 비효율이 발생할 수 있다.
+
+```java
+IntStream.range(1, 100).filter(i -> i <= 50).forEach(System.out::println);
+```
+>  물론, Stream은 지연 연산을 하기 때문에 100번 모두 검사를 하긴 하지만
+
+Stream.forEach()의 올바른 사용은 위처럼 forEach()를 **최종 연산**으로만 사용하는 것이다.
+
+*이펙티브 자바 아이템 46*에 따르면,
+**forEach 연산은 스트림 계산 결과를 보고할 때만 사용하고 계산하는 데는 쓰지 말자** 라며, stream.forEach()의 사용에 주의를 준다.
+
+
+
+```java
+public void validateInput() {
+    List<String> names = splitInputByComma();
+        if (Objects.isNull(names)) {
+            throw new IllegalArgumentException(LENGTH_ERROR_MESSAGE);
+        }
+    names.stream().forEach(Input::validateNameLength);
+}
+```
+```java
+pieces.keySet()
+      .forEach(
+       positionKey -> model.addAttribute(
+                     positionKey,pieces.get(positionKey)));
+```
+
+위의 두 예시를 살펴보자.
+짧고 간단한 로직이라서 가독성 측면에서는 크게 문제가 생기진 않는다. 
+
+그러나, 이 상태에서 forEach 내부에 로직이 하나라도 더 추가된다면 **동시성 보장이 어려워지고 가독성이 떨어질** 위험이 있다.
+조건 혹은 로직이 추가된다면 forEach 내부를 손봐야 하는 것이 아니라, 
+stream의 다양한 연산 도구(filter, map 등)를 활용하거나 반복문을 사용하는 것이 올바른 방향이다.
+
+```java
+public void validateInput() {
+    List<String> names = splitInputByComma();
+    if (Objects.isNull(names)) {
+        throw new IllegalArgumentException(LENGTH_ERROR_MESSAGE);
+    }
+    for (String name : names) {
+        validateNameLength(name);
+    }
+}
+```
+```java
+for (String positionKey: pieces.keySet()) {
+    model.addAttribute(positionKey, pieces.get(positionKey));
+}
+```
+Stream.forEach() 대신 **향상된 for문**을 사용해도 충분히 가독성 좋은 코드가 될 수 있다.
+
+필자도 stream 연산을 좋아하고 반복문 대신 자주 사용한다.
+단지, 말하고자 하는 것은 stream의 본래 목적과 장점을 해치는 잘못된 사용은 지양하자는 것이다.
+편리하자고 stream을 사용하는데 가독성을 해치고 성능도 저하시키면서까지 사용할 필요는 없기 때문이다!
 
 ------
 
 #### 참고 링크
 
 + [3 Reasons why You Shouldn’t Replace Your for-loops by Stream.forEach()](https://blog.jooq.org/2015/12/08/3-reasons-why-you-shouldnt-replace-your-for-loops-by-stream-foreach/)
++ [Java8 Stream은 loop가 아니다.](https://www.popit.kr/java8-stream%EC%9D%80-loop%EA%B0%80-%EC%95%84%EB%8B%88%EB%8B%A4/)
++ [자바8 Streams API 를 다룰때 실수하기 쉬운것 10가지](https://hamait.tistory.com/547)
 
