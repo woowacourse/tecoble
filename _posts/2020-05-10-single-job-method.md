@@ -81,8 +81,34 @@ Max Position은 우승자를 구하는 로직에 쓰이는 중요한 값이지�
 
 앞서 살펴본 예시 코드에서 만약 우승자를 구하는게 아닌 꼴찌를 구하는 요구사항으로 변경되었다면 어떨지 생각해보자. 아마도 이름만 보면 결과를 구하는 것과 전혀 관련이 없어보이는  `moveAllCarOneTime` 메서드에서 코드의 변경이 일어나야 할 것이다.
 
-하지만 Max Position을 `findMaxPosition`이라는 이름의 메서드로 따로 분리하여 작은 단위로 사용한다면 우승자와 관련된 요구사항이 변경될 때마다 해당 메서드에서만 코드 변경이 일어나게 된다. 이는 메서드의 응집도를 높일 수 있고 결과적으로 유지보수가 용이해진다.
+하지만 Max Position을 `findMaxPosition`이라는 이름의 메서드로 따로 분리하여 작은 단위로 사용한다면 우승자와 관련된 요구사항이 변경될 때마다 해당 메서드에서만 코드 변경이 일어나게 된다. 아래 예시를 보자. maxPosition을 구하는 메서드를 분리하고 나니 WinnerCar 클래스의 `findWinnerCar`메서드에서도, `showWinnerPosition`에서도 재사용이 가능해진 것을 확인할 수 있을 것이다. 이는 메서드의 응집도를 높일 수 있고 결과적으로 유지보수가 용이하도록 만들어준다는 .
 
+``` java
+// Cars.java
+...
+public int findMaxPosition() {
+    return cars.stream()
+          .mapToInt(Car::getPosition)
+          .max()
+          .getAsInt();
+}
+...
+
+// WinnerCar.java
+...
+public Car findWinnerCar(Cars cars) {
+    int maxPosition = cars.findMaxPosition();     // 재사용
+    return cars.getCars().stream()
+            .filter(car -> car.isPosition(maxPosition))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
+}
+
+public void showWinnerPosition(Cars cars) {
+    System.out.println("max position : " + cars.findMaxPosition());  // 재사용
+}
+...
+```
 
 
 ### 3. 단위 테스트가 수월해진다.
@@ -93,18 +119,9 @@ Max Position은 우승자를 구하는 로직에 쓰이는 중요한 값이지�
 
 또한 메서드가 반환 값이 없는 타입이기 때문에 `maxPosition`을 확인하는 테스트를 작성하는 것이 쉽지 않을 것이다. 
 
-하지만 `maxPosition`을 구하는 `findMaxPosition`이라는 메서드를 분리한다면 다음과 같은 테스트를 추가적으로 작성할 수 있다.
+하지만 위에서 본 코드와 같이`maxPosition`을 구하는 `findMaxPosition`이라는 메서드를 분리한다면 다음과 같은 테스트를 추가적으로 작성할 수 있다.
 
 ``` java
-// Cars.java
-public void findMaxPosition() {
-    return cars.stream()
-          .mapToInt(Car::getPosition)
-          .max()
-          .getAsInt();
-}
-
-
 // CarsTest.java
 @DisplayName("Max Position 확인")
 @Test
