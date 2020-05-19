@@ -110,7 +110,7 @@ public void maxPosition() {
     Car car1 = new Car("c1");
   
     car1.increasePositionOrNot(4);
- 	car1.increasePositionOrNot(5);
+    car1.increasePositionOrNot(5);
   
     Cars cars = new Cars(Arrays.asList(car1));
   
