@@ -97,7 +97,7 @@ public int findMaxPosition() {
 // WinnerCar.java
 ...
 public Car findWinnerCar(Cars cars) {
-    int maxPosition = cars.findMaxPosition();     // 재사용
+    int maxPosition = cars.findMaxPosition();  // 재사용
     return cars.getCars().stream()
             .filter(car -> car.isPosition(maxPosition))
             .findFirst()
