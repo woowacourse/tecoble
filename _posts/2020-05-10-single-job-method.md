@@ -96,10 +96,10 @@ Max Position은 우승자를 구하는 로직에 쓰이는 중요한 값이지�
 ``` java
 // Cars.java
 public void findMaxPosition() {
-  return cars.stream()
-        .mapToInt(Car::getPosition)
-        .max()
-        .getAsInt();
+    return cars.stream()
+          .mapToInt(Car::getPosition)
+          .max()
+          .getAsInt();
 }
 
 
@@ -107,14 +107,14 @@ public void findMaxPosition() {
 @DisplayName("Max Position 확인")
 @Test
 public void maxPosition() {
-  Car car1 = new Car("c1");
+    Car car1 = new Car("c1");
   
-  car1.increasePositionOrNot(4);
+    car1.increasePositionOrNot(4);
  	car1.increasePositionOrNot(5);
   
-  Cars cars = new Cars(Arrays.asList(car1));
+    Cars cars = new Cars(Arrays.asList(car1));
   
-  assertThat(cars.findMaxPosition()).isEqualTo(2);
+    assertThat(cars.findMaxPosition()).isEqualTo(2);
 }
 ```
 
