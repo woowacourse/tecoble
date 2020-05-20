@@ -35,7 +35,7 @@ public static <T> List<T> asList(T... a) {
 
 결론부터 말하면 `new ArrayList<>()`는 할 수 있고, `Arrays.asList()` 할 수 없다.
 
-`Arrays.asList()`는 [javadoc]()에
+`Arrays.asList()`는 [javadoc](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html#asList(T...))에
 
 > Returns a fixed-size list backed by the specified array.
 >
