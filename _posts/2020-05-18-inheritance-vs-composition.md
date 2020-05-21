@@ -113,8 +113,8 @@ public class WinningLotto extends Lotto{
 
 이 두 클래스를 상속 구조로 설계하는게 옳은 방향일까?
 
-만약 `Lotto` 클래스의 요구사항이 변경돼서 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
-`protected int[] lottoNumbers`로 바뀐다고 가정해보자.  
+만약 `Lotto` 클래스의 요구사항이 변경돼서 인스턴스 변수인 `List<Integer> lottoNumbers`가  
+`int[] lottoNumbers`로 바뀐다고 가정해보자.  
 당연히 하위 클래스인 `WinningLotto`에서 `lottoNumbers`를 사용한 부분은 전부 깨질 것이다.
 
 상위 클래스의 변화에 하위 클래스가 영향을 받는 것이다.
@@ -129,15 +129,15 @@ public class WinningLotto {
 ```
 
 `WinningLotto` 클래스에서 인스턴스 변수로 `Lotto` 클래스를 가지는 것이 조합(Composition)이다.  
-`WinningLotto` 클래스는 `Lotto` 클래스의 메서드를 호출하는 방식으로 동작하게 된다.
+`WinningLotto` 클래스는 `Lotto` 클래스의 **메서드를 호출**하는 방식으로 동작하게 된다.
 
 **조합(Composition)을 사용하면?**
 
 1.  메서드를 호출하는 방식으로 동작하기 때문에 캡슐화를 깨뜨리지 않는다.
 2.  Lotto 클래스 같은 기존 클래스의 변화에 영향이 적어지며, 안전하다.
 
-`Lotto` 클래스의 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
-`protected int[] lottoNumbers`로 바뀌어도 영향을 받지 않게 된다.
+메소드 호출 방식이기 때문에 `Lotto` 클래스의 인스턴스 변수인 `List<Integer> lottoNumbers`가  
+`int[] lottoNumbers`로 바뀌어도 영향을 받지 않게 된다.
 
 즉, 상속의 문제점들에서 벗어날 방법이다.
 
