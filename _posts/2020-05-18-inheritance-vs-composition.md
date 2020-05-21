@@ -1,7 +1,9 @@
 ---
-layout: post
-title: "상속보다는 조합(Composition)을 사용하자."
+
+layout: post  
+title: "상속보다는 조합(Composition)을 사용하자."  
 author: "둔덩"
+
 ---
 
 우리는 다양한 이유로 상속을 사용한다.
@@ -92,11 +94,12 @@ protected void produce(int productionNumber) {
 > 조합(Composition): 기존 클래스가 새로운 클래스의 구성요소로 쓰인다.  
 > 새로운 클래스를 만들고 private 필드로 기존 클래스의 인스턴스를 참조한다.
 
-`Lotto` 클래스와 당첨 로또를 뜻하는 `WinningLotto` 클래스가 있을 때,
+로또 번호를 가지고 있는 `Lotto` 클래스와  
+당첨된 로또 번호와 보너스 번호를 가지고 있는 `WinningLotto` 클래스가 있다.
 
 ```java
 public class Lotto {
-    private List<Integer> lottoNumbers;
+    protected List<Integer> lottoNumbers;
     ...
 }
 ```
@@ -108,7 +111,15 @@ public class WinningLotto extends Lotto{
 }
 ```
 
-위와 같이 `Lotto` 클래스를 상속하지 않고
+이 두 클래스를 상속 구조로 설계하는게 옳은 방향일까?
+
+만약 `Lotto` 클래스의 요구사항이 변경돼서 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
+`protected int[] lottoNumbers`로 바뀐다고 가정해보자.
+당연히 하위 클래스인 `WinningLotto`에서 상위 클래스인 `Lotto`의 `lottoNumbers`를 사용한 부분은 전부 깨질 것이다.
+
+상위 클래스의 변화에 하위 클래스가 영향을 받는 것이다.
+
+다음은 조합(Composition)을 사용한 방식을 살펴보자.
 
 ```java
 public class WinningLotto {
@@ -117,13 +128,16 @@ public class WinningLotto {
 }
 ```
 
-인스턴스 변수로 `Lotto` 클래스를 가지는 것이 조합(Composition)이다.  
+`WinningLotto` 클래스에서 인스턴스 변수로 `Lotto` 클래스를 가지는 것이 조합(Composition)이다.  
 `WinningLotto` 클래스는 `Lotto` 클래스의 메서드를 호출하는 방식으로 동작하게 된다.
 
 **조합(Composition)을 사용하면?**
 
 1.  메서드를 호출하는 방식으로 동작하기 때문에 캡슐화를 깨뜨리지 않는다.
 2.  Lotto 클래스 같은 기존 클래스의 변화에 영향이 적어지며, 안전하다.
+
+만약 `Lotto` 클래스의 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
+`protected int[] lottoNumbers`로 바뀌어도 영향을 받지 않는다.
 
 즉, 상속의 문제점들에서 벗어날 방법이다.
 
@@ -147,23 +161,25 @@ public class WinningLotto {
 
 ```java
 public class 포유류 extends 동물 {
-    
+
     protected void 숨을쉬다() {
         ...
     }
-    
+
     protected void 새끼를낳다() {
         ...
     }
 }
 ```
 
-포유류가 동물이라는 사실이 변할 가능성은 거의없고
+포유류가 동물이라는 사실은 변할 가능성이 거의 없고,  
 포유류가 숨을쉬고 새끼를 낳는다는 행동이 변할 가능성은 거의 없다.
 
-이처럼 확실한 is - a 관계인 경우에 상위 클래스는 변화할 가능성이 거의 없다.
+이처럼 확실한 is - a 관계의 상위 클래스는 변할 일이 거의 없다.
 
-만약 변화를 통한 결함이 생겼을 때, 하위 클래스까지 전파돼도 괜찮은지 철저하게 확인했다면
+확실한 is - a 관계인지 곰곰이 고민해보고  
+상위 클래스가 변화에 의해서 결함이 생기는 등 어떤 결함이 생겼을 경우,  
+하위 클래스까지 전파돼도 괜찮은지 철저하게 확인했다면  
 상속을 사용해도 좋다고 생각한다.
 
 사실 이런 조건을 만족한 경우에도 상속은 조합과 달리 캡슐화를 깨뜨리기 때문에 100% 정답은 없다.
