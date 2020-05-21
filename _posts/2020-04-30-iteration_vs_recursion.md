@@ -2,6 +2,7 @@
 layout: post
 title: "반복문(iteration) vs 재귀(recursion)"
 author: "보스독"
+comment: "true"
 ---
 
 ## 반복문과 재귀함수

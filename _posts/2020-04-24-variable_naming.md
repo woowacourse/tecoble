@@ -2,6 +2,7 @@
 layout: post
 title: "좋은 코드를 위한 자바 변수명 네이밍"
 author: "오렌지"
+comment: "true"
 ---
 # JAVA 변수명 네이밍 규칙
 

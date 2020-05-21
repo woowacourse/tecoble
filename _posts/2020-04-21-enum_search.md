@@ -2,6 +2,7 @@
 layout: post
 title: "Enum의 요소를 조회하는 방법 : 팩토리 메서드 vs HashMap"
 author: "보스독"
+comment: "true"
 ---
 
 Enum을 사용하다 보면 요소들을 조회해야 하는 경우가 발생한다.
