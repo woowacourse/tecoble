@@ -141,7 +141,7 @@ public class WinningLotto {
 1.  확장을 고려하고 설계한 확실한 is - a 관계일 때
 2.  API에 아무런 결함이 없는 경우, 결함이 있다면 하위 클래스까지 전파돼도 괜찮은 경우
 
-[상속 예제 이미지](../images/inheritance-example.png)
+![상속 예제 이미지](../images/inheritance-example.png)
 
 위와 같은 경우가 확실한 is - a 관계라고 생각한다.
 
