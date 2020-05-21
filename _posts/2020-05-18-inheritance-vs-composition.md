@@ -114,8 +114,8 @@ public class WinningLotto extends Lotto{
 이 두 클래스를 상속 구조로 설계하는게 옳은 방향일까?
 
 만약 `Lotto` 클래스의 요구사항이 변경돼서 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
-`protected int[] lottoNumbers`로 바뀐다고 가정해보자.
-당연히 하위 클래스인 `WinningLotto`에서 상위 클래스인 `Lotto`의 `lottoNumbers`를 사용한 부분은 전부 깨질 것이다.
+`protected int[] lottoNumbers`로 바뀐다고 가정해보자.  
+당연히 하위 클래스인 `WinningLotto`에서 `lottoNumbers`를 사용한 부분은 전부 깨질 것이다.
 
 상위 클래스의 변화에 하위 클래스가 영향을 받는 것이다.
 
@@ -136,8 +136,8 @@ public class WinningLotto {
 1.  메서드를 호출하는 방식으로 동작하기 때문에 캡슐화를 깨뜨리지 않는다.
 2.  Lotto 클래스 같은 기존 클래스의 변화에 영향이 적어지며, 안전하다.
 
-만약 `Lotto` 클래스의 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
-`protected int[] lottoNumbers`로 바뀌어도 영향을 받지 않는다.
+`Lotto` 클래스의 인스턴스 변수인 `protected List<Integer> lottoNumbers`가  
+`protected int[] lottoNumbers`로 바뀌어도 영향을 받지 않게 된다.
 
 즉, 상속의 문제점들에서 벗어날 방법이다.
 
@@ -179,8 +179,7 @@ public class 포유류 extends 동물 {
 
 확실한 is - a 관계인지 곰곰이 고민해보고  
 상위 클래스가 변화에 의해서 결함이 생기는 등 어떤 결함이 생겼을 경우,  
-하위 클래스까지 전파돼도 괜찮은지 철저하게 확인했다면  
-상속을 사용해도 좋다고 생각한다.
+하위 클래스까지 전파돼도 괜찮은지 철저하게 확인했다면 상속을 사용해도 좋다고 생각한다.
 
 사실 이런 조건을 만족한 경우에도 상속은 조합과 달리 캡슐화를 깨뜨리기 때문에 100% 정답은 없다.
 
