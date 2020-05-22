@@ -1,6 +1,6 @@
 remote_theme: chesterhow/tale
 url: "https://woowacourse.github.io"
-baseurl: "/review"
+baseurl: "/javable"
 
 include:
   - _pages
