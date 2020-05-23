@@ -27,66 +27,95 @@ author: "둔덩"
 
 예제를 통해 살펴보자.
 
-생산을 담당하는 `Production` 클래스가 있다.
+로또 번호를 가지는 역할인 `Lotto` 클래스가 있다.
 
 ```java
-public abstract class Production {
-    protected int count;
+public class Lotto {
+    protected List<Integer> lottoNumbers;
 
-    protected Production() {
-        this.count = 0;
+    public Lotto(List<Integer> lottoNumbers) {
+        this.lottoNumbers = new ArrayList<>(lottoNumbers);
     }
 
-    abstract protected void produce(int productionNumber);
-}
-```
-
-`Production` 클래스에서는, 현재 생산량을 나타내는 인스턴스 변수 count를 가지고 있고  
-추상 메서드인 `produce`를 가지고 있다.
-
-다음으로 `Production` 클래스를 상속하는 `CarProduction` 클래스를 보자.
-
-```java
-public class CarProduction extends Production {
-
-    public CarProduction() {
-        super();
+    public  boolean contains(Integer integer) {
+        return this.lottoNumbers.contains(integer);
     }
-
-    @Override
-    protected void produce(int productionNumber) {
-        super.count += productionNumber;
-    }
-}
-```
-
-`CarProduction` 클래스에서는, 상위 클래스의 추상 메서드인 `produce`메서드를 재정의하고 있다.  
-`produce` 메서드가 호출되면 인자로 받은 `productionNumber`만큼 count를 증가시킨다.
-
-이런 구조에서 `Production` 클래스의 인스턴스 변수인 count를 `int`가 아닌 `Count`라는 객체로 포장하면 어떻게 될까?
-
-```java
-public abstract class Production {
-    // protected int count;
-    protected Count count;
     ...
-}    
-```
-
-당연히 `CarProduction` 클래스에서 재정의한 `produce` 메서드가 깨지게 된다.
-
-```java
-// 오류가 발생한다.
-@Override
-protected void produce(int productionNumber) {
-    super.count += productionNumber;
 }
 ```
 
-즉, `Production` 클래스를 상속한 하위 클래스가 몇 개가 있든 전부 깨지게 되는 것이다.  
+`Lotto`클래스는 로또 번호를 `List<Integer>`로 가지고있다.
+
+다음으로 `Lotto` 클래스를 상속하는 `WinningLotto` 클래스를 보자.  
+`WinningLotto` 클래스는 당첨 로또번호를 가지고 있는 클래스이다.  
+
+```java
+public class WinningLotto extends Lotto {
+    private final BonusBall bonusBall;
+    
+    public WinningLotto(List<Integer> lottoNumbers, BonusBall bonusBall) {
+        super(lottoNumbers);
+        this.bonusBall = bonusBall;
+    }
+
+    public long compare(Lotto lotto) {
+        return lottoNumbers.stream()
+            .filter(lotto::contains)
+            .count();
+    }
+    ...
+}
+```
+
+현재까지는 별 문제가 없어보인다.
+
+하지만 `Lotto` 클래스의 요구사항이 바뀌어서  
+인스턴스 변수인 `List<Integer> lottoNumbers`가 `int[] lottoNumbers`로 바뀌었다고 가정해보자.
+
+```java
+public class Lotto {
+    protected int[] lottoNumbers;
+
+    public Lotto(int[] lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
+    }
+
+    public boolean contains(Integer integer) {
+        return Arrays.stream(lottoNumbers)
+            .anyMatch(lottoNumber -> Objects.equals(lottoNumber, integer));
+    }
+    ...
+}
+```
+
+부모와 강한 의존을 맺은 `WinningLotto` 클래스는 강한 영향을 받는다.
+
+```java
+public class WinningLotto extends Lotto {
+    private final BonusBall bonusBall;
+
+    // 오류가 발생한다.
+    public WinningLotto(List<Integer> lottoNumbers, BonusBall bonusBall) {
+        super(lottoNumbers);
+        this.bonusBall = bonusBall;
+    }
+	
+    // 오류가 발생한다.
+    public long compare(Lotto lotto) {
+        return lottoNumbers.stream()
+            .filter(lotto::contains)
+            .count();
+    }
+}
+```
+
+즉, `Lotto` 클래스를 상속한 하위 클래스가 몇 개가 있든 전부 깨지게 되는 것이다.  
 그리고 해결법은 모든 하위 클래스에서 일일이 수정을 해주는 방법뿐이다.
 
+또, 상위 클래스 메서드 이름과 매개변수의 변화는 하위 클래스 전체의 변경을 야기하기도한다.
+
 이처럼 상속은 하위 클래스가 상위 클래스에 강하게 의존, 결합하기 때문에 변화에 유연하게 대처하기 어려워진다.  
+
 상속구조가 깊으면 깊을수록 그 문제점은 더욱 심화한다.
 
 ## 조합(Composition)을 사용하자.
@@ -94,32 +123,7 @@ protected void produce(int productionNumber) {
 > 조합(Composition): 기존 클래스가 새로운 클래스의 구성요소로 쓰인다.  
 > 새로운 클래스를 만들고 private 필드로 기존 클래스의 인스턴스를 참조한다.
 
-로또 번호를 가지고 있는 `Lotto` 클래스와  
-당첨된 로또 번호와 보너스 번호를 가지고 있는 `WinningLotto` 클래스가 있다.
-
-```java
-public class Lotto {
-    protected List<Integer> lottoNumbers;
-    ...
-}
-```
-
-```java
-public class WinningLotto extends Lotto{
-    private BonusBall bonusBall;
-    ...
-}
-```
-
-이 두 클래스를 상속 구조로 설계하는게 옳은 방향일까?
-
-만약 `Lotto` 클래스의 요구사항이 변경돼서 인스턴스 변수인 `List<Integer> lottoNumbers`가  
-`int[] lottoNumbers`로 바뀐다고 가정해보자.  
-당연히 하위 클래스인 `WinningLotto`에서 `lottoNumbers`를 사용한 부분은 전부 깨질 것이다.
-
-상위 클래스의 변화에 하위 클래스가 영향을 받는 것이다.
-
-다음은 조합(Composition)을 사용한 방식을 살펴보자.
+앞서 살펴봤던 `WinningLotto` 클래스가 `Lotto`를 상속하는 것이 아닌 조합(Composition)을 사용하면 다음과 같다.
 
 ```java
 public class WinningLotto {
@@ -128,7 +132,7 @@ public class WinningLotto {
 }
 ```
 
-`WinningLotto` 클래스에서 인스턴스 변수로 `Lotto` 클래스를 가지는 것이 조합(Composition)이다.  
+이처럼 `WinningLotto` 클래스에서 인스턴스 변수로 `Lotto` 클래스를 가지는 것이 조합(Composition)이다.  
 `WinningLotto` 클래스는 `Lotto` 클래스의 **메서드를 호출**하는 방식으로 동작하게 된다.
 
 **조합(Composition)을 사용하면?**
@@ -136,17 +140,20 @@ public class WinningLotto {
 1.  메서드를 호출하는 방식으로 동작하기 때문에 캡슐화를 깨뜨리지 않는다.
 2.  Lotto 클래스 같은 기존 클래스의 변화에 영향이 적어지며, 안전하다.
 
-메소드 호출 방식이기 때문에 `Lotto` 클래스의 인스턴스 변수인 `List<Integer> lottoNumbers`가  
+메서드 호출 방식이기 때문에 `Lotto` 클래스의 인스턴스 변수인 `List<Integer> lottoNumbers`가  
 `int[] lottoNumbers`로 바뀌어도 영향을 받지 않게 된다.
+그저 메서드 호출을 통한 값을 사용하면 될 뿐이다.
 
 즉, 상속의 문제점들에서 벗어날 방법이다.
+
+자기 자신에 대한 참조를 다른 객체에 넘겨, 나중에 필요할 때 역호출하도록 요청하는  
+역호출(callback) 프레임워크와 사용하기에는 적합하지 않다는 점을 주의하자.
 
 ---
 
 ## 결론
 
-캡슐화를 깨뜨리고, 상위 클래스에 의존하게 돼서 변화에 유연하지 못한  
-상속을 사용하기보다는 조합(Composition)을 사용하자.
+캡슐화를 깨뜨리고, 상위 클래스에 의존하게 돼서 변화에 유연하지 못한 상속을 사용하기보다는 조합(Composition)을 사용하자.
 
 하지만 조합(Composition)이 상속보다 무조건 좋다는 것은 아니다.  
 상속이 적절하게 사용되면 조합보다 강력하고, 개발하기도 편리하다.
