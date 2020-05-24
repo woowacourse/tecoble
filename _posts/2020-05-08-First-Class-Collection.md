@@ -205,7 +205,7 @@ public class IceCreams {
     	if (iceCreams.size() >= 10) {
             new throw IllegalArgumentException("아이스크림은 10개 이상의 종류를 팔지않습니다.")
         }
-	}
+    }
     
     public IceCream find(String name) {
         return iceCreams.stream()
