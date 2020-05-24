@@ -67,7 +67,7 @@ GS편의점에 아이스크림이 있다고 해보자.
 ```java
 // GSConvenienceStore.class
 public class GSConvenienceStore {
-    // 편의점에는 여러개의 아이스크림이 있을 것이다.
+    // 편의점에는 여러 개의 아이스크림이 있을 것이다.
     private List<IceCream> iceCreams;
     
     public GSConvenienceStore(List<IceCream> iceCreams) {
