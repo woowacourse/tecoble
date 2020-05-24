@@ -101,7 +101,7 @@ public class GSConvenienceStore {
     	if (iceCreams.size() >= 10) {
             new throw IllegalArgumentException("아이스크림은 10개 이상의 종류를 팔지 않습니다.")
         }
-	}
+    }
     // ...
 }
 ```
@@ -153,7 +153,7 @@ public class GSConvenienceStore {
 
 2. `List<IceCream> iceCreams`의 원소 중에서 하나를 **find**하는 메서드를 만든다고 가정해보자.
 
-   - **GSConvenienceStore class**와 **CUConvenienceStore class** 같은 메서드*(find)*를 두번 구현할 것인가?
+   - **GSConvenienceStore class**와 **CUConvenienceStore class** 같은 메서드(*find*)를 두번 구현할 것인가?
 
      ```java
      // GSConvenienceStore.class
