@@ -1,9 +1,11 @@
 remote_theme: chesterhow/tale
 url: "https://woowacourse.github.io"
-baseurl: "/review"
+baseurl: "/javable"
 
 include:
   - _pages
+
+logo: "/assets/favicon.ico"
 
 permalink:    /:year-:month-:day/:title
 paginate:     5

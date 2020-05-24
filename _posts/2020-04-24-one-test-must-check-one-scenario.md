@@ -2,6 +2,7 @@
 layout: post
 title: "하나의 테스트 케이스는 단위 기능 중 하나의 시나리오만 테스트하라"
 author: "스티치"
+comment: "true"
 ---
 
 ## 단위 테스트(Unit Test)란
