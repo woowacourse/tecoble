@@ -10,7 +10,7 @@ author : "티거"
 >
 > 일급 컬렉션이란 단어는 소트웍스 앤솔로지의 [객체지향 생활체조 규칙 8. 일급 콜렉션 사용](<https://developerfarm.wordpress.com/2012/02/01/object_calisthenics_/>)에서 언급되었다.
 
-**Collection을 Wrapping**하면서, **Wrapping한 Collection(*밑에서 설명*) 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
+**Collection을 Wrapping**하면서, **Wrapping한 Collection 외 다른 멤버 변수가 없는 상태**를 일급 컬렉션이라 한다.
 
 이게 무슨 말일까?
 
@@ -19,7 +19,6 @@ author : "티거"
 ```java
 public class Person {
     private String name;
-    private int age;
     private List<Car> cars;
     // ...
 }
@@ -36,15 +35,15 @@ public class Car {
 ```java
 public class Person {
     private String name;
-    private int age;
     private Cars cars;
     // ...
 }
 
+// List<Car> cars를 Wrapping
 // 일급 컬렉션
 public class Cars {
-    // 멥버변수가 하나 밖에 없습니다!!
-    private List<Car> Car;
+    // 멤버변수가 하나 밖에 없다!!
+    private List<Car> cars;
     // ...
 }
 
@@ -61,152 +60,212 @@ public class Car {
 
 ## 왜 사용하지?
 
-> 일급 컬렉션을 사용함으로서 갖는 이점 4가지를 설명하겠다.
+> 필자가 느낀 일급 컬렉션의 이점을 말해보겠다.
 
-### 1. 비지니스에 종속적인 자료구조
-
-다음과 같은 조건으로 List\<Car\>를 만든다고 가정하자.
-
-1. Car는 name과 oil의 값을 가지고 있어야함
-2. Car는 중복될 수 없음
-
-일급 컬렉션을 쓰지 않는다면 일반적으로 이렇게 쓸 것이다.
+GS편의점에 아이스크림이 있다고 해보자.
 
 ```java
-public class Person {
-    private String name;
-    private int age;
-    private List<Car> cars;
+// GSConvenienceStore.class
+public class GSConvenienceStore {
+    // 편의점에는 여러개의 아이스크림이 있을 것이다.
+    private List<IceCream> iceCreams;
+    
+    public GSConvenienceStore(List<IceCream> iceCreams) {
+        this.iceCreams = iceCreams;
+    }
+    ...
+}
 
-    public Person(List<Car> cars) {
-        validateHasNameAndOil(cars);
-        validateDuplicate(cars);
-        this.cars = cars;
+// IceCream.class
+public class IceCream {
+    private String name;
+    ...
+}
+```
+
+편의점은 아이스크림의 종류를 10가지 이상 팔지 못한다고 가정해보자.
+
+그러면 `List<IceCream> iceCreams`의 size는 10이 넘으면 안되는 검증이 필요할 것이다.
+
+```java
+// GSConvenienceStore.class
+public class GSConvenienceStore {
+    private List<IceCream> iceCreams;
+    
+    public GSConvenienceStore(List<IceCream> iceCreams) {
+        validateSize(iceCreams)
+        this.iceCreams = iceCreams;
+    }
+    
+    private void validateSize(List<IceCream> iceCreams) {
+    	if (iceCreams.size() >= 10) {
+            new throw IllegalArgumentException("아이스크림은 10개 이상의 종류를 팔지 않습니다.")
+        }
+	}
+    // ...
+}
+```
+
+흠...그래서..? 뭐가 문제지?
+
+**말해주겠다!!**
+
+1. 만약 아이스크림뿐만 아니라 과자, 라면 등 여러 가지가 있다고 가정해보자. 
+
+   - 모든 검증을 **GSConvenienceStore class**에서 할 것인가?
+
+     ```java
+     validate아이스크림(아이스크림);
+     validate과자(과자);
+     validate라면(라면);
+     // ...
+     ```
+
+   - 만약 **CUConvenienceStore class**에서도 동일한 것을 판다면 **GSConvenienceStore class**에서 했던 검증을 또 사용할 것인가?
+
+     ```java
+     // GSConvenienceStore.class
+     public class GSConvenienceStore {
+         private List<IceCream> iceCreams;
+         
+         public GSConvenienceStore(List<IceCream> iceCreams ...) {
+             validate아이스크림(아이스크림);
+             validate과자(과자);
+             validate라면(라면);
+             // ...
+         }
+         // ...
+     }
+     
+     // CUConvenienceStore.class
+     public class CUConvenienceStore {
+         private List<IceCream> iceCreams;
+         
+         public CUConvenienceStore(List<IceCream> iceCreams ...) {
+             validate아이스크림(아이스크림);
+             validate과자(과자);
+             validate라면(라면);
+             // ...
+         }
+         // ...
+     }
+     ```
+
+2. `List<IceCream> iceCreams`의 원소 중에서 하나를 **find**하는 메서드를 만든다고 가정해보자.
+
+   - **GSConvenienceStore class**와 **CUConvenienceStore class** 같은 메서드*(find)*를 두번 구현할 것인가?
+
+     ```java
+     // GSConvenienceStore.class
+     public class GSConvenienceStore {
+         private List<IceCream> iceCreams;
+         // ...
+         public IceCream find(String name) {
+             return iceCreams.stream()
+                 .filter(iceCream::isSameName)
+                 .findFirst()
+                 .orElseThrow(RuntimeException::new)
+         }
+         // ...
+     }
+     
+     // CUConvenienceStore.class
+     public class CUConvenienceStore {
+         private List<IceCream> iceCreams;
+         // ...
+         public IceCream find(String name) {
+             return iceCreams.stream()
+                 .filter(iceCream::isSameName)
+                 .findFirst()
+                 .orElseThrow(RuntimeException::new)
+         }
+         // ...
+     }
+     ```
+
+이럴 경우 편의점 **class의 역할**이 무거워 지고, **중복코드**가 많아진다.
+
+이것을 해결해주는 것이 **일.급.컬.렉.션**이다.
+
+**상태와 행위**을 각각 관리할 수 있다.
+
+아이스크림을 일급 컬렉션을 만들어 보자.
+
+```java
+// IceCream.class
+public class IceCreams {
+    private List<IceCream> iceCreams;
+    
+    public IceCreams(List<IceCream> iceCreams) {
+        validateSize(iceCreams)
+        this.iceCreams = iceCreams
+    }
+    
+    private void validateSize(List<IceCream> iceCreams) {
+    	if (iceCreams.size() >= 10) {
+            new throw IllegalArgumentException("아이스크림은 10개 이상의 종류를 팔지않습니다.")
+        }
+	}
+    
+    public IceCream find(String name) {
+        return iceCreams.stream()
+            .filter(iceCream::isSameName)
+            .findFirst()
+            .orElseThrow(RuntimeException::new)
+    }
+    // ...
+}
+```
+
+그럼 편의점 class는 어떻게 달라질까?
+
+```java
+// GSConvenienceStore.class
+public class GSConvenienceStore {
+    private IceCreams iceCreams;
+    
+    public GSConvenienceStore(IceCreams iceCreams) {
+        this.iceCreams = iceCreams;
+    }
+    
+    public IceCream find(String name) {
+        return iceCreams.find(name);
     }
     // ...
 }
 
-public class Car {
-    private String name;
-    private String oil;
-    // ...
-}
-```
-
-그럼 이런 생각을 할 것이다.
-
-Car의 name과 oil 그리고 중복에 대한 검증이 Person class 생성자에서 일어나야 하는 일인 것인가?
-
-다른 클래스에서 **List\<Car\> cars**가 쓰인다면, Person에서 했던 cars에 대한 검증을 또 해야하는가?
-
-아마 **List\<Car\> cars**필요한 모든 클래스에 검증로직이 필요할 것이다.
-
-하지만 일급 컬렉션을 쓰면 문제를 해결할 수 있다.
-
-```java
-public class Person {
-    private String name;
-    private int age;
-    private Cars cars;
-    // ...
-}
-
-// 일급 컬렉션
-public class Cars {
-    // 멥버변수가 하나 밖에 없습니다!!
-    private List<Car> Car;
+// CUConvenienceStore.class
+public class CUConvenienceStore {
+    private IceCreams iceCreams;
     
-    public Lotto(List<Car> cars) {
-        validateSize(cars);
-        validateDuplicate(cars);
-        this.cars = cars;
+    public CUConvenienceStore(IceCreams iceCreams) {
+        this.iceCreams = iceCreams;
+    }
+    
+    public IceCream find(String name) {
+        return iceCreams.find(name);
     }
     // ...
 }
 
-public class Car {
-    private String name;
-    private String oil;
-    // ...
-}
+// 만약 find메서드 종복되는 것이 신경쓰인다면 부모 클래스를 만들어 상속을 사용하세용:)
 ```
 
-**List\<Car\> cars**는 **Cars**에 종속되어 상태와 행위를 한 곳에서 관리함으로 Person class 이외에 다른 class에서 **List\<Car\> cars**를 사용하더라도 **Cars**에서 관리해주기 때문에 검증에 대한 중복 코드도 제거할 수 있게 되었다.
+어떠한가!
 
-### 2. 상태와 행위를 한 곳에서 관리
+느낌이 오는가?
 
-> **값과 로직이 함께 존재**하기 때문에 응집도가 높아진다.
->
-> 풀어서 이야기하면 컬렉션을 사용하면 똑같은 기능을 중복 생성하지 않고, 히스토리를 한곳에서 관리할 수 있다.
+과자랑 라면 등이 생겨도 **검증**은 **과자의 일급 컬렉션**과 **라면의 일급 컬렉션**이 해줄 것이다.
 
-이메일 중에서 회사이메일을 얻고 싶다고 한다.
+그리고 편의점 class가 했던 역할을 아이스크림, 과자, 라면 등 각각에게 **위임**하여 **상태와 로직을 관리**할 것이다.
 
-```java
-public class Naver {
-  private List<Email> emails;
-    
-  private List<Email> getCompanyEmail() {
-    return emails.stream().filter(Email::isCompanyEmail).findFirst();
-  }
-}
-```
+**정리한다!!**
 
-코드만 보면 무엇이 문제인지 모를 수도 있다.
+**일급 컬렉션**을 사용하면 **상태과 로직을 따로 관리**할 수 있기 때문에 로직이 사용되는 **클래스의 부담**을 줄일 수 있고, **중복코드**를 줄일 수 있다. 
 
-만약 Naver뿐만아니라 Daum class도 만든다면 Daum class에도 getCompanyEmail() 메서드를 생성해 줄 것인가?
+---
 
-일급 컬렉션을 사용하면 값과 로직을 한 곳에서 관리할 수 있다.
-
-```java
-public class Naver {
-  private Emails emails;
-}
-
-public class Emails {
-  private List<Email> emails;
-
-  private List<Email> getCompanyEmail() {
-    return emails.stream().filter(Email::isCompanyEmail).findFirst();
-  }
-}
-```
-
-### 3. 이름이 있는 컬렉션
-
-> 컬렉션에 이름을 붙일 수 있다.
-
-이건 또 무슨말인가?
-
-예시로 보여주도록 하겠다.
-
-```java
-List<Car> cars = createCars();
-List<Bus> buses = createBuses();
-```
-
-문제점이 무엇일까?
-
-1. 검색이 어렵다.
-   1. 자동차들이 어떻게 사용되는지 검색을 하려면 변수명을 검색해야한다.
-   2. 개발자마다 이름은 다르게 지을 수 있다.
-2. 명확한 표현 X
-   1. 변수명에 불과하기 때문에 의미 부여하기 어렵다.
-   2. 개발팀/운영팀 간에 의사소통 시 보편적인 언어로 사용하기가 어렵다.
-
-이 또한 일급 컬렉션이 해결한다.
-
-```java
-Cars cars = new Cars(createCars());
-Buses buses = new Buses(createBuses());
-```
-
-......아직 마음에 와닿지 않는가?
-
-이렇게 코드를 만들면 **컬렉션 기반으로 용어 사용과 검색**을 할 수 있다.
-
-**개발팀/운영팀 간에 의사소통**은 일급 컬렉션으로 할 수 있다.
-
-### 4. ~~컬렉션의 불변성을 보장~~
+## ~~컬렉션의 불변성을 보장~~
 
 > 일급 컬렉션을 검색할 때 제일 많이 보는 글은 [일급 컬렉션 (First Class Collection)의 소개와 써야 할 이유](https://jojoldu.tistory.com/412) 일 것이다.
 >
@@ -330,6 +389,8 @@ public class Lotto {
 getter가 return될 때 **unmodifiableList**로 감싸주면 된다.
 
 필자가 이렇게 긴 설명을 한 이유는 앞서 말했듯이 **불변성을 보장**한다고 했지만 시행착오 없이 확신하지 말하는 메시지를 전하기 위함이었다.
+
+---
 
 ## 참고 링크
 
