@@ -6,7 +6,7 @@ author : "티거"
 
 **List**를 만들때 대부분은 `new ArrayList<>()`와 `Arrays.asList()`를 사용하여 만든다.
 
-그럼 `new ArrayList<>()`와 `Arrays.asList() `의 차이를 알고 사용하고 있는가?
+그럼 `new ArrayList<>()`와 `Arrays.asList()`의 차이를 알고 사용하고 있는가?
 
 이번 글에서는 두개의 차이점을 알아볼 것이다.
 
@@ -101,7 +101,7 @@ public ArrayList(Collection<? extends E> c) {
 
 필자는 **주로(보통)** `new ArrayList<>()`와 `Arrays.asList()`를 이렇게 사용하고 있다.
 
-1. `new ArrayList<>()`
+1. `new ArrayList<>()` - 컬렉션 생성 시, 새로운 주소값으로 할당하기 위한 용도
 
    ```java
    public class Lotto {
@@ -121,7 +121,7 @@ public ArrayList(Collection<? extends E> c) {
 
    `this.lotto = new ArrayList<>(inputLotto);`로 할당한다면 주소값이 다르기 때문에 위와 같은 문제가 발생하지 않는다.
 
-2. `Arrays.asList()`
+2. `Arrays.asList()` - 테스트 케이스 처럼, 요소의 개수가 제한되어 사용되는 경우
 
    ```java
    @Test
