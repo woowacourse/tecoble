@@ -54,7 +54,7 @@ public class Car {
 }
 ```
 
-위의 코드를 보면 눈치챘겠지만 일급 컬렉션은 **그(*List\<LottoNumber\> lotto*) 외 다른 멤버 변수가 없다.**
+위의 코드를 보면 눈치챘겠지만 일급 컬렉션은 **그(*List\<Car\> cars*) 외 다른 멤버 변수가 없다.**
 
 이것이 **일급 컬렉션!!**
 
@@ -127,6 +127,8 @@ public class GSConvenienceStore {
      // GSConvenienceStore.class
      public class GSConvenienceStore {
          private List<IceCream> iceCreams;
+         private List<Snack> snacks;
+         private List<Noodle> Noobles;
          
          public GSConvenienceStore(List<IceCream> iceCreams ...) {
              validate아이스크림(아이스크림);
@@ -140,6 +142,8 @@ public class GSConvenienceStore {
      // CUConvenienceStore.class
      public class CUConvenienceStore {
          private List<IceCream> iceCreams;
+         private List<Snack> snacks;
+         private List<Noodle> Noobles;
          
          public CUConvenienceStore(List<IceCream> iceCreams ...) {
              validate아이스크림(아이스크림);
@@ -248,7 +252,7 @@ public class CUConvenienceStore {
     // ...
 }
 
-// 만약 find메서드 종복되는 것이 신경쓰인다면 부모 클래스를 만들어 상속을 사용하세용:)
+// 만약 find메서드 중복되는 것이 신경쓰인다면 부모 클래스를 만들어 상속을 사용하세용:)
 ```
 
 어떠한가!
@@ -388,12 +392,10 @@ public class Lotto {
 
 getter가 return될 때 **unmodifiableList**로 감싸주면 된다.
 
-필자가 이렇게 긴 설명을 한 이유는 앞서 말했듯이 **불변성을 보장**한다고 했지만 시행착오 없이 확신하지 말하는 메시지를 전하기 위함이었다.
+필자가 이렇게 긴 설명을 한 이유는 **불변성을 보장**한다고 했지만 **불변**이 아니라는 것을 전하기 위함이었다.
 
 ---
 
 ## 참고 링크
 
 [일급 컬렉션 (First Class Collection)의 소개와 써야할 이유](<https://jojoldu.tistory.com/412>)
-
-[First Class Collection](<https://wickso.me/java/first-class-collection/>)
