@@ -1,10 +1,9 @@
+---
 layout: post
 title: "정적 팩토리 메서드(Static Factory Method)는 왜 사용할까?"
 author: "보스독"
 comment: "true"
-
 tags: ["static factory method", "caching", "constructor", "effective-java"]
-
 ---
 
 우리는 프로그래밍하면서 **정적 팩토리 메서드**를 굉장히 자주 듣고 또 많이 사용한다.
@@ -110,7 +109,7 @@ public class LottoNumber {
     this.number = number;
   }
   
-  public LottoNumber of(int number) {
+  public LottoNumber of(int number) {  // LottoNumber를 반환하는 정적 팩토리 메서드
     return lottoNumberCache.get(number);
   }
   
@@ -127,7 +126,7 @@ public class LottoNumber {
 `Basic`, `Intermediate`, `Advanced` 클래스가 `Level`라는 상위 타입을 상속받고 있는 구조를 생각해보자. 시험 점수에 따라 결정되는하위 등급 타입을 반환하는 정적 팩토리 메서드를 만들면, 다음과 같이 분기처리를 통해 하위 타입의 객체를 반환할 수 있다. 
 
 ``` java
-public Class Level {
+public class Level {
   ... 
   public static Level of(int score) {
     if (score < 50) {
