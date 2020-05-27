@@ -6,7 +6,7 @@ author: "스티치"
 
 ## 이전 글에서
 
-[메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기](./2020-05-07-appropriate_method_for_test_by_parameter.md)에서는 테스트하기 어려운 메서드의 시그니처를 수정하여 테스트하기 쉽게 바꾸는 방법을 알아보았다.
+[메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기](./2020-05-07-appropriate_method_for_test_by_parameter.md)에서는 테스트하기 어려운 메서드의 시그니처를 수정하여 테스트하기 쉽게 바꾸는 방법을 알아보았다. 해당 방법은 테스트하기 어려운 의존을 매개변수를 통해서 전달받도록 수정하여 메서드가 직접적인 의존을 가지지 않도록 하는 방법이었다.
 
 그러나 이러한 방법은 테스트를 어렵게 만드는 대상과의 의존 관계를 상위로 이동시키는 것에 불과하다. 만약 의존 관계를 가지는 코드가 계속 상위로 올라가게 된다면 실제로 사용되는 위치와 너무 멀어지게 되고, 그로 인해 코드의 **응집도**가 떨어지는 현상이 발생할 수도 있다.
 
@@ -176,7 +176,7 @@ public class CarTest {
 }
 ```
 
-위의 테스트 코드를 보면 `car` 객체의 `move` 메서드 변수로 `MovableNumberGenerator` 객체를 넘겨준다. `MovableNumberGenerator` 객체의 `generate` 메서드는 4를 반환하므로 `car` 객체의 `position` 은 1이 증가하여 2가 될 것이다.
+위의 테스트 코드를 보면 `car` 객체의 `move` 메서드 매개변수로 `MovableNumberGenerator` 객체를 넘겨준다. `MovableNumberGenerator` 객체의 `generate` 메서드는 4를 반환하므로 `car` 객체의 `position` 은 1이 증가하여 2가 될 것이다.
 
 반대의 경우도 `NumberGenerator` 구현체를 하나 더 만들고 `generate` 메서드가 4보다 작은 값을 반환하도록 만들면 쉽게 테스트할 수 있다.
 
