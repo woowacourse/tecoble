@@ -4,8 +4,7 @@
 
 위키피디아에 의하면 `불변 객체는 생성 후 그 상태를 바꿀 수 없는 객체`를 의미합니다. 여기서 상태를 바꿀 수 없다는 것은 어떤 의미일까요? 이는 힙영역에서 그 객체가 가리키고 있는 데이터 자체의 변화가 불가능하다는 것을 의미합니다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd097d6c-3cf5-4191-8686-32ab865468dc/_2020-05-29__7.34.10.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd097d6c-3cf5-4191-8686-32ab865468dc/_2020-05-29__7.34.10.png)
-
+<img width="609" alt="스크린샷 2020-05-29 오전 8 31 17" src="https://user-images.githubusercontent.com/49060374/83204436-c7eb5600-a186-11ea-919b-29b2e9ac94b6.png">
  
 
 힙 영역이라는 말이 생소한 분들을 위해 간단하게 설명하자면, 위의 그림처럼 `Reference`를 가지고 있는 타입(`object, array`) 은 실제 데이터는 `힙` 영역에 저장하고 그 힙 영역을 가리키는 주솟값을 `Stack` 영역에서 가지고 있는데, 아래의 코드를 보며 조금 더 설명하겠습니다.
