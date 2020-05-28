@@ -41,12 +41,18 @@ public String getName(){
 
 객체는 캡슐화된 상태와 외부에 노출되어 있는 행동을 갖고 있으며, 다른 객체와 메시지를 주고 받으면서 협력한다.
 객체는 메시지를 받으면 객체 그에 따른 로직(행동)을 수행하게 되고, 필요하다면 객체 스스로 내부의 상태값도 변경한다.
-간단히 말해서 객체지향 프로그래밍은 객체가 로직을 갖도록, 즉 객체가 일을 하도록 하는 개발이다.
+간단히 말해서 객체지향 프로그래밍은 객체가 스스로 일을 하도록 하는 프로그래밍이다.
 
 모든 멤버변수에 getter를 생성해 놓고 상태값을 꺼내 그 값으로 객체 외부에서 로직을 수행한다면, 객체가 로직(행동)을 갖고 있는 형태가 아니고 메시지를 주고 받는 형태도 아니게 된다. 
 또한, 객체 스스로 상태값을 변경하는 것이 아니고, 외부에서 상태값을 변경할 수 있는 위험성도 생길 수 있다.
 
 따라서 이는 객체가 객체스럽지 못한 것이다.
+
+
+
+*또한,
+getter를 남용하게 되면, 디미터의 법칙을 위반할 가능성도 생기고, 가독성이 떨어지는 문제도 생길 수 있다.
+[getter 남용으로 인한 디미터 법칙을 위반한 예](https://johngrib.github.io/wiki/law-of-demeter/#%EB%94%94%EB%AF%B8%ED%84%B0-%EB%B2%95%EC%B9%99%EC%9D%84-%EC%9C%84%EB%B0%98%ED%95%9C-%EC%BD%94%EB%93%9C---%EA%B8%B0%EC%B0%A8-%EC%B6%A9%EB%8F%8C)를 참고하면 좋을 것이다.*
 
 
 
@@ -133,13 +139,13 @@ public class Cars {
         return getSameCars(maxPositionCar);
     }
     
-    private Car getMaxPositionCar() {
+    private Car findMaxPositionCar() {
         Car maxPositionCar = cars.stream()
             .max(Car::compareTo)
             .orElseThrow(() -> new IllegalArgumentException("차량 리스트가 비었습니다."));
     }
 
-    private List<String> getSameCars(Car maxPositionCar) {
+    private List<String> findSamePositionCar(Car maxPositionCar) {
         return cars.stream()
             .filter(car -> car.isSamePosition(maxPositionCar))
             .map(Car::getName)
