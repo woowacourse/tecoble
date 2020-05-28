@@ -10,17 +10,17 @@ author : "카일"
 
 ```java
 public class Car {
-	private int position;
-
-	public Car(int position) {
-		this.position = position;
-	}
-
-	public void move() {
-		if ((int)(Math.random() * 10) > 4) {
-			this.position++;
-		}
-	}
+    private int position;
+    
+    public Car(int position) {
+	    this.position = position;   
+    }
+        
+    public void move() {
+    	if ((int)(Math.random() * 10) > 4) {
+    		this.position++;
+    	}   
+    }
     
     public boolean isSamePosition(int position) {
         return this.position == position;
@@ -56,30 +56,30 @@ protected int randomInt() { // 메소드 분리
 
 ```java
 class CarTest {
-	
-	@Test
-	void moveTest() {
-		Car car = new Car(3) {
-			@Override
-			protected int randomInt() { // 랜덤한 난수를 생성하는 부분 재정의(4보다 큰 경우)
-				return 5;
-			}
-		};
-		car.move();
-		assertThat(car.isSamePosition(4)).isTrue();
-	}
-
-	@Test
-	void notMoveTest() {
-		final Car car = new Car(3) {
-			@Override
-			protected int randomInt() { // 랜덤한 난수를 생성하는 부분 재정의(4보다 작은 경우)
-				return 3;
-			}
-		};
-		car.move();
-		assertThat(car.isSamePosition(3)).isTrue();
-	}
+    
+    @Test
+    void moveTest() {
+    	Car car = new Car(3) {
+    	    @Override
+    	    protected int randomInt() { // 랜덤한 난수를 생성하는 부분 재정의(4보다 큰 경우)
+    	    	return 4;
+            }
+    	};
+    	car.move();
+    	assertThat(car.isSamePosition(4)).isTrue();     
+    }
+   
+    @Test
+    void notMoveTest() {
+    	final Car car = new Car(3) {
+    	    @Override
+    	    protected int randomInt() { // 랜덤한 난수를 생성하는 부분 재정의(4보다 작은 경우)
+    	    	return 3;
+            }
+    	};
+    	car.move();
+    	assertThat(car.isSamePosition(3)).isTrue();     
+    }
 }
 ```
 
