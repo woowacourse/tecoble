@@ -193,7 +193,7 @@ public class GSConvenienceStore {
 
 **상태와 행위**을 각각 관리할 수 있다.
 
-아이스크림을 일급 컬렉션을 만들어 보자.
+아이스크림을 일급 컬렉션으로 만들어 보자.
 
 ```java
 // IceCream.class
