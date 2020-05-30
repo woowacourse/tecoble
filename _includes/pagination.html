@@ -1,0 +1,45 @@
+<ul id="pagination" role="navigation">
+    {% if paginator %}
+    {% if paginator.total_pages <= 5 %}
+    {% assign first = 1 %}
+    {% assign last = paginator.total_pages %}
+    {% else %}
+    {% assign first = paginator.page | minus: 2 %}
+    {% if first < 1 %}
+    {% assign first = 1 %}
+    {% endif %}
+    {% assign last = first | plus: 4 %}
+    {% if last > paginator.total_pages %}
+    {% assign last = paginator.total_pages %}
+    {% endif %}
+    {% endif %}
+    {% if paginator.previous_page %}
+    <li id="page-prev">
+        <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}"><span class="sr-only">Previous Page</span></a>
+    </li>
+    {% else %}
+    <li id="page-prev" class="disabled">
+        <span class="sr-only">No Previous Page</span>
+    </li>
+    {% endif %}
+    {% for p in (first..last) %}
+    {% if p == paginator.page %}
+    <li class="page-number active">{{ p }}</li>
+    {% elsif p == 1 %}
+    <li class="page-number"><a href="{{ site.baseurl }}/">{{ p }}</a></li>
+    {% else %}
+    <li class="page-number"><a
+            href="{{ site.baseurl }}{{ site.paginate_path | replace: ':num', p }}">{{ p }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if paginator.next_page %}
+    <li id="page-next">
+        <a href="{{ site.baseurl }}{{ paginator.next_page_path }}"><span class="sr-only">Next Page</span></a>
+    </li>
+    {% else %}
+    <li id="page-next" class="disabled">
+        <span class="sr-only">No Next Page</span>
+    </li>
+    {% endif %}
+    {% endif %}
+</ul>

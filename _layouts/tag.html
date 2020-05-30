@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<div class="tag-header">
+    <a href="#" onclick="history.go(-1)"><</a>
+    <h1 style="text-align: center;">#{{ page.name }}</h1>
+</div>
+
+<div class="catalogue">
+    {% for post in site.posts %}
+    {% if post.tags contains page.name %}
+    {% include item.html %}
+    {% endif %}
+    {% endfor %}
+</div>

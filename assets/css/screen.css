@@ -1,0 +1,84 @@
+#pagination {
+    margin: 0;
+    padding: 33px 0;
+    text-align: center;
+}
+
+#pagination > li {
+    list-style: none;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    color: #1e1e1e;
+    font-size: 14px;
+    line-height: 18px; /* 18px = 20(height) - 2(border) */
+    vertical-align: middle;
+}
+
+/* pagination */
+
+#pagination > li + li {
+    margin-left: 10px;
+}
+
+#pagination > li.active, #pagination > li:hover {
+    background-color: #e6e6e6;
+    border-radius: 4px;
+}
+
+#pagination > li > a {
+    color: #1e1e1e;
+    width: 100%;
+    height: 100%;
+    display:block;
+}
+
+#page-prev {
+    background: url(../icon_pre.png) no-repeat center;
+    background-size: 6px 11px;
+}
+
+#page-next {
+    background: url(../icon_next.png) no-repeat center;
+    background-size: 6px 11px;
+}
+
+.sr-only {
+    position: absolute;
+    top: -9999px;
+    left: -9999px
+}
+
+.tag {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    padding: 0 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    vertical-align: middle;
+    background-color: #fafafa;
+    color: #1e1e1e;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.selected{
+    color: whitesmoke;
+    background-color: #555;
+}
+
+#link-back {
+    padding-left: 17px; /* 17px = 10(spacing) + 7(icon width) */
+    background: url(../icon_larrow.png) no-repeat left;
+    background-size: 7px 11px;
+}
+
+.tag-header {
+    text-align: center;
+}
+
+.tag-header a{
+    color: #1e1e1e;
+    float: left;
+    padding-top: 1em;
+}
