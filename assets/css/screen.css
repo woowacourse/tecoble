@@ -82,3 +82,7 @@
     float: left;
     padding-top: 1em;
 }
+
+.tag-header h1 {
+    font-size: 2.5rem;
+}

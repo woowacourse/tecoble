@@ -1,9 +1,12 @@
 ---
 layout: default
+title: "Tags"
+permalink: /tags/
+comment: false
 ---
 
 <div class="tag-header">
-    <h1>{{ site.data.format[page.name] }}</h1>
+    <h1>Tags</h1>
 </div>
 
 <div>
@@ -16,11 +19,8 @@ layout: default
     {% endfor %}
 </div>
 
-
 <div class="catalogue">
     {% for post in site.posts %}
-    {% if post.tags contains page.name %}
-    {% include item.html %}
-    {% endif %}
+        {% include item.html %}
     {% endfor %}
 </div>

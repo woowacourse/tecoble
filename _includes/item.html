@@ -1,6 +1,6 @@
 <div class="catalogue-item">
     <a href="{{ post.url | prepend: site.baseurl }}" style="color: #555;">
-        <time datetime="{{ post.date }}" class="catalogue-time">{{ post.date | date: "%B %d, %Y" }}</time>
+        <time datetime="{{ post.date }}" class="catalogue-time">{{ post.date | date: "%B %d, %Y" }}, {{ post.author }}</time>
         <h1 class="catalogue-title">{{ post.title }}</h1>
         <div class="catalogue-line"></div>
         <p>

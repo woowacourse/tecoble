@@ -2,7 +2,7 @@
 layout : post
 title : "new ArrayList<>() vs Arrays.asList()"
 author : "티거"
-tags: ["bbb", "ccc"]
+tags: ["collection", "immutable"]
 
 ---
 
