@@ -3,7 +3,7 @@
 layout: post  
 title: "상속보다는 조합(Composition)을 사용하자."  
 author: "둔덩"
-tags: ["clean-code"]
+tags: [clean-code]
 
 ---
 

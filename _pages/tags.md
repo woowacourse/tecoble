@@ -10,11 +10,11 @@ comment: false
 </div>
 
 <div>
-    {% for tag in site.data.tags %}
-        {% if tag == page.name %}
-            <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+    {% for tag in site.tags %}
+        {% if tag.name == page.name %}
+            <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag.name }}">#{{ tag.name }}</a>
         {% else %}
-            <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+            <a class="tag" href="{{ site.baseurl }}/tags/{{ tag.name }}">#{{ tag.name }}</a>
         {% endif %}
     {% endfor %}
 </div>
