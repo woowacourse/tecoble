@@ -285,7 +285,7 @@ public class CUConvenienceStore {
 >
 > The application of this rule is simple: any class that contains a collection should contain no other member variables. Each collection gets wrapped in its own class, so now behaviors related to the collection have a home. You may ﬁnd that ﬁlters become part of this new class. Filters may also become function objects in their own right. Also, your new class can handle activities such as joining two groups together or applying a rule to each element of the group. This is an obvious extension of the rule about instance variables but is important for its own sake as well. A collection is really a type of very useful primitive. It has many behaviors but little semantic intent or clues for either the next programmer or the maintainer
 
-일급 컬렉션 사용의 Rule을 보면 [여기](##일급-컬렉션이란?)에서 설명한 내용과 동일하다. 또한, [위](##왜-사용하지?)에서 설명한 이점을 위해 사용하는 것이지 "불변으로 만들어라.", "이점이 불변이다."이라는 내용을 언급하고 있지 않다. 
+일급 컬렉션 사용의 Rule을 보면 [여기](##일급 컬렉션이란?)에서 설명한 내용과 동일하다. 또한, [위](##왜 사용하지?)에서 설명한 이점을 위해 사용하는 것이지 "불변으로 만들어라.", "이점이 불변이다."이라는 내용을 언급하고 있지 않다. 
 
 이번에는 **불변이 아닌 이유**와 **불변으로 하려면 어떻게 해야하는지**를 알아보자.
 
