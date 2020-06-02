@@ -2,6 +2,8 @@
 layout : post
 title : "일급 컬렉션을 사용하는 이유"
 author : "티거"
+comment: "true"
+tags: ["object-calisthenic"]
 ---
 
 ## 일급 컬렉션이란?
@@ -271,15 +273,25 @@ public class CUConvenienceStore {
 
 ## ~~컬렉션의 불변성을 보장~~
 
-> 일급 컬렉션을 검색할 때 제일 많이 보는 글은 [일급 컬렉션 (First Class Collection)의 소개와 써야 할 이유](https://jojoldu.tistory.com/412) 일 것이다.
+일급 컬렉션을 검색할 때 제일 많이 보는 글은 [일급 컬렉션 (First Class Collection)의 소개와 써야 할 이유](https://jojoldu.tistory.com/412) 일 것이다. 이점 중 하나인 **컬렉션의 값을 변경할 수 있는 메소드가 없어 불변성을 보장** 해준다는 글을 볼 수 있다. 
+
+하지만 필자는 **일급컬렉션**은 **불변성을 보장하지 않으며, 보장하도록 구현해야 할 필요는 없다**는 메시지를 전하고 싶다. 아랫글에서 **왜 불변성을 보장할 필요가 없는지**, **불변이 아닌 이유**와 **불변으로 하려면 어떻게 해야하는지** 설명하겠다.
+
+**왜 불변성을 보장할 필요가 없는지**를 **Object Calisthenics**의 내용의 일부를 가져와 설명하겠다.
+
+> The ThoughtWorks Anthology의 Chapter 6 - Object Calisthenics by Jeff Bay, Technology Principal
 >
-> 또한 일급컬렉션의 이점 중 하나인 **컬렉션의 값을 변경할 수 있는 메소드가 없어 불변성을 보장** 해준다는 글을 볼 수 있다. 
+> Rule 8: Use First-Class Collections
 >
-> 하지만 필자는 **컬렉션의 불변성을 보장**에서 불변이라고 **확신하지 말라**는 메시지를 전하고 싶다.
+> The application of this rule is simple: any class that contains a collection should contain no other member variables. Each collection gets wrapped in its own class, so now behaviors related to the collection have a home. You may ﬁnd that ﬁlters become part of this new class. Filters may also become function objects in their own right. Also, your new class can handle activities such as joining two groups together or applying a rule to each element of the group. This is an obvious extension of the rule about instance variables but is important for its own sake as well. A collection is really a type of very useful primitive. It has many behaviors but little semantic intent or clues for either the next programmer or the maintainer
+
+일급 컬렉션 사용의 Rule을 보면 [여기](##일급-컬렉션이란?)에서 설명한 내용과 동일하다. 또한, [위](##왜-사용하지?)에서 설명한 이점을 위해 사용하는 것이지 "불변으로 만들어라.", "이점이 불변이다."이라는 내용을 언급하고 있지 않다. 
+
+이번에는 **불변이 아닌 이유**와 **불변으로 하려면 어떻게 해야하는지**를 알아보자.
 
 ```java
 public class Lotto {
-    private List<LottoNumber> lotto;
+    private final List<LottoNumber> lotto;
     // ...
     public List<LottoNumber> getLotto() {
         return lotto;
@@ -392,10 +404,10 @@ public class Lotto {
 
 getter가 return될 때 **unmodifiableList**로 감싸주면 된다.
 
-필자가 이렇게 긴 설명을 한 이유는 **불변성을 보장**한다고 했지만 **불변**이 아니라는 것을 전하기 위함이었다.
-
 ---
 
-## 참고 링크
+## 참고
 
 [일급 컬렉션 (First Class Collection)의 소개와 써야할 이유](<https://jojoldu.tistory.com/412>)
+
+[The Thoughtworks Anthology](https://www.amazon.com/ThoughtWorks-Anthology-Technology-Innovation-Programmers/dp/193435614X)
