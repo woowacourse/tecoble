@@ -78,13 +78,13 @@ public class LottoFactory() {
     
   public static Lotto createAutoLotto() {
     Collections.shuffle(allLottoNumbers);
-		return new Lotto(allLottoNumbers.stream()
-                    .limit(LOTTO_SIZE)
-                    .collect(Collectors.toList()));
+    return new Lotto(allLottoNumbers.stream()
+            .limit(LOTTO_SIZE)
+            .collect(Collectors.toList()));
   }
 
   public static Lotto createManualLotto(List<LottoNumber> lottoNumbers) {
-		return new Lotto(lottoNumbers);
+    return new Lotto(lottoNumbers);
   }
   ...
 }
