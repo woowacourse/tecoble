@@ -59,23 +59,7 @@ public class Board {
 왜 낯선 객체에 메시지를 보내는 설계를 피해야 할까?  
 즉 디미터 법칙을 위반했을 때의 문제점은 무엇일까?
 
-앞서 살펴봤던 `Post`객체의 내부를 다시 보자.
-
-```java
-public class Post {
-    private final List<Comment> comments;
-
-    public Post(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-}
-```
-
-만약 `Post`객체 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 일급컬렉션 객체로 수정된다면 어떻게 될까?
+앞서 살펴봤던 `Post`객체에서 만약 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 일급컬렉션 객체로 수정된다면 어떻게 될까?
 
 ```java
 public class Post {
@@ -118,7 +102,7 @@ public class Board {
 
 ## 규칙화
 
-디미터 법칙은 노출 범위를 제한하기 위해 객체의 모든 메서드는 다음에 해당하는 메서드만을 호출해야 한다고 말한다.
+디미터 법칙은 "노출 범위를 제한하기 위해 객체의 모든 메서드는 다음에 해당하는 메서드만을 호출해야 한다"고 말한다.
 
 ### 1\. 객체 자신의 메서드들
 
@@ -148,7 +132,7 @@ class Demeter {
 }
 ```
 
-위의 규칙을 지켜서 최대한 노출 범위를 제한하면 좀 더 에러가 적은, 변화에 유연히 대처할 수 있는 클래스들을 만들 수 있다.
+위의 규칙을 지켜서 최대한 노출 범위를 제한하면 좀 더 에러가 적고, 변화에 유연히 대처할 수 있는 클래스를 만들 수 있다.
 
 ---
 
@@ -178,6 +162,6 @@ IntStream.of(1, 15, 3, 20).filter(x -> x > 10).count();
 
 ### 참고자료
 
--   실용주의 프로그래머
--   UML과 패턴의 적용
--   클린 코드
+-   [실용주의 프로그래머](https://book.naver.com/bookdb/book_detail.nhn?bid=7467119)
+-   [UML과 패턴의 적용](https://book.naver.com/bookdb/book_detail.nhn?bid=256811)
+-   [Clean Code](https://book.naver.com/bookdb/book_detail.nhn?bid=7390287)
