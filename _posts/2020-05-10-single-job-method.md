@@ -2,6 +2,7 @@
 layout: post
 title: "하나의 메서드는 하나의 기능을 수행하자"
 author: "보스독"
+tags: ["immutable", "test"]
 ---
 
 
