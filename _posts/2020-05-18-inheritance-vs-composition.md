@@ -1,10 +1,9 @@
 ---
-
 layout: post  
 title: "상속보다는 조합(Composition)을 사용하자."  
 author: "둔덩"
-tags: [clean-code]
-
+comment: "true"
+tags: ["OOP", "composition", "inheritance", "clean-code"]
 ---
 
 우리는 다양한 이유로 상속을 사용한다.
