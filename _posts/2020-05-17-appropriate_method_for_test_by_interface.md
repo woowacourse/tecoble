@@ -2,6 +2,7 @@
 layout: post
 title: "인터페이스를 분리하여 테스트하기 좋은 메서드로 만들기"
 author: "스티치"
+tags: ["interface", "test"]
 ---
 
 ## 이전 글에서
