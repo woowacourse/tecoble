@@ -1,6 +1,7 @@
 remote_theme: chesterhow/tale
 url: "https://woowacourse.github.io"
 baseurl: "/javable"
+title: "javable"
 
 include:
   - _pages
@@ -9,6 +10,18 @@ logo: "/assets/favicon.ico"
 
 permalink:    /:year-:month-:day/:title
 paginate:     5
+
+collections:
+  tags:
+    output: true
+    permalink: /tags/:path/
+
+defaults:
+  - scope:
+      path: ''
+      type: tags
+    values:
+      layout: tag
 
 plugins:
   - jekyll-remote-theme
