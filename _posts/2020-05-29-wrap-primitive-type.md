@@ -19,7 +19,8 @@ Age age = new Age(20);
 원시 타입의 변수를 객체로 포장한 변수를 선언하는 방법이 있다. 
 (Collection으로 선언한 변수도 포장한다. 이를 일급 컬렉션이라 하며 [티거의 일급 컬렉션](일급 컬렉션 글 올라가면 링크 첨부)을 참고하길 바란다.)
 
-이번 글에서는 원시 타입의 값을 객체로 포장하면 얻을 수 있는 이점들에 대해 소개하려고 한다.
+이번 글에서는 객체지향 생활 체조에도 언급된
+**원시 타입의 값을 객체로 포장하면 얻을 수 있는 이점**들에 대해 소개하려고 한다.
 
 
 
@@ -48,7 +49,7 @@ public class User {
 
     public User(String input) {
         int age = Integer.parseInt(input);
-        if (age >= 0) {
+        if (age <= 0) {
             throw new RuntimeException("나이는 0살부터 시작합니다.");
         }
         this.age = age;
@@ -79,7 +80,7 @@ public class User {
     }
 
     private void validateAge(int age) {
-        if (age >= 0) {
+        if (age <= 0) {
             throw new RuntimeException("나이는 0살부터 시작합니다.");
         }
     }
@@ -151,7 +152,7 @@ public class LottoNumber {
     private final static int MIN_LOTTO_NUMBER = 1;
     private final static int MAX_LOTTO_NUMBER = 45;
     private final static String OUT_OF_RANGE = "로또번호는 1~45의 범위입니다.";
-    private final static Map<Integer, LottoNumber> numbers = new HashMap<>();
+    private final static Map<Integer, LottoNumber> NUMBERS = new HashMap<>();
 
     private int lottoNumber;
 
@@ -213,8 +214,8 @@ public class WinningLotto {
 물론! LottoNumber 대신에 Integer, int와 같은 자료형을 사용할 수도 있다. (아마 캐싱은 하지 않았거나, Lotto 클래스 내부에서 이루어졌을 것이다.)
 그렇게 되면 위에서 다루었듯이 **개별 로또 숫자**에 관한 관리가 **로또**에서 이루어져 로또가 수행하는 일이 늘어날 수밖에 없어진다. 자연히 Lotto 클래스의 크기도 커지게 될 것이고 객체지향과도 작별 인사를 할 수밖에 없어진다. (또륵...)
 
-또!!!!! 다른 문제도 발생한다. 현재는 로또 숫자의 범위가 1~45인데,
-혹여나 많은 사람들이 당첨되면 좋겠다는 생각을 하는 사람이 나타나서 나는 로또숫자를 1~10 으로 할거야! 라며 
+또!!!!! 다른 문제도 발생한다. 현재는 로또 숫자의 범위가 1-45인데,
+혹여나 많은 사람들이 당첨되면 좋겠다는 생각을 하는 사람이 나타나서 나는 로또숫자를 1-10 으로 할거야! 라며 
 **조건을 변경시키고, 추가시킨다면?**
 만약 로또 숫자가 원시값이라면 같은 조건의 로또 숫자가 사용되는 WinningLotto(bonusNumber) 클래스와 Lotto(lottoNumbers) 클래스를 모두 고칠 수밖에 없어진다.
 
