@@ -64,12 +64,12 @@ public class Car {
 
 > 필자가 느낀 일급 컬렉션의 이점을 말해보겠다.
 
-GS편의점에 아이스크림이 있다고 해보자.
+GS편의점에 아이스크림을 팔고 있다.
 
 ```java
 // GSConvenienceStore.class
 public class GSConvenienceStore {
-    // 편의점에는 여러 개의 아이스크림이 있을 것이다.
+    // 편의점에는 여러 개의 아이스크림을 팔고 있을 것이다.
     private List<IceCream> iceCreams;
     
     public GSConvenienceStore(List<IceCream> iceCreams) {
@@ -85,9 +85,9 @@ public class IceCream {
 }
 ```
 
-편의점은 아이스크림의 종류를 10가지 이상 팔지 못한다고 가정해보자.
+특이하게도 해당 편의점은 아이스크림의 종류를 10가지 이상 팔지 못한다고 한다.
 
-그러면 `List<IceCream> iceCreams`의 size는 10이 넘으면 안되는 검증이 필요할 것이다.
+그러면 우리는 `List<IceCream> iceCreams`의 size가 10이 넘으면 안되는 검증이 필요할 것이다.
 
 ```java
 // GSConvenienceStore.class
