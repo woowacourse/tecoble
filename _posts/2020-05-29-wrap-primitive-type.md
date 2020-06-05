@@ -28,7 +28,7 @@ Age age = new Age(20);
 ### 자신의 상태를 객체 스스로 관리할 수 있다.
 
 
-User 라는 클래스에서, 사용자의 나이 값을 가지고 있다고 가정 해 보자.
+User 라는 클래스에서, 사용자의 나이를 가지고 있다고 가정해 보자.
 ```java
 public class User {
     private int age;
