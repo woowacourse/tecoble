@@ -256,7 +256,7 @@ public class Score {
     }
     
     public Score(double score) {
-        validateScore(double);
+        validateScore(score);
         this.doubleScore = score;
     }
     ...
