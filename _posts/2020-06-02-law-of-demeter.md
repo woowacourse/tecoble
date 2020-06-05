@@ -7,7 +7,7 @@ tags: ["law-of-demeter", "clean-code", "object-calisthenic"]
 ---
 
 디미터 법칙은 ["Object-Oriented Programming: An Objective Sense of Style"](https://dl.acm.org/doi/10.1145/62084.62113)에서 처음으로 소개된 개념이다.  
-이 글의 저자들은 디미터라는 이름의 프로젝트를 진행하던 도중 객체들의 협력 경로를 제한하면 결합도를 효과적으로 낮출 수 있다는 사실을 발견했고 디미터 법칙을 만들었다.
+이 글의 저자들은 디미터라는 이름의 프로젝트를 진행하던 도중 다른 객체들과의 협력을 통해 프로그램을 완성해나가는 객체지향 프로그래밍에서 객체들의 협력 경로를 제한하면 결합도를 효과적으로 낮출 수 있다는 사실을 발견했고 디미터 법칙을 만들었다.
 
 현재 디미터 법칙은 객체 간 관계를 설정할 때 객체 간의 결합도를 효과적으로 낮출 수 있는 유용한 지침 중 하나로 꼽히며 객체 지향 생활 체조 원칙 중 <strong>한 줄에 점을 하나만 찍는다.</strong>로 요약되기도 한다.
 
@@ -59,7 +59,7 @@ public class Board {
 왜 낯선 객체에 메시지를 보내는 설계를 피해야 할까?  
 즉 디미터 법칙을 위반했을 때의 문제점은 무엇일까?
 
-앞서 살펴봤던 `Post`객체에서 만약 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 일급컬렉션 객체로 수정된다면 어떻게 될까?
+앞서 살펴봤던 `Post`객체에서 만약 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 [일급컬렉션](https://woowacourse.github.io/javable/2020-05-08/First-Class-Collection) 객체로 수정된다면 어떻게 될까?
 
 ```java
 public class Post {
@@ -138,9 +138,10 @@ class Demeter {
 
 ## 주의사항
 
-### 1\. 자료 구조라면 디미터 법칙을 거론할 필요가 없다.
+### 1\. 자료구조라면 디미터 법칙을 거론할 필요가 없다.
 
-객체라면 내부 구조를 숨겨야 하므로 디미터 법칙을 지켜야 한다. 하지만 자료 구조라면 당연히 내부 구조를 노출해야 하므로 디미터 법칙이 적용되지 않는다.
+객체라면 내부 구조를 숨겨야 하므로 디미터 법칙을 지켜야 한다. 하지만 자료구조라면 당연히 내부 구조를 노출해야 하므로 디미터 법칙이 적용되지 않는다.  
+객체와 자료구조의 차이가 궁금하다면 [이 글](https://namget.tistory.com/entry/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C-6%EC%9E%A5-%EA%B0%9D%EC%B2%B4%EC%99%80-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0)을 참고하자.
 
 ### 2\. 하나의 .을 강제하는 규칙이 아니다.
 
@@ -160,7 +161,7 @@ IntStream.of(1, 15, 3, 20).filter(x -> x > 10).count();
 
 ---
 
-### 참고자료
+### 참고
 
 -   [실용주의 프로그래머](https://book.naver.com/bookdb/book_detail.nhn?bid=7467119)
 -   [UML과 패턴의 적용](https://book.naver.com/bookdb/book_detail.nhn?bid=256811)
