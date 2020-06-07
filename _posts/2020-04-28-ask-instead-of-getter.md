@@ -2,6 +2,8 @@
 layout: post
 title: "getter를 사용하는 대신 객체에 메시지를 보내자"
 author: "오렌지"
+comment: "true"
+tags: ["object-calisthenic", "OOP"]
 ---
 
  > getter는 멤버변수의 값을 호출하는 메소드이고, setter는 멤버변수의 값을 변경시키는 메소드이다.

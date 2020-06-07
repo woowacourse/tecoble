@@ -21,6 +21,17 @@ layout: default
   <div class="post-line"></div>
 
   {{ content }}
+  <br>
+  <h2>Tags</h2>
+  <span>
+    {% for tag in page.tags %}
+        {% if tag == page.name %}
+            <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+        {% else %}
+            <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+        {% endif %}
+    {% endfor %}
+  </span>
 </div>
 
 {% if page.comment %}
@@ -32,14 +43,3 @@ layout: default
         async>
 </script>
 {% endif %}
-
-<div class="pagination">
-  {% if page.next.url %}
-    <a href="{{ page.next.url | prepend: site.baseurl }}" class="left arrow">&#8592;</a>
-  {% endif %}
-  {% if page.previous.url %}
-    <a href="{{ page.previous.url | prepend: site.baseurl }}" class="right arrow">&#8594;</a>
-  {% endif %}
-
-  <a href="#" class="top">Top</a>
-</div>
