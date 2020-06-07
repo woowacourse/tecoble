@@ -101,7 +101,7 @@ stream.forEach()의 사용에 주의를 준다.
 ```java
 public void validateInput() {
     List<String> names = splitInputByComma();
-        if (Objects.isNull(names)) {
+        if (CollectionUtils.isEmpty(names)) {
             throw new IllegalArgumentException(LENGTH_ERROR_MESSAGE);
         }
     names.stream()
@@ -129,7 +129,7 @@ forEach 내부에 로직이 하나라도 더 추가된다면 **동시성 보장�
 ```java
 public void validateInput() {
     List<String> names = splitInputByComma();
-    if (Objects.isNull(names)) {
+    if (CollectionUtils.isEmpty(names)) {
         throw new IllegalArgumentException(LENGTH_ERROR_MESSAGE);
     }
     for (String name : names) {
