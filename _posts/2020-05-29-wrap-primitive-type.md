@@ -196,8 +196,42 @@ public class Lotto {
 public class WinningLotto {
     ...
     private Lotto winningLottoNumbers;
-    private LottoNumber bonusNumber;
+    private int bonusNumber;
+    
+    public WinningNumber(Lotto winningLottoNumbers, int bonusNumber) {
+        this.winningLottoNumbers = winningLottoNumbers;
+        if (isBonusNumberDuplicatedWithWinningNumber(winningLottoNumbers, bonusNumber)) {
+            throw new IllegalArgumentException(
+                BONUS_CANNOT_BE_DUPLICATE_WITH_WINNING_NUMBER);
+        }
+        if (bonusNumber < 1 | bonusNumber > 45) {
+                throw new RuntimeException();
+        }
+        this.bonusNumber = bonusNumber;
+    }
+    ...
+}
+```
 
+위의 코드를 살펴보면 Lotto 클래스에서는  int 값인 로또 숫자 하나하나를 `LottoNumber`로 포장해 사용하고 있는 것을 볼 수 있다.
+(`List<int>` 가 아닌 `List<LottoNumber>` 사용)
+
+물론! LottoNumber 대신에 Integer, int와 같은 자료형을 사용할 수도 있다. (아마 캐싱은 하지 않았거나, Lotto 클래스 내부에서 이루어졌을 것이다.)
+그렇게 되면 위에서 다루었듯이 **개별 로또 숫자**에 관한 관리가 **로또**에서 이루어져 로또가 수행하는 일이 늘어날 수밖에 없어진다. 자연히 Lotto 클래스의 크기도 커지게 될 것이고 객체지향과도 작별 인사를 할 수밖에 없어진다. (또륵...)
+
+또!!!!! 다른 문제도 발생한다. 현재는 로또 숫자의 범위가 1-45인데,
+혹여나 많은 사람들이 당첨되면 좋겠다는 생각을 하는 사람이 나타나서 나는 로또 숫자의 범위를 1-10 으로 할거야! 라며 
+**조건을 변경시키고, 추가시킨다면?**
+만약 WinningLotto의 예시처럼 로또 숫자가 원시값이라면 같은 조건의 로또 숫자가 사용되는 WinningLotto 클래스와 Lotto 클래스를 모두 고칠 수밖에 없어진다.
+
+> 너무 비효율적이야!
+
+
+```java
+public class WinningLotto {
+    ...
+    private Lotto winningLottoNumbers;
+    private LottoNumber bonusNumber;
     public WinningNumber(Lotto winningLottoNumbers, LottoNumber bonusNumber) {
         this.winningLottoNumbers = winningLottoNumbers;
         if (isBonusNumberDuplicatedWithWinningNumber(winningLottoNumbers, bonusNumber)) {
@@ -209,19 +243,8 @@ public class WinningLotto {
     ...
 }
 ```
-위의 코드를 살펴보면 int 값인 로또 숫자 하나하나를 `LottoNumber`로 포장해 사용하고 있는 것을 볼 수 있다.
 
-물론! LottoNumber 대신에 Integer, int와 같은 자료형을 사용할 수도 있다. (아마 캐싱은 하지 않았거나, Lotto 클래스 내부에서 이루어졌을 것이다.)
-그렇게 되면 위에서 다루었듯이 **개별 로또 숫자**에 관한 관리가 **로또**에서 이루어져 로또가 수행하는 일이 늘어날 수밖에 없어진다. 자연히 Lotto 클래스의 크기도 커지게 될 것이고 객체지향과도 작별 인사를 할 수밖에 없어진다. (또륵...)
-
-또!!!!! 다른 문제도 발생한다. 현재는 로또 숫자의 범위가 1-45인데,
-혹여나 많은 사람들이 당첨되면 좋겠다는 생각을 하는 사람이 나타나서 나는 로또숫자를 1-10 으로 할거야! 라며 
-**조건을 변경시키고, 추가시킨다면?**
-만약 로또 숫자가 원시값이라면 같은 조건의 로또 숫자가 사용되는 WinningLotto 클래스와 Lotto 클래스를 모두 고칠 수밖에 없어진다.
-
-> 너무 비효율적이야!
-
-맞다. 비효율적이다. 원시값인 개별 로또 숫자를 LottoNumber로 포장만 해 주면 로또 숫자의 확장, 변경에 대해 유연해진다.
+맞다. 비효율적이다. 원시값인 개별 로또 숫자를 위처럼 LottoNumber로 포장만 해 주면 로또 숫자의 확장, 변경에 대해 유연해진다.
 Lotto와 WinningLotto는 전혀 바꿀 필요 없다. 로또 숫자를 포장한 LottoNumber만 수정해 주면 되기 때문이다.
 
 
