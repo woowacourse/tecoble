@@ -158,7 +158,7 @@ public class LottoNumber {
 
     static {
         for (int i = MIN_LOTTO_NUMBER; i < MAX_LOTTO_NUMBER + 1; i++) {
-            numbers.put(i, new LottoNumber(i));
+            NUMBERS.put(i, new LottoNumber(i));
         }
     }
 
@@ -167,7 +167,7 @@ public class LottoNumber {
     }
 
     public static LottoNumber of(int number) {
-        LottoNumber lottoNumber = numbers.get(number);
+        LottoNumber lottoNumber = NUMBERS.get(number);
         if (lottoNumber == null) {
             throw new IllegalArgumentException(OUT_OF_RANGE);
         }
