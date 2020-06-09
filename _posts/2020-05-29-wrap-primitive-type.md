@@ -49,7 +49,7 @@ public class User {
 
     public User(String input) {
         int age = Integer.parseInt(input);
-        if (age <= 0) {
+        if (age < 0) {
             throw new RuntimeException("나이는 0살부터 시작합니다.");
         }
         this.age = age;
@@ -80,7 +80,7 @@ public class User {
     }
 
     private void validateAge(int age) {
-        if (age <= 0) {
+        if (age < 0) {
             throw new RuntimeException("나이는 0살부터 시작합니다.");
         }
     }
@@ -124,7 +124,7 @@ public class Age() {
 
     public Age(String input) {
         int age = Integer.parseInt(input);
-        if(age >= 0) {
+        if(age < 0) {
             throw new RuntimeException("나이는 0살부터 시작합니다.");
         }
     }
