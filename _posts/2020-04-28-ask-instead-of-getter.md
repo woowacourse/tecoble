@@ -137,8 +137,8 @@ public class Car implements Comparable<Car> {
 public class Cars {
          ...
     public List<String> findWinners() {
-        final Car maxPositionCar = getMaxPositionCar();
-        return getSameCars(maxPositionCar);
+        final Car maxPositionCar = findMaxPositionCar();
+        return findSamePositionCars(maxPositionCar);
     }
     
     private Car findMaxPositionCar() {
@@ -149,7 +149,7 @@ public class Cars {
 
     private List<String> findSamePositionCar(Car maxPositionCar) {
         return cars.stream()
-            .filter(car -> car.isSamePosition(maxPositionCar))
+            .filter(maxPositionCar::isSamePosition)
             .map(Car::getName)
             .collect(Collectors.toList());
     }
