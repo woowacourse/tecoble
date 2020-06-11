@@ -1,8 +1,9 @@
 ---
 layout: post
 title: "메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기"
-author: "스티치"
 comment: "true"
+author: "스티치"
+tags: ["refactoring", "test"]
 ---
 
 ## 테스트 코드의 중요성
