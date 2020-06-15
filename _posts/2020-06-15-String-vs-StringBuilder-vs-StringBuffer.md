@@ -6,7 +6,7 @@ comment: "true"
 tags: ["class", "immutable", "refactoring"]
 ---
 
-자바로 프로그래밍을 할 때 java.lang.Object와 기본 자료형(Primitive Object)을 제외하고 가장 많이 사용하는 객체는 String 클래스일 것이다.
+자바로 프로그래밍 할 때 java.lang.Object와 기본 자료형(Primitive Object)을 제외하고 가장 많이 사용하는 객체는 String 클래스일 것이다.
 
 String 클래스는 잘 사용하면 상관이 없지만, 잘못 사용하면 메모리와 성능에 많은 영향을 준다.
 
@@ -48,7 +48,7 @@ true
 false
 ```
 
-이러한 출력 결과는 String 클래스를 불변 객체로 설계한 것과 관련이 있다.
+이러한 출력 결과는 String 클래스를 불변 객체로 설계한 것과 관련 있다.
 
 궁금하다면 [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable) 글을 통해 String 클래스를 왜 불변 객체로 설계했는지 학습해보자.
 
@@ -103,7 +103,7 @@ GC는 하면 할수록 시스템의 CPU를 사용하고 시간도 많이 소요�
 
 [StringBuilder](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html)와 [StringBuffer](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html)는 String 데이터 변경을 위해 자바에서 제공하는 객체이다. 내부적으로 동적 배열로 구현되어있다.
 
-위에서 살펴봤던 String 객체 + 연산의 문제점을 해결해줄 방법이 바로 StringBuilder와 StringBuffer를 사용하는 것이다. 두 객체가 제공하는 기능(메서드)은 똑같다.
+위에서 살펴봤던 String 객체 + 연산의 문제점을 해결해줄 방법이 바로 StringBuilder와 StringBuffer를 사용하는 것이다. 두 객체가 제공하는 기능(메서드)은 같다.
 
 두 객체의 append 메서드나 insert 메서드를 사용하면 버려지는 객체 없이 문자열을 더할 수 있다.
 
@@ -121,7 +121,7 @@ public String plusString() {
 
 StringBuilder 객체를 한 번만 생성해서 문자열을 더해주므로 버려지는 객체가 없다.
 
-사실 JDK 5.0 이상에서는 String 객체로 + 연산을 사용하면 컴파일 시 자동으로 StringBuilder를 사용하도록 아래와 같이 변환한다.
+사실 JDK 5.0 이상에서는 String 객체로 + 연산을 하면 컴파일 시 자동으로 StringBuilder를 사용하도록 아래와 같이 변환한다.
 
 ```java
 for (int i = 1; i <= 1000; i++) {
@@ -140,7 +140,7 @@ for (int i = 1; i <= 1000; i++) {
 
 ## StringBuilder vs StringBuffer
 
-다시 한번 말하지만 StringBuilder와 StringBuffer가 제공하는 기능은 똑같다.  
+다시 한번 말하지만 StringBuilder와 StringBuffer가 제공하는 기능은 같다.  
 그렇다면 두 객체의 차이는 뭘까?
 
 바로 [synchronized](https://docs.oracle.com/javase/tutorial/essential/concurrency/sync.html) 키워드를 사용한 동기화 여부에 있다.
