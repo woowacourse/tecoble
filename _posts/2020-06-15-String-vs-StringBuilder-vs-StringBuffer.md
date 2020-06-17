@@ -17,15 +17,15 @@ String 클래스는 잘 사용하면 상관이 없지만, 잘못 사용하면 �
 우선 String 클래스는 [Immutable Object(불변 객체)](https://woowacourse.github.io/javable/2020-05-18/immutable-object)이다.
 
 ```java
-String str = "Hello, world!"
-str = "Goodbye, world!"
+String str = "Hello"
+str += "World!"
 ```
 
 위 예제는 `str`의 값을 바꾸는 코드가 아니다.
 
-![String 예제 이미지](../images/string-example.jpg)
+![String 예제 이미지](../images/string-example.png)
 
-heap 영역에서 "Hello, world!" 객체를 참조하다가 "Goodbye, world!" 객체를 참조하도록 재할당했을 뿐이다.
+heap 영역에서 "Hello" 객체를 참조하다가 "HelloWorld!" 객체를 참조하도록 재할당했을 뿐이다.
 
 String 클래스는 왜 불변 객체로 설계했을까?
 
@@ -65,7 +65,7 @@ str += "World!";
 
 앞서 말했듯이 String 클래스는 불변 객체이기 때문에 위와 같은 코드는 `str`의 값이 바뀐 것이 아니라 `str`에 "Hello"와 "World!"를 더한 새로운 String 객체가 재할당 될 뿐이다.
 
-실제로 아래 예제와 같이 객체의 주솟값을 출력해보면 + 연산을 하기 전과 후, 다르게 출력하는 것을 볼 수 있다.
+실제로 아래 예제와 같이 객체의 주소값을 출력해보면 + 연산을 하기 전과 후가 다르게 출력하는 것을 볼 수 있다.
 
 ```java
 public static void main(String[] args) {
@@ -95,7 +95,7 @@ public String plusString() {
 
 위와 같이 반복문을 통해 String 객체에서 1000번의 + 연산을 했다면 1,000개의 객체가 버려져 GC의 대상이 되는 것이다.
 
-GC는 하면 할수록 시스템의 CPU를 사용하고 시간도 많이 소요되기 때문에 메모리 사용을 최소화해야 한다. 즉 이러한 작업은 쓸데없이 메모리를 많이 사용하고 GC에 의해 응답 속도에 많은 영향을 미치게 된다.
+GC는 하면 할수록 시스템의 CPU를 사용하고 시간도 많이 소요되기 때문에 GC의 대상이 되는 객체를 최소화해야 한다. 즉 이러한 작업은 쓸데없이 메모리를 많이 사용하고 GC에 의해 응답 속도에 많은 영향을 미치게 된다.
 
 ---
 
@@ -121,7 +121,7 @@ public String plusString() {
 
 StringBuilder 객체를 한 번만 생성해서 문자열을 더해주므로 버려지는 객체가 없다.
 
-사실 JDK 5.0 이상에서는 String 객체로 + 연산을 하면 컴파일 시 자동으로 StringBuilder를 사용하도록 아래와 같이 변환한다.
+사실 JDK 5.0 이상에서는 String 객체로 + 연산을 하면 컴파일 시 자동으로 StringBuilder 객체의 append 메서드를 사용하도록 변환한다.
 
 ```java
 for (int i = 1; i <= 1000; i++) {
@@ -134,7 +134,9 @@ for (int i = 1; i <= 1000; i++) {
 }
 ```
 
-하지만 + 연산을 반복한 만큼 StringBuilder 객체가 버려져 GC의 대상이 되고 메모리와 성능에 영향을 미치는 사실은 변함없다.
+하지만 반복적인 작업 전에 미리 StringBuilder 객체를 생성하지 않았다면, 컴파일시 자동으로 StringBuilder 객체로 변환 되어도  
+\+ 연산을 반복한 만큼 자동으로 변환되었던 StringBuilder 객체가 버려진다.  
+결론적으로 버려진 StringBuilder 객체들이 GC의 대상이 되고 메모리와 성능에 영향을 미치는 사실은 변함없다.
 
 ---
 
@@ -187,7 +189,7 @@ StringBuffer는 다음과 같은 경우에 사용하자.
 
 1.  멀티 스레드 환경에서 안전한 프로그램이 필요할 때
 2.  static으로 선언된 문자열을 변경할 때
-3.  singletone으로 선언된 클래스의 문자열을 변경할 때
+3.  singleton으로 선언된 클래스의 문자열을 변경할 때
 
 StringBuilder는 다음과 같은 경우에 사용하자.
 
