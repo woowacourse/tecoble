@@ -1,7 +1,14 @@
-# 컬렉션을 조회하는 로직에 따른 성능 비교
+---
+layout: post
+title: "컬렉션을 조회하는 로직에 따른 성능 비교"
+author: "보스독"
+comments: true
+tags: ["collection", "query", "performance"]
+---
+
 API를 개발하다 보면 DB에서 컬렉션을 조회해야 하는 경우가 많이 생긴다. 컬렉션을 조회하는 방법은 여러 가지가 있지만, 어떤 방법을 사용하느냐에 따라 성능 차이가 심해질 수 있다. 특히나 API 요청 횟수와 데이터가 많이 필요한 서비스에서는 더욱 주의해서 사용해야 할 것이다.
 
-이번 포스팅에서는 흔히 실수하기 쉬운 세 가지 방법을 소개한다. 간단한 예제를 통해 어떤 방법이 가장 성능이 좋은지 비교해 보도록 하자.
+이번 포스팅에서는 흔히 실수하기 쉬운 세 가지 방법을 소개한다. 간단한 예제를 통해 어떤 방법이 가장 성능이 좋은지 비교해 보도록 하자.  
 예제는 Spring Data JPA를 사용했다.
 
 먼저 테스트에 사용할 간단한 Member 엔티티를 만들어보자.
@@ -25,7 +32,7 @@ public class Member {
 }
 ```
 
-이 Member 엔티티를 가지고 회원 1000명의 데이터 중에서 Id가 홀수인 회원의 데이터를 조회하는 테스트를 수행해보자. JpaRepository의 save() 메서드를 사용해서 저장하는 코드를 작성하면 다음과 같다.
+이 Member 엔티티를 가지고 회원 1000명의 데이터 중에서 Id가 홀수인 회원의 데이터를 조회하는 테스트를 수행할 것이다. JpaRepository의 save() 메서드를 사용해서 저장하는 코드를 작성하면 다음과 같다.
 ``` java
 @Service
 @Transactional(readOnly = true)
@@ -69,7 +76,7 @@ class MemberServiceTest {
 
 자,  이렇게 테스트할 준비를 끝냈으면 이제 컬렉션을 조회하는 세 가지 방법에 대해 성능을 비교해보자. 
 
-## 1. Id 컬렉션을 가지고 Stream Mapping으로 엔티티 조회하는 방법
+## 1. Id 컬렉션의 Stream Mapping으로 엔티티 조회하는 방법
 1~1000까지 자연수 중 홀수로 이루어진 Id 리스트인 `memberIds`를 생성하고 Stream API의 Mapping을 사용해서 모든 홀수 Id에 대해 JpaRepository에 내장된`findById()`로 엔티티 조회한 것을 모아서 Member 리스트를 반환할 수 있다.
 ``` java
 @Service
@@ -102,12 +109,11 @@ void findOddNumbers_v1() {
     long finishTime = System.currentTimeMillis();
 
     // then
-    assertThat(members).hasSize(500);
     System.out.println("That took: " + (finishTime - startTime) + " ms");
 }
 ```
 
-#### 👉 That took: 1340 ms!!
+### 👉 That took: 1340 ms!!
 아직 비교할 만한 기준이 없으므로 수행시간만 봐서는 성능을 판별하기 어렵다.
 그럼 일단 어떤 쿼리가 수행되었나 살펴보자.
 > ...  
@@ -149,13 +155,12 @@ void findOddNumbers_v2() {
     long finishTime = System.currentTimeMillis();
 
     // then
-    assertThat(members).hasSize(500);
     System.out.println("That took: " + (finishTime - startTime) + " ms");
 }
 ```
 
 그렇다면 수행시간은??
-#### 👉 That took: 341 ms!!
+### 👉 That took: 341 ms!!
 
 첫 번째 방법보다 약 7배 정도 속도가 향상되었다.!! 👏
 그렇다면 이번에는 과연 어떤 쿼리가 수행될까?
@@ -206,12 +211,11 @@ void findOddNumbers_v3() {
     long finishTime = System.currentTimeMillis();
 
     // then
-    assertThat(members).hasSize(500);
     System.out.println("That took: " + (finishTime - startTime) + " ms");
 }
 ```
 
-#### 👉 That took: 59 ms!!
+### 👉 That took: 59 ms!!
 
 !!!! 🧐
 두 번째 방법보다 무려 5배 이상이나 속도가 빨라졌다.
@@ -233,5 +237,5 @@ void findOddNumbers_v3() {
 
 > DB에 접근하는 쿼리 수가 많아질수록 애플리케이션의 성능은 나빠진다.   
 
-그렇기 때문에 비록 단순한 로직이라 할지라도, 반복문 안에 쿼리를 넣는 것보다 필요한 데이터를 한번에 가져올 수 있는 쿼리를 작성하는 것이 더 유익하다고 볼 수 있다.
+비록 단순한 로직이라 할지라도, 반복문 안에 쿼리를 넣는 것보다 필요한 데이터를 한번에 가져올 수 있는 쿼리를 작성하는 것이 더 유익하다고 볼 수 있다.
 
