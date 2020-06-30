@@ -41,7 +41,7 @@ public static void main(String[] args) {
 
 위 코드의 출력 결과를 생각해보자.
 
-답은 아래와 같다.
+결과는 아래와 같다.
 
 ```
 true
@@ -176,8 +176,6 @@ StringBuffer 객체는 거의 모든 메서드를 synchronized를 사용해서 �
 > 속도는 String을 기준으로 StringBuffer가 약 367배 빠르고, StringBuilder는 약 512배 빠르다.  
 > 메모리는 StringBuffer와 StringBuilder가 똑같이 사용하고 String은 약 3,390배 더 사용한다.  
 > \- 이상민, 자바 성능 튜닝 이야기, 인사이트(2013), p52
-
-~실제로 알고리즘 문제를 풀 때 + 연산을 사용하면 메모리 초과 또는 시간 초과가 뜨고 StringBuilder객체의 append() 메서드를 사용하면 통과하는 경우가 자주 있다.~
 
 ---
 
