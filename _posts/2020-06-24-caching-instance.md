@@ -16,7 +16,7 @@ tags: ["cache"]
 
 캐싱은 컴퓨터 분야에서 다양하게 사용된다. CPU에서도 성능 향상을 위해 사용되고 메모리, 웹 페이지를 동작시키는 분야까지 분야를 가리지 않고 사용된다.
 
-그럼 이번에 소개할 **'반복적으로 사용되는 인스턴스 캐싱하기'**란 어떤 상황을 말하는 것일까? Java Wrapper Class의 캐싱을 예시로 살펴보도록 하자.
+그럼 이번에 소개할 '**반복적으로 사용되는 인스턴스 캐싱하기**'란 어떤 상황을 말하는 것일까? Java Wrapper Class의 캐싱을 예시로 살펴보도록 하자.
 
 <br/>
 
@@ -24,19 +24,41 @@ tags: ["cache"]
 
 Java에서는 Primitive Type을 Reference Type으로 사용하기 위해 만든 **Wrapper Class**가 있다.
 
+> java의 Wrapper Class로 Byte, Short, Integer, Long, Float, Double, Character, Boolean, Void가 있다. 
+
 ![java wrapper class](../images/2020-06-24-wrapper-class.png)
 
 기존에 Primitive Type이 존재하는데 굳이 Wrapper Class를 만든 이유는 무엇이고, 언제 사용될까?
 
-Primitive Type도 인스턴스로 다루어져야 하는 경우가 존재한다.
+코드를 작성할 때 다양한 라이브러리를 활용하게 된다. Java에서는 다양한 라이브러리들을 제공하는데 이를 사용하기 위해서는 객체 타입이 필요한 경우가 발생한다. 가장 간단한 예시로 JCF(Java Collection Framework)의 List를 사용하는 코드를 확인해보자.
 
-- 매개변수로 인스턴스가 요구될 때
-- 기본형 값이 아닌 인스턴스로 저장해야 할 때
-- 인스턴스 간의 비교가 필요할 때
+```java
+package lotto.domain;
 
-Java에는 다양한 라이브러리와 프레임워크가 존재한다. 이러한 라이브러리 또는 프레임워크가 제공하는 메서드를 사용하기 위해서 Wrapper Class가 필요한 것이다. 우리는 Wrapper Class를 통해 Primitive Type을 인스턴스로 사용할 수 있다.
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-인스턴스는 각각의 주소를 가진다. 그렇다면 Wrapper Class로 생성한 값(인스턴스)들은 서로 다른 주솟값을 가지기 때문에 실제 값을 비교하기 위해 오버라이딩이 된  `equals()` 를 사용하리라 생각할 수 있다.
+public class WrapperTest {
+	public static void main(String[] args) {
+		List<int> primitiveList = new ArrayList<>(); // error!
+		List<Integer> wrapperList = new ArrayList<>(); // good!
+	}
+}
+
+```
+
+List를 사용할 때는 List의 타입을 명시해주기 위해 `Generic<T>`을 사용한다. 그런데 Generic 안에 들어가는 값으로는 객체만 가능하기 때문에 int와 같은 Primitive Type을 사용하면 에러가 발생하게 된다. Primitive 값인 int를 사용하기 위해서는 이를 감싼 Wrapper Class를 활용하여 List를 사용할 수 있다. int뿐 아니라 다른 Primitive Type 역시 다양한 라이브러리와 프레임워크의 활용을 위해 Wrapper Class를 제공한다.
+
+또한 Wrapper Class는 객체이기 때문에 null값이 들어올 수 있다. Primitive type들은 기본 값을 가지고 있기 때문에 값을 할당하지 않을 경우 null이 아니라 기본값을 가지도록 한다(int의 경우 0이 기본값이다). 
+
+만약 Java를 이용한 웹 서비스에서 Request나 Response용 객체를 다룬다면 값이 존재하지 않는 경우 null을 할당해줘야 한다. 그러나 Primitive Type을 사용하는 경우 기본 값이 할당되면서 의도하지 않은 결과를 야기할 수도 있다.
+
+Wrapper Class는 이런 상황에서 적절하게 사용하는 것이 좋다.
+
+### Wrapper Class에서의 값 비교
+
+인스턴스는 각각의 주소를 가진다. 그렇다면 Wrapper Class로 생성한 값(인스턴스)들은 서로 다른 주소값을 가지기 때문에 실제 값을 비교하기 위해 오버라이딩이 된  `equals()` 를 사용하리라 생각할 수 있다.
 
 이러한 추측이 맞는지 확인하기 위해 Test를 한 번 진행해보았다.
 
@@ -46,21 +68,21 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class IntegerTest {
-	@Test
-	void test1() {
-		Integer num1 = 1;
-		Integer num2 = 1;
+    @Test
+    void test1() {
+        Integer num1 = 1;
+        Integer num2 = 1;
 
-		assertThat(num1.equals(num2)).isTrue();
-	}
+        assertThat(num1.equals(num2)).isTrue();
+    }
 
-	@Test
-	void test2() {
-		Integer num1 = 1;
-		Integer num2 = 1;
+    @Test
+    void test2() {
+        Integer num1 = 1;
+        Integer num2 = 1;
 
-		assertThat(num1 == num2).isTrue();
-	}
+        assertThat(num1 == num2).isTrue();
+    }
 }
 ```
 
@@ -174,23 +196,21 @@ import java.util.List;
 import java.util.Objects;
 
 public class LottoNumber {
+    public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
+    public static final int LOTTO_NUMBER_UPPER_BOUND = 45;
 
-	public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
-	public static final int LOTTO_NUMBER_UPPER_BOUND = 45;
+    private final int number;
 
-	private final int number;
-
-	public LottoNumber(final int number) {
-		validate(number);
-		this.number = number;
-	}
+    public LottoNumber(final int number) {
+        validate(number);
+        this.number = number;
+    }
 
     private void validate(final int number) {
-		if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_UPPER_BOUND) {
-			throw new IllegalArgumentException("LottoNumber가 유효하지 않습니다.");
-		}
-	}
-
+        if (number < LOTTO_NUMBER_LOWER_BOUND || number         LOTTO_NUMBER_UPPER_BOUND) {
+            throw new IllegalArgumentException("LottoNumber가 유효하지 않습니다.");
+        }
+    }
 }
 ```
 
@@ -206,24 +226,28 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class LottoNumberGenerator {
-    
     private static final int VALID_SIZE = 6;
 
-	public static List<LottoNumber> generate() {
-		return new Random().ints(LOTTO_NUMBER_LOWER_BOUND, LOTTO_NUMBER_UPPER_BOUND + 1)
-		                   .distinct()
-		                   .limit(VALID_SIZE)
-		                   .mapToObj(LottoNumber::new)
-		                   .collect(Collectors.toList());
-	}
-
+    public static List<LottoNumber> generate() {
+        return new Random().ints(LOTTO_NUMBER_LOWER_BOUND, LOTTO_NUMBER_UPPER_BOUND + 1)
+                           .distinct()
+                           .limit(VALID_SIZE)
+                           .mapToObj(LottoNumber::new)
+                           .collect(Collectors.toList());
+    }
 }
 
 ```
 
 위의 코드의 경우 문제가 될 부분은 전혀 없다. Lotto 인스턴스를 생성하기 위해 새로운 6개의 LottoNumber 인스턴스를 랜덤한 숫자로 생성한다.
 
-하지만 1,000명의 사람이 각자 100장의 로또를 산다고 가정해보자. 100,000장의 로또(Lotto)가 생성돼야 하고, 각각의 로또(Lotto)는 6개의 로또 번호(LottoNumber)를 가지고 있다. 결국 600,000개의 로또 번호(LottoNumber) 인스턴스가 생성된다.
+LottoNumber라는 원시 타입 포장 객체를 만든 이유는 원시 타입을 감싸므로서 LottoNumber에 대한 유효성 검사를 객체 내부에서 처리할 수 있기 때문이다.
+
+> 원시 타입을 포장해서 얻는 이점은 [원시 타입을 포장해야 하는 이유](./2020-05-29-wrap-primitive-type.md) 글을 참고해보기를 추천한다. 
+
+원시 타입의 객체를 감싸면 얻을 수 있는 장점들도 존재하지만 인스턴스가 생성되면서 관리해야하는 자원이 늘어나는 단점도 존재한다.
+
+만약 1,000명의 사람이 각자 100장의 로또를 산다고 가정해보자. 100,000장의 로또(Lotto)가 생성돼야 하고, 각각의 로또(Lotto)는 6개의 로또 번호(LottoNumber)를 가지고 있다. 결국 600,000개의 로또 번호(LottoNumber) 인스턴스가 생성된다.
 
 로또 번호에 해당하는 LottoNumber 인스턴스가 유효성 검증을 제외한 다른 로직이 없으면 1~45 사이의 LottoNumber는 값만 같으면 같은 역할을 하는 인스턴스(VO)가 된다. 그럴 경우 600,000개의 서로 다른 LottoNumber 인스턴스 생성은 상당한 메모리 낭비이다.
 
@@ -239,39 +263,37 @@ import java.util.List;
 import java.util.Objects;
 
 public class LottoNumber {
+    public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
+    public static final int LOTTO_NUMBER_UPPER_BOUND = 45;
+    private static final List<LottoNumber> CACHE = new ArrayList<>();
 
-	public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
-	public static final int LOTTO_NUMBER_UPPER_BOUND = 45;
-	private static final List<LottoNumber> CACHE = new ArrayList<>();
+    static {
+        for (int i = LOTTO_NUMBER_LOWER_BOUND; i <= LOTTO_NUMBER_UPPER_BOUND; i++) {
+            CACHE.add(new LottoNumber(i));
+        }
+    }
 
-	static {
-		for (int i = LOTTO_NUMBER_LOWER_BOUND; i <= LOTTO_NUMBER_UPPER_BOUND; i++) {
-			CACHE.add(new LottoNumber(i));
-		}
-	}
+    private final int number;
 
-	private final int number;
+    public LottoNumber(final int number) {
+        validate(number);
+        this.number = number;
+    }
 
-	public LottoNumber(final int number) {
-		validate(number);
-		this.number = number;
-	}
+    public static LottoNumber valueOf(final int number) {
+        LottoNumber lottoNumber = CACHE.get(number);
 
-	public static LottoNumber valueOf(final int number) {
-		LottoNumber lottoNumber = CACHE.get(number);
+        if (Objects.isNull(lottoNumber)) {
+            lottoNumber = new LottoNumber(number);
+        }
+        return lottoNumber;
+    }
 
-		if (Objects.isNull(lottoNumber)) {
-			lottoNumber = new LottoNumber(number);
-		}
-		return lottoNumber;
-	}
-
-	private void validate(final int number) {
-		if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_UPPER_BOUND) {
-			throw new IllegalArgumentException("LottoNumber가 유효하지 않습니다.");
-		}
-	}
-
+    private void validate(final int number) {
+        if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_UPPER_BOUND) {
+            throw new IllegalArgumentException("LottoNumber가 유효하지 않습니다.");
+        }
+    }
 }
 ```
 
@@ -285,16 +307,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoNumberGenerator {
+    private static final int VALID_SIZE = 6;
 
-	private static final int VALID_SIZE = 6;
+    public static List<LottoNumber> generate() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LottoNumber.values());
+        Collections.shuffle(lottoNumbers);
 
-	public static List<LottoNumber> generate() {
-		List<LottoNumber> lottoNumbers = new ArrayList<>(LottoNumber.values());
-		Collections.shuffle(lottoNumbers);
-
-		return lottoNumbers.subList(0, VALID_SIZE);
-	}
-
+        return lottoNumbers.subList(0, VALID_SIZE);
+    }
 }
 ```
 
