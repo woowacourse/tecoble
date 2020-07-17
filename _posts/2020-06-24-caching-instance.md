@@ -40,10 +40,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class WrapperTest {
-	public static void main(String[] args) {
-		List<int> primitiveList = new ArrayList<>(); // error!
-		List<Integer> wrapperList = new ArrayList<>(); // good!
-	}
+    public static void main(String[] args) {
+        List<int> primitiveList = new ArrayList<>(); // error!
+        List<Integer> wrapperList = new ArrayList<>(); // good!
+    }
 }
 
 ```
@@ -207,7 +207,7 @@ public class LottoNumber {
     }
 
     private void validate(final int number) {
-        if (number < LOTTO_NUMBER_LOWER_BOUND || number         LOTTO_NUMBER_UPPER_BOUND) {
+        if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_UPPER_BOUND) {
             throw new IllegalArgumentException("LottoNumber가 유효하지 않습니다.");
         }
     }
@@ -243,7 +243,7 @@ public class LottoNumberGenerator {
 
 LottoNumber라는 원시 타입 포장 객체를 만든 이유는 원시 타입을 감싸므로서 LottoNumber에 대한 유효성 검사를 객체 내부에서 처리할 수 있기 때문이다.
 
-> 원시 타입을 포장해서 얻는 이점은 [원시 타입을 포장해야 하는 이유](./2020-05-29-wrap-primitive-type.md) 글을 참고해보기를 추천한다. 
+> 원시 타입을 포장해서 얻는 이점은 [원시 타입을 포장해야 하는 이유](https://woowacourse.github.io/javable/2020-05-29/wrap-primitive-type) 글을 참고해보기를 추천한다. 
 
 원시 타입의 객체를 감싸면 얻을 수 있는 장점들도 존재하지만 인스턴스가 생성되면서 관리해야하는 자원이 늘어나는 단점도 존재한다.
 
