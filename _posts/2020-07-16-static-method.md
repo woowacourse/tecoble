@@ -6,7 +6,7 @@ comment: "true"
 tags: ["static", "static-factory-method", "static-method", "OOP"]
 ---
 
-`static variable, static method, static class...` static이 붙은 녀석들은 JVM이 시작될 때  Method(static) 영역에 저장된다. 그리고 프로그램이 끝날 때까지 사라지지 않고 메모리에 남아있다. (자바 기준)
+`static variable`, `static method`, `static class`.. static이 붙은 녀석들은 JVM이 시작될 때  Method(static) 영역에 저장된다. 그리고 프로그램이 끝날 때까지 사라지지 않고 메모리에 남아있다. (자바 기준)
 
 이번 글에서는 그중에서도 정적 메소드(static method)에 대해 이야기해 보려고 한다.
 우선, 정적 메소드에 대해 학습이 필요한 경우에는 [정적 메소드와 인스턴스 메소드](https://www.geeksforgeeks.org/static-methods-vs-instance-methods-java/)를 참고하길 바란다.
