@@ -82,19 +82,18 @@ body에 포함된 dto로 응용계층에서 DB에 저장하는 트랜잭션 명�
 
 처음에 1호선만 존재하고 있고, 화면에도 역시 1호선 밖에 안나와 있다.
 
-![image](https://user-images.githubusercontent.com/42382027/87889912-f858bd80-ca6e-11ea-8e5d-9862de32def6.png)
+<img src="https://user-images.githubusercontent.com/42382027/87889912-f858bd80-ca6e-11ea-8e5d-9862de32def6.png" width="360">
 
- 
 
 이 때 7명의 유저가 각각 2호선, 3호선, 4호선, 5호선 6호선, 7호선, 8호선을 동시에 생성했다고 가정했을 때, 분명 DB에는 다음과 같이 1호선부터 9호선 까지의 데이터가 쌓여있을 것이다. 의심할 여지가 없다.
 
-![image](https://user-images.githubusercontent.com/42382027/87890053-ac5a4880-ca6f-11ea-8bfa-082a2760ef72.png)
+<img src="https://user-images.githubusercontent.com/42382027/87890053-ac5a4880-ca6f-11ea-8bfa-082a2760ef72.png" width="600">
 
 그러나 4호선을 생성했던 유저의 화면에는 어떻게 보일까?
 
-![image](https://user-images.githubusercontent.com/42382027/87889930-12929b80-ca6f-11ea-8447-36b9fea6d02d.png)
+<img src="https://user-images.githubusercontent.com/42382027/87889930-12929b80-ca6f-11ea-8447-36b9fea6d02d.png" width="360">
 
-![](https://user-images.githubusercontent.com/42382027/87891358-a450d780-ca74-11ea-937a-ddd23e097b5c.png)
+<img src="https://user-images.githubusercontent.com/42382027/87891358-a450d780-ca74-11ea-937a-ddd23e097b5c.png" width="320">
 
 
 
@@ -104,7 +103,7 @@ body에 포함된 dto로 응용계층에서 DB에 저장하는 트랜잭션 명�
 
 이 때, 새로고침을 누르면 우리가 원하는대로 1호선부터 9호선까지의 데이터를 볼 수 있는데,  이는 다시 DB에서 전체 노선 데이터를 불러와 화면에 보여주기 때문이다. 하지만 이는 진정한 비동기 처리라고 할 수 없다. 🧐
 
-![image](https://user-images.githubusercontent.com/42382027/87890037-9c426900-ca6f-11ea-9fb5-1e2b84d354dd.png)
+<img src="https://user-images.githubusercontent.com/42382027/87890037-9c426900-ca6f-11ea-9fb5-1e2b84d354dd.png" width="360">
 
 
 
