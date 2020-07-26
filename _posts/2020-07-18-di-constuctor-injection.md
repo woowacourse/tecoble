@@ -30,7 +30,7 @@ public class LineService {
 
 DI를 적용하기 이전에는 LineRepository를 사용하는 LineService에서 LineRepository를 생성하고 관리해야 한다.
 
-위의 방법은 LineService와 LineRepository간의 의존성이 높다. 의존이 높다는 말은 **코드의 재사용성이 떨어지고 변경에 유연하지 못하며 테스트 코드를 작성하기 어려워진다.**
+위의 방법은 LineService와 LineRepository간의 의존성이 높다. 의존성이 높으면 **코드의 재사용성이 떨어지고 변경에 유연하지 못하며 테스트 코드를 작성하기 어려워진다.**
 
 동일한 코드에 DI 개념을 적용해보면 어떻게 바뀔까?
 
@@ -50,9 +50,10 @@ public class LineService {
 
 Spring에선 `@Autowired` 어노테이션을 통해 LineService의 의존 객체인 LineRepository를 주입받을 수 있다.
 
-이렇게 외부에서부터 의존을 주입받으면 의존을 내부에서 정의하지 않기 때문에 객체 간의 의존성을 줄여주고 코드의 재사용성도 증가하며 변화에 민감하지 않을 수 있다.
+이렇게 외부에서 의존을 주입받으면 의존을 내부에서 정의하지 않기 때문에 객체 간의 의존성을 줄여주고 코드의 재사용성도 증가하며 변화에 민감하지 않을 수 있다.
+이때 변화에 민감하다는 말은 객체 자신이 아니라 의존하고 있는 다른 객체의 변경으로부터 민감한 정도를 말한다. 의존의 정도가 작을수록 의존 객체의 변경에 크게 영향을 받지 않는다.
 
-외부에서 의존을 주입받는 방법은 기존에 마치 이전에 내부에서 의존을 관리하는 방법을 뒤바꾼듯한 모양이다. 이를 Spring에선 **IoC**(**Inversion of Control)**이라 하고 Spring의 주요 개념 중 하나이다.
+외부에서 의존을 주입받는 방법은 기존에 마치 이전에 내부에서 의존을 관리하는 방법을 뒤바꾼듯한 모양이다. 이를 Spring에선 **IoC**(**Inversion of Control**)이라 한다.
 
 <br/>
 
@@ -78,6 +79,8 @@ public class LineService {
 ### 2. Setter Injection
 
 선택적인 의존성을 주입할 경우 유용하다.
+
+만약 필수적인 의존성을 줘야하는 곳에서 Setter Injection을 사용하면 null에 대한 검증 로직을 모든 필드에 추가해주어야 한다(not-null 체크와 같은 로직).
 
 ```java
 @Service
@@ -121,27 +124,27 @@ DI의 방법은 위와 같이 세 가지 방법이 존재하지만, 그중 Field
 
 기존에 가장 흔히 사용하는 Field Injection이 아니라 Constructor Injection을 써야 하는 이유는 무엇일까?
 
-### 1. 단일 책임의 원칙
+### 1. 단일 책임의 원칙.
 
-Field Injection은 의존성 주입이 너무 쉬우므로 무분별한 의존을 주입할 수도 있다. 그러면 하나의 클래스에서 지나치게 많은 기능을 하게 될 수 있는 여지가 있고, '객체는 그에 맞는 동작만 한다'라는 단일 책임의 원칙이 깨지기 쉽다.
+Field Injection은 의존성 주입이 너무 쉬우므로 무분별한 의존성을 주입할 수도 있다. 그러면 하나의 클래스에서 지나치게 많은 기능을 하게 될 수 있는 여지가 있고, '객체는 그에 맞는 동작만 한다'라는 단일 책임의 원칙이 깨지기 쉽다.
 
-Constructor Injection을 사용하면 의존을 주입해야 하는 대상이 많아질수록 생성자의 인자가 늘어나게 된다. 이는 의존관계의 복잡성을 쉽게 파악할 수 있도록 도와주므로 리팩토링의 실마리를 제공하게 된다.
+Constructor Injection을 사용하면 의존성을 주입해야 하는 대상이 많아질수록 생성자의 인자가 늘어난다. 이는 의존관계의 복잡성을 쉽게 파악할 수 있도록 도와주므로 리팩토링의 실마리를 제공한다.
 
-### 2. DI Container와의 결합
+### 2. DI Container와의 낮은 결합도
 
-Field Injection을 사용하면 해당 클래스를 곧바로 Instant화 시킬 수 없다. 만약 DI를 제공해주는 Container 밖의 환경에서 의존을 주입받는 클래스의 객체를 참조할 때, Dependency를 정의해두는 Reflection을 사용하는 방법 외에는 참조할 방법이 없다.
+Field Injection을 사용하면 의존 클래스를 곧바로 인스턴스화 시킬 수 없다. 만약 DI Container 밖의 환경에서 의존성을 주입받는 클래스의 객체를 참조할 때, Dependency를 정의해두는 Reflection을 사용하는 방법 외에는 참조할 방법이 없다. 생성자 또는 Setter가 존재하지 않는다면 의존 객체 필드를 설정할 수 있는 방법이 없기 때문이다.
 
-Constructor Injection은 생성자로 의존을 주입받기 때문에 DI Container에 의존하지 않고 사용할 수 있고, 그 덕분에 테스트에서도 더 용이함을 보인다.
+Constructor Injection은 생성자로 의존성을 주입받기 때문에 DI Container에 의존하지 않고 사용할 수 있고, 그 덕분에 테스트에서도 더 용이함을 보인다.
 
-### 3. Immutability
+### 3. 필드의 불변성 보장
 
-Field Injection은 객체를 생성하고 의존을 Reflection으로 주입받기 때문에 필드 변수를 Immutable로 선언할 수 없다.
+Field Injection은 객체를 생성하고 의존성을 Reflection으로 주입받기 때문에 필드 변수를 Immutable로 선언할 수 없다.
 
 그러나 Constructor Injection은 필드를 final로 선언할 수 있기 때문에 필드의 변경에 대해 안전하다. 이는 객체의 변경에 따른 비용을 절약할 수 있도록 도와준다.
 
-### 4. 순환 의존성
+### 4. 순환 의존 방지
 
-Constructor Injection에서는 순환 의존성을 가질 경우 BeanCurrentlyInCreationException이 발생해서 순환 의존성을 알 수 있게 해준다.
+Constructor Injection에서는 순환 의존성을 가질 경우 BeanCurrentlyInCreationException이 발생해서 문제 상황을 알 수 있게 해준다.
 
 이와 같은 이유로 Spring 4.x 이후부터는 Constructor Injection을 사용하기를 권장하고 있다.
 
