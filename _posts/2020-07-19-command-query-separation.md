@@ -28,13 +28,11 @@ tags: ["asynchronous", "api"]
 ...
   
 @PostMapping("/lines")
-public ResponseEntity<LineResponse> createLine(
-  @RequestBody LineRequest request
-) {
-  LineResponse response = lineService.save(request);
-  return ResponseEntity
-    .created(URI.create("/lines/" + response.getId()))
-    .body(response);
+public ResponseEntity<LineResponse> createLine(@RequestBody LineRequest request) {
+    LineResponse response = lineService.save(request);
+    return ResponseEntity
+        .created(URI.create("/lines/" + response.getId()))
+        .body(response);
 }
 
 ...
@@ -152,18 +150,18 @@ fetch(`/lines`, {
 ...
   
 @PostMapping("/lines")
-public ResponseEntity<Void> createLine(
-  @RequestBody LineRequest request
-) {
-  LineResponse response = lineService.save(request);
-  return ResponseEntity.created(URI.create("/lines/" + response.getId()))
-    .build();
+public ResponseEntity<Void> createLine(@RequestBody LineRequest request) {
+    LineResponse response = lineService.save(request);
+    return ResponseEntity
+        .created(URI.create("/lines/" + response.getId()))
+        .build();
 }
 
 @GetMapping("/lines")
 public ResponseEntity<Lines> findLines() {
-  LinesResponse response = lineService.findAllLines();
-  return ResponseEntity.ok(response);
+    LinesResponse response = lineService.findAllLines();
+    return ResponseEntity
+        .ok(response);
 }
 
 ...
@@ -193,11 +191,11 @@ API를 위와 같이 분리하게 되면, 클라이언트에서 create버튼을 
       })
     
     await api.line
-        .getAll()
-        .then(lines => {
-          $subwayLineList.innerHTML = lines.map(line => subwayLinesTemplate(line)).join('')
-        })
-        .catch(() => alert(ERROR_MESSAGE.COMMON))
+      .getAll()
+      .then(lines => {
+        $subwayLineList.innerHTML = lines.map(line => subwayLinesTemplate(line)).join('')
+      })
+      .catch(() => alert(ERROR_MESSAGE.COMMON))
   }
 ...
 ```
