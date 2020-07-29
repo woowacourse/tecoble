@@ -73,7 +73,7 @@ hashCode를 equals와 함께 재정의하지 않으면 코드가 예상과 다�
 
 앞서 말한 hash 값을 사용하는 Collection(HashMap, HashSet, HashTable)은 객체가 논리적으로 같은지 비교할 때 아래 그림과 같은 과정을 거친다.
 
-![hash 값을 사용하는 객체의 비교 로직](../images/2020-07-29-equals-and-hashcode)
+![hash 값을 사용하는 객체의 비교 로직](../images/2020-07-29-equals-and-hashcode.png)
 
 hashCode 메서드의 리턴 값이 우선 일치하고 equals 메서드의 리턴 값이 true여야 논리적으로 같은 객체라고 판단한다.
 
