@@ -1,8 +1,14 @@
-# else 예약어를 쓰지 않는다.
+---
+layout: post
+title: "else 예약어를 쓰지 않는다"
+author: "스티치"
+comment: "true"
+tags: ["object-calisthenic", "OOP", "clean-code", "enum"]
+---
 
-> **[The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조** 중 **규칙 2**에 대한 내용이다. 
+> [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조** 중 **규칙 2**에 대한 내용이다. 
 
-
+<br/>
 
 ## 시작은 프리코스부터
 
@@ -18,7 +24,7 @@
 
 그러나 이유 없이 이런 요구사항을 달진 않으셨을 거라 생각하고 이유를 찾아봤었다.
 
-
+<br/>
 
 ## 간결해지고 명확해진다
 
@@ -103,7 +109,7 @@ if 문 내부에서 조기 반환(early return)을 해주기 때문에 더 이�
 
 else 예약어를 쓰지 말라는 말을 조금 더 넓은 관점에서 생각해서 **분기문**을 줄여보면 어떨까?
 
-
+<br/>
 
 ## 객체지향적인 구조가 된다
 
@@ -163,7 +169,7 @@ public int getWootecoCrewScore(String name) {
 
 분기문을 줄이고자 하는 노력은 전체적인 코드의 구조를 보다 객체지향적으로 만들도록 도와주었다.
 
-
+<br/>
 
 ## 정리하며
 
@@ -173,11 +179,11 @@ public int getWootecoCrewScore(String name) {
 
 객체지향적인 코드 작성으로 우리는 재사용성이 높고 유지 보수하기 좋은 코드를 가질 수 있게 된다.
 
-이 외로도 **[The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)**의 객체지향 생활 체조에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
+이 외로도 [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **객체지향 생활 체조**에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
 
 그리고 객체지향 생활 체조의 규칙들을 지키면서 코드를 작성한다면 우리의 코드는 객체지향적인 코드로 발전할 수 있을 것이다!
 
-
+<br/>
 
 ## 참고 링크
 
