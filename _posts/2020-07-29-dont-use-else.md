@@ -88,7 +88,8 @@ public int getWootecoCrewScore(String crew) {
     }
     if ("서브웨이".equals(crew)) {
         return 2;
-    } else if ("코즈".equals(crew)) {
+    }
+    if ("코즈".equals(crew)) {
         return 3;
     }
     /*
@@ -167,6 +168,44 @@ public int getWootecoCrewScore(String name) {
 
 위의 작업을 통해 `getWootecoCrewScore()` 메서드는 단 한 줄로 간단하게 구현할 수 있다.
 
+추가로 **객체에 메시지를 보내서** 조금 더 객체지향적인 코드로 수정할 수도 있다.
+
+```java
+public enum Crew {
+    TURTLE("터틀", 0),
+    TTORING("또링", 1),
+    SUBWAY("서브웨이", 2),
+    KOUZ("코즈", 3),
+    /*
+     * 다른 크루들의 정보
+     */
+    STITCH("스티치", 10000000),
+    EMPTY("없음", -1);
+    
+    private final String name;
+    private final int score;
+    
+    Crew(String name, long score) {
+        this.name = name;
+        this.score = score;
+    }
+    
+    public int getCrewScore(String name) {
+        return Arrays.stream(Crew.values())
+                     .filter(crew -> crew.name.equals(name))
+                     .map(crew -> crew.score)
+                     .findAny()
+                     .orElse(EMPTY.score);
+    }
+}
+```
+
+```java
+public int getWootecoCrewScore(String name) {
+    return Crew.getCrewScore(name);
+}
+```
+
 분기문을 줄이고자 하는 노력은 전체적인 코드의 구조를 보다 객체지향적으로 만들도록 도와주었다.
 
 <br/>
@@ -175,11 +214,11 @@ public int getWootecoCrewScore(String name) {
 
 **else 예약어를 쓰지 않는다**라는 말은 **분기문을 최소한으로 한다**로 해석하는 편이 더 좋을 것 같다.
 
-분기문을 줄이려는 노력을 하다 보면 코드의 메서드가 더 많이 분리하게 된다. 메서드를 작은 단위로 분리하게 되면서 하나의 메서드가 하나의 기능만 하도록 도와준다. 그러다 보면 코드는 점차 객차지향적으로 변하게 될 것이다.
+분기문을 줄이려는 노력을 하다 보면 메서드를 더 많이 분리하게 된다. 이는 하나의 메서드가 하나의 기능만 하도록 도와주는데, 그러다 보면 코드는 점차 객차지향적으로 변하게 될 것이다.
 
 객체지향적인 코드 작성으로 우리는 재사용성이 높고 유지 보수하기 좋은 코드를 가질 수 있게 된다.
 
-이 외로도 [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **객체지향 생활 체조**에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
+이 외에도 [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **객체지향 생활 체조**에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
 
 그리고 객체지향 생활 체조의 규칙들을 지키면서 코드를 작성한다면 우리의 코드는 객체지향적인 코드로 발전할 수 있을 것이다!
 
