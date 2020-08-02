@@ -48,7 +48,7 @@ public class LineController {
 
 전역에서 예외 처리를 하기 위해 `@ControllerAdvice` 또는 `@RestControllerAdvice`를 쓴다.
 
-- `@RestControllerAdvice`는 `@ControllerAdvice` + `@ResponseBody`이다. (`@Controller`와 ``@RestController` 같은 느낌)
+- `@RestControllerAdvice`는 `@ControllerAdvice` + `@ResponseBody`이다. (`@Controller`와 `@RestController` 같은 느낌)
 
 이 어노테이션은 [AOP(Aspect Oriented Programming)](https://heeyeah.github.io/spring/2019/03/24/spring-controller-advice.html)의 방식이고, Application 전역에 발생하는 모든 컨트롤러의 예외를 한 곳에서 관리할 수 있게 해준다.
 
