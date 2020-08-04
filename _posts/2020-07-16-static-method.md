@@ -25,6 +25,7 @@ public class LottoNumberFactory {
 
     private static List<LottoNumber> lottoNumbers = new ArrayList<>();
 
+    //45개의 로또 숫자 초기화
     static {
         for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
             lottoNumbers.add(new LottoNumber(i));
@@ -60,15 +61,20 @@ static 키워드는 C의 전역 변수/함수와 성격이 비슷하다. 정적 
 
 
 
+
+
+### Polymorphism
+
+
 #### Message passing
 앞에서 말했다시피 정적 메소드는 객체의 생성주기와 관계가 없다. 이런 점에서 정적메소드는 객체 지향의 **메시지 전달(message passing)**[1]을 위반한다. 
-객체 지향에서는, 객체들은 서로 관계를 맺고 메시지를 통해 정보를 교환하고 결과를 반환한다. 정적 메소드를 실행하는 것은 객체에게 행위를 시키 는 게 아니다. 다른 객체와 관계를 맺고 있지도 않다. 
+객체 지향에서는, 객체들은 서로 관계를 맺고 메시지를 통해 정보를 교환하고 결과를 반환한다. 정적 메소드를 실행하는 것은 객체에게 행위를 지시하는 것이 아니다. 다른 객체와 관계를 맺고 있지도 않다. 
 즉, 메시지 전달이 아니라 (절차 지향의) 함수 호출에 불과하다고 할 수 있다.
 
 
 
+#### Overriding과 Dynamic Binding
 
-### Polymorphism
 다음은 객체지향의 큰 특징 중 하나인 다형성을 활용한 간단한 예시이다. 
 
 ```java
@@ -112,6 +118,7 @@ public static void main(String[] args) {
 **Overriding(메소드 재정의)**과 **Dynamic Binding(동적 바인딩)**[2]이 불가능하기 때문이다. 그러나 정적 메소드는 오버라이딩이 불가능하다. 그래서 인터페이스를 구현하는 데 사용할 수도 없다.
 이는, 정적 메소드는 런타임 이전 컴파일 시에 정적 바인딩이 이루어지기 때문이다.
 
+
 설명한 사항들 외에도 static 키워드는 객체 지향의 캡슐화 등도 위반한다.
 즉, 객체 지향의 관점에서는 정적메소드를 환영하지 않을 수밖에 없다.
 
@@ -136,8 +143,11 @@ static을 아예 쓰지 말라는 말처럼 들릴 수 있다.
 그러나 앞서 밝혔던 장점도 있을뿐더러,
 [정적 팩터리 메서드](https://woowacourse.github.io/javable/2020-05-26/static-factory-method)를 활용하면 정적 메소드를 효율적으로 사용할 수도 있다.
 
+
 결론적으로, 필자는 정적 메소드를 쓰라고 하지도 않을 거고, 사용하지 말라고 하지도 않을 것이다.
+당연한 이야기이지만 속한 집단에서 사용하는 방식을 따르는 게 가장 바람직하다.
 판단은 **당신**에게 맡기겠다!
+
 
 
 
