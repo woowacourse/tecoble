@@ -4,6 +4,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 /out/
 /target/
+assets/js/javable-api-key
 
 ### STS ###
 .apt_generated

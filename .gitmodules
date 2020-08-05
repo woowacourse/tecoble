@@ -1,0 +1,3 @@
+[submodule "assets/js/javable-api-key"]
+	path = assets/js/javable-api-key
+	url = https://github.com/kimevanjunseok/javable-api-key.git
