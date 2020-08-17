@@ -13,7 +13,7 @@ tags: ["exception", "custom-exception"]
 
 우 : 아닙니다!! 써야 합니다!!!
 
-**사용자 정의 예외(Custom Exception)**에 대한 둘의 의견이 좁혀지지 않는다.
+**사용자 정의 예외(Custom Exception)** 에 대한 둘의 의견이 좁혀지지 않는다.
 각자의 주장을 더 자세히 들어보자!
 
 ## 표준 예외를 적극적으로 사용하자!
@@ -35,6 +35,7 @@ public class UserNameEmptyException extends RuntimeException {
 유효하지 않은 입력(인자)값에 대한 예외이므로, 자바에서 정의해 놓은 `IllegalArgumentException`을 사용하고 메시지만 예외사항에 맞게 재정의해준다면 충분히 그 의미를 파악할 수 있다.
 
 다음은 위 코드에 대한 피드백 중 일부이다. [피드백 링크](https://github.com/woowacourse/java-blackjack/pull/4#discussion_r392656069)
+
 <img src="../images/2020-08-17-custom-exception-review.png" width="500px" alt>
 
 
