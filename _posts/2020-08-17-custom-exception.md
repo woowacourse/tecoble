@@ -237,4 +237,6 @@ public class CustomException extends RuntimeException {
 }
 ```
 
+---
+
 오렌지와 우의 의견 중 어느 것이 더 끌리나요? 자바블 독자분들의 의견을 남겨주세요!
