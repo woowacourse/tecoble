@@ -34,8 +34,9 @@ public class UserNameEmptyException extends RuntimeException {
 그러나, 단지 그 하나의 이유를 위해서 커스텀 예외를 만드는 것은 지나친 구현이다.
 유효하지 않은 입력(인자)값에 대한 예외이므로, 자바에서 정의해 놓은 `IllegalArgumentException`을 사용하고 메시지만 예외사항에 맞게 재정의해준다면 충분히 그 의미를 파악할 수 있다.
 
-다음은 우아한 테크코스의 피드백 중 일부이다.
-[우아한 테크코스 관련 피드백](https://github.com/woowacourse/java-blackjack/pull/4#discussion_r392656069) 
+다음은 위 코드에 대한 피드백 중 일부이다. [피드백 링크](https://github.com/woowacourse/java-blackjack/pull/4#discussion_r392656069)
+![feedback](../images/2020-08-17-custom-exception-review.png)
+ 
 
 
 
@@ -57,8 +58,8 @@ public class UserNameEmptyException extends RuntimeException {
 
 ### 3. 일일히 예외 클래스를 만들다보면 지나치게 커스텀 예외가 많아질 수 있다.
 
-domain 디렉토리 내에는 다양한 디렉토리들이 있고, 그 디렉토리 내에는 exception 디렉토리가 있다. 그리고, 수많은 custom Exception들이 있다. 
-[관련 사진](file:///Users/yerin/Desktop/스크린샷%202020-08-17%20오전%2011.07.32.png)
+![예시 사진](../images/2020-08-17-custom-exception-exaplme.png)
+위 사진처럼 domain 디렉토리 내에는 다양한 디렉토리들이 있고, 그 디렉토리 내에는 exception 디렉토리가 있다. 그리고, 수많은 custom Exception들이 있다. 
 예외 클래스들을 하나하나 만들다보면 지나치게 많아질 수 있다. 이 디렉토리와 클래스를 관리하는 것 역시 일이다. 지나치게 많아진다면 메모리 문제도 발생할 수 있고, 클래스 로딩에도 시간이 더 소요될 가능성이 있다. 
 
 이미 자바에서는 충분히 많은 표준 예외를 제공하고 있으므로 표준 예외를 재사용한다면 이를 막을 수 있다. 
