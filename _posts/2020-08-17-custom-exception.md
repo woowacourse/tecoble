@@ -63,12 +63,10 @@ public class UserNameEmptyException extends RuntimeException {
 예외 클래스들을 하나하나 만들다보면 지나치게 많아질 수 있다. 이 디렉토리와 클래스를 관리하는 것 역시 일이다. 지나치게 많아진다면 메모리 문제도 발생할 수 있고, 클래스 로딩에도 시간이 더 소요될 가능성이 있다. 
 
 이미 자바에서는 충분히 많은 표준 예외를 제공하고 있으므로 표준 예외를 재사용한다면 이를 막을 수 있다. 
-
-<center>
-  <img src="../images/2020-08-17-custom-exception-counter.jpg">
-  <br>
-  이의있소!
-</center>
+<p>
+  <img src="../images/2020-08-17-custom-exception-counter.jpg"><br>
+  <em>(잠깐!)</em>
+</p>
 
 ## 사용자 정의 예외가 필요하다!
 
@@ -212,11 +210,12 @@ public class GlobalExceptionHandler {
 
 자바에서 예외를 생성하는 행위는 생각보다 많은 비용이 소모된다. 바로 stack trace 때문이다.
 
-<center>
-  <img src="../images/2020-08-17-custom-exception-stacktrace.png" width=80%>
-  <br>
-  (Stack Trace 예시, Spring boot 프로젝트에서 data.sql에 이상한 구문을 넣었다.)
-</center>
+<p>
+  <img src="../images/2020-08-17-custom-exception-stacktrace.png"><br>
+  <em>(Stack Trace 예시, Spring boot 프로젝트에서 data.sql에 이상한 구문을 넣었다.)</em>
+</p>
+
+<br>
 
 stack trace는 예외 발생 시 call stack에 있는 메소드 리스트를 저장한다. 이를 통해 예외가 발생한 정확한 위치를 파악할 수 있다. 하지만 `try/catch`나 `Advice`를 통해 예외를 처리한다면 해당 예외의 stack trace는 사용하지 않을 때가 많다. 비용을 들어 만들었지만 사용하지 않고 사라지는 형태. 너무나도 비효율적이다.
 
