@@ -91,7 +91,7 @@ bootJar {
 
 ### 테스트 코드 작성
 
-Controller를 간단하게 작성했다.
+Controller를 간단하게 작성해보자.
 
 ```java
 @RequestMapping("/post")
@@ -136,7 +136,7 @@ public class PostController {
 
 기본적인 CREATE(생성), READ(전체조회, 단일조회), UPDATE(수정), DELETE(삭제)를 작성했다.
 
-Entity는 이러하다.
+Entity는 다음과 같이 작성했다.
 
 ```java
 @Entity
@@ -343,7 +343,7 @@ IntelliJ를 사용한다면 plugins에서 AsciiDoc를 설치하면 미리보기�
 
 코드를 작성하면 다시 한번 build한다. 그러면 `build/asciidoc/html5`와 `src/main/resources/static/docs`에 `html` 파일이 생길 것이다.
 
-마지막으로 서버를 실행 시키고 `http://localhost:8080/docs/api-docs.html`로 이동하면 문서가 잘 나오는 것을 확인할 수 있다.
+마지막으로 서버를 실행 시키고 `http://localhost:8080/docs/api-docs.html`로 이동하면 문서가 잘 나오는 것을 확인할 수 있다. 👏👏
 
 ![image](https://user-images.githubusercontent.com/45934117/90552724-3eb84e00-e1ce-11ea-991e-3aa80f6658d1.png)
 
