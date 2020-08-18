@@ -3,7 +3,7 @@ layout: post
 title: "Spring REST Docs"
 author: "티거"
 comment: "true"
-tags: ["spring"]
+tags: ["spring", "docs"]
 ---
 
 **API 문서를 자동화한다**라고 하면 `Spring REST Docs`와 `Swagger`를 많이 사용할 것이다. 이번 글에서는 `Spring REST Docs`를 다뤄볼 것이다. `Swagger`대신 `Spring REST Docs`를 왜 사용하고, 어떻게 사용하는지 알아보자.
@@ -353,7 +353,7 @@ IntelliJ를 사용한다면 plugins에서 AsciiDoc를 설치하면 미리보기�
 
 ![image](https://user-images.githubusercontent.com/45934117/90552813-598ac280-e1ce-11ea-8783-61abdc60dd56.png)
 
-`src/main/docs/asciidoc`있는 `*.adoc` 파일에 아래 코드를 최상단에 넣어주자.
+아래 코드를 `src/main/docs/asciidoc`있는 `*.adoc` 코드의 최상단에 넣어주자.
 
 ```
 ifndef::snippets[]
