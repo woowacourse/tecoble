@@ -6,7 +6,7 @@ comment: "true"
 tags: ["spring"]
 ---
 
-**"API 문서를 자동화한다."**라고 하면 `Spring REST Docs`와 `Swagger`를 많이 사용할 것이다. 이번 글에서는 `Spring REST Docs`를 다뤄볼 것이다. `Swagger`대신 `Spring REST Docs`를 왜 사용하고, 어떻게 사용하는지 알아보자.
+**API 문서를 자동화한다**라고 하면 `Spring REST Docs`와 `Swagger`를 많이 사용할 것이다. 이번 글에서는 `Spring REST Docs`를 다뤄볼 것이다. `Swagger`대신 `Spring REST Docs`를 왜 사용하고, 어떻게 사용하는지 알아보자.
 
 ## 왜 사용할까?
 
@@ -21,7 +21,7 @@ Spring REST Docs의 대표적인 장점은 다음과 같다.
 
 ##  어떻게 사용할까?
 
-작업 환경은 이러하다.
+### 작업 환경
 
 - Spring Boot - 2.3.3
 - Gradle - 6.4.1
@@ -176,7 +176,7 @@ public class PostControllerTest {
 }
 ```
 
-setting이 끝나면 create 테스트 코드를 작성하고, 간단히 설명하겠다. 
+setting이 끝나면 create 테스트 코드를 작성한다. 
 
 ```java
 @Test
@@ -187,13 +187,13 @@ void create() throws Exception {
     this.mockMvc.perform(post("/post") // 1
             .content("{\"title\": \"title\", \n\"content\": \"content\"}") // 2
             .contentType(MediaType.APPLICATION_JSON)) // 3
-        	.andExpect(status().isCreated()) // 4
-        	.andDo(document("post-create", // 5
+            .andExpect(status().isCreated()) // 4
+            .andDo(document("post-create", // 5
                     requestFields( // 6
                             fieldWithPath("title").description("Post 제목"), // 7
                             fieldWithPath("content").description("Post 내용").optional() // 8
                     )
-			));
+            ));
 }
 ```
 
@@ -308,11 +308,11 @@ void remove() throws Exception {
 
 build를 하면 `build/generated-snippets`에 다음과 같이 생길 것이다.
 
-![snippets 생성 파일](../images/2020-08-18-spring-rest-docs1.png)
+![image](https://user-images.githubusercontent.com/45934117/90552601-0dd81900-e1ce-11ea-8e11-8e4d160c8b4f.png)
 
 `src/main/docs/asciidoc`와 같이 디렉토리를 만들고 `*.adoc`파일을 만들어 준다. (ex. api-docs.adoc)
 
-`*.adoc`에 코드를 작성한다. ([Asciidoctor User Manual](https://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor) 참고)
+`*.adoc`를 작성한다. ([Asciidoctor User Manual](https://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor) 참고)
 
 >  Asciidoctor는 일반 텍스트를 처리하고 필요에 맞게 스타일 및 레이아웃 된 HTML을 생성합니다.
 
@@ -339,19 +339,19 @@ include::{snippets}/post-create/http-response.adoc[]
 
 IntelliJ를 사용한다면 plugins에서 AsciiDoc를 설치하면 미리보기를 지원받는다. (사용하는 것을 추천한다.👍👍)
 
-![plugins의 AsciiDoc 사용](../images/2020-08-18-spring-rest-docs2.png)
+![image](https://user-images.githubusercontent.com/45934117/90552659-23e5d980-e1ce-11ea-9e5c-1eea03b10ce0.png)
 
 코드를 작성하면 다시 한번 build한다. 그러면 `build/asciidoc/html5`와 `src/main/resources/static/docs`에 `html` 파일이 생길 것이다.
 
 마지막으로 서버를 실행 시키고 `http://localhost:8080/docs/api-docs.html`로 이동하면 문서가 잘 나오는 것을 확인할 수 있다.
 
-![브라우저에서 본 Rest docs](../images/2020-08-18-spring-rest-docs3.png)
+![image](https://user-images.githubusercontent.com/45934117/90552724-3eb84e00-e1ce-11ea-991e-3aa80f6658d1.png)
 
 **잠깐!!!**
 
 만약 아래와 같이 나온다면
 
-![브라우저에서 본 Rest docs 오류](../images/2020-08-18-spring-rest-docs4.png)
+![image](https://user-images.githubusercontent.com/45934117/90552813-598ac280-e1ce-11ea-8783-61abdc60dd56.png)
 
 `src/main/docs/asciidoc`있는 `*.adoc` 파일에 아래 코드를 최상단에 넣어주자.
 
