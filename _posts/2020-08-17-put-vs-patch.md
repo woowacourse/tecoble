@@ -11,18 +11,28 @@ tags: ["http-method", "put", "patch"]
 
 ## 들어가며
 
+우리는 웹 애플리케이션을 개발할 때, Http Method를 용도에 맞게 사용하여 최대한 Restful한 API 설계를 지향한다. 
+
+이번 글에서는 Http Method 중 자원(엔티티)을 수정하는 용도로 사용하는 "Put"과 "Patch"에 대해 다뤄보고자 한다.
+
+개발자들 중에는 Put과 Patch의 차이를 크게 생각하지 않고 아무거나 선택하거나 혼용하여 API를 만드는 사람도 있다. 
+
+정말로 둘 메서드를 구별없이 사용해도 괜찮은 걸까!?
+
+
+
 여기 지하철 노선 정보를 수정하는 자바스크립트 코드가 있다. 
 
-지하철 노선(Line)은 이름(name), 첫 차 시간(startTime), 마지막 차 시간(endTime), 배차간격(intervalTime)을 상태로 갖는다.
+> 지하철 노선(Line)은 이름(name), 첫 차 시간(startTime), 마지막 차 시간(endTime), 배차간격(intervalTime)을 상태로 갖는다.
 
 ``` jsx
 const updateSubwayLine = () => {
   // 수정할 노선 정보
   const updatedSubwayLine = {
-    name: $subwayLineNameInput.value,
-    startTime: $subwayLineStartTime.value,
-    endTime: $subwayLineEndTime.value,
-    intervalTime: $subwayIntervalTime.value
+    name: $subwayLineNameInput.value,  // 노선이름
+    startTime: $subwayLineStartTime.value,  // 첫 차 시간
+    endTime: $subwayLineEndTime.value,  // 마지막 차 시간
+    intervalTime: $subwayIntervalTime.value  // 배차간격
   }
   
   // 노선 정보를 수정하는 API 호출
@@ -43,22 +53,17 @@ const updateSubwayLine = () => {
 }
 ```
 
-`updateSubwayLine` 함수가 실행되면 'PUT' 메서드로 노선 정보를 수정하는 API가 호출되고, 요청으로 전달된 데이터에 따라서 데이터베이스에 저장된 노선의 정보가 변경될 것이다. 
+이 `updateSubwayLine` 함수가 실행되면 'Put' 메서드로 노선 정보를 수정하는 API가 호출되고, 요청으로 전달된 데이터에 따라 데이터베이스에 저장된 노선의 정보가 변경될 것이다. 
 
-이렇게 자원의 수정 역할을 하는 Http Method는 흔히 'PUT'과 'PATCH'가 있다고 많은 사람들이 알고 있다. 그렇다면 위의 함수에서 'PUT'을 'PATCH'로 바꾼다면 똑같이 의도한대로 수정이 될까?
+그렇다면 위의 함수에서 'Put'을 'Patch'로 바꾼다면 어떨까? Put으로 요청을 보냈을 때와 같은 변경이 이루어질까?
 
 **그렇다!**
 
-현재로서는 'PUT'과 'PATCH'가 같은 결과를 도출하기 때문에 둘다 자원을 "수정하는 역할"을 한다고 말할 수 있다. 
+현재로서는 'Put'과 'Patch'가 같은 결과를 도출하기 때문에 둘 다 자원을 "수정하는 역할"을 한다고 말할 수 있을 것이다. 하지만 이 코드에는 두 메서드가 같은 결과를 보여주게 하는 함정이 숨어있다.
 
-실제로도 HTTP 메서드 중 PUT과 PATCH 모두 자원을 수정하는 용도로 많이 사용한다. 
+실제로 'Put'과 'Patch'는 서로 **대체재 관계**가 아니다. 둘은 애초에 엄연히 다른 정의와 규약을 가지고 있고, 실제 사용할 때도 멱등성과 관련한 차이를 보이기 때문이다. 
 
-하지만 둘은 자원을 수정하는 Http Method 중에서 **대체재 관계**라고는 할 수 없다. 왜냐하면 둘은 애초에 엄연히 다른 정의와 규약을 가지고 있고, 실제 사용할 때도 멱등성과 관련한 미묘한 차이를 보이기 때문이다. 
-
-이 두 가지 메서드는 수정이라는 같은 작업을 하는 것 같이 보이기 때문에  
-잘못 사용하면 클라이언트와 서버 간의 통신에 혼선이 올 수 있다. 
-
-따라서 PUT과 PATCH의 정의의 차이를 알아보고 코드로써 이를 다뤄보겠다.
+그렇다면 Put과 Patch 정의와 각각을 사용한 예시 코드를 통해 차이를 한번 이해해보자. 그리고 위에서 말한 함정이 무엇이었는지도 함께 알아보자.
 
 
 
