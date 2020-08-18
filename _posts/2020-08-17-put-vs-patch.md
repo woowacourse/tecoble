@@ -4,7 +4,6 @@ title : "자원을 수정하는 HTTP 메서드 - PUT vs PATCH"
 author : "비밥", "보스독"
 comment: "true"
 tags: ["http-method", "put", "patch"]
-
 ---
 
 
