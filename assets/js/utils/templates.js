@@ -1,15 +1,16 @@
-export const commentsTemplate = data =>
+export const commentsTemplate = (data, postUrl) => {
+  const content = marked(data.body);
 
-    `
-        <div class="container">
-            <img src="${data.user.avatar_url}" class="container__pics left"/>
-            <p class="container__content">
-                <span class="container__content__username">${data.user.login}</span>
-                <span class="container__content__time">• il y a 2 heures</span>
-            </p>
-            <div class="container__content__text">
-                <p id="comment-body-${data.id}"></p>
-            </div>
-            
+  return `
+        <div class="container" OnClick="location.href = '${postUrl}'">
+                <div class="container__content">
+                    <img src="${data.user.avatar_url}" class="container__pics left"/>
+                    <a class="container__content__username" href="${data.user.html_url}">${data.user.login}</a>
+                <span>${data.created_at.substring(0, data.created_at.lastIndexOf("T"))}</span>
+                </div>
+                <div class="container__content__text">
+                ${content}
+                </div>
         </div>
 `
+}
