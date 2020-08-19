@@ -308,7 +308,7 @@ void remove() throws Exception {
 
 build를 하면 `build/generated-snippets`에 다음과 같이 생길 것이다.
 
-![image](https://user-images.githubusercontent.com/45934117/90552601-0dd81900-e1ce-11ea-8e11-8e4d160c8b4f.png)
+![generated-snippets 파일](../images/2020-08-18-spring-rest-docs1.png)
 
 `src/main/docs/asciidoc`와 같이 디렉토리를 만들고 `*.adoc`파일을 만들어 준다. (ex. api-docs.adoc)
 
