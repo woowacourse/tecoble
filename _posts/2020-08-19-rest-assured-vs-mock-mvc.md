@@ -13,7 +13,7 @@ MockMvc와 RestAssured는 우리가 애플리케이션을 개발할 때 테스�
 
 ## 의존성
 
-MockMvc는 Spring Framework Test 클래스 중 하나다. 별도의 의존성 추가를 하지 않아도 사용할 수 있다. 반면에 RestAssured는 직접 의존성을 추가해줘야 한다.
+MockMvc는 Spring Framework Test 클래스 중 하나다. 즉 별도의 의존성 추가를 하지 않아도 사용할 수 있다. 반면에 RestAssured는 직접 의존성을 추가해줘야 한다.
 
 RestAssured 의존성은 아래와 같이 추가할 수 있다.
 
@@ -79,7 +79,8 @@ public void getMember() {
 }
 ```
 
-RestAssured는 [BDD](https://beomseok95.tistory.com/293) 스타일로 작성할 수 있고 가독성이 좋다. MockMvc와 비교해보자.
+위의 예제는 RestAssured를 사용한 테스트이다.
+RestAssured는 [BDD](https://beomseok95.tistory.com/293) 스타일로 작성할 수 있고 가독성이 좋다. 아래의 MockMvc와 비교해보자.
 
 ```java
 @Test
@@ -91,11 +92,11 @@ public void getMember() throws Exception {
 }
 ```
 
-BDD 스타일로 작성한 RestAssured가 더 쉽게 읽히는 것을 알 수 있다.
+MockMvc와 비교해 봤을 때 BDD 스타일로 작성한 RestAssured가 더 쉽게 읽히는 것을 알 수 있다.
 
 BDD로 작성한 테스트는 시나리오를 기반으로 하고 비개발자가 봐도 이해할 수 있을 정도를 권장하는 것을 생각해봤을 때 사용자 관점의 테스트인 인수 테스트에선 RestAssured를 사용하는 게 적절할 수 있다.
 
-또한 두 개의 예제 코드 마지막 줄에서 확인할 수 있듯이 RestAssured는 MockMvc보다 json data를 검증하기 쉽고 편하다는 장점이 있다. RestAssured는 json data 검증을 위한 다양한 메서드들을 제공한다.
+가독성과 더불어 두 개의 예제 코드 마지막 줄에서 확인할 수 있듯이 RestAssured는 MockMvc보다 json data를 쉽고 편하게 검증할 수 있다는 장점이 있다. 예제에서 보여준 메서드 이외에도 RestAssured는 MockMvc보다 json data 검증을 위한 다양한 메서드들을 제공한다.
 
 ---
 
@@ -110,6 +111,6 @@ RestAssured와 MockMvc를 제외하고도 TestRestTemplate, WebTestClient 등등
 #### 참고자료
 
 -   [What's the difference between MockMvc, RestAssured, and TestRestTemplate? - stack overflow](https://stackoverflow.com/questions/52051570/whats-the-difference-between-mockmvc-restassured-and-testresttemplate)
--   [A Guide to REST-assured](https://www.baeldung.com/rest-assured-tutorial)
+-   [A Guide to REST-assured - Baeldung](https://www.baeldung.com/rest-assured-tutorial)
 -   [Spring Rest Docs 적용](https://woowabros.github.io/experience/2018/12/28/spring-rest-docs.html)
 -   브라운의 강의 자료
