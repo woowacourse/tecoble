@@ -198,7 +198,6 @@ void create() throws Exception {
 ```
 
 1. 요청 방식(get, post 등)은 post를 선택하고  `/post`를 호출한다.
-
 2. create는 RequestBody를 받기 때문에 실제 값과 동일한 형식으로 content에 값을 넣는다.
 
    ```json
@@ -207,17 +206,11 @@ void create() throws Exception {
        "content": "content"
    }
    ```
-
 3. create는  application/json 형식으로 요청을 받는다.
-
 4. 정상적으로 동작시 `isCreated`상태 코드를 보낸다.
-
 5. documentation의 이름을 적어준다.
-
 6. create의 requestFields을 받는다.
-
 7. RequestBody 정보를 보면 CREATE는 `title`과 `content`를 받는다. `fieldWithPath`는 key값을, `description`는 `fieldWithPath`에 대한 설명을 쓴다.
-
 8. Test를 할 때 만약 `content`의 값이 없다면 테스트는 실패할 것이다. 따라서 `content`와 같이 `null`일 수 있다면 `optional()`을 붙여주면 된다.
 
 다음으로 findAll과 findById이다. (중복되는 설명은 생략하겠습니다.😂😂)
