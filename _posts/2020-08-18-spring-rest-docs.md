@@ -266,10 +266,15 @@ void findById() throws Exception {
 ```
 
 1. findAll는 application/json 형식으로 응답을 보낸다.
+
 2. findAll는 responseFields를 준다.
+
 3. 설명은 create의 7번과 같고, List형식은 `[].id`처럼 앞에 `[]`를 해야한다.
+
 4. PathVariable로 받는 값(ex. `postResponse.getId()`)을 넣어준다.
+
 5. findById는 PathVariable를 받는다.
+
 6. pathParameters는 parameterWithName로 PathVariable의 Name(postId)을 쓴다.
 
 이제 이전 설명을 바탕으로 update와 delete를 작성할 수 있다.
