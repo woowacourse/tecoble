@@ -64,7 +64,7 @@ public class UserNameEmptyException extends RuntimeException {
 
 이미 자바에서는 충분히 많은 표준 예외를 제공하고 있으므로 표준 예외를 재사용한다면 이를 막을 수 있다. 
 
-<p>
+<p style="text-align: center;">
   <img src="../images/2020-08-17-custom-exception-counter.jpg"><br>
   <em>(잠깐!)</em>
 </p>
