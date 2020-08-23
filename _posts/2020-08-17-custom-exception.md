@@ -91,7 +91,7 @@ github에서 **38.8k**의 스타를 가진 spring이다. 그들이 옳다면 어
 
 ### 2. 상세한 예외 정보를 제공할 수 있다.
 
-객체의 범위를 벗어난 index 접근 요청이 생겼다고 해보자.
+컬렉션의 범위를 벗어난 index 접근 요청이 생겼다고 해보자.
 
 기존의 예외에선 `IllegalArgumentException`이나 `IndexOutOfBoundsException`을 후보로 생각해볼 수 있을 것이다. 예외 메시지로는 `"범위를 벗어났습니다."` 정도면 적당하다.
 
