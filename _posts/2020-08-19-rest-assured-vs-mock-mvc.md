@@ -21,7 +21,7 @@ RestAssured는 REST 웹 서비스를 검증하기 위한 라이브러리이며 �
 
 @SpringBootTest로 실제 요청을 보내서 전체적인 로직을 테스트한다. 실제 요청 시 필요한 다양한 메서드도 제공한다.
 
-하지만 MockMvc와 @SpringBootTest로 실제 요청을 보내는 전 구간 테스트를 할 수도 있고 RestAssured에서 별도의 구성을 통해 @WebMvcTest로 Controller Layer 단위 테스트를 할 수도 있다.
+하지만 MockMvc 만의 장점이 좋은 사람은 @SpringBootTest로 실제 요청을 보내는 전 구간 테스트를 할 수도 있고 RestAssured 만의 장점이 좋은 사람은 별도의 구성을 통해 @WebMvcTest로 Controller Layer 단위 테스트를 할 수도 있다.
 
 어떤 Test에는 어떤 도구를 무조건 사용해야 한다는 정답은 없지 않을까 생각한다.
 
