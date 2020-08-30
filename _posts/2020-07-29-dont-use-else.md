@@ -220,7 +220,7 @@ public int getWootecoCrewScore(String name) {
 
 이 외에도 [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **객체지향 생활 체조**에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
 
-그리고 객체지향 생활 체조의 규칙들을 지키면서 코드를 작성한다면 우리의 코드는 객체지향적인 코드로 발전할 수 있을 것이다!
+객체지향 생활 체조의 규칙들을 지키면서 코드를 작성한다면 우리의 코드는 객체지향적인 코드로 발전할 수 있을 것이다!
 
 <br/>
 
