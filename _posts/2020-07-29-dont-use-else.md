@@ -216,7 +216,7 @@ public int getWootecoCrewScore(String name) {
 
 분기문을 줄이려는 노력을 하다 보면 메서드를 더 많이 분리하게 된다. 이는 하나의 메서드가 하나의 기능만 하도록 도와주는데, 그러다 보면 코드는 점차 객차지향적으로 변하게 될 것이다.
 
-객체지향적인 코드 작성으로 우리는 재사용성이 높고 유지 보수하기 좋은 코드를 가질 수 있게 된다.
+객체지향적인 코드 작성으로 우리는 재사용성이 높고 유지 보수하기 좋은 코드를 가질 수 있다.
 
 이 외에도 [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **객체지향 생활 체조**에는 8개의 규칙이 남아있다. 이 규칙들이 왜 필요한지, 규칙을 지킴으로서 어떤 장점을 얻을 수 있는지 생각해보고 고민하자.
 
@@ -233,4 +233,3 @@ public int getWootecoCrewScore(String name) {
 > [더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조(3)](https://developerfarm.wordpress.com/2012/01/27/object_calisthenics_3/)
 >
 > 
-
