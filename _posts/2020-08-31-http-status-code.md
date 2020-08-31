@@ -14,6 +14,7 @@ tags: ["http", "status-code"]
 50여 개의 3 자릿수 코드가 존재하고 백의 자리의 수에 따라 그룹을 구분한다.  
 1xx는 정보 응답, 2xx는 성공 응답, 3xx는 리다이렉트, 4xx는 요청오류, 5xx는 서버오류다.  
 x00번이 해당 그룹의 대표로 쓰이며 뒤의 숫자마다 각기 다른 세부 정보를 포함한다.  
+
 대표적으로 사용되는 코드들은 다음과 같다.
 
 ```
@@ -166,5 +167,7 @@ https://stackoverflow.com/questions/39636795/http-status-code-4xx-vs-5xx
 ---
 
 참고 문서  
+
 [404 vs 204 vs 200](https://ko.mort-sure.com/blog/http-get-rest-api-no-content-404-vs-204-vs-200-83ab9c/)
+
 [200 vs 404](https://brainbackdoor.tistory.com/137)
