@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Spring Swagger 팔아보겠습니다."
+title: "API 문서 자동화 Swagger 팔아보겠습니다."
 author: "티거"
 comment: "true"
 tags: ["spring", "docs"]
