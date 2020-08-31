@@ -131,7 +131,7 @@ public class SwaggerConfig {
 }
 ```
 
-똑같은 코드를 두번 작성한 것처럼 보이지만 자세히 보면 약간 차이가 있다는 것을 느낄 수 있을 겁니다. 코드작성이 끝나셨다면 서버를 실행시켜 http://localhost:8080/swagger-ui.html로 들어가봅니다.
+똑같은 코드를 두번 작성한 것처럼 보이지만 자세히 보면 약간 차이가 있다는 것을 느낄 수 있을 겁니다. 코드작성이 끝나셨다면 서버를 실행시켜 http://localhost:8080/swagger-ui.html 로 들어가봅니다.
 
 **잠깐!**
 
@@ -141,7 +141,7 @@ public class SwaggerConfig {
 
 `springfox-swagger-ui`가 이렇게 만들어주기 때문입니다.
 
-각설하고 http://localhost:8080/swagger-ui.html로 이동하면 컬러풀하게 만들어진 문서 화면을 보실 수 있을 겁니다.
+각설하고 http://localhost:8080/swagger-ui.html 로 이동하면 컬러풀하게 만들어진 문서 화면을 보실 수 있을 겁니다.
 
 ![image](https://user-images.githubusercontent.com/45934117/91722205-e83b0e80-ebd4-11ea-9759-eada4957a0d7.png)
 
@@ -243,7 +243,7 @@ public ApiInfo(
 
 화면도 봤고, 코드도 이해했는데 테스트는 어디서 할 수 있냐고요?
 
-http://localhost:8080/swagger-ui.html에 들어가서 API를 클릭하면 다음과 같은 화면을 볼 수 있습니다.
+http://localhost:8080/swagger-ui.html 에 들어가서 API를 클릭하면 다음과 같은 화면을 볼 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/45934117/91733388-69e66880-ebe4-11ea-98b8-1ba806cc938a.png)
 
@@ -310,7 +310,7 @@ public class SwaggerUiWebFluxConfigurer implements WebFluxConfigurer {
 
 둘 중 하나만 만들면 나머지는 2.9.2와 동일합니다.
 
-아! 주소는 http://host/context-path/swagger-ui/index.html OR http://host/context-path/swagger-ui/로 바뀌었습니다. 이유는 2.9.2와 동일합니다.😊😊
+아! 주소는 http://host/context-path/swagger-ui/index.html OR http://host/context-path/swagger-ui/ 로 바뀌었습니다. 이유는 2.9.2와 동일합니다.😊😊
 
 들어가보시면 UI도 바뀐 것을 확인할 수 있습니다.
 
