@@ -172,7 +172,7 @@ body: JSON.stringify({
 ...
 ```
 
-PUT의 경우, URL에 담긴 정보로 엔티티를 식별할  수 없다면 생성까지 해야하기 때문에 엔티티에 필요한 모든 정보를 payload에 실어 보내야 한다. 
+PUT의 경우, URL에 담긴 정보로 엔티티를 식별할 수 없다면 생성까지 해야하기 때문에 엔티티에 필요한 모든 정보를 payload에 실어 보내야 한다. 
 
 하지만 PATCH는 부분 수정을 위한 데이터만 요청의 payload로 보내기 때문에 아래와 같이 body를 받는 DTO를 별도로 만들어 주어야 하고, 이 부분 데이터를 받는 DTO로는 새로운 엔티티를 생성할 수 없고 오직 부분 수정을 위한 데이터로써의 준비를 마치게 된다.
 
@@ -236,6 +236,5 @@ PUT은 멱등성을 지키지만 PATCH는 멱등성을 지키지 못한다는 �
 [컴퓨터 과학에서의 멱등성](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning)
 
 [PUT과 PATCH의 멱등성](https://stackoverflow.com/questions/28459418/use-of-put-vs-patch-methods-in-rest-api-real-life-scenarios)
-
 
 
