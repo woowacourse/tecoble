@@ -17,7 +17,7 @@ tags: ["http-method", "put", "patch"]
 
 개발자들 중에는 Put과 Patch의 차이를 크게 생각하지 않고 아무거나 선택하거나 혼용하여 API를 만드는 사람도 있다. 
 
-정말로 둘 메서드를 구별없이 사용해도 괜찮은 걸까!?
+정말로 두 메서드를 구별없이 사용해도 괜찮은 걸까!?
 
 
 
@@ -236,7 +236,6 @@ PUT은 멱등성을 지키지만 PATCH는 멱등성을 지키지 못한다는 �
 [컴퓨터 과학에서의 멱등성](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning)
 
 [PUT과 PATCH의 멱등성](https://stackoverflow.com/questions/28459418/use-of-put-vs-patch-methods-in-rest-api-real-life-scenarios)
-
 
 
 
