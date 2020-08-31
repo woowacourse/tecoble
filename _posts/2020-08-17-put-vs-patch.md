@@ -222,7 +222,7 @@ PUT과 PATCH는 HTTP 메서드이지만 규약일 뿐 특정 행동을 강제할
 하지만 이러한 규약은 모두가 동의한 약속이고 클라이언트와 서버 간의 통신에서 혼란이 발생하지 않도록 정의를 잘 알고 사용하는 것이 좋다.
 
 *PUT과 PATCH의 차이점으로 멱등성에 대한 이야기도 많이 있다.  
-PUT은 멱등성을 지키지만 PATCH는 멱등성을 지키지 못한다는 이야기인데 멱등성에 대한 이야기 만으로도 하나의 글을 작성할 수 있을 만큼 그 내용이 방대하기 때문에 아쉽게도 이번 글에서는 다루지 않았다.  
+PUT은 멱등성을 지키지만 PATCH는 멱등성을 지키지 못한다는 것이다. 멱등성에 대한 이야기 만으로도 하나의 글을 작성할 수 있을 만큼 그 내용이 방대하기 때문에 아쉽게도 이번 글에서는 다루지 않았다.  
 만약 멱득성의 차이를 알아보고 싶다면 아래 참고에 추가한 PUT과 PATCH의 멱등성을 보길 추천한다.*
 
 ## 참고
@@ -236,7 +236,6 @@ PUT은 멱등성을 지키지만 PATCH는 멱등성을 지키지 못한다는 �
 [컴퓨터 과학에서의 멱등성](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning)
 
 [PUT과 PATCH의 멱등성](https://stackoverflow.com/questions/28459418/use-of-put-vs-patch-methods-in-rest-api-real-life-scenarios)
-
 
 
 
