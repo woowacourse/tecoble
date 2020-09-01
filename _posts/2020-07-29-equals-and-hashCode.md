@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: "equals와 hasCode는 왜 같이 재정의해야 할까?"  
+title: "equals와 hashCode는 왜 같이 재정의해야 할까?"  
 author: "둔덩"
 comment: "true"
 tags: [""]
