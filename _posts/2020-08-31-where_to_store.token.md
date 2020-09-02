@@ -34,3 +34,11 @@ tags: ["token", "authorization"]
 하지만 보안의 측면에서 웹 스토리지(로컬 스토리지 + 세션 스토리지)는 좋지 못하다고 할 수 있습니다. 웹 스토리지에 저장된 값은 javascript 코드를 통해 언제든지 접근할 수 있는데, 이는 웹 사이트에 악의적인 스크립트를 넣어 의도하지 않은 동작을 발생시키는 XSS(cross-site scripting)공격에 취약합니다.
 
 반면 쿠키에 저장한 값은 HttpOnly 속성을 통해 javascript를 통한 접근을 막을 수 있습니다. 때문에 보안적인 측면을 사용한다면 웹 스토리지보다는 쿠키에 저장하는 것이 좋다고 할 수 있습니다.
+
+### 참고자료
+
+[Local Storage vs Session Storage vs Cookie](https://medium.com/@krishankantsinghal/local-storage-vs-session-storage-vs-cookie-22655ff75a8)
+
+[스택 오버플로우](https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies)
+
+[how to securely store JWT tokens](https://dev.to/gkoniaris/how-to-securely-store-jwt-tokens-51cf)
