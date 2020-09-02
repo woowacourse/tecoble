@@ -20,6 +20,13 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-line"></div>
 
+  {% if page.toc %}
+    <h2 class="toc-title">Content</h2>
+    <div class="toc">    
+        {% toc %}
+    </div>
+  {% endif %}
+
   {{ content }}
   <br>
   <h2>Tags</h2>
