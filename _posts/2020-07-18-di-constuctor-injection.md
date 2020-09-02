@@ -4,6 +4,7 @@ title: "왜 Constructor Injection을 사용해야 하는가?"
 author: "스티치"
 comment: "true"
 tags: ["Spring", "DI"]
+toc: "true"
 ---
 
 ## Spring의 DI, 그리고 IoC
