@@ -20,7 +20,7 @@ private static void setDistanceEdge(WeightedGraph<Long, RouteEdge> graph, LineSt
     if (lineStation.isNotStart()) {
         graph.addVertex(lineStation.getPreStationId());
         graph.addEdge(lineStation.getPreStationId(), lineStation.getStationId(), routeEdge);
-        graph.setEdgeWeight(routeEdge, **routeEdge.getDistance()**); // 중복
+        graph.setEdgeWeight(routeEdge, routeEdge.getDistance()); // 중복
     }
 }
 
@@ -30,7 +30,7 @@ private static void setDurationEdge(WeightedGraph<Long, RouteEdge> graph, LineSt
     if (lineStation.isNotStart()) {
         graph.addVertex(lineStation.getPreStationId());
         graph.addEdge(lineStation.getPreStationId(), lineStation.getStationId(), routeEdge);
-        graph.setEdgeWeight(routeEdge, **routeEdge.getDuration()**); // 중복
+        graph.setEdgeWeight(routeEdge, routeEdge.getDuration()); // 중복
     }
 }
 ```
@@ -50,7 +50,7 @@ LineStation lineStation) {
     if (lineStation.isNotStart()) {
         graph.addVertex(lineStation.getPreStationId());
         graph.addEdge(lineStation.getPreStationId(), lineStation.getStationId(), routeEdge);
-        graph.setEdgeWeight(routeEdge, **edgeWeightStrategy.getWeight(routeEdge)**);
+        graph.setEdgeWeight(routeEdge, edgeWeightStrategy.getWeight(routeEdge));
     }
 }
 ```
@@ -66,6 +66,7 @@ public interface EdgeWeightStrategy {
 
 ```java
 // EdgeWeightType.java
+// 거리 혹은 시간, 가중치의 선정 기준으로 사용되는 Enum
 
 public enum EdgeWeightType {
     DISTANCE(edge -> edge.getDistance())),
@@ -89,7 +90,7 @@ public enum EdgeWeightType {
 EdgeWeightType을 다시 한 번 확인해보자. 현재 EdgeWeightType은 EdgeWeightStrategy와 너무 책임을 많이 나눈 나머지 EdgeWeightType은 EdgeWeightStrategy를 가지고 있을 뿐, 아무런 책임을 가지지 못한 객체가 되어버렸다. 오히려 과한 객체 분리로 인해 이 코드의 사용자에게 하여금 EdgeWeightStrategy에 대해 어떤 역할을 하는 지 파악하는 데 시간을 들이게 할 뿐만 아니라 코드의 복잡도를 높이게 되었다.
 
 ```java
-    SubwayGraph.xxx(..., EdgeWeightStrategy edgeWeightStrategy, ...)
+subwayGraph.method(EdgeWeightStrategy edgeWeightStrategy, ...)
 ```
 
 위 메서드가 있다고 했을때, EdgeWeightType가 가지고 있는 EdgeWeightStrategy를 이용해야 한다면 결국 EdgeWeightType이 구현한 EdgeWeightStrategy를 외부로 공개해야 한다는 문제점이 존재한다.
@@ -123,9 +124,9 @@ public enum EdgeWeightType implements EdgeWeightStrategy {
 
 위와 같이 구현할 경우, 어떤 장점이 있을까?
 
-1.  사용자가 interface를 사용할 수 있도록 유지하면서 enum이 전략의 구현체가 된다면, 사용자 입장에서 `EdgeWeightType` 내부 구현은 신경쓰지 않아도 된다. 또한 기존 `EdgeWeightType`은 enum으로서 구현한 전략 객체의 유일성을 보장할 수 있게 된다.
+1.  사용자가 interface를 사용할 수 있도록 유지하면서 enum이 전략의 구현체가 된다면, 사용자 입장에서 EdgeWeightType 내부 구현은 신경쓰지 않아도 된다. 또한 기존 EdgeWeightType은 enum으로서 구현한 전략 객체의 유일성을 보장할 수 있게 된다.
 
-2. `EdgeWeightType`과 함께 `EdgeWeightStrategy`를 구현한 새로운 class, enum을 이용할 수 있어 코드의 유연성을 확보할 수 있다. 이는 테스트 시에도 `EdgeWeightType`과는 무관하게 테스트를 위한 구현체를 만들어 원할히 테스트를 할 수 있다는 점과도 연결이 된다.
+2. EdgeWeightType과 함께 EdgeWeightStrategy를 구현한 새로운 class, enum을 이용할 수 있어 코드의 유연성을 확보할 수 있다. 이는 테스트 시에도 EdgeWeightType과는 무관하게 테스트를 위한 구현체를 만들어 원할히 테스트를 할 수 있다는 점과도 연결이 된다.
 
 ## 위임을 통한 응집력 높히기
 
