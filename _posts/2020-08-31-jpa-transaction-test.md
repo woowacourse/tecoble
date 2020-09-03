@@ -6,11 +6,9 @@ comment: "true"
 tags: ["jpa", "transaction", "test"]
 ---
 
-# JPA 사용시 테스트 코드에서 @Transactional 주의하기
+서비스 레이어(`@Service`)에 대해 테스트를 한다면 보통 DB와 관련된 테스트 코드를 작성하게 된다. 이러면 테스트 메서드 내부에서 사용했던 데이터들이 그대로 남아있게 되어서 실제 서비스에 영향을 미칠 수 있기 때문에 테스트가 끝나면 지워야 할 필요가 있다. 이러한 문제를 해결하기 위해 `@Sql` 애너테이션을 이용해서 직접 DB를 Truncate하는 Query를 직접 작성하는 방법도 있고, 테스트 메서드에 `@Transactional` 애너테이션을 이용해서 테스트 메서드가 종료될 때 테스트 메서드 내부에서 생성했던 데이터를 rollback하는 방법도 있다.
 
-Service 계층에 대해 테스트를 한다면 보통 DB와 관련된 테스트 코드를 작성하게 된다. 이러면 테스트 메서드 내부에서 사용했던 데이터들이 그대로 남아있게 되어서 실제 서비스에 영향을 미칠 수 있기 때문에 테스트가 끝나면 지워야 할 필요가 있다. 이러한 문제를 해결하기 위해 `@Sql` 애너테이션을 이용해서 직접 DB를 Truncate하는 Query를 직접 작성하는 방법도 있고, 테스트 메서드에 `@Transactional` 애너테이션을 이용해서 테스트 메서드가 종료될 때 테스트 메서드 내부에서 생성했던 데이터를 rollback하는 방법도 있다.
-
-`@Sql` 작성은 관련된 DB의 Truncate Query를 직접 작성해야하고 관련된 Table이 증가할 때마다 Query도 같이 수정해야 하는 번거로움이 있다. 반면 `@Transactional` 을 이용하여 손쉽게 관련된 Table을 rollback 할 수 있기 때문에 사용하고 싶은 마음이 생길 수 있다.
+`@Sql` 작성은 관련된 DB의 Truncate Query를 직접 작성해야하고 관련된 Table이 증가할 때마다 Query도 같이 수정해야 하는 번거로움이 있다. 반면 `@Transactional` 은 클래스 혹은 메서드에 명시하는 것 만으로 손쉽게 관련된 Table의 데이터를 rollback 할 수 있기 때문에 굉장히 편리하다.
 
 ![](../images/2020-08-31-jpa-transactional-test-definition.png)
 
@@ -153,7 +151,7 @@ class PhoneServiceTest {
 
 `LazyInitailizationException`이 발생하는 이유는 실제 **서비스 코드에서는 `@Transactional` 이 없기 때문에 영속성 컨텍스트가 존재하지 않아서 Lazy Loading이 불가능**하지만, **테스트 코드는 `@Transactional` 이 존재하기 때문에 영속성 컨텍스트가 존재하면서 Lazy Loading이 가능**했기 때문이다.
 
-따라서 서비스 레이어의 테스트 코드에 `@Transactional`을 이용하는 것으로 인해 **개발자의 실수로 인해 런타임에서만 발생**할 수 있는 문제가 생길수 있다.
+따라서 서비스 코드에는 `@Transactional` 을 이용하지 않고 테스트 코드에만 `@Transactional` 을 이용한다면 **개발자의 실수로 런타임에서만 발생**하는 문제가 생길수 있다.
 
 그렇다면 서비스 코드에만 `@Transactional` 을 이용하고 테스트에서는 어떻게 하는 게 좋을까?
 
