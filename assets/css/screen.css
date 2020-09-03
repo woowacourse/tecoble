@@ -108,3 +108,8 @@
     color: #9eb7fe !important;
     text-decoration: underline !important;
 }
+
+.toc-bottom-line {
+    border-top: 1px solid #e6e6e6;
+    margin: 30px auto;
+}

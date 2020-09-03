@@ -21,10 +21,11 @@ layout: default
   <div class="post-line"></div>
 
   {% if page.toc %}
-    <h2 class="toc-title">Content</h2>
+    <h2 class="toc-title">Contents</h2>
     <div class="toc">    
         {% toc %}
     </div>
+    <hr class="toc-bottom-line">
   {% endif %}
 
   {{ content }}
