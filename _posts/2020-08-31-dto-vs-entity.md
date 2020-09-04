@@ -9,7 +9,7 @@ tags: ["DTO", "Entity"]
 
 
 
-처음 웹 애플리케이션을 개발하다보면, 많이 하는 실수 중 하나가 바로 응답과 요청으로 엔티티를 직접 사용하는 것이다.
+처음 웹 애플리케이션을 개발하다보면, 많이 하는 실수 중 하나가 바로 요청과 응답으로 엔티티를 직접 사용하는 것이다.
 
 다음은 컨트롤러에서 요청과 응답으로 엔티티를 직접 사용했을 때의 코드이다. 
 
@@ -23,12 +23,12 @@ public ResponseEntity<Line> read(@PathVariable("id") Long id) {
 
 겉으로 봤을 때는 별 문제가 없어 보이지만, 실제로는 많은 문제와 위험성을 내포하고 있다.
 
-그렇기 때문에 아래와 같이 요청과 응답에 필요한 DTO를 별도로 만들어서 적절한 상황에 인자로 받거나 return 타입으로 사용한다.
+그렇기 때문에 아래와 같이 요청과 응답에 필요한 DTO를 별도로 만들어서 적절한 상황에 인자로 받거나 return 타입으로 사용하는 것이 좋다.
 
 ``` Java
 @GetMapping("/lines/{id}")
 public ResponseEntity<LineResponseDto> read(@PathVariable("id") Long id) {
-  Line line = lineService.readLine(id);
+  LineResponseDto line = lineService.readLine(id);
   return ResponseEntity.ok(line);
 }
 ```
@@ -81,10 +81,14 @@ public class User {
   private Long id;
   
   private UserName username;
+  
   private Team team;
+  
   @JsonIgnore
   private College college;
+  
   private Major major;
+  
   @JsonIgnore
   private Age age;
 }
@@ -156,7 +160,7 @@ public class UserRequest {
 
 그럼에도 불구하고 요청과 응답으로 엔티티를 사용하면, 개발의 편리함을 얻는 대신 애플리케이션의 결함을 얻게 될 수 있다.
 
-위에서 언급한 결함들은 물론이고, API 스펙과 엔티티 사이에 의존성이 생기는 문제도 간과할 수 없다. 우리는 UI과 도메인이 서로 의존성을 갖지 않고 독립적으로 개발하는 것을 지향하기 때문에 이를 중간에서 연결시켜주는 DTO의 역할은 꽤나 중요하다고 말할 수 있다.
+위에서 언급한 결함들은 물론이고, API 스펙과 엔티티 사이에 의존성이 생기는 문제도 간과할 수 없다. 우리는 UI와 도메인이 서로 의존성을 갖지 않고 독립적으로 개발하는 것을 지향하기 때문에 이를 중간에서 연결시켜주는 DTO의 역할은 꽤나 중요하다.
 
 요청과 응답으로 DTO를 사용하면 각각의 DTO 클래스가 데이터를 전송하는 클래스로서의 역할을 명확히 가질 수 있게 되고, 이는 하나의 클래스가 하나의 역할을 해야 한다는 객체지향의 정신과도 부합하는 부분이라고 생각한다.
 
