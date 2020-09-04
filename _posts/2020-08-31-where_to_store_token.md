@@ -11,7 +11,7 @@ tags: ["token", "authorization"]
 
 웹 클라이언트에서 무언가를 저장하기 위해 사용하는 공간은 크게 쿠키와 웹 스토리지로 나눌 수 있습니다. 그리고 웹 스토리지는 다시 세션 스토리지와 로컬 스토리지로 나뉘어 집니다. 이는 크롬에서 개발자 도구를 통해 다음과 같이 확인할 수 있습니다.
 
-![](../images/2020-08-31-where_to_store_token_chrome.png)
+![chrome](../images/2020-08-31-where_to_store_token_chrome.png)
 
 이 중 토큰은 어디에 저장해야 적절한지 알아보기 위해 각각의 특성을 먼저 알아보겠습니다.
 
@@ -25,7 +25,7 @@ tags: ["token", "authorization"]
 
 세션 스토리지는 session cookies와 비슷하다고 볼 수 있습니다. 말 그대로 세션을 위한 저장 공간이며 세션이 종료되면 모두 삭제됩니다. 쿠키와 다르게 서버에서 접근할 수 없기 때문에, 다음과 같이 클라이언트에서 스토리지의 값을 꺼내서 서버에 전달해주어야 합니다.
 
-![](../images/2020-08-31-where_to_store_token_javascript.png)
+![javascript](../images/2020-08-31-where_to_store_token_javascript.png)
  
 만약 여러 개의 탭을 사용하면 탭 별로 세션 스토리지를 사용합니다. 상당히 큰 저장 공간(5~10MB)을 가집니다. 
 
