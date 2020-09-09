@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "인자가 많을 땐? Builder!"
+title: "생성자 인자가 많을 땐? Builder!"
 author: "유안, 카일"
 comment: "true"
 tags: ["design-pattern", "class"]
 ---
 
-# 생성자 인자가 많을 때 문제점
+## 생성자 인자가 많을 때 문제점
 
 클래스를 설계하다 보면 필드 개수가 많아지는 경우가 생긴다. 이 때 다음과 같은 문제점들이 발생한다.
 
@@ -49,7 +49,7 @@ public class Hamburger {
 ```java
 public static void main(String[] args) {
         final Hamburger hamburger = new Hamburger(
-            "300칼로리", // 햄버거 이름의 위치에 칼로리를 넣음
+            "300칼로리", // 햄버거 이름의 위치에 칼로리를 작성
             "수제 햄버거", // 칼로리 위치에 햄버거 이름 작성
             true,
             "고기 맛 좋아요",
@@ -59,20 +59,7 @@ public static void main(String[] args) {
 }
 ```
 
-# 빌더 패턴을 이용한 문제 해결
-
-```java
-public static void main(String[] args) {
-        final Hamburger hamburger = new Hamburger()
-            .name("햄버거")
-            .calories("300 칼로리")
-            .tomato(true)
-            .beef("맛좋은 고기")
-            .wantToEat(true);
-    }
-}
-
-```
+## 빌더 패턴을 이용한 문제 해결
 
 이러한 문제를 해결하기 위한 방법으로 `Builder` 라는 패턴이 존재한다. 위와 같이 `Method Chaining` 형태로 객체를 리턴하는 방식을 통해 각 필드의 이름과 인자를 매핑할 수 있다. 이는 앞에서 소개한 문제점들을 해결할 수 있다.
 
@@ -80,15 +67,28 @@ public static void main(String[] args) {
 
 또한, 필드명과 인자를 확인하며 값을 채울 수 있다. 일반적인 생성자를 사용할 때와 다르게 순서를 잘못 기입해서 잘못된 값이 들어가는 경우를 막아준다.
 
-빌더 패턴은 위와 같은 장점이 있기에 유연하게 사용할 수 있으며 읽기 좋은 코드를 작성하도록 도와준다. 그렇다면 빌더 패턴에는 장점만 있을까?
+```java
+public static void main(String[] args) {
+        final Hamburger hamburger = new Hamburger().builder()
+            .name("햄버거")
+            .calories("300 칼로리")
+            .tomato(true)
+            .beef("맛좋은 고기")
+            .wantToEat(true)
+            .build();
+    }
+}
+
+```
 
 # 빌더 패턴 주의점
 
-아래와 같이 모든 필드가 `private final` 인 경우에 이 클래스를 처음 설계한 사람의 의도는 객체로 초기화시킬 때 모든 값을 채워서 초기화하길 원했을 것이다. 하지만 빌더를 사용하는 경우 아래와 같이 초기화되지 않은 채로 객체를 생성할 수 있고, 초기화되지 않은 필드에는 `null` 이 할당된다. 
+빌더 패턴은 위와 같은 장점이 있기에 유연하게 사용할 수 있으며 읽기 좋은 코드를 작성하도록 도와준다. 그렇다면 빌더 패턴에는 장점만 있을까?
 
+아래와 같이 모든 필드가 `private final` 인 경우에 이 클래스를 처음 설계한 사람의 의도는 객체로 초기화시킬 때 모든 값을 채워서 초기화하길 원했을 것이다. 하지만 빌더를 사용하는 경우 아래와 같이 초기화되지 않은 채로 객체를 생성할 수 있고, 초기화되지 않은 필드에는 `null` 이 할당된다. 
 ```java
 @Getter
-@Builder
+@Builder  // 해당 어노테이션을 통해서, 쉽게 빌더를 생성할 수 있다.
 public class Immutable {
     private final String name;
     private final Integer age;
