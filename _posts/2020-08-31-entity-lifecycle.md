@@ -14,12 +14,12 @@ tags: ["JPA", "entity", "transaction"]
 @RequiredArgsConstructor
 @RestController
 public class UserController {
-	private final UserService userService;
+    private final UserService userService;
 
-	@GetMapping("/me")
-	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
-		return ResponseEntity.ok(UserResponse.of(user));
-	}
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
+    return ResponseEntity.ok(UserResponse.of(user));
+    }
 }
 ```
 
@@ -55,17 +55,17 @@ public class UserResponse {
 ```java
 // @CurrentUser가 User Entity를 가지고 오는 로직
 ...
-	@Transactional
-	public ... load(...) {
-		...
-		User user = loadUserByEmail(email);
-		...
-	}
+@Transactional
+public ... load(...) {
+    ...
+    User user = loadUserByEmail(email);
+    ...
+}
 
-	private User loadUserByEmail(String email) {
-		return userRepository.findByEmail(email)
-			.orElseThrow(UserNotFoundException::new);
-	}
+private User loadUserByEmail(String email) {
+    return userRepository.findByEmail(email)
+        .orElseThrow(UserNotFoundException::new);
+}
 ...
 ```
 
@@ -76,14 +76,12 @@ public class UserResponse {
 ```java
 @Entity
 public class Favorite {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
-
-	 @ManyToOne
-   private User user;
-
-	 private ...
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    private User user;
+    private ...
    // Getter, Setter...  
 }
 ```
@@ -91,16 +89,16 @@ public class Favorite {
 ```java
 @Entity
 public class User {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   private String email;
+    private String email;
 
-   private String password;
+    private String password;
 
-   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	 private Set<Favorite> favorites = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Favorite> favorites = new HashSet<>();
    
    // Getter, Setter...  
 }
@@ -108,15 +106,15 @@ public class User {
 
 ```java
 public class UserResponse {
-	private Long id;
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String email;
+    private String email;
 
-	private List<FavoriteResponse> favorites;
+    private List<FavoriteResponse> favorites;
 
-	// Getter, static constructor
+    // Getter, static constructor
 }
 ```
 
@@ -124,8 +122,8 @@ public class UserResponse {
 
 ```
 org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com...User.favorites, could not initialize proxy - no Session
-	at org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:606)
-	at org.hibernate.collection.internal.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:218)
+    at org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:606)
+    at org.hibernate.collection.internal.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:218)
 ...
 ```
 
@@ -135,8 +133,8 @@ LazyInitializationException라는 Exception이 발생한다. 개발할 때 Lazy�
 
 JPA는 Entity를 불러올 때(fetch) 두 가지 전략을 사용할 수 있다. Eager, Lazy가 그 것이다.
 
-> Eager(즉시로딩) : Entity를 조회할 때 연관 Entity도 함께 조회한다.
-Lazy(지연로딩) : Entity를 조회할 때 연관 Entity를 같이 조회하지 않으며, 연관 Entity가 **실제로 사용**될 때 조회한다.
+> Eager(즉시로딩) : Entity를 조회할 때 연관 Entity도 함께 조회한다. \
+> Lazy(지연로딩) : Entity를 조회할 때 연관 Entity를 같이 조회하지 않으며, 연관 Entity가 **실제로 사용**될 때 조회한다.
 
 FetchType은 연관 Entity를 어떻게 조회할 것인지에 대한 설정값이다. 연관 Entity가 항상 같이 필요하면 즉시로딩, 필요할 때마다 쓰고 싶다면 지연로딩을 사용해야 적절할 것이다.
 
@@ -161,20 +159,20 @@ Proxy는 실제 Entity를 상속받아 만들어진다. Proxy 객체는 실제 E
 ```java
 // UserService.java	
 ...
-	@Transactional
-	public UserResponse findMe(User user) {
-		return userRepository.findById(user.getId())
-			.map(UserResponse::of)
-			.orElseThrow(RuntimeException::new);
-	}
+@Transactional
+public UserResponse findMe(User user) {
+    return userRepository.findById(user.getId())
+        .map(UserResponse::of)
+        .orElseThrow(RuntimeException::new);
+}
 ...
 
 // UserContoller.java
 ...
-	@GetMapping("/me")
-	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
-		return ResponseEntity.ok(userService.findMe(user));
-	}
+@GetMapping("/me")
+public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
+    return ResponseEntity.ok(userService.findMe(user));
+}
 ...
 ```
 
@@ -184,19 +182,19 @@ Proxy는 실제 Entity를 상속받아 만들어진다. Proxy 객체는 실제 E
 
 ```java
 ...
-	@Transactional
-	public ... load(..) {
-		...
-		User user = loadUserByEmail(email);
-		...
-	}
+@Transactional
+public ... load(..) {
+    ...
+    User user = loadUserByEmail(email);
+    ...
+}
 
-	private User loadUserByEmail(String email) {
-		User user = userRepository.findByEmail(email)
-			.orElseThrow(UserNotFoundException::new);
-		user.getFavorites().size(); // 사용하는 시점에 연관 entity(Favorite) 초기화, Collection은 직접 요소를 사용해야 초기화가 수행됨
-		return user;
-	}
+private User loadUserByEmail(String email) {
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(UserNotFoundException::new);
+    user.getFavorites().size(); // 사용하는 시점에 연관 entity(Favorite) 초기화, Collection은 직접 요소를 사용해야 초기화가 수행됨
+    return user;
+}
 
 ...
 ```
