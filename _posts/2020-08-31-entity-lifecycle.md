@@ -226,7 +226,11 @@ Optional<User> findByEmail(String email);
 
 다만 Repository의 findByEmail을 사용해 조회하는 모든 User는 불필요하게 Favorites를 불러온다 문제점이 있다. 즉 @CurrentUser를 통해 불러오는 User Entity는 항상 Favorites를 불러오게 된다는 것이다. 또 필요한 연관 Entity에 따라 find와 관련된 기능이 Repository에 메소드가 추가되야 한다는 문제도 존재한다.
 
-위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까? OSIV(Open Session In View)를 활용한다면 Controller까지 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 다만 OSIV까지 다루기에는 글이 너무 길어져 이번에는 다루지 않겠다.
+위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까? 
+
+OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 현재는 구조상 @CurrentUser에서 OSIV가 적용되고 있지는 않지만 OpenEntityManagerInViewFilter를 DelegatingFilterProxy보다 먼저 등록한다면 OSIV가 적용될 것이다.
+
+다만 OSIV까지 다루기에는 글이 너무 길어져 이번에는 다루지 않겠다.
 
 ## 이게 끝인가?
 
