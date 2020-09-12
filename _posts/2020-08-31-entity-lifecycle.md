@@ -7,7 +7,12 @@ tags: ["JPA", "entity", "transaction"]
 ---
 서비스를 개발하다보면 생각하지도 못한 부분에서 버그가 발생하는 때가 있다. 특히 프로젝트 막바지에 이런 경험을 한다면? 생각하기도 싫은 상황일 것이다. 레벨3 프로젝트를 진행하면서 이런 경험을 한 적이 있는데, 이 때 어려움을 겪은 부분을 공유해보고자 한다.
 
-현재 로그인된 사용자의 정보를 Spring Security의 @AuthenticationPrincipal을 활용해 다음과 같이 받아 사용하고 있다. @CurrentUser는 로그인 유저 정보를 활용해 도메인에서 실제로 쓰이는 User 객체를 가져오는 일종의 ArgumentResolver를 생각하면 편할 것이다.
+현재 로그인된 사용자의 정보를 Spring Security의 @CurrentUser Annotation을 활용해 다음과 같이 받아 사용하고 있다. 
+>@AuthenticationPrincipal은 Security에서 미리 구현한 Annotation이다. 사용자 인증 정보를 통해 얻어진 유저 정보(UserDetails)를 가지고 올 수 있는 Annotation이며, 현재 유저 정보는 미리 구현한 CustomUserDetailsService 통해 load 된다.
+>
+>@CurrentUser는 @AuthenticationPrincipal의 expression을 활용하여 유저 정보에서 실제로 구현한 User 클래스를 가지고 올 수 있는 Annotation이다.
+>
+>쉽게 @CurrentUser는 로그인 유저 정보를 활용해 도메인에서 실제로 쓰이는 User 객체를 가져오는 일종의 ArgumentResolver를 생각하면 편할 것이다.
 
 ```java
 @RequestMapping("/user")
@@ -50,23 +55,30 @@ public class UserResponse {
 }
 ```
 
-@CurrentUser는 HttpRequest Header의 정보(Authorization)를 통해 다음 메소드를 활용하여 실제 User 객체를 찾는다.
+```java
+@Target({ElementType.PARAMETER, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? new (...).EmptyUser() : user") // anonymousUser이면 EmptyUser를 반환하고, 아니면 구현 클래스에 있는 user 필드를 반환. EmptyUser는 비로그인 유저를 표현하기 위한 객체 
+public @interface CurrentUser {
+}
+```
 
 ```java
-// @CurrentUser가 User Entity를 가지고 오는 로직
-...
-@Transactional
-public ... load(...) {
-    ...
-    User user = loadUserByEmail(email);
-    ...
-}
+// 
+@Service
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+public class CustomUserDetailsService implements UserDetailsService {
+	private final UserRepository userRepository;
 
-private User loadUserByEmail(String email) {
-    return userRepository.findByEmail(email)
-        .orElseThrow(UserNotFoundException::new);
+	@Override
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(email)
+			.orElseThrow(UsernameNotFoundException::new);
+
+		return UserPrincipal.of(user);
+	}
 }
-...
 ```
 
 이와 같이 현재 로그인 유저의 정보를 조회하는 로직을 구현하였다.
@@ -182,21 +194,18 @@ public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
 2) Entity 강제로 초기화 : 영속성 컨텍스트가 존재하는 상황에서 미리 필요한 Entity를 초기화하면 준영속 상태에서도 사용할 수 있다.
 
 ```java
+// CustomUserDetailsService.java
 ...
-@Transactional
-public ... load(..) {
-    ...
-    User user = loadUserByEmail(email);
-    ...
-}
-
-private User loadUserByEmail(String email) {
+@Override
+@Transactional(readOnly = true)
+public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(email)
-        .orElseThrow(UserNotFoundException::new);
-    user.getFavorites().size(); // 사용하는 시점에 연관 entity(Favorite) 초기화, Collection은 직접 요소를 사용해야 초기화가 수행됨
-    return user;
-}
+        .orElseThrow(UsernameNotFoundException::new);
 
+    user.getFavorites().size(); // 사용하는 시점에 연관 entity(Favorite) 초기화, Collection은 직접 요소를 사용해야 초기화가 수행됨
+
+    return UserPrincipal.of(user);
+}
 ...
 ```
 
@@ -233,7 +242,9 @@ Optional<User> findByEmail(String email);
 
 OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 설정 값은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
 
-하지만 기존에 작성해놓은 테스트에서는 분명히 LazyInitializationException이 발생했고, Proxy 초기화를 통해서 연관 Entity를 가지고 오는 것이 가능해졌다. 왜 이런 일이 발생했을까? 이 부분은 Spring Security가 어떤 방식으로 사용자 정보를 가지고 오는지, 그리고 JPA에서 OSIV가 어떤 방식으로 작동하는 지 이해가 필요하다.
+하지만 기존에 작성해놓은 테스트에서는 분명히 LazyInitializationException이 발생했고, Proxy 초기화를 통해서 연관 Entity를 가지고 오는 것이 가능해졌다. 왜 이런 일이 발생했을까?
+
+이 부분은 Spring Security가 어떤 방식으로 사용자 정보를 가지고 오는지, 그리고 JPA에서 OSIV가 어떤 방식으로 작동하는 지 이해가 필요하다.
 
 다만 이 부분까지 다루기에는 글이 너무 길어져 다음에 다루도록 하겠다.
 
