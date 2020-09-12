@@ -64,7 +64,6 @@ public @interface CurrentUser {
 ```
 
 ```java
-// 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CustomUserDetailsService implements UserDetailsService {
@@ -130,13 +129,44 @@ public class UserResponse {
 }
 ```
 
-이와 같이 새롭게 기능을 추가하고 기존에 존재하는 테스트를 수행하면 어떤 결과가 나올까?
+이와 같이 새롭게 기능을 추가하고 기존에 존재하는 인수 테스트를 수행하면 어떤 결과가 나올까?
+
+```java
+UserAcceptanceTest.java
+...
+@DisplayName("현재 유저의 정보를 조회한다.")
+@Test
+void findme() {
+    // given
+    ... // 사용자 회원가입 로직
+    LoginRequest loginRequest = new LoginRequest(TEST_EMAIL, TEST_PASSWORD);
+    AuthResponse authResponse = requestTokenByLogin(loginRequest);
+
+    // when
+    ExtractableResponse<Response> response = given().log().all()
+        .header(AUTHORIZATION, authResponse.getTokenType() + " " + authResponse.getAccessToken())
+        .when()
+        .get("/user/me")
+        .then().log().all()
+        .extract();
+
+    // then
+    assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()
+    ...
+}
+...
+```
+
+![](../images/2020-08-31-entity-lifecycle-02.png)
 
 ```
-org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com...User.favorites, could not initialize proxy - no Session
-    at org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:606)
-    at org.hibernate.collection.internal.AbstractPersistentCollection.withTemporarySessionIfNeeded(AbstractPersistentCollection.java:218)
+// log
+org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: (...).domain.User.favorites, could not initialize proxy - no Session
+    at org.hibernate.collection.internal.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:606) ~[hibernate-core-5.4.17.Final.jar:5.4.17.Final]
     ...
+    at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:578) ~[na:na]
+    at (...).dto.UserResponse.of(UserResponse.java:42) ~[main/:na]
+    at (...).controller.UserController.getCurrentUser(UserController.java:36) ~[main/:na]
 ```
 
 LazyInitializationException라는 Exception이 발생한다. 개발할 때 Lazy라는 단어를 본 적이 없는 것 같은데, 이 Exception은 어디서 발생하는 것일까? 우선 이 예외에 대해 파악해보도록 하자.
