@@ -23,7 +23,7 @@ tags: ["JPA", "transaction", "test"]
 예시를 위한 코드를 먼저 살펴보도록 하자.  
 아래는 1:N 관계를 가진 Member(사용자), CellPhone(핸드폰) Entity이다.
 
-<img src="../images/2020-08-31-jpa-transactional-test-class-diagram.png" style="zoom:33%;" />
+<img src="../images/2020-08-31-jpa-transactional-test-class-diagram.png" width="500" />
 
 ```java
 # Member
@@ -139,7 +139,7 @@ class PhoneServiceTest {
 
 하지만 개발자의 서비스 코드의 메서드에서 `@Transactional` 을 깜빡하고 사용하지 않고 테스트 코드에서만 `@Transactional`을 사용한다면 어떻게 될까?
 
-<img src="../images/2020-08-31-jpa-transactional-test-service-except-transactional.png" style="zoom:33%;" />
+<img src="../images/2020-08-31-jpa-transactional-test-service-except-transactional.png" width="600" />
 
 테스트 코드는 통과하지만
 
@@ -147,7 +147,7 @@ class PhoneServiceTest {
 
 실제로 프로덕션이 서비스 될 때는 **런타임에 `LazyInitializationException`이 발생**하는 것을 볼 수 있다.
 
-<img src="../images/2020-08-31-jpa-transactional-test-lazyload-point.png" style="zoom:50%;" />
+<img src="../images/2020-08-31-jpa-transactional-test-lazyload-point.png" width="500" />
 
 `LazyInitailizationException`이 발생하는 이유는 실제 **서비스 코드에서는 `@Transactional` 이 없기 때문에 영속성 컨텍스트가 존재하지 않아서 Lazy Loading이 불가능**하지만, **테스트 코드는 `@Transactional` 이 존재하기 때문에 영속성 컨텍스트가 존재하면서 Lazy Loading이 가능**했기 때문이다.
 
@@ -184,7 +184,7 @@ Lazy loading 하도록 Entity를 가져오던 쿼리를 fetch join으로 바꿔�
 
 실제로 `@DataJpaTest` 와 같은 테스트 의존성 주입 메서드를 보면 `@Transactional` 가 이미 같이 붙어있는 것을 확인할 수 있다.
 
-<img src="../images/2020-08-31-jpa-transactional-test-datajpatest.png" style="zoom:50%;" />
+<img src="../images/2020-08-31-jpa-transactional-test-datajpatest.png" width="500" />
 
 지금까지 서비스 레이어에 대한 테스트 코드에서 `@Transactional` 을 사용하지 말라는 식으로 이야기를 했는데 스프링에서 제공하는 `@DataJpaTest` 애너테이션은 `@Transactional` 을 제공하고 있는 모습을 보인다.
 
