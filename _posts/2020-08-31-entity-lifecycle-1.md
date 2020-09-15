@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: "Entity Lifecycle을 고려해 코드를 작성하자. - 1"  
+title: "Entity Lifecycle을 고려해 코드를 작성하자 1편"  
 author: "라테"
 comment: "true"
 tags: ["JPA", "entity", "transaction"]
