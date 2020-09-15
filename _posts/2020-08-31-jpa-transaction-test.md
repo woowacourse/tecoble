@@ -168,7 +168,7 @@ class PhoneServiceTest {
 
 이렇게 테스트 코드에서 `@Transactional` 을 제거하고 난 뒤 한 가지 더 주의할 점이 남아있다.
 
-위 테스트 코드에서 `@Transactional` 을 제거하고 테스트를 돌리면 테스트가 통과하지 못한다.
+위 테스트 코드에서 `@Transactional` 을 제거하고 테스트를 수행하면 테스트가 통과하지 못한다.
 
 이는 테스트 코드에서 Lazy loading 을 사용했기 때문이다. 이전 코드에서는 `@Transactional` 로 인해 테스트 코드 전체에 영속성 컨텍스트가 존재하면서 Lazy loading 이 가능했지만 이제 `@Transactional` 이 불가능해졌기 때문이다.
 
