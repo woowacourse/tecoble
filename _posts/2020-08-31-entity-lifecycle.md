@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: "Entity Lifecycle을 고려해 코드를 작성하자."  
+title: "Entity Lifecycle을 고려해 코드를 작성하자. - 1"  
 author: "라테"
 comment: "true"
 tags: ["JPA", "entity", "transaction"]
@@ -45,20 +45,21 @@ public class User {
 
 ```java
 public class UserResponse {
-	private Long id;
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String email;
+    private String email;
 
-	// Getter, static constructor
+    // Getter, static constructor
 }
 ```
 
 ```java
 @Target({ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? new (...).EmptyUser() : user") // anonymousUser이면 EmptyUser를 반환하고, 아니면 구현 클래스에 있는 user 필드를 반환. EmptyUser는 비로그인 유저를 표현하기 위한 객체 
+// anonymousUser이면 EmptyUser를 반환하고, 아니면 구현 클래스에 있는 user 필드를 반환. EmptyUser는 비로그인 유저를 표현하기 위한 객체 
+@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? new (...).EmptyUser() : user") 
 public @interface CurrentUser {
 }
 ```
@@ -67,16 +68,16 @@ public @interface CurrentUser {
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CustomUserDetailsService implements UserDetailsService {
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Override
-	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email)
-			.orElseThrow(UsernameNotFoundException::new);
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(UsernameNotFoundException::new);
 
-		return UserPrincipal.of(user);
-	}
+        return UserPrincipal.of(user);
+    }
 }
 ```
 
@@ -175,7 +176,7 @@ LazyInitializationException라는 Exception이 발생한다. 개발할 때 Lazy�
 
 JPA는 Entity에서 연관 Entity를 불러올 때(fetch) 두 가지 전략을 사용할 수 있다. Eager, Lazy가 그 것이다.
 
-> Eager(즉시로딩) : Entity를 조회할 때 연관 Entity도 함께 조회한다. \
+> Eager(즉시로딩) : Entity를 조회할 때 연관 Entity도 함께 조회한다.
 >
 > Lazy(지연로딩) : Entity를 조회할 때 연관 Entity를 같이 조회하지 않으며, 연관 Entity가 **실제로 사용**될 때 조회한다.
 
@@ -200,7 +201,7 @@ Proxy는 실제 Entity를 상속받아 만들어진다. Proxy 객체는 실제 E
 1) Entity 다시 불러오기
 
 ```java
-// UserService.java	
+// UserService.java
 ...
 @Transactional
 public UserResponse findMe(User user) {
@@ -270,7 +271,7 @@ Optional<User> findByEmail(String email);
 
 위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까? 
 
-OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 설정 값은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
+OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 [Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 설정 값](https://woowacourse.github.io/javable/2020-09-11/osiv)은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
 
 하지만 기존에 작성해놓은 테스트에서는 분명히 LazyInitializationException이 발생했고, Proxy 초기화를 통해서 연관 Entity를 가지고 오는 것이 가능해졌다. 왜 이런 일이 발생했을까?
 
