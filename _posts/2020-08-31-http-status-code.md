@@ -89,7 +89,7 @@ Spring에서는 아래처럼 [ControllerAdvice](https://woowacourse.github.io/ja
 
 ### 401 vs 403
 
-각 상태 코드의 이름 때문에 혼동이 올 수 있다.
+각 상태 코드의 이름 때문에 혼동이 올 수 있다.  
 직역하자면 401 Unauthorized는 **권한이 없는**이고 403의 Forbidden은 **금지된**을 의미한다.
 
 401은 권한(Authorization)보다는 **인증**(Authentication)의 개념으로 가져가는 것이 좋다.  
