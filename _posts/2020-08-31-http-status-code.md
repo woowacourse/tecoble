@@ -50,7 +50,7 @@ x00번이 해당 그룹의 대표로 쓰이며 뒤의 숫자마다 각기 다른
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(RuntimeException e) {
         return ResponseEntity.badRequest()
-            .body(new ErrorResponse(e);
+            .body(new ErrorResponse(e));
     }
 ```
 
