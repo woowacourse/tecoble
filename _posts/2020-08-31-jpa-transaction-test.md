@@ -14,7 +14,7 @@ tags: ["JPA", "transaction", "test"]
 
 > [Transcation Rollback and Commit Behavior](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-tx-rollback-and-commit-behavior)
 
-위와 같이 테스트를 `@Transactional`을 이용한다면 쉽게 rollback이 돼서 테스트 코드에 사용한 데이터를 관리하기 쉽다.
+위와 같이 테스트에 `@Transactional`을 이용한다면 쉽게 rollback이 돼서 테스트 코드에 사용한 데이터를 관리하기 쉽다.
 
 하지만 JPA를 사용하는 환경에서 단순히 rollback을 위해서 테스트 코드를 작성한다면 주의해야 할 점이 있다.
 
