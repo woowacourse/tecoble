@@ -151,7 +151,7 @@ class PhoneServiceTest {
 
 `LazyInitailizationException`이 발생하는 이유는 실제 **서비스 코드에서는 `@Transactional` 이 없기 때문에 영속성 컨텍스트가 존재하지 않아서 Lazy Loading이 불가능**하지만, **테스트 코드는 `@Transactional` 이 존재하기 때문에 영속성 컨텍스트가 존재하면서 Lazy Loading이 가능**했기 때문이다.
 
-따라서 서비스 코드에는 `@Transactional` 을 이용하지 않고 테스트 코드에만 `@Transactional` 을 이용한다면 **개발자의 실수로 런타임에서만 발생**하는 문제가 생길수 있다.
+따라서 서비스 코드에는 `@Transactional` 을 이용하지 않고 테스트 코드에만 `@Transactional` 을 이용한다면 **개발자의 실수로 런타임에서만 `LazyInitailizationException`이 발생**하는 문제가 생길수 있다.
 
 그렇다면 서비스 코드에만 `@Transactional` 을 이용하고 테스트에서는 어떻게 하는 게 좋을까?
 
@@ -207,4 +207,3 @@ Lazy loading 하도록 Entity를 가져오던 쿼리를 fetch join으로 바꿔�
 ## 결론
 
 테스트 코드를 작성하면서 일일이 생성되었던 데이터를 지우는 것은 여간 귀찮은 작업이 아니다. 하지만 그러한 귀찮음을 해결하기 위해 `@Transactional` 을 사용했다가 더 큰 문제를 발생하게 되는 경우가 생길 수 있으니 언제나 상황에 맞게 올바르게 사용하는 것이 중요하다.
-
