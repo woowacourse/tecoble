@@ -20,13 +20,12 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-line"></div>
 
-  {{ page.toc }}
   {% if page.toc %}
     <h2 class="toc-title">Contents</h2>
   {% endif %}
   <div>
     <div class="toc" id="table-of-contents">
-      {{ content | toc }}
+      {{ content || toc }}
     </div>
   </div>
   
