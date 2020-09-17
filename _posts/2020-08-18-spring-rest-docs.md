@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "API 문서 자동화 - Spring REST Docs"
+title: "API 문서 자동화 - Spring REST Docs 팔아보겠습니다"
 author: "티거"
 comment: "true"
 tags: ["spring", "docs"]
@@ -12,7 +12,7 @@ tags: ["spring", "docs"]
 
 테스트가 성공해야 문서를 만들 수 있다!! **Spring REST Docs**가 있습니다.
 
-**API 문서를 자동화한다**라고 하면 **Spring REST Docs**와 **Swagger**를 많이 사용할 것입니다. 흔히 두 가지를 두고 무엇을 사용할까 고민하실 텐데 그래서 이번 글에서는 **Spring REST Docs**를 왜 사용하고, 어떻게 사용하는지 알아볼 겁니다. ~~Swagger는 다음 글에서...~~
+**API 문서를 자동화** 도구로는 대표적으로 **Spring REST Docs**와 **Swagger**가 있습니다. 흔히 두 가지를 두고 무엇을 사용할까 고민하실 겁니다. 그런 당신을 위해 이번 글에서는 **Spring REST Docs**를 왜 사용하고, 어떻게 사용하는지 알아볼 겁니다. ~~Swagger는 다음 글에서...~~
 
 ## 왜 사용할까요?
 
