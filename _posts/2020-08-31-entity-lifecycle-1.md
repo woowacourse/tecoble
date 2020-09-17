@@ -4,8 +4,11 @@ title: "Entity Lifecycle을 고려해 코드를 작성하자 1편"
 author: "라테"
 comment: "true"
 tags: ["JPA", "entity", "transaction"]
+toc: true
 ---
 서비스를 개발하다보면 생각하지도 못한 부분에서 버그가 발생하는 때가 있다. 특히 프로젝트 막바지에 이런 경험을 한다면? 생각하기도 싫은 상황일 것이다. 레벨3 프로젝트를 진행하면서 이런 경험을 한 적이 있는데, 이 때 어려움을 겪은 부분을 공유해보고자 한다.
+
+## 문제 상황 
 
 현재 로그인된 사용자의 정보를 Spring Security의 @CurrentUser Annotation을 활용해 다음과 같이 받아 사용하고 있다. 
 >@AuthenticationPrincipal은 Security에서 미리 구현한 Annotation이다. 사용자 인증 정보를 통해 얻어진 유저 정보(UserDetails)를 가지고 올 수 있는 Annotation이며, 현재 유저 정보는 미리 구현한 CustomUserDetailsService 통해 load 된다.
