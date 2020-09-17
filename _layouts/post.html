@@ -22,12 +22,8 @@ layout: default
 
   <h2 class="toc-title">Contents</h2>
   <div>
-    <div id="table-of-contents">
-      {{ content | toc_only }}
-    </div>
-    <hr class="toc-bottom-line">
-    <div id="markdown-content">
-      {{ content | inject_anchors }}
+    <div class="toc" id="table-of-contents">
+      {{ content | toc }}
     </div>
   </div>
   
