@@ -5,7 +5,7 @@ title: "클라이언트에서 비동기 요청 시 최신 데이터를 가져오
 author: "보스독"
 comment: "true"
 tags: ["asynchronous", "api"]
-toc: "true"
+toc: true
 ---
 
 

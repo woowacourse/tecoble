@@ -4,7 +4,7 @@ title : "new ArrayList<>() vs Arrays.asList()"
 author : "티거"
 comment: "true"
 tags: ["collection"]
-toc: "true"
+toc: true
 ---
 
 **List**를 만들때 대부분은 `new ArrayList<>()`와 `Arrays.asList()`를 사용하여 만든다.

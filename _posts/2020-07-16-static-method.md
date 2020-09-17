@@ -4,7 +4,7 @@ title: "정적 메소드, 너 써도 될까?"
 author: "오렌지"
 comment: "true"
 tags: ["static", "static-factory-method", "static-method", "OOP"]
-toc: "true"
+toc: true
 ---
 
 `static variable, static method, static class...` static이 붙은 녀석들은 JVM이 시작될 때  Method(static) 영역에 저장된다. 그리고 프로그램이 끝날 때까지 사라지지 않고 메모리에 남아있다. (자바 기준)

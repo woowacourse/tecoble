@@ -4,6 +4,7 @@ title: "생성자 인자가 많을 땐? Builder!"
 author: "유안, 카일"
 comment: "true"
 tags: ["design-pattern", "class"]
+toc: true
 ---
 
 ## 생성자 인자가 많을 때 문제점

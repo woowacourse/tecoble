@@ -23,7 +23,7 @@ layout: default
   {% if page.toc %}
     <h2 class="toc-title">Contents</h2>
     <div class="toc">    
-        {% toc %}
+        {{ content | toc_only }}
     </div>
     <hr class="toc-bottom-line">
   {% endif %}

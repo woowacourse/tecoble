@@ -4,7 +4,7 @@ title : "Functional Interface란"
 author : "티거"
 comment: "true"
 tags: ["interface"]
-toc: "true"
+toc: true
 ---
 
 Java8부터 함수형 프로그래밍을 지원한다.
