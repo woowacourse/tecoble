@@ -23,12 +23,11 @@ layout: default
   {% if page.toc %}
     <h2 class="toc-title">Contents</h2>
     <div class="toc">    
-        {{ content | toc_only }}
+        {{ content | toc }}
     </div>
     <hr class="toc-bottom-line">
   {% endif %}
 
-  {{ content }}
   <br>
   <h2>Tags</h2>
   <span>
