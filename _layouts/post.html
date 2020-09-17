@@ -21,10 +21,16 @@ layout: default
   <div class="post-line"></div>
 
   <h2 class="toc-title">Contents</h2>
-  <div class="toc">    
-      {{ content | toc }}
+  <div>
+    <div id="table-of-contents">
+      {{ content | toc_only }}
+    </div>
+    <hr class="toc-bottom-line">
+    <div id="markdown-content">
+      {{ content | inject_anchors }}
+    </div>
   </div>
-  <hr class="toc-bottom-line">
+  
 
   <br>
   <h2>Tags</h2>
