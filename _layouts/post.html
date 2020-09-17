@@ -20,13 +20,11 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-line"></div>
 
-  {% if page.toc %}
-    <h2 class="toc-title">Contents</h2>
-    <div class="toc">    
-        {{ content | toc }}
-    </div>
-    <hr class="toc-bottom-line">
-  {% endif %}
+  <h2 class="toc-title">Contents</h2>
+  <div class="toc">    
+      {{ content | toc }}
+  </div>
+  <hr class="toc-bottom-line">
 
   <br>
   <h2>Tags</h2>
