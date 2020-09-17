@@ -4,6 +4,7 @@ title: "다이나믹 테스트(Dynamic Test)란?"
 author: "보스독"
 comment: "true"
 tags: ["test", "dynamic-test"]
+toc: "true"
 ---
 
 ## 다이나믹 테스트(Dynamic Test)란?

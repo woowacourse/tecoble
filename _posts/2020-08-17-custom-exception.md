@@ -4,6 +4,7 @@ title: "custom exception을 언제 써야 할까?"
 author: "우, 오렌지"
 comment: "true"
 tags: ["exception", "custom-exception"]
+toc: "true"
 ---
 
 우아한테크코스의 두 크루인 오렌지와 우가 싸우고 있다.
