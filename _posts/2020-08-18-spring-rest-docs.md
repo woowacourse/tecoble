@@ -201,7 +201,7 @@ public class PostControllerTest {
 
 이렇게 해주시면 위의 복잡한 설정을 대신 해줄 수 있습니다. 자세히 알고 싶으신 분들은 [@AutoConfigureMockMvc](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/restdocs/AutoConfigureRestDocs.html)와 [@AutoConfigureRestDocs](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/servlet/AutoConfigureMockMvc.html)를 참고하세용.😊😊 ~~절대 다룰 게 많아져서 링크 첨부한 거 아닙니다...큽~~
 
-setting이 끝나면 create의 테스트 코드 작성 및 설명을 하겠습니다. 
+setting이 끝났으니 create의 테스트 코드 작성 및 설명을 하겠습니다. 
 
 ```java
 @MockBean
@@ -424,7 +424,7 @@ include::{snippets}/post-create/http-response.adoc[]
 
 사용하면 내가 테스트 코드를 작성하는지 문서를 만들고 있는지 모르게 하지만 **Swagger**보다 안전한 API 문서를 만들 수 있게 하는 문서 자동화 도구 **Spring REST Docs**...
 
-한번 사용해십쇼.😊😊
+지금 당장 사용하세요.😊😊
 
 ## 참고자료
 
