@@ -27,7 +27,6 @@ toc: "true"
 <img src="../images/2020-08-31-jpa-transactional-test-class-diagram.png" width="500" />
 
 ```java
-# Member
 @Getter
 @NoArgsConstructor
 @Entity
@@ -50,7 +49,6 @@ public class Member {
     }
 }
 
-# CellPhone
 @Getter
 @NoArgsConstructor
 @Entity
