@@ -10,7 +10,7 @@ tags: ["java" ,"string", "immutable"]
 
 자바 프로그램이 실행되는 동안 가장 많이 생성되는 객체가 무엇인지 아는가? 그것은 바로 **문자열(*String*)** 객체이다.
 
-> 문자열은 문자의 배열이다. "abc"라는 문자열은 'a','b' 그리고 'c'라는 문자를 나열한 배열인 것이다.
+> 문자열은 문자의 배열이다. "abc"라는 문자열은 'a','b','c'라는 문자를 나열한 배열인 것이다.
 
 자바는 객체 지향 프로그래밍이고 기본으로 제공하는 **Primitive Type**이 아닌 나머지는 모두 **객체**로 구성되어 있다.
 
@@ -34,8 +34,8 @@ tags: ["java" ,"string", "immutable"]
 
 ```java
 public void string() {
-    String name = "lxxjn0"; // new 연산자를 이용한 문자열 생성
-    String name1 = new String("lxxjn0"); // 문자열 리터럴 생성
+    String name = "lxxjn0"; // 문자열 리터럴 생성
+    String name1 = new String("lxxjn0"); // new 연산자를 이용한 문자열 생성
 }
 ```
 
@@ -44,6 +44,12 @@ public void string() {
 첫 번째 방법인 **new 연산자**를 이용하여 문자열 객체를 생성하면 일반 객체들처럼 메모리의 **Heap 영역에 할당**되고 두 번째 방법인 **리터럴**을 이용하여 생성하면 **String Constant Pool이라는 영역에 할당**된다.
 
 > 참고로 String Constant Pool의 위치는 Java 7부터 Heap 영역으로 옮겨졌다.
+>
+> Java 7 이전 버전에서는 Perm 영역에 존재했다. Perm 영역은 주로 메타 데이터를 저장하는 영역으로 사용되었는데 GC의 대상에서 제외되는 영역이었다.
+> 
+> 하지만 Java 8에 들어오면서 Perm 영역은 삭제되고 String Constant Pool은 Heap의 영역으로 이동되었다.
+>
+> Heap 영역은 GC의 대상이기 때문에 String Constant Pool에서 참조를 잃은 문자열 객체들은 다시 메모리로 반환된다.
 
 ![string heap area 01](../images/2020-09-07-string-heap-01.png)
 
@@ -66,7 +72,7 @@ public void string() {
 
 문자열 리터럴을 사용하여 생성한 객체인 `name`과 `name1`은 **String Constant Pool 내의 동일한 객체**를 바라본다.
 
-하지만 new 연산자를 사용하여 문자열을 생성한 `name2`와 `name3`는 **heap에 서로 다른 객체**를 만들고 바라본다.
+하지만 new 연산자를 사용하여 문자열을 생성한 `name2`와 `name3`는 **Heap에 서로 다른 객체**를 만들고 바라본다.
 
 > 아래는 참고 자료로 문자열 리터럴과 new 연산자를 사용할 경우 컴파일 된 class 코드이다.
 >
