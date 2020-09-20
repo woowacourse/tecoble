@@ -3,6 +3,7 @@ layout : post
 title : git rebase로 보기 좋은 커밋 메시지 만들기.
 author : "카일"
 comment: "true"
+toc: true
 ---
 
 ## 정의

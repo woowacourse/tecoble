@@ -4,6 +4,7 @@ title: "반복적으로 사용되는 인스턴스 캐싱하기"
 author: "스티치"
 comment: "true"
 tags: ["cache"]
+toc: true
 ---
 
 ## 캐싱(*Caching*)이란

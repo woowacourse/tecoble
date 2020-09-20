@@ -20,7 +20,10 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-line"></div>
 
-  {{ content }}
+  <div class="toc" id="table-of-contents">
+    {{ content | toc }}
+  </div>  
+
   <br>
   <h2>Tags</h2>
   <span>

@@ -4,7 +4,7 @@ title: "요청과 응답으로 엔티티(Entity) 대신 DTO를 사용하자"
 author: "보스독"
 comment: "true"
 tags: ["DTO", "Entity"]
-
+toc: true
 ---
 
 
@@ -21,7 +21,7 @@ public ResponseEntity<Line> read(@PathVariable("id") Long id) {
 }
 ```
 
-겉으로 봤을 때는 별 문제가 없어 보이지만, 실제로는 많은 문제와 위험성을 내포하고 있다.
+겉으로 봤을 때는 별 문제가 없어 보일 수 있다. 하지만 이는 실제로 문제가 될 수 있는 위험을 내포하고 있고, 유지 보수 측면에도 결코 좋지 않은 방식이다.
 
 그렇기 때문에 아래와 같이 요청과 응답에 필요한 DTO를 별도로 만들어서 적절한 상황에 인자로 받거나 return 타입으로 사용하는 것이 좋다.
 

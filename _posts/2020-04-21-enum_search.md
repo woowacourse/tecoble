@@ -4,6 +4,7 @@ title: "Enum의 요소를 조회하는 방법 : 정적 팩토리 메서드 vs Ha
 author: "보스독"
 comment: "true"
 tags: ["enum", "static-factory-method"]
+toc: true
 ---
 
 Enum을 사용하다 보면 요소들을 조회해야 하는 경우가 발생한다.

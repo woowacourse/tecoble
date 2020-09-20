@@ -4,6 +4,7 @@ title: "하나의 메서드는 하나의 기능을 수행하자"
 author: "보스독"
 comment: "true"
 tags: ["clean-code", "refactoring"]
+toc: true
 ---
 
 

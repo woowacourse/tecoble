@@ -4,6 +4,7 @@ title : "한 메서드에 오직 한 단계의 들여쓰기만"
 author : "티거"
 comment: "true"
 tags: ["object-calisthenic"]
+toc: true
 ---
 
 > Object Calisthenics Rule 1: One level of indentation per method

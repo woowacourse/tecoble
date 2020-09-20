@@ -4,6 +4,7 @@ title: "원시 타입을 포장해야 하는 이유"
 author: "오렌지"
 comment: "true"
 tags: ["OOP", "object-calisthenic"]
+toc: true
 ---
 
 
