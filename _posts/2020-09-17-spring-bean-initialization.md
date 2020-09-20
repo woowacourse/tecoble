@@ -84,7 +84,7 @@ auto configuration 방식은 Spring Boot가 제공하는 클래스를 Spring Bea
 
 <img src="../images/2020-09-17-spring-bean-initialization-spring-factories.png" alt="spring-bean-initialization-spring-factories" width="800px" />
 
-*만약 spring.factoires 에 명시된 클래스 정보를 불러오는 부분을 직접 확인해 보고 싶다면 `AutoConfigurationImportSelector.getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes)` 부분 부터 IDE의 debug 기능을 이용해서 천천히 살펴보면 된다.*
+*만약 spring.factories 에 명시된 클래스 정보를 불러오는 부분을 직접 확인해 보고 싶다면 `AutoConfigurationImportSelector.getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes)` 부분 부터 IDE의 debug 기능을 이용해서 천천히 살펴보면 된다.*
 
 <img src="../images/2020-09-17-spring-bean-initialization-get-candidate-configuration.png" width="700" />
 
@@ -92,7 +92,7 @@ auto configuration 방식은 Spring Boot가 제공하는 클래스를 Spring Bea
 
 모든 일에 순서가 있듯이 Spring Bean을 생성하는 것도 순서가 있다. Spring Boot는 component scan 이후 auto configuration 순으로 Spring Bean을 초기화한다.
 
-기본적으로 Spring Bean은 Singleton scope를 가지는 단일 객체로 생성이 된다. 그런데 개발자가 `@Component`, `@Bean` 어노테이션을 이용해서 만든 Spring Bean이 auto-configuration 대상이라면 어떻게 될까? 개발자가 생성한 Spring Bean이 auto configuration으로 인해 덮어써 지거나 error가 발생하면서 개발자가 원하는 Spring Bean이 생성되지 않는 문제가 발생할 것이다.
+기본적으로 Spring Bean은 Singleton scope를 가지는 단일 객체로 생성이 된다. 그런데 개발자가 `@Component`, `@Bean` 어노테이션을 이용해서 만든 Spring Bean이 auto configuration 대상이라면 어떻게 될까? 개발자가 생성한 Spring Bean이 auto configuration으로 인해 덮어써 지거나 error가 발생하면서 개발자가 원하는 Spring Bean이 생성되지 않는 문제가 발생할 것이다.
 
 이러한 문제를 해결하기 위해서 Spring 4.0부터 `@Conditional` 계열 어노테이션(ex. `@ConditionalOnMissingBean`...)이 등장해서 Spring Bean 생성과 사용의 유연성을 제공해준다.
 
