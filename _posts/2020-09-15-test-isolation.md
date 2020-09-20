@@ -47,8 +47,7 @@ toc: true
 
 ### 2. 매 테스트 수행 이후 생성한 픽스처 및 데이터 직접 삭제
 
-<img src="/Users/yeonseok/Library/Application Support/typora-user-images/image-20200920233853864.png" alt="image-20200920233853864" style="zoom:30%;" />
-
+<img src="https://user-images.githubusercontent.com/42382027/93715273-52771b80-fba3-11ea-9213-c2bb109989ec.png" width="630">
 
 
 테스트에 필요한 데이터를 JUnit 생성주기인 @BeforeEach나 테스트 안에서 생성한 뒤, 테스트가 종료되는 시점에 @AfterEach를 사용하여 데이터를 삭제하는 요청을 보내고 이로써 데이터베이스를 이전과 같은 상태로 맞추는 방법이다.
@@ -77,9 +76,8 @@ truncate 쿼리를 수행하는 방법은 두 가지 방식으로 구분지어 �
 
 스프링 부트에서 제공하는 어노테이션이다. 클래스 테스트가 실행되기 전에 @Sql이 가리키는 파일안의 SQL문을 실행이 먼저 일어난다. 따라서 이 파일안에 모든 테이블에 대한 truncate SQL을 미리 작성해 놓으면, 파일하나와 어노테이션만으로 테스트 격리를 이뤄낼 수 있으니 꽤나 획기적인 방식이라고 볼 수 있다.
 
-![image-20200921003203834](/Users/yeonseok/Library/Application Support/typora-user-images/image-20200921003203834.png)
-
-<img src="/Users/yeonseok/Library/Application Support/typora-user-images/image-20200921003223669.png" alt="image-20200921003223669" style="zoom:20%;" />
+<img src="https://user-images.githubusercontent.com/42382027/93715281-59059300-fba3-11ea-92bc-32329060dddb.png" width="650">
+<img src="https://user-images.githubusercontent.com/42382027/93715283-5b67ed00-fba3-11ea-9e65-773da9a2de01.png" width="280">
 
 하지만 한가지 단점은 엔티티 혹은 연관관계 테이블이 추가될 때마다 테스트 격리를 위해서 파일을 수정해주어야 한다는 점이다. 매번 추가하는 것도 번거롭지만, 엔티티가 많은 경우 무엇을 빼먹었는지 수정하고 찾는 과정에서 약간의 비효율을 예상해 볼 수 있다.
 
@@ -87,9 +85,9 @@ truncate 쿼리를 수행하는 방법은 두 가지 방식으로 구분지어 �
 
 이 방식은 sql 파일을 직접 실행시키기보다 JPA에서 쿼리를 직접 만들 수 있는 EntityManager를 빈으로 주입받고, 모든 테이블 이름을 조사해서 각각의 인수테스트가 시작할 때, truncate 쿼리를 실행시키는 방식이다.
 
-<img src="/Users/yeonseok/Library/Application Support/typora-user-images/image-20200920235418072.png" alt="image-20200920235418072" style="zoom:40%;" />
+<img src="https://user-images.githubusercontent.com/42382027/93715347-ad107780-fba3-11ea-99d3-c79542a55d5e.png" width="400">
 
-![image-20200920235443008](/Users/yeonseok/Library/Application Support/typora-user-images/image-20200920235443008.png)
+<img src="https://user-images.githubusercontent.com/42382027/93715349-b00b6800-fba3-11ea-8af9-e060e02a9208.png" width="780">
 
 이는 한번 만들어 놓으면 엔티티가 얼마나 추가 더 추가되고 삭제되는지와 상관없이 인수테스트에서 테스트를 효과적으로 격리할 수 있다.
 
