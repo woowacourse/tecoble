@@ -80,6 +80,9 @@ Sec-WebSocket-Protocol: chat
 ## 참고자료
 
 [위키피디아](https://en.wikipedia.org/wiki/WebSocket)
+
 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)
+
 [블로그](https://www.joinc.co.kr/w/man/12/websocket#sid_2)
+
 [블로그2](https://bloodguy.tistory.com/entry/HTML5-WebSocket-%EC%84%9C%EB%B2%84%EC%9D%98-handshake)
