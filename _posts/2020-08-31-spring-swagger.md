@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "API 문서 자동화 Swagger 팔아보겠습니다."
+title: "API 문서 자동화 - Swagger 팔아보겠습니다"
 author: "티거"
 comment: "true"
 tags: ["spring", "docs"]
@@ -320,7 +320,7 @@ public class SwaggerUiWebFluxConfigurer implements WebFluxConfigurer {
 
 사용하면 `Spring REST Docs`보다 빠르고 쉽게 문서를 만드는 것뿐만 아니라 내가 컬러풀하게 디자인한 것처럼 만족감을 얻을 수 있게 하는 마력의 문서 자동화 도구 **Swagger**...
 
-한번 사용해십쇼.😊😊
+지금 당장 사용하세요.😊😊
 
 ## 참고자료
 
