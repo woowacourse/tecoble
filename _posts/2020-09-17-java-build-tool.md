@@ -132,7 +132,7 @@ Maven의 pom.xml은 선언형으로 설정하는 정적인 문서이다. 반면�
 </project>
 ```
 
-```gradle
+```
 // Gradle
 
 plugins {
@@ -169,7 +169,7 @@ test {
 
 Gradle은 루트 모듈에 아래와 같이 작성해서 해당 설정이 필요한 서브 모듈에만 설정을 주입할 수 있다.
 
-```gradle
+```
 def myProjects = [project(":project1"), project(":project2")]
 
 configure(myProjects) {
