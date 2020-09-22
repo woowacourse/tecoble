@@ -4,6 +4,7 @@ title: "API 문서 자동화 - Spring REST Docs 팔아보겠습니다"
 author: "티거"
 comment: "true"
 tags: ["spring", "docs"]
+toc: true
 ---
 
 프로덕션 코드와 분리하여 문서 자동화를 하고 싶다고요?
@@ -20,6 +21,7 @@ Spring REST Docs의 대표적인 장점은 다음과 같습니다.
 
 - **테스트가 성공**해야 문서 작성됩니다.
   - **Spring REST Docs**는 테스트가 성공하지 않으면 문서를 만들 수 없습니다. 따라서 **Spring REST Docs**로 문서를 만든다는 것은 API의 신뢰도를 높이고 더불어 테스트 코드의 검증을 강제로 하게 만드는 좋은 문서화 도구입니다.😂😂
+
 - 실제 코드에 **추가되는 코드가 없습니다.**
   - 프로덕션 코드와 분리되어있기 때문에 **Swagger**같이 Config 설정 코드나 어노테이션이 우리의 프로덕션 코드를 더럽힐 일이 없습니다.😊😊
 
@@ -227,28 +229,28 @@ void create() throws Exception {
 }
 ```
 
-1. 요청 방식(get, post 등)은 post를 선택하고  `/posts`를 호출하겠다는 의미입니다.
+1 - 요청 방식(get, post 등)은 post를 선택하고  `/posts`를 호출하겠다는 의미입니다.
 
-2. create는 RequestBody를 받기 때문에 값을 보내줘야 합니다. content 안에 보낼 데이터를 입력해주시면 됩니다.
+2 - create는 RequestBody를 받기 때문에 값을 보내줘야 합니다. content 안에 보낼 데이터를 입력해주시면 됩니다.
 
-   ```json
-   {
-       "title": "title",
-       "content": "content"
-   }
-   ```
+```json
+{
+    "title": "title",
+    "content": "content"
+}
+```
 
-3. create는 application/json 형식으로 요청을 받는다는 의미입니다.
+3 - create는 application/json 형식으로 요청을 받는다는 의미입니다.
 
-4. 정상적으로 동작 시 `isCreated`상태 코드로 응답한다는 의미입니다.
+4 - 정상적으로 동작 시 `isCreated`상태 코드로 응답한다는 의미입니다.
 
-5. 이 documentation의 이름을 "post-create"로 하겠다는 의미입니다.
+5 - 이 documentation의 이름을 "post-create"로 하겠다는 의미입니다.
 
-6. create는 requestFields를 받기 때문에 문서에 requestFields을 명시하겠다는 의미입니다.
+6 - create는 requestFields를 받기 때문에 문서에 requestFields을 명시하겠다는 의미입니다.
 
-7. `fieldWithPath`는 key 값을, `description`는 `fieldWithPath`에 대한 설명을 쓰시면 됩니다.
+7 - `fieldWithPath`는 key 값을, `description`는 `fieldWithPath`에 대한 설명을 쓰시면 됩니다.
 
-8. Test를 할 때 만약 `content`의 값이 없다면 테스트는 실패할 겁니다. 따라서 `content`와 같이 `null`일 수 있다면 `optional()`을 붙여주면 됩니다.
+8 - Test를 할 때 만약 `content`의 값이 없다면 테스트는 실패할 겁니다. 따라서 `content`와 같이 `null`일 수 있다면 `optional()`을 붙여주면 됩니다.
 
 다음으로 findAll과 findById 입니다. (중복되는 설명은 생략하겠습니다.😂😂)
 
@@ -295,17 +297,17 @@ void findById() throws Exception {
 }
 ```
 
-1. findAll는 application/json 형식으로 응답을 보내겠다는 의미입니다.
+1 - findAll는 application/json 형식으로 응답을 보내겠다는 의미입니다.
 
-2. findAll는 responseFields 보내기 때문에 responseFields를 명시하겠다는 의미입니다.
+2 - findAll는 responseFields 보내기 때문에 responseFields를 명시하겠다는 의미입니다.
 
-3. 설명은 create의 7번과 같고, List형식은 `[].id`처럼 앞에 `[]`를 해야 합니다. - [참고](https://docs.spring.io/spring-restdocs/docs/2.0.4.RELEASE/reference/html5/#documenting-your-api-request-response-payloads-fields-reusing-field-descriptors)
+3 - 설명은 create의 7번과 같고, List형식은 `[].id`처럼 앞에 `[]`를 해야 합니다. - [참고](https://docs.spring.io/spring-restdocs/docs/2.0.4.RELEASE/reference/html5/#documenting-your-api-request-response-payloads-fields-reusing-field-descriptors)
 
-4. PathVariable로 받는 값(ex. `postResponse.getId()`)은 위와 같이 넣을 수 있습니다.
+4 - PathVariable로 받는 값(ex. `postResponse.getId()`)은 위와 같이 넣을 수 있습니다.
 
-5. findById는 PathVariable을 받기 때문에 PathVariable를 문서에 명시한다는 의미입니다.
+5 - findById는 PathVariable을 받기 때문에 PathVariable를 문서에 명시한다는 의미입니다.
 
-6. pathParameters는 parameterWithName를 사용하여 PathVariable의 Name(postId)을 명시할 수 있고 description은 설명을 적어주시면 됩니다.
+6 - pathParameters는 parameterWithName를 사용하여 PathVariable의 Name(postId)을 명시할 수 있고 description은 설명을 적어주시면 됩니다.
 
 이제 이전 설명을 바탕으로 update와 delete를 작성할 수 있습니다.
 
