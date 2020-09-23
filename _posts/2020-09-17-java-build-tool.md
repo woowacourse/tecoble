@@ -4,7 +4,7 @@ title: "자바 빌드 도구"
 author: "둔덩"
 comment: "true"
 tags: ["build"]
-toc: "true"
+toc: true
 ---
 
 프로젝트를 진행하려고 할 때, 자바 빌드 도구를 선택해야 하는 순간은 찾아오기 마련이다. Gradle이 좋다는 말은 많이 들리는데, 전체적인 사용률은 Maven이 앞선다. 또 [Google Trends 지수](https://trends.google.com/trends/explore?q=gradle,maven)도 Maven이 훨씬 앞서는 아이러니한 상황이다.
