@@ -14,9 +14,8 @@ tags: ["java" ,"string", "immutable"]
 
 자바는 객체 지향 프로그래밍이고 기본으로 제공하는 **Primitive Type**이 아닌 나머지는 모두 **객체**로 구성되어 있다.
 
-> Java의 Primitive Type 값은 아래와 같다.
+> Java에서 Primitive Type 값은 byte, short, int, long, float, double, char, boolean, void 가 있다.
 >
-> byte, short, int, long, float, double, char, boolean, void
 
 그렇다면 문자열은 마냥 다른 객체들과 똑같을까?
 
