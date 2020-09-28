@@ -37,6 +37,31 @@ layout: default
   </span>
 </div>
 
+<section>
+  <div>Share: </div>
+  <a 
+    href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" 
+    rel="nofollow" 
+    target="_blank"
+    title="Share on Facebook"
+    class="fa fa-facebook-square fa-3x" 
+  ></a>
+  <a 
+    href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}+{{ site.url }}{{ page.url }}" 
+    rel="nofollow"
+    target="_blank"
+    title="Share on Twitter"
+    class="fa fa-twitter-square fa-3x"
+  ></a>
+  <a
+    href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}"
+    rel="nofollow"
+    target="_blank"
+    title="Share on Linkedin"
+    class="fa fa-linkedin-square fa-3x" 
+  ></a>
+</section>
+
 {% if page.comment %}
 <script src="https://utteranc.es/client.js"
         repo="woowacourse/javable-comments"
