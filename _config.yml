@@ -40,8 +40,3 @@ whitelist:
   - jekyll-toc
 
 safe: False
-
-share-links-active:
-  twitter: true
-  facebook: true
-  linkedin: true
