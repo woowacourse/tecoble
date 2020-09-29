@@ -1,0 +1,57 @@
+<section>
+  <div>Share: </div>
+  <a
+    href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}"
+    rel="nofollow"
+    target="_blank"
+    title="Share on Facebook"
+    class="fa fa-facebook-square fa-3x"
+    style="color: #3b5998"
+  ></a>
+  <a
+    href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}+{{ site.url }}{{ page.url }}"
+    rel="nofollow"
+    target="_blank"
+    title="Share on Twitter"
+    class="fa fa-twitter-square fa-3x"
+    style="color: #00acee"
+  ></a>
+  <a
+    href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}"
+    rel="nofollow"
+    target="_blank"
+    title="Share on Linkedin"
+    class="fa fa-linkedin-square fa-3x"
+    style="color: #0e76a8"
+  ></a>
+  <a href="javascript:sendLinkKakao()" title="Share on Kakao">
+    <img src="../assets/kakaotalk.png" width=41.15
+         style="float: left; margin: 3px 5px 0px 0px"/>
+  </a>
+</section>
+
+<script>
+  Kakao.init('2ac8604fec8c55ca9524a6e25c4677ad');
+  function sendLinkKakao(){
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '{{ page.title }}',
+        imageUrl: 'https://user-images.githubusercontent.com/33235211/94518369-c3ce6280-0264-11eb-85e0-afb174d284bb.png',
+        link: {
+          mobileWebUrl: '{{ site.url }}{{ site.baseurl }}{{page.url}}',
+          webUrl: '{{ site.url }}{{ site.baseurl }}{{page.url}}'
+        }
+      },
+      buttons: [
+        {
+          title: 'javable 보러가기',
+          link: {
+            mobileWebUrl: '{{ site.url }}{{ site.baseurl }}{{page.url}}',
+            webUrl: '{{ site.url }}{{ site.baseurl }}{{page.url}}'
+          }
+        }
+      ]
+    });
+  }
+</script>
