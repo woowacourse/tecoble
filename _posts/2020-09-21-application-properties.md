@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ".properties로 쉽게 실행 환경 분리하기"
+title: "프로퍼티 파일을 활용해 쉽게 실행 환경 분리하기"
 author: "우"
 comment: "true"
 tags: ["properties"]
