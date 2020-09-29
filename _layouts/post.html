@@ -25,17 +25,19 @@ layout: default
   </div>
 
   <br>
-  <h2>Tags</h2>
-  <span>
-    {% for tag in page.tags %}
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <div>
+      <h2>Tags</h2>
+      {% for tag in page.tags %}
         {% if tag == page.name %}
-            <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+          <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
         {% else %}
-            <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+          <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
         {% endif %}
-    {% endfor %}
-  </span>
-  {% include social-share.html %}
+      {% endfor %}
+    </div>
+    {% include social-share.html %}
+  </div>
 </div>
 
 {% if page.comment %}
