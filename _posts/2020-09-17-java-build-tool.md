@@ -7,7 +7,11 @@ tags: ["build"]
 toc: true
 ---
 
-프로젝트를 진행하려고 할 때, 자바 빌드 도구를 선택해야 하는 순간은 찾아오기 마련이다. Gradle이 좋다는 말은 많이 들리는데, 전체적인 사용률은 Maven이 앞선다. 또 [Google Trends 지수](https://trends.google.com/trends/explore?q=gradle,maven)도 Maven이 훨씬 앞서는 아이러니한 상황이다.
+프로젝트를 진행하려고 할 때, 자바 빌드 도구를 선택해야 하는 순간은 찾아오기 마련이다. Gradle이 좋다는 말은 많이 들리는데, 전체적인 사용률은 Maven이 앞선다.
+
+![](../images/2020-09-29-java-build-tool-google-trands.png)
+
+위 사진처럼 Google Trands 지수도 Maven이 훨씬 앞서는 아이러니한 상황이다.
 
 그렇다면 우리는 어떤 빌드 도구를 선택해야 할까? 이 글을 통해 간단히 알아보자.
 
@@ -45,7 +49,7 @@ toc: true
 
 Maven은 Ant처럼 XML 파일을 계속 사용하지만 유지 보수하기 쉬운 방식을 사용한다. Ant에 없던 **공식적인 규약**을 추가해준 것이다. Ant가 유연성을 가지고 모든 것을 처음부터 작성해야 했다면 Maven은 규칙과 사전에 정의된 명령을 토대로 빌드가 수행하는 작업에 집중할 수 있게 했다.
 
-게다가 Ant에서는 할 수 없었던 의존하는 라이브러리를 자동으로 불러오고 관리하는 부가 기능을 추가했다. 필요한 라이브러리를 pom.xml 이라는 Maven 구성 파일에 아래와 같이 작성만 해주면 끝이다.
+게다가 Ant에서는 할 수 없었던 필요한 라이브러리를 자동으로 불러오고 관리하는 기능을 Maven에서는 추가했다. 필요한 라이브러리를 pom.xml 이라는 Maven 구성 파일에 아래와 같이 작성만 해주면 끝이다.
 
 ```xml
 <dependency>
@@ -165,7 +169,7 @@ test {
 
 ### Configuration Injection
 
-멀티 모듈 프로젝트에서 Configuration Injection 방식을 사용해서 Maven에서 공통 모듈을 상속할 때의 단점을 커버했다.
+멀티 모듈 프로젝트에서 설정 정보를 변수에 값을 넣는 형태로 필요한 모듈에만 주입하는 Configuration Injection 방식을 사용해서 Maven에서 공통 모듈을 상속할 때의 단점을 커버했다.
 
 Gradle은 루트 모듈에 아래와 같이 작성해서 해당 설정이 필요한 서브 모듈에만 설정을 주입할 수 있다.
 
