@@ -137,3 +137,6 @@ MockServer를 이용하는 것 말고도 외부서버를 Mocking하는 방법은
 만약 RestTemplate을 이용해서 외부 API를 사용하고 계신다면 [Spring Boot에서 외부 API 테스트하기](https://jojoldu.tistory.com/341)에 소개된 방법을 사용하는 것도 좋습니다.
 또한 [외부 API를 어떻게 테스트 할 것인가?](https://velog.io/@kyle/%EC%99%B8%EB%B6%80-API%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%95%A0-%EA%B2%83%EC%9D%B8%EA%B0%80)에 소개된 방법도 괜찮습니다.
 
+이 글은 외부 서버와의 통신을 테스트 할 때 Mocking할 수 있다는 것을 알리고, 추천하는 방법을 소개하기 위해 쓰여졌습니다.
+그 외 방법들은 간단한 소개만 하려합니다.
+또한 자세한 사용방법들은 직접 찾아보시고 사용해보시는 것이 더 좋을 것 같습니다.
