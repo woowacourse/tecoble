@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "Validation in Spring Boot"
+title: "How to validate domain objects in Spring Boot"
 author: "티거"
 comment: "true"
-tags: ["spring", "Validation"]
+tags: ["spring", "validation"]
 toc: true
 ---
 
 검증이 왜 필요할까?
 
-나이를 입력해야 하는 데 이름을 입력한다면? 전화번호를 입력해야 하는 데 이메일을 입력한다면? 데이터를 저장할 때 당신은 아무 값이나 저장할 것인가? 아니다. 입력 값이 유효한 값인지 확인을 하고 저장할 것이다. 그래서 제목에서 알 수 있듯이 객체의 유효성 검사 어떻게 하는지, 그리고 Test 코드는 어떻게 작성하는지 알아볼 것이다.
+나이를 입력해야 하는 데 이름을 입력한다면? 전화번호를 입력해야 하는 데 이메일을 입력한다면? 데이터를 저장할 때 당신은 아무 값이나 저장할 것인가? 아니다. 입력 값이 유효한 값인지 확인을 하고 저장할 것이다. 그래서 제목에서 알 수 있듯이 객체의 유효성 검사를 어떻게 하는지, 그리고 Test 코드는 어떻게 작성하는지 알아볼 것이다.
 
 일단 의존성부터 추가해보자.
 
-```
+```java
 implementation 'org.springframework.boot:spring-boot-starter-validation'
 ```
 
