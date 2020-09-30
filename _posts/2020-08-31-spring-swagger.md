@@ -259,6 +259,10 @@ http://localhost:8080/swagger-ui.html 에 들어가서 API를 클릭하면 다�
 
 PathVariable를 받는다면 PathVariable를 입력할 수 있는 창이 나오고 RequestBody를 받는다면 RequestBody를 입력할 수 있는 창이 나오겠지요?😊😊 주어진 API 형식에 맞게 입력하고 `Execute`를 누르면 우리가 API를 사용하는 것(유사 Postman)과 똑같이 사용하실 수 있습니다.
 
+**주의!!**
+
+이렇게 되면 API 문서 URL을 유추하여 아무나 들어와 테스트할 수 있겠지요? 사전에 security 활용하여 접근권한이 있는 사용자만 접근할 수 있게 설정을 해주면 됩니다. 자세한 것은 Spring Security를 참고해주세요.😊😊
+
 그래서 3.0.0은 뭐가 다르냐고요?
 
 ```
