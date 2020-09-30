@@ -9,6 +9,7 @@ toc: true
 이번 편에서는 전편에서 해결하지 못한 부분인 Spring Boot에서는 기본적으로 OSIV의 설정 값이 true인데도 불구하고 LazyInitializationException이 발생한 원인에 대해 알아보고 이에 대한 해결책을 이야기해보고자 한다.
 
 ## 1편에서는...
+[1편 링크](https://woowacourse.github.io/javable/2020-08-31/entity-lifecycle-1)
 LazyInitializationException이 예기치 않게 발생하는 상황 속에서 하는 이유와 그 원인에 대한 해결책을 찾아보았다. 
 요약하자면 참조하려는 Entity의 연관 Entity를 조회할 때, 영속성 컨텍스트가 존재하지 않는 상황에서 LazyInitializationException가 발생했으며, 
 이를 해결하기 위해서는 영속성 컨텍스트가 존재하는 상황 속에서 미리 필요한 연관 Entity를 불러오던가, 준영속화 된 Entity를 다시 영속화시키는 방법으로 해결했다.
@@ -102,7 +103,7 @@ Spring에서의 웹 요청 처리 과정을 살펴보았을 때, Filter를 제�
 출처 : https://docs.spring.io/spring-security/site/docs/current/reference/html5/#servlet-applications
 
 그림에서 알 수 있듯이, Spring Security는 Filter를 기반으로 동작한다. DelegatingFilterProxy에서 사용자의 요청을 가로채 Spring Security의 기능들이 수행되며 모든 요청에 대해 보안이 적용되게끔 한다.
-DelegatingFilterProxy에는 Security 기능들이 구현되어 있는 다양한 Security Filter가 존재해 일종의 FilterChain을 이루어 동작하게 된다.
+DelegatingFilterProxy에는 Security 기능들이 구현되어 있는 다양한 Security Filter가 존재해 일종의 FilterChain을 이루어 동작한다.
 
 ![](../images/2020-09-20-entity-lifecycle-04.png)
 
@@ -148,9 +149,9 @@ OpenEntityManagerInView가 Spring Security의 DelegatingFilterProxy보다 먼저
 > - OpenEntityManagerInView : JPA를 지원하기 위해 사용되며 EntityManager가 thread 전체에서 적용되도록 한다.
 >
 > - OpenSessionInView : Hibernate를 지원하기 위해 사용되며 Session이 thread 전체에서 적용되도록 한다. Spring Boot에서는 SessionFactory가 Bean으로 등록되어 있지 않으면 사용 불가 
-
+할
 ## 결론
-LazyInitializationException만 알면 쉽게 해결될 것만 같았던, 비교적 쉬워보이는 문제도 사실은 기본적인 Spring, JPA, Spring Security에 대한 이해없이는 해결될 수 없었다.
+LazyInitializationException만 알면 쉽게 해결될 것만 같았던, 비교적 쉬워보이는 문제도 사실은 기본적인 Spring, JPA, Spring Security에 대한 이해없이는 해결 수 없었다.
 자신이 쓰고 있는 기술에 대한 완벽한 이해는 아니더라도 기술의 기본적인 동작 과정을 파악할 수 있어야 자신에게 닥친 문제 상황을 해결할 수 있다는 점을 이야기하며 글을 마치고자 한다.
 
 ### 참고 문헌
