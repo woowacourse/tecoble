@@ -94,7 +94,7 @@ class RssFeedReaderTest {
             .when(
                 request()
                     .withMethod("GET")
-                    .withPath(BLOG_RSS_PATH)
+                    .withPath("/rss")
             )
             .respond(
                 response()
