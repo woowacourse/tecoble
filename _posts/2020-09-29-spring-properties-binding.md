@@ -3,7 +3,7 @@ layout: post
 title: Spring Boot에서 properties 값 주입받기
 author: "비밥"
 comment: "true"
-tags: ["Spring"]
+tags: ["spring"]
 toc: true
 ---
 
