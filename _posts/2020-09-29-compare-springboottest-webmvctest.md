@@ -15,7 +15,7 @@ toc: true
 
 테스트 코드를 작성하려는데 어떤 부분에서는 mock 객체를 `when().thenReturn()`을 통해 사용하고, 어떤 부분에서는 `given().willReturn()`을 통해 사용하는 것이었다.
 
-import 문을 확인해보니 전자는 `org.mockito.Mockito`를 import하고 후자는 `org.mockito.Mockito`를 import한다.
+import 문을 확인해보니 전자는 `org.mockito.Mockito`를 import하고 후자는 `org.mockito.BDDMockito`를 import한다.
 
 그렇다면 둘 사이에는 어떤 차이가 존재할까? 성능이나 동작에 차이는 없는 것일까?
 
@@ -150,17 +150,15 @@ void hasSkill_AlwaysTrue() {
 
 ## BDDMockito!
 
-BDDMockito는 실제로 코드를 살펴보면 **Mockito을 상속**한 클래스이다.
+**BDDMockito**의 코드를 살펴보면 **Mockito을 상속한 클래스**임을 알 수 있다. 그리고 동작이나 사용하는 방법 또한 **Mockito**와 거의 차이가 없다.
 
 ![BDDMockito](../images/2020-09-29-bddmockito.png)
 
 > BDDMockito provides BDD aliases for various Mockito methods, so we can write our Arrange step using given (instead of when), likewise, we could write our Assert step using then (instead of verify). - [Quick Guide to BDDMockito(Baeldung)](https://www.baeldung.com/bdd-mockito)
 
-여러 문서를 확인해보면 Mockito와 동작하는 내용이나 사용하는 방법이 거의 같음을 알 수 있다.
+**BDDMockito**는 **BDD**를 사용하여 테스트코드를 작성할 때, **시나리오에 맞게 테스트 코드가 읽힐 수 있도록 도와주는(이름을 변경한) 프레임워크**이다.
 
-**BDD**를 사용하여 테스트 코드를 작성하는 경우, 좀 더 흐름에 맞게, **시나리오에 맞게 테스트 코드가 읽힐 수 있도록 도와주는(이름을 변경한) 프레임워크**라고 생각해도 될 것 같다.
-
-그럼 앞서 작성한 테스트 코드를 BDDMockito를 사용해서 작성해보자.
+그럼 앞서 작성한 테스트 코드를 **BDDMockito**를 사용해서 **BDD**로 작성해보자.
 
 ```java
 @Test
@@ -180,13 +178,13 @@ BDD 기본 패턴의 given에 해당하는 위치에 이전에 사용한 Mockito
 
 이 외로도 BDD 기본 패턴의 then에서 사용되는 Mockito에서 제공하는 `verify()`도 `then().should()`로 대체될 수 있다.
 
-실제로 Mockito에서 제공한 기능 그대로 사용할 수 있으면서 BDD가 추구하는 **"시나리오에 맞게 테스트 코드가 읽힐 수 있도록"** 도와준다.
+실제로 Mockito에서 제공한 기능 그대로 사용할 수 있으면서 BDD가 추구하는 것처럼 **"시나리오에 맞게 테스트 코드가 읽힐 수 있도록"** 도와준다.
 
 <br/>
 
 ## 정리하면
 
-BDDMockito는 Mockito가 제공하는 기능과 별반 다르지 않다. 단지 BDD라는 것을 테스트 코드에 도입할 때 기존의 **Mockito**가 가독성을 해치기 때문에 이를 해결하기 위한, **기능은 같지만 이름만 다른 클래스**라고 생각해도 될 것 같다.
+BDDMockito가 제공하는 기능과 Mockito가 제공하는 기능은 별반 다르지 않다. 단지 BDD라는 것을 테스트 코드에 도입할 때 기존의 **Mockito**가 가독성을 해치기 때문에 이를 해결하기 위한 **기능은 같지만 이름만 다른 클래스**라고 생각해도 될 것 같다.
 
 TDD와 같이 **BDD**도 새롭게 주목받는 개발 방법론이다. 몇 가지 이유를 살펴보면
 
@@ -200,7 +198,7 @@ TDD와 같이 **BDD**도 새롭게 주목받는 개발 방법론이다. 몇 가�
 
 등이 있다.
 
-정리해보면 기존의 일반적인 테스트에서 BDD를 도입하려고 한다면, **BDDMockito를 사용하여 테스트의 전반적인 가독성을 높일 수 있을 것이다!**
+기존의 일반적인 테스트에서 BDD를 도입하려고 한다면, **BDDMockito를 사용하여 테스트의 전반적인 가독성을 높일 수 있을 것이다!**
 
 <br/>
 
