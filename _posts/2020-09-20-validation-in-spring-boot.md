@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to validate domain objects in Spring Boot"
+title: "How to validate DTO objects in Spring Boot"
 author: "티거"
 comment: "true"
 tags: ["spring", "validation"]
