@@ -284,7 +284,7 @@ public final class ConstructorProperties {
 
 다만 이 방식을 사용하면 Properties 클래스에 직접적으로 `@Configuration`을 이용해서 직접적으로 Spring Bean으로 만들어 주지 않습니다.
 
-대신 아래와 같이 PropertiesConfiguration 클래스에 **`@EnableConfigurationProperti`을 이용해서 생성할 Properties 클래스의 클래스 타입을 명시**해주면 됩니다.
+대신 아래와 같이 PropertiesConfiguration 클래스에 **`@EnableConfigurationProperties`을 이용해서 생성할 Properties 클래스의 클래스 타입을 명시**해주면 됩니다.
 
 ```java
 @Configuration
