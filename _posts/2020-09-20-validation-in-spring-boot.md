@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to validate DTO objects in Spring Boot"
+title: "Spring Boot에서 DTO 검증하기"
 author: "티거"
 comment: "true"
 tags: ["spring", "validation"]
