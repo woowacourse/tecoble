@@ -174,7 +174,7 @@ void hasSkill_AlwaysTrue() {
 }
 ```
 
-BDD 기본 패턴의 given에 해당하는 위치에 이전에 사용한 Mockito의 `then()` 메서드가 아닌 `given()` 메서드가 사용됨을 알 수 있다.
+BDD 기본 패턴의 given에 해당하는 위치에 이전에 사용한 Mockito의 `when()` 메서드가 아닌 `given()` 메서드가 사용됨을 알 수 있다.
 
 이 외로도 BDD 기본 패턴의 then에서 사용되는 Mockito에서 제공하는 `verify()`도 `then().should()`로 대체될 수 있다.
 
