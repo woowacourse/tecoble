@@ -84,14 +84,16 @@ external:
 public class ExternalService {
     @Value("${external.record-year}")
     private String recordYear;
+  
     @Value("${external.api.name}")
     private String apiName;
+  
     @Value("${external.api.key}")
     private Integer apiKey;
 }
 ```
 
-위와 같이 `external`아래에 `record-year`로 설정된 값을 사용하기 위해 `${value.record-year}`로 `@Value`에 명시한 것을 확인할 수 있습니다. 이러한 방식을 이용해서 String, Integer 등의 타입 값을 주입하여 사용할 수 있습니다.
+위와 같이 `external`아래에 `record-year`로 설정된 값을 사용하기 위해 `${external.record-year}`로 `@Value`에 명시한 것을 확인할 수 있습니다. 이러한 방식을 이용해서 String, Integer 등의 타입 값을 주입하여 사용할 수 있습니다.
 
 아래는 테스트 코드입니다.
 
@@ -149,7 +151,7 @@ public class SpELTest {
 아래와 같은 `application.yml`이 있고 개발자는 이 값을 boolean으로 사용하길 바랬다고 가정하겠습니다.
 
 ```yml
-problem:
+external:
   value: true
 ```
 
@@ -158,10 +160,10 @@ problem:
 ```java
 @SpringBootTest
 public class ValueProblemTest {
-    @Value("${problem.value}")
+    @Value("${external.value}")
     private String stringValue;
 
-    @Value("${problem.value}")
+    @Value("${external.value}")
     private boolean booelanValue;
 
     @Test
@@ -185,7 +187,7 @@ public class ValueProblemTest {
 예제 코드로 알아보겠습니다.
 
 ```yml
-type-safe:
+external:
   record-year: 2020
   api:
     name: kakao
@@ -198,7 +200,7 @@ type-safe:
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties("type-safe")
+@ConfigurationProperties("external")
 public class TypeSafeProperties {
     private String recordYear;
     private Api api;
@@ -262,13 +264,13 @@ public class ExternalProperties {
 
 **`@ConstructorBinding` 어노테이션을 이용하면 final 필드에 대해 값을 주입**해줍니다. 그리고 중첩 클래스가 있다면 자동으로 중첩 클래스의 final 필드 또한 자동으로 값을 주입하는 대상이 됩니다.
 
-*final 필드를 명시하지 않는다면 setter가 없다는 exception이 발생합니다.*
+*final 키워드를 명시하지 않는다면 setter를 이용해서 값을 binding 하려하기 때문에 setter가 없다는 exception이 발생합니다.*
 
 ```java
 @Getter
 @RequiredArgsConstructor
 @ConstructorBinding
-@ConfigurationProperties("constructor")
+@ConfigurationProperties("external")
 public final class ConstructorProperties {
     private final String recordYear;
     private final Api api;
@@ -301,7 +303,7 @@ public class PropertiesConfiguration {
 
 `@Value`와 `@ConfigurationProperties`를 이용하는 방식에 대한 차이는 [Spring Boot 공식 문서](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-vs-value)에서 잘 설명이 되어 있습니다. 해당 부분을 전부 다루기에는 글이 너무 길어지기 때문에 가장 눈에 띄는 차이에 대해서 몇가지 알아봤습니다.
 
-가급적이면 `@ConfigurationProperties`을 사용하는 것이 좋아 보이지만 Spring Batch를 사용하면 `@Value`를 사용해야 하는 경우도 발생합니다. 따라서 언제나 그렇듯 **상황에 따라 알맞게 적절한 어노테이션을 선택해서 사용**해야 합니다.
+가급적이면 불변성을 유지할 수 있는 `@ConfigurationProperties`과 `@ConstructorBinding` 을 같이 사용하는 것이 좋아 보이지만 Spring Batch를 사용하면 Late Binding을 위해 `@Value`를 사용해야 하는 경우도 발생합니다. 따라서 언제나 그렇듯 **상황에 따라 알맞게 적절한 어노테이션을 선택해서 사용**해야 합니다.
 
 ## 참고
 
