@@ -10,7 +10,7 @@ toc: true
 
 ## 문제 상황 
 
-현재 로그인된 사용자의 정보를 Spring Security의 @CurrentUser Annotation을 활용해 다음과 같이 받아 사용하고 있다. 
+현재 로그인된 사용자의 정보를 Spring Security의 @AuthenticationPrincipal를 이용한 Annotation을 활용해 다음과 같이 받아 사용하고 있다. 
 >@AuthenticationPrincipal은 Security에서 미리 구현한 Annotation이다. 사용자 인증 정보를 통해 얻어진 유저 정보(UserDetails)를 가지고 올 수 있는 Annotation이며, 현재 유저 정보는 미리 구현한 CustomUserDetailsService 통해 load 된다.
 >
 >@CurrentUser는 @AuthenticationPrincipal의 expression을 활용하여 유저 정보에서 실제로 구현한 User 클래스를 가지고 올 수 있는 Annotation이다.
@@ -136,7 +136,7 @@ public class UserResponse {
 이와 같이 새롭게 기능을 추가하고 기존에 존재하는 인수 테스트를 수행하면 어떤 결과가 나올까?
 
 ```java
-UserAcceptanceTest.java
+// UserAcceptanceTest.java
 ...
 @DisplayName("현재 유저의 정보를 조회한다.")
 @Test
@@ -243,7 +243,7 @@ public UserDetails loadUserByUsername(String email) throws UsernameNotFoundExcep
 ...
 ```
 
-Spring Data Jpa는 Hibernate를 사용하기 때문에 `Hibernate.initialize(user.getFavorites());`를 통해 직접 연관 Entity를 초기화를 해주는 방법도 있다. 하지만 @CurrentUser가 UserController에서 유저 정보를 조회하는 데에만 그치지 않고 유저 정보를 활용한 다른 Controller에서 사용된다면, User가 가지고 있는 Favorites는 불필요한 정보가 될 것이다.
+Spring Data Jpa는 Hibernate를 사용하기 때문에 `Hibernate.initialize(user.getFavorites());`를 통해 직접 연관 Entity를 초기화를 해주는 방법도 있다. 하지만 @CurrentUser가 UserController에서 유저 정보를 조회하는 데에만 그치지 않고 유저 정보를 활용하는 또 다른 Controller에서 사용된다면, User가 가지고 있는 Favorites는 불필요한 정보가 될 것이다.
 
 3) FetchType.EAGER : User Entity를 가지고 올 때 항상 Favorite도 같이 조회한다. 
 
@@ -274,7 +274,7 @@ Optional<User> findByEmail(String email);
 
 위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까? 
 
-OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 [Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 설정 값](https://woowacourse.github.io/javable/2020-09-11/osiv)은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
+OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 [Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 값](https://woowacourse.github.io/javable/2020-09-11/osiv)은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
 
 하지만 기존에 작성해놓은 테스트에서는 분명히 LazyInitializationException이 발생했고, Proxy 초기화를 통해서 연관 Entity를 가지고 오는 것이 가능해졌다. 왜 이런 일이 발생했을까?
 
@@ -290,7 +290,7 @@ OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨�
 
 즉, 이 경우에는 fetch 타입을 Eager 혹은 Lazy로 할지, 혹은 LazyInitializationException을 어떻게 해결해야 하는 지 고민하는 것보다, 먼저 만들어놓은 Entity 구조나 API가 우리가 의도했던 기능에 적합한지에 대해 먼저 고민할 필요가 있었을 것이다.
 
-때로는 log 메세지의 Exception에만 빠지지 말고 전체적인 설를 살펴봐야 한다는 점을 이야기하며 글을 마치고자 한다.
+때로는 log 메세지의 Exception에만 빠지지 말고 전체적인 설계를 살펴봐야 한다는 점을 이야기하며 글을 마치고자 한다.
 
 ### 참고자료
 
