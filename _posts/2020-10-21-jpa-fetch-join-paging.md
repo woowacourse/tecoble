@@ -9,8 +9,6 @@ toc: true
 
 **결론부터 말하면 One에서 Many를 fetch 해야하는 경우 limit과 같은 절(Pagination을 위한)을 포함하면 원하는 대로 결과나 나오지 않는다.**
 
-이 글은 Fetch Join과 Pagination 을 같이 사용하면 어떠한 일이 발생하는지에 대해 알고 있다면 뒤로가기를 눌러도 무방하다.
-
 예제코드(+ 테스트코드)는 [Github](https://github.com/pci2676/Spring-Data-JPA-Lab/tree/master/fetch-limit)에서 확인할 수 있다.
 
 ## LIMIT 그리고 SET_MAX_RESULT
