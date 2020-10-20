@@ -28,6 +28,7 @@ list.foreach(async data => {
 > 물론, 실 서비스 코드였다면 delay()는 api 요청에 관한 로직이었을 것이다!
 
 `async`와 `await`을 붙였다. 그러니 당연히 처리 결과는 1, 2, 3, 4, 5 순서일 것이라고 생각했다.
+
 <img src="../images/2020-09-01-loop-async-example1.png" width="50px" alt="result">
 어...? 생각한 대로 돌아가지 않는다. 그렇다... 날치기로 공부하다가 들켜버린것이다!
 
