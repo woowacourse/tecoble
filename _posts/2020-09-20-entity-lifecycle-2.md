@@ -6,7 +6,7 @@ comment: "true"
 tags: ["JPA", "entity", "transaction", "security"]
 toc: true
 ---
-이번 편에서는 전편에서 해결하지 못한 부분인 Spring Boot에서는 기본적으로 OSIV의 설정 값이 true인데도 불구하고 LazyInitializationException이 발생한 원인에 대해 알아보고 이에 대한 해결책을 이야기해보고자 한다.
+이번 편에서는 전편에서 해결하지 못한 부분이었던 "Spring Boot에서는 기본적으로 OSIV의 설정 값이 true인데도 불구하고 LazyInitializationException이 발생하는가?"에 대한 원인을 알아보고 이에 대한 해결책을 이야기해보고자 한다.
 
 ## 1편에서는...
 [1편 링크](https://woowacourse.github.io/javable/2020-08-31/entity-lifecycle-1)
@@ -14,8 +14,8 @@ LazyInitializationException이 예기치 않게 발생하는 상황 속에서 �
 요약하자면 참조하려는 Entity의 연관 Entity를 조회할 때, 영속성 컨텍스트가 존재하지 않는 상황에서 LazyInitializationException가 발생했으며, 
 이를 해결하기 위해서는 영속성 컨텍스트가 존재하는 상황 속에서 미리 필요한 연관 Entity를 불러오던가, 준영속화 된 Entity를 다시 영속화시키는 방법으로 해결했다.
 
-하지만 앞에서 살펴본 바와 같이 Spring Boot에서는 OSIV가 기본적으로 설정되었기 때문에 연관 Entity 조회는 스프링 전 영역에서 가능해야 할 것 같은데, LazyInitializationException은 계속 발생하고 있다. 
-전편에서 찾은 방법으로 일단은 해결해야만 했지만 이제는 근본적인 원인을 파악해볼 차례이다.
+하지만 앞에서 살펴본 바와 같이 Spring Boot에서는 OSIV가 기본적으로 설정되었기 때문에 연관 Entity 조회는 스프링 대부분의 영역에서도 가능해야 할 것 같은데, LazyInitializationException은 계속 발생하고 있다. 
+전편에서 찾은 방법으로 일단은 문제를 해결해야만 했지만 이제는 근본적인 원인을 파악해볼 차례이다.
 
 ## 원인을 찾아보자
 원인을 파악하기 위해서는 User를 Controller에서 가지고 오는 로직, 그리고 OSIV가 적용되는 방식 2가지에 대한 이해가 필요하다.
@@ -65,6 +65,7 @@ public class OpenEntityManagerInViewInterceptor extends ... {
     public void preHandle(WebRequest request) throws DataAccessException {
         ...
         logger.debug("Opening JPA EntityManager in OpenEntityManagerInViewInterceptor");
+	Session session = openSession();
         ...
     }
 
@@ -72,7 +73,7 @@ public class OpenEntityManagerInViewInterceptor extends ... {
 	public void afterCompletion(WebRequest request, @Nullable Exception ex) throws DataAccessException {
         ...
         logger.debug("Closing JPA EntityManager in OpenEntityManagerInViewInterceptor");
-        ...
+	SessionFactoryUtils.closeSession(sessionHolder.getSession());
     }
     ...
 }
@@ -138,10 +139,10 @@ public class OpenEntityManagerConfig {
 ```
 OpenEntityManagerInView가 Spring Security의 DelegatingFilterProxy보다 먼저 적용될 수 있게끔 Order를 설정하는 것을 잊지 말자.
 
-> @ConditionalOnMissingBean : Bean이 존재 하지 않을때 실행되는 어노테이션이다.
-
-또한 OpenEntityManagerInView가 사용자에 의해 Bean으로 되면 `@ConditionalOnMissingBean({ OpenEntityManagerInViewInterceptor.class, OpenEntityManagerInViewFilter.class })`, `@ConditionalOnMissingFilterBean(OpenEntityManagerInViewFilter.class)`
+또한 OpenEntityManagerInView가 사용자에 의해 Bean으로 등록되면 `@ConditionalOnMissingBean({ OpenEntityManagerInViewInterceptor.class, OpenEntityManagerInViewFilter.class })`, `@ConditionalOnMissingFilterBean(OpenEntityManagerInViewFilter.class)`
 를 통해 자동 설정이 되는 Bean들은 무시된다.
+
+> @ConditionalOnMissingBean : 어노테이션에 명시된 Bean이 존재 하지 않을때 Bean 등록이 실행될 수 있도록 하는 어노테이션이다.
 
 이 설정을 추가하면 Lazy로 동작하는 연관 Entity를 조회할 때, 정상적으로 동작하는 것을 확인할 수 있다.
 
@@ -149,9 +150,8 @@ OpenEntityManagerInView가 Spring Security의 DelegatingFilterProxy보다 먼저
 > - OpenEntityManagerInView : JPA를 지원하기 위해 사용되며 EntityManager가 thread 전체에서 적용되도록 한다.
 >
 > - OpenSessionInView : Hibernate를 지원하기 위해 사용되며 Session이 thread 전체에서 적용되도록 한다. Spring Boot에서는 SessionFactory가 Bean으로 등록되어 있지 않으면 사용 불가 
-할
 ## 결론
-LazyInitializationException만 알면 쉽게 해결될 것만 같았던, 비교적 쉬워보이는 문제도 사실은 기본적인 Spring, JPA, Spring Security에 대한 이해없이는 해결 수 없었다.
+LazyInitializationException만 알면 쉽게 해결될 것만 같았던, 비교적 쉬워보이는 문제도 사실은 기본적인 Spring, JPA, Spring Security에 대한 이해없이는 해결할 수 없었다.
 자신이 쓰고 있는 기술에 대한 완벽한 이해는 아니더라도 기술의 기본적인 동작 과정을 파악할 수 있어야 자신에게 닥친 문제 상황을 해결할 수 있다는 점을 이야기하며 글을 마치고자 한다.
 
 ### 참고 문헌
