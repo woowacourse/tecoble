@@ -3,11 +3,11 @@ layout: post
 title: JPA에서 Fetch Join과 Pagination을 함께 사용할때 주의하자
 author: "비밥"
 comment: "true"
-tags: ["Spring"]
+tags: ["spring"]
 toc: true
 ---
 
-**결론부터 말하면 One에서 Many를 fetch 해야하는 경우 limit과 같은 절(Pagination을 위한)을 포함하면 원하는 대로 결과나 나오지 않는다.**
+**결론부터 말하면 One에서 Many를 fetch join 해야하는 경우 limit과 같은 절(Pagination을 위한)을 포함하면 원하는 대로 결과나 나오지 않는다.**
 
 예제코드(+ 테스트코드)는 [Github](https://github.com/pci2676/Spring-Data-JPA-Lab/tree/master/fetch-limit)에서 확인할 수 있다.
 
@@ -53,14 +53,14 @@ query.setMaxResults(3);
 public List<Article> findArticle() {
         return queryFactory.selectFrom(article)
                 .innerJoin(article.comments, comment).fetchJoin()
-          			.offset(0)
+                .offset(0)
                 .limit(5)
                 .fetch();
-    }
+}
 ```
 
 QueryDSL의 offset(), limit()이 setFirstResult(), setMaxResults()와 무슨 관계가 있는가 생각할 수 있다.  
-QueryDSL을 사용하는경우 `AbstractJPAQuery.java` 의 `createQuery(@Nullable QueryModifiers modifiers, boolean forCount)` 부분을 보면 offset(), limit() 을 이용해서 넣은 값은 각각 setFirstResult(), setMaxResults() 에 사용되고 있는 것을 확인 할 수 있다.
+QueryDSL을 사용하는경우 `AbstractJPAQuery.createQuery(@Nullable QueryModifiers modifiers, boolean forCount)` 부분을 보면 offset(), limit() 을 이용해서 넣은 값은 각각 setFirstResult(), setMaxResults() 에 사용되고 있는 것을 확인 할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/13347548/96618041-626b5200-133f-11eb-8003-d4962704a287.png)
 
@@ -185,7 +185,7 @@ public List<Comment> findCommentByArticleIdLimit5(Long id) {
                 .where(article.id.eq(id))
                 .limit(5)
                 .fetch();
-    }
+}
 ```
 
 이렇게 하면 위에서 나타났던 경고문구는 나타나지 않는다. fetch해서 가져오는게 1개이기때문에 메모리에 적재할때 위험한 경우가 발생하지 않는다.
@@ -211,7 +211,7 @@ public ArticleComments findArticleWithTop5Comments(Long articleId) {
                         groupBy(comment.article.id)
                                 .list(new QArticleComments(article.contents, list(comment.contents)))
                 ).get(0);
-    }
+}
 ```
 
 이렇게 하면 불필요한 컬럼의 정보를 가져오면서 발생하는 네트워크 비용도 절감되는 이점도 얻어갈 수 있다.
