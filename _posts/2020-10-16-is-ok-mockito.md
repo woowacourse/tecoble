@@ -36,9 +36,9 @@ Mockito를 통해 서비스 레이어의 테스트에서 DB(DAO) 의존성을 �
 @Service
 public class TableGroupService {
     @Autowired
-    private final OrderTableDao orderTableDao;
+    private OrderTableDao orderTableDao;
     @Autowired
-    private final TableGroupDao tableGroupDao;
+    private TableGroupDao tableGroupDao;
 
     @Transactional
     public TableGroup create(final TableGroup request) {
