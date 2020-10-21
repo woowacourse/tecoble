@@ -49,18 +49,21 @@ toc: true
 
 <img src="https://user-images.githubusercontent.com/42382027/94723133-3b9aab00-0393-11eb-8ae6-0219757bcf3a.png" width="770">
 
-코드를 통해 이해해보자.
-먼저 회원가입이 성공하는 이벤트를 만든다.
-
 <img src="https://user-images.githubusercontent.com/42382027/94729306-6e956c80-039c-11eb-88e6-3886de1433e2.png" width="600">
+
+
 
 그리고 회원가입 트랜잭션 안에서 해당 이벤트를 함께 발행한다.
 
-<img src="https://user-images.githubusercontent.com/42382027/94729989-815c7100-039d-11eb-918f-10f80df051e3.png" width="600">
+<img src="https://user-images.githubusercontent.com/42382027/96702807-15ce5800-13cd-11eb-8ed5-7322110e6a70.png" width="600">
 
-이벤트는 ApplicationContext에서 @EventListener 어노테이션이 붙은  Listener handler를 찾아서 로직을 수행한다. 단순 EventListener이외에도 이벤트를 트랜잭션 단계에 바인딩할 수 있도록 @TransactionalEventListenr를 사용할 수 있다. 이 어노테이션을 사용하면 실제 트랜잭션 단계에서 정확히 언제 이벤트 핸들러를 수행할지 정할 수 있다.
+이벤트 발행을 담당하는 publisher는 ApplicationEventPublisher 인터페이스 구현체를 사용한다. 물론 이 구현체는 스프링이 제공해준다.
 
+발행된 이벤트는 아래와 같이 ApplicationContext에서 @EventListener 어노테이션이 붙은  Listener handler를 찾아서 인자로 받아들여지고 특정 로직이 수행된다. 
 
+<img src="https://user-images.githubusercontent.com/42382027/96704186-bcffbf00-13ce-11eb-8eb6-392c429b7a99.png" width="600">
+
+위처럼 단순 EventListener이외에도 이벤트를 트랜잭션 단계에 바인딩할 수 있도록 @TransactionalEventListenr를 사용할 수 있다. 이 어노테이션을 사용하면 실제 트랜잭션 단계에서 정확히 언제 이벤트 핸들러를 수행할지 정할 수 있다.
 
 - AFTER_COMMIT : 기본값으로 트랜잭션이 성공적으로 완료된 경우에 이벤트를 발생시킨다. 
 - AFTER_ROLLBACK : 트랜잭션이 실패하여 롤백 된 경우에 이벤트를 발생시킨다.
