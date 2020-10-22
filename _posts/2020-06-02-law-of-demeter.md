@@ -4,6 +4,7 @@ title: "디미터 법칙(Law of Demeter)"
 author: "둔덩"
 comment: "true"
 tags: ["law-of-demeter", "clean-code", "object-calisthenic"]
+toc: true
 ---
 
 디미터 법칙은 ["Object-Oriented Programming: An Objective Sense of Style"](https://dl.acm.org/doi/10.1145/62084.62113)에서 처음으로 소개된 개념이다.  

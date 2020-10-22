@@ -4,6 +4,7 @@ title: "로그 전략을 통해 메시지를 남기자"
 author: "오렌지"
 comment: "true"
 tags: ["spring", "spring-boot", "logback", "logger"]
+toc: true
 ---
 
 웹이나 앱 어플리케이션을 개발하다 보면 어플리케이션의 상태를 확인하기 위해 로그를 남긴다.

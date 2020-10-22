@@ -4,6 +4,7 @@ title: "null 반환보다는 Optional을 활용하자"
 author: "둔덩"
 comment: "true"
 tags: ["OOP", "optional", "clean-code"]
+toc: true
 ---
 
 자바는 객체를 사용하여 모든 것을 표현한다.

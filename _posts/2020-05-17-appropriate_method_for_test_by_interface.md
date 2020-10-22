@@ -4,6 +4,7 @@ title: "인터페이스를 분리하여 테스트하기 좋은 메서드로 만�
 author: "스티치"
 comment: "true"
 tags: ["interface", "refactoring", "test"]
+toc: true
 ---
 
 ## 이전 글에서

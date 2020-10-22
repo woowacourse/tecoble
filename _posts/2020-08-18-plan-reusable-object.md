@@ -4,6 +4,7 @@ title: "사용성을 고려해 객체를 설계하자"
 author: ["스티치", "라테"]
 comment: "true"
 tags: ["OOP", "interface", "functional-programming", "enum"]
+toc: true
 ---
 
 ## 과도한 코드 분리에 대한 피드백

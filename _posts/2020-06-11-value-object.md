@@ -4,6 +4,7 @@ title : "VO(Value Ojbect)란 무엇일까?"
 author : "보스독"
 comment: "true"
 tags: ["value-object", "immutable"]
+toc: true
 ---
 
 

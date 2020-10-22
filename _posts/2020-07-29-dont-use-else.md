@@ -4,6 +4,7 @@ title: "else 예약어를 쓰지 않는다"
 author: "스티치"
 comment: "true"
 tags: ["object-calisthenic", "OOP", "clean-code", "enum"]
+toc: true
 ---
 
 > [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조** 중 **규칙 2**에 대한 내용이다. 

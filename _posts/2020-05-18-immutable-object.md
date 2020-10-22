@@ -4,6 +4,7 @@ title: "불변객체를 만드는 방법"
 author: "카일"
 comment: "true"
 tags: ["immutable", "refactoring"]
+toc: true
 ---
 
 이번 글에서는 불변 객체로 만들어야 할 때 어떠한 방법으로 만들 수 있는지에 대해 이야기해보고자 합니다. 주로 클래스를 불변 클래스로 만드는 방법에 관해서 이야기 할 예정입니다.

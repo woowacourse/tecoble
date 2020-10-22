@@ -4,6 +4,7 @@ title: "String 클래스를 조심히 사용하자."
 author: "둔덩"
 comment: "true"
 tags: ["class", "immutable", "refactoring"]
+toc: true
 ---
 
 자바로 프로그래밍 할 때 java.lang.Object와 기본 자료형(Primitive Object)을 제외하고 가장 많이 사용하는 객체는 String 클래스일 것이다.

@@ -4,6 +4,7 @@ title : "일급 컬렉션을 사용하는 이유"
 author : "티거"
 comment: "true"
 tags: ["object-calisthenic"]
+toc: true
 ---
 
 ## 일급 컬렉션이란?
