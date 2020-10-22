@@ -25,20 +25,25 @@ comment: false
     };
     
     const setPostLink = async reverseData => {
-        for(const data of reverseData) {
-            const response = await getPostUrl(data.issue_url)
-            .then(response => response.data.title);
-            const postUrl = `https://woowacourse.github.io/${response}`;
-            document.querySelector(".user-comments").insertAdjacentHTML('beforeend', commentsTemplate(data, postUrl));
-        }
+        const promises = reverseData.map(async data => {
+            return await getPostUrl(data.issue_url)
+            .then(response => {
+                const postUrl = `https://woowacourse.github.io/${response.data.title}`;
+                return {data, postUrl};
+            });
+        });
+        const results = await Promise.all(promises);
+        results.map(result => {
+            document.querySelector(".user-comments").insertAdjacentHTML('beforeend', commentsTemplate(result.data, result.postUrl));
+        });
     };
     
     axios.get('https://api.github.com/repos/woowacourse/javable-comments/issues/comments', {
         headers: {
             Authorization: `token ${APIKEY}`
         },
-    }).then(res => {
+    }).then(async res => {
         const reverseData = res.data.reverse();
-        setPostLink(reverseData);
+        await setPostLink(reverseData);
     });
 </script>
