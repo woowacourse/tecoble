@@ -56,8 +56,8 @@ protected static class JpaWebConfiguration {
 위 클래스는 Spring Boot에서 자동으로 Bean을 설정해주는 Configuration 클래스들 중 에서 Open Session In View를 설정해주는 클래스이다. 
 Spring의 자동 설정 방식을 이번에 다루지 않을 예정이기에 필요한 부분만 이야기 해보자.
 
-위 설정을 보면 알 수 있겠지만 기본적으로 Spring Boot에서는 `spring.jpa.open-in-view`라는 설정을 통해 Open Session In View를 설정하고 있다.
-그리고 @Bean을 통해 OpenEntityManagerInViewInterceptor 구현체를 통해 Open Session In View를 구현하는 것을 알 수 있다. 이 구현체의 코드를 보면
+@ConditionalOnProperty를 보면 알 수 있겠지만 기본적으로 Spring Boot에서는 `spring.jpa.open-in-view`라는 설정을 통해 Open Session In View를 설정하고 있다.
+이 값이 true이면 OpenEntityManagerInViewInterceptor를 인터셉터로 등록하여 Open Session In View를 적용하는 것을 알 수 있다. 이 구현체의 코드를 보면
 ```java
 public class OpenEntityManagerInViewInterceptor extends ... {
     ...
@@ -65,7 +65,10 @@ public class OpenEntityManagerInViewInterceptor extends ... {
     public void preHandle(WebRequest request) throws DataAccessException {
         ...
         logger.debug("Opening JPA EntityManager in OpenEntityManagerInViewInterceptor");
-	Session session = openSession();
+        try {
+            EntityManager em = createEntityManager();
+            EntityManagerHolder emHolder = new EntityManagerHolder(em);
+            TransactionSynchronizationManager.bindResource(emf, emHolder);
         ...
     }
 
@@ -73,13 +76,15 @@ public class OpenEntityManagerInViewInterceptor extends ... {
 	public void afterCompletion(WebRequest request, @Nullable Exception ex) throws DataAccessException {
         ...
         logger.debug("Closing JPA EntityManager in OpenEntityManagerInViewInterceptor");
-	SessionFactoryUtils.closeSession(sessionHolder.getSession());
+	EntityManagerFactoryUtils.closeEntityManager(emHolder.getEntityManager());
     }
     ...
 }
 ```
 Interceptor의 preHandle을 보면 언뜻 EntityManager를 Open하고 afterCompletion로 Close한다는 내용이 들어가 있다. 조금 더 자세히 코드를 보아야 정확한 동작 과정을 파악할 수 있겠지만, 
 간접적으로 preHandle, afterCompletion을 통해 EntityManager를 열고 닫는다는 사실을 파악할 수 있다. Interceptor의 동작 과정을 살펴보자.
+
+> OSIV(Open Session In View)는 하이버네이트에서 사용하는 용어다. JPA에서는 OEIV(Open EntityManager In View)라 한다. 하지만 관례상 모두 OSIV라 부른다.(출처 : 참고 자료 1)
 
 ![](../images/2020-09-20-entity-lifecycle-02.jpg)
 
@@ -154,7 +159,7 @@ OpenEntityManagerInView가 Spring Security의 DelegatingFilterProxy보다 먼저
 LazyInitializationException만 알면 쉽게 해결될 것만 같았던, 비교적 쉬워보이는 문제도 사실은 기본적인 Spring, JPA, Spring Security에 대한 이해없이는 해결할 수 없었다.
 자신이 쓰고 있는 기술에 대한 완벽한 이해는 아니더라도 기술의 기본적인 동작 과정을 파악할 수 있어야 자신에게 닥친 문제 상황을 해결할 수 있다는 점을 이야기하며 글을 마치고자 한다.
 
-### 참고 문헌
+### 참고 자료
 
 [김영한, 자바 ORM 표준 JPA 프로그래밍 [스프링 데이터 예제 프로젝트로 배우는 전자정부 표준 데이터베이스 프레임워크]](http://www.acornpub.co.kr/book/jpa-programmig)
 
