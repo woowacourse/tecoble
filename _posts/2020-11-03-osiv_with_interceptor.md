@@ -1,3 +1,12 @@
+---
+layout : post
+title : OSIV와 Custom Interceptor를 같이 사용하기!
+author : "카일"
+comment: "true"
+tags: ["JPA"]
+toc: true
+---
+
 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 중 발생한 예외에 관해서 이야기 하고자 한다. 제목에서 있듯 OSIV와 HandlerInterceptor에 대한 내용이므로 간단하게 두 개념에 관해 설명하고, 발생한 예외에 대해서 공유하고자 한다.
 
 > OSIV(Open Session In View) -  말 그대로 View 레이어에서도 Session을 Open 하겠다는 의미이다. 영속성 컨텍스트와 트랜잭션은 일반적으로 같은 생명주기를 갖는데, OSIV를 키는 경우 트랜잭션이 닫히더라도 View 레이어까지 영속성 컨텍스트가 살아있는데 이를 OSIV라고 한다. (참고로 Hibernate에서 영속성 컨텍스트를 부르는 이름이 Session이다.)
