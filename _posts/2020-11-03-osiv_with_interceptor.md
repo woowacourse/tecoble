@@ -120,7 +120,7 @@ Body = {"id":1,"name":"not changed","price":1000.00}
 
 **잘못된 생각**
 
-Spring Boot에서 OSIV가 켜져 있는 경우 OpenSessionInViewIntercepto 라는 클래스가 자동으로 등록된다. 필자는 인터셉터가 자동으로 등록되기 때문에 HandlerInterceptor에서 열린 영속성 컨텍스트를 요청 내에서 쭉 공유할 것이라 생각했다.
+Spring Boot에서 OSIV가 켜져 있는 경우 OpenSessionInViewInterceptor 라는 클래스가 자동으로 등록된다. 필자는 인터셉터가 자동으로 등록되기 때문에 HandlerInterceptor에서 열린 영속성 컨텍스트를 요청 내에서 쭉 공유할 것이라 생각했다.
 
 **올바른 생각**
 
