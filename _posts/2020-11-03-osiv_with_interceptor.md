@@ -119,7 +119,7 @@ Spring Boot에서 OSIV가 켜져 있는 경우 OpenSessionInViewIntercepto 라�
 
 **실행된 CallStack**
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e432263-a9ce-4c12-948c-b6f193096e5d/_2020-11-03__11.14.32.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e432263-a9ce-4c12-948c-b6f193096e5d/_2020-11-03__11.14.32.png)
+![스크린샷 2020-11-03 오전 11 14 22](https://user-images.githubusercontent.com/49060374/97947096-9af33d00-1dcf-11eb-8fb5-b2ea533ba0bb.png)
 
 ## 해결
 
