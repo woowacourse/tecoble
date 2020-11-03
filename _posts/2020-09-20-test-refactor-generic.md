@@ -28,7 +28,7 @@ toc: true
 - Controller - POST
 
 ```java
-@DisplayName("회원을 정상적으로 생성한다.")  // Controller Test
+    @DisplayName("회원을 정상적으로 생성한다.")  // Controller Test
     @Test
     void create() throws Exception {
         when(bearerInterceptor.preHandle(any(), any(), any())).thenReturn(true);
@@ -104,6 +104,7 @@ protected <T> T doGet(String path, Header header, Class<T> response) {
             .statusCode(HttpStatus.OK.value())
             .extract().as(response);
 }
+
 protected <T> void doDelete(String path, Header header) {
         given()
             .header(header)
