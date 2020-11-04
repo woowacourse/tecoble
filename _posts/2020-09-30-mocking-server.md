@@ -72,7 +72,7 @@ class RssFeedReaderTest {
 
 직접 외부서버와 통신해서 테스트하는 것은 위에서 이야기 한 것 처럼 문제가 있습니다.
 내가 작성한 코드는 변경하지 않았는데, 테스트의 결과가 외부 환경에 의존해 바뀔 수 있는 것은 바람직하지 못합니다.
-테스트가 외부에 의존하지 않도록 내부적으로 서버와의 통신을 Mocking하는 것은 좋은 해결방법이 될 수 있습니다.
+위의 문제에 대한 해결책으로는, 테스트가 외부에 의존하지 않도록 내부적으로 서버와의 통신을 Mocking하는 것이 좋은 방법이 될 수 있습니다.
 
 외부 서버를 Mocking하는 방법은 여러가지가 있습니다.
 이 글에서는 [MockServer](https://www.mock-server.com/)를 이용하는 코드를 소개하겠습니다.
@@ -87,6 +87,8 @@ class RssFeedReaderTest {
 
     private ClientAndServer mockServer;
 
+    // ClientAndServer 객체를 이용해서 mockServer를 킵니다
+    // MockServerClient 객체에서 목킹할 요청과 응답을 설정합니다
     @BeforeEach
     void setUp() {
         mockServer = ClientAndServer.startClientAndServer(8888);
@@ -103,6 +105,7 @@ class RssFeedReaderTest {
             );
     }
 
+    // ClientAndServer 객체를 이용해서 mockServer를 끕니다
     @AfterEach
     void shutDown() {
         mockServer.stop();
