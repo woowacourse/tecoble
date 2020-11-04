@@ -114,7 +114,6 @@
     margin: 30px auto;
 }
 
-
 .comments-header {
     text-align: center;
 }
@@ -122,7 +121,6 @@
 .left {
     float: left;
 }
-
 
 /* comment */
 
@@ -193,4 +191,27 @@ pre code {
     margin: 0;
     width: 100px;
     white-space: break-spaces;
+}
+
+/* share */
+
+.post-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.post-footer > .tags > h2 {
+  margin-top: 0;
+}
+
+.shares {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+}
+
+.shares > * {
+  margin: 0 5px;
+  height: fit-content;
 }

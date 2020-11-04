@@ -22,19 +22,22 @@ layout: default
 
   <div class="toc" id="table-of-contents">
     {{ content | toc }}
-  </div>  
+  </div>
 
   <br>
-  <h2>Tags</h2>
-  <span>
-    {% for tag in page.tags %}
+  <div class="post-footer">
+    <div class="tags">
+      <h2>Tags</h2>
+      {% for tag in page.tags %}
         {% if tag == page.name %}
-            <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+          <a class="tag selected" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
         {% else %}
-            <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
+          <a class="tag" href="{{ site.baseurl }}/tags/{{ tag }}">#{{ tag }}</a>
         {% endif %}
-    {% endfor %}
-  </span>
+      {% endfor %}
+    </div>
+    {% include social-share.html %}
+  </div>
 </div>
 
 {% if page.comment %}
