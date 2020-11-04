@@ -82,7 +82,7 @@ public List<Article> findArticleByIdLimit5Fetch(Long id) {
                 .where(article.id.eq(id))
                 .limit(5)
                 .fetch();
-    }
+}
 ```
 
 위와 같이 코드를 작성한다면 아마 다음과 같은 SQL을 예상하고 작성했을 것이다.
