@@ -143,7 +143,7 @@ Collection.forEach처럼 Collection이 수정되자마자 예외를 던지는 �
 Collection.forEach는 일반적으로 해당 컬렉션의 Iterator를 사용하고 Stream.forEach는 해당 컬렉션의 spliterator를 사용한다. [Collections.java](http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/jdk8-b132/src/share/classes/java/util/Collections.java#l2121)에서 보면 아래의 코드처럼 Collection.forEach에는 synchronized 키워드가 붙어있고 Stream.forEach를 위해 필요한 spliterator 메서드는 안붙어있는 것을 확인할 수 있다.
 
 ```java
-@Override
+    @Override
     public void forEach(Consumer<? super E> consumer) {
         synchronized (mutex) {c.forEach(consumer);}
     }
