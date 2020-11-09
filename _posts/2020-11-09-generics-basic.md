@@ -169,7 +169,7 @@ public class Car<T extends CharSequence> {
 }
 ```
 
-CharSequence 인터페이스 하위 객체들만 데이터 타입으로 지정할 수 있게 됨으로써 인스턴스 변수 name에 문자열 관련 타입만 지정할 수 있게 되었다.
+CharSequence 인터페이스 하위 객체들만 데이터 타입으로 지정할 수 있게 함으로써 인스턴스 변수 name에 문자열 관련 타입만 지정할 수 있게 되었다.
 
 ```java
 public static void main(String[] args) {
