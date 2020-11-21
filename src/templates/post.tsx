@@ -187,11 +187,11 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
             <article css={[PostFull, !post.frontmatter.image && NoImage]}>
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
-                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                      {post.frontmatter.tags[0]}
+                  {post.frontmatter.tags.map((tag, index) => (
+                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
+                      {index !== 0 ? ', ' : ''}{tag}
                     </Link>
-                  )}
+                  ))}
                 </PostFullTags>
                 <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
                 <PostFullCustomExcerpt className="post-full-custom-excerpt">
@@ -202,9 +202,9 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                     <AuthorList authors={post.frontmatter.author} tooltip="large" />
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">
-                        {post.frontmatter.author.map(author => (
+                        {post.frontmatter.author.map((author, index) => (
                           <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
-                            {author.id}
+                            {index !== 0 ? ', ' : ''}{author.id}
                           </Link>
                         ))}
                       </h4>

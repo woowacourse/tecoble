@@ -129,6 +129,7 @@ export const PostFullContent = styled.section`
   video {
     display: block;
     margin: 1.5em auto;
+    width: 100%;
     max-width: 1040px;
     height: auto;
   }
