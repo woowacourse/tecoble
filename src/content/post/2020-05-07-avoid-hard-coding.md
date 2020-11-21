@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["hard-coding", "clean-code"]
 date: "2020-05-07T12:00:00.000Z"
 draft: false
+image: ../teaser/sample2.png
 ---
 
 안 좋은 코딩 습관을 얘기할 때면 꼭 언급되는 것이 하드코딩이다.

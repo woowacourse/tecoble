@@ -2,7 +2,7 @@
 layout: post
 title: Mockito와 BDDMockito는 뭐가 다를까?
 author: [스티치]
-tags: ["spring", "test", ]
+tags: ["spring", "test"]
 date: "2020-09-29T12:00:00.000Z"
 draft: false
 image: ../teaser/mockito.png

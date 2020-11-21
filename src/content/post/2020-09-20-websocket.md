@@ -5,6 +5,7 @@ author: [유안]
 tags: ["websocket"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false
+image: ../teaser/web-socket.jpg
 ---
 
 웹 개발을 처음 배우기 시작했다면 서버와 클라이언트의 통신은 모두 HTTP 프로토콜만 이용해서 이루어진다고 생각할 수 있습니다.

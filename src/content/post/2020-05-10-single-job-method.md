@@ -5,6 +5,7 @@ author: [보스독]
 tags: ["clean-code", "refactoring"]
 date: "2020-05-10T12:00:00.000Z"
 draft: false
+image: ../teaser/sample1.jpg
 ---
 
 

@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["stream", "collection", "loop"]
 date: "2020-09-30T12:00:00.000Z"
 draft: false
+image: ../teaser/stream.jpg
 ---
 
 [자바 반복문 알고 쓰자!](https://woowacourse.github.io/javable/2020-08-31/java-loop) 를 작성하다가 궁금해진 내용이다. 아래처럼 Collection.forEach 메서드로 반복할 때와 Stream.forEach 메서드로 반복할 때는 무슨 차이가 있을까?

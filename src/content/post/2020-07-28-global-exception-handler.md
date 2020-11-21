@@ -5,6 +5,7 @@ author: [티거]
 tags: ["exception"]
 date: "2020-07-28T12:00:00.000Z"
 draft: false
+image: ../teaser/exception.png
 ---
 
 Spring에서 예외 처리하는 방법은 여러 가지가 있다. 메서드에서 try/catch를 써서 처리할 수도 있고, `@ExceptionHandler`를 사용하여 컨트롤러 내에서 발생하는 예외를 처리할 수도 있다. 하지만 지금 알아볼 것은 전역에서 발생하는 예외를 처리하는 방법을 알아보려고 한다.

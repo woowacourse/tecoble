@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["OOP", "composition", "inheritance", "clean-code"]
 date: "2020-05-18T12:00:00.000Z"
 draft: false
+image: ../teaser/composition.png
 ---
 
 우리는 다양한 이유로 상속을 사용한다.

@@ -2,7 +2,7 @@
 layout: post
 title: "Test Double을 알아보자"
 author: [스티치]
-tags: ["Test Double", "Test"]
+tags: ["test-double", "test"]
 date: "2020-09-19T12:00:00.000Z"
 draft: false
 image: ../teaser/test-double.jpg

@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["spring" ,"test"]
 date: "2020-08-19T12:00:00.000Z"
 draft: false
+image: ../teaser/mockmvc.png
 ---
 MockMvc와 RestAssured는 우리가 애플리케이션을 개발할 때 테스트를 편리하게 할 수 있게 해주는 유용한 테스트 도구이다. 이 두 가지 도구는 비슷하면서도 다르다. 상황에 맞게 적절한 테스트 도구를 활용할 수 있도록 눈에 띄는 몇 가지 차이점을 정리하고자 한다.
 

@@ -5,6 +5,7 @@ author: [오렌지]
 tags: ["naming", "convention"]
 date: "2020-04-24T12:00:00.000Z"
 draft: false
+image: ../teaser/java.png
 ---
 # JAVA 변수명 네이밍 규칙
 

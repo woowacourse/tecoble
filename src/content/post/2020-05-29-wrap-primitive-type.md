@@ -5,6 +5,7 @@ author: [오렌지]
 tags: ["OOP", "object-calisthenic"]
 date: "2020-05-29T12:00:00.000Z"
 draft: false
+image: ../teaser/wrapping.png
 ---
 
 

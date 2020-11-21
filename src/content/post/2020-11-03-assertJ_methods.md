@@ -5,6 +5,7 @@ author: [카일]
 tags: ['test']
 date: "2020-11-03T12:00:00.000Z"
 draft: false
+image: ../teaser/assertj.png
 ---
 
 Junit에서 기본으로 제공하는 assertions 보다 AssertJ는 보다 많은 기능을 제공한다. 하지만 일반적으로 테스트할 때 항상 비슷한 형태로만 테스트하기 때문에 이번 포스팅에서는 AssertJ의 다양한 기능 중 사용에 도움이 될만한 내용들을 위주로 다뤄보고자 한다.

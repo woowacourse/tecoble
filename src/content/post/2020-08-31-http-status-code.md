@@ -5,6 +5,7 @@ author: [우]
 tags: ["http", "status-code"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false
+image: ../teaser/status-code.png
 ---
 
 ## 상태 코드란?

@@ -5,6 +5,7 @@ author: [라테]
 tags: ["JPA", "entity", "transaction", "security"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false
+image: ../teaser/cycle.png
 ---
 이번 편에서는 전편에서 해결하지 못한 부분이었던 "Spring Boot에서는 기본적으로 OSIV의 설정 값이 true인데도 불구하고 LazyInitializationException이 발생하는가?"에 대한 원인을 알아보고 이에 대한 해결책을 이야기해보고자 한다.
 

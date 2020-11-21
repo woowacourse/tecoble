@@ -5,6 +5,7 @@ author : [보스독]
 tags: ["value-object", "immutable"]
 date: "2020-06-11T12:00:00.000Z"
 draft: false
+image: ../teaser/sample3.png
 ---
 
 

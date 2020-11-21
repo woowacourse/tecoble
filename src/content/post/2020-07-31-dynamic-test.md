@@ -5,6 +5,7 @@ author: [보스독]
 tags: ["test", "dynamic-test"]
 date: "2020-07-31T12:00:00.000Z"
 draft: false
+image: ../teaser/dynamic.png
 ---
 
 ## 다이나믹 테스트(Dynamic Test)란?

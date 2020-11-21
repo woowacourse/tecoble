@@ -5,6 +5,7 @@ author: [비밥]
 tags: ["Spring"]
 date: "2020-09-17T12:00:00.000Z"
 draft: false
+image: ../teaser/spring-boot.png
 ---
 
 Spring Boot를 사용하면 자연스럽게 Spring Bean을 직접 생성하고 사용할 일이 많아진다. 따라서 우리는 Spring Bean을 생성하는 방법은 당연히 알고 있어야 하고 더 나아가 어떠한 방식으로 등록되는지 알고 있어야 한다. 

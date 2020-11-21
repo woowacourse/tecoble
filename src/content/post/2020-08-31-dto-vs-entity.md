@@ -5,6 +5,7 @@ author: [보스독]
 tags: ["DTO", "Entity"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false
+image: ../teaser/sample3.png
 ---
 
 

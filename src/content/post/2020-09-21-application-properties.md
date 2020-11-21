@@ -5,6 +5,7 @@ author: [우]
 tags: ["properties"]
 date: "2020-09-21T12:00:00.000Z"
 draft: false
+image: ../teaser/spring-boot.png
 ---
 
 특정 데이터의 조회 기능을 구현하려는데 테스트에서 자꾸 의도와는 다른 데이터가 출력된다.

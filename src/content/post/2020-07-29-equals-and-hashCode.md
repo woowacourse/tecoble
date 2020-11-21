@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["java"]
 date: "2020-07-29T12:00:00.000Z"
 draft: false
+image: ../teaser/hashcode.png
 ---
 
 equals와 hashCode는 같이 재정의하라는 말을 다들 한 번쯤 들어봤을 것이다. 대부분의 IDE Generate 기능에서도 equals와 hashCode를 같이 재정의해주며 lombok에서도 EqualsAndHashCode 어노테이션으로 같이 재정의해준다.

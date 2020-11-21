@@ -5,6 +5,7 @@ author: [보스독]
 tags: ["test", "isolation"]
 date: "2020-09-15T12:00:00.000Z"
 draft: false
+image: ../teaser/isolation.png
 ---
 
 

@@ -5,6 +5,7 @@ author: [유안, 카일]
 tags: ["design-pattern", "class"]
 date: "2020-08-17T12:00:00.000Z"
 draft: false
+image: ../teaser/builder.png
 ---
 
 ## 생성자 인자가 많을 때 문제점

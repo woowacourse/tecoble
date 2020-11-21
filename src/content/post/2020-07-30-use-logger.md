@@ -5,6 +5,7 @@ author: [오렌지]
 tags: ["spring", "spring-boot", "logback", "logger"]
 date: "2020-07-30T12:00:00.000Z"
 draft: false
+image: ../teaser/logback.png
 ---
 
 웹이나 앱 어플리케이션을 개발하다 보면 어플리케이션의 상태를 확인하기 위해 로그를 남긴다.

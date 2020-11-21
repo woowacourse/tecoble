@@ -5,6 +5,7 @@ author: [티거]
 tags: ["naming", "convention"]
 date: "2020-04-26T12:00:00.000Z"
 draft: false
+image: ../teaser/naming.png
 ---
 
 ## 네이밍이 중요한 이유

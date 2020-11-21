@@ -5,6 +5,7 @@ author: [티거]
 tags: ["spring", "validation"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false
+image: ../teaser/validation.png
 ---
 
 검증이 왜 필요할까?

@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["class", "immutable", "refactoring"]
 date: "2020-06-15T12:00:00.000Z"
 draft: false
+image: ../teaser/string.png
 ---
 
 자바로 프로그래밍 할 때 java.lang.Object와 기본 자료형(Primitive Object)을 제외하고 가장 많이 사용하는 객체는 String 클래스일 것이다.

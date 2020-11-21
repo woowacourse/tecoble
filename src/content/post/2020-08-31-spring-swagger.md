@@ -5,6 +5,7 @@ author: [티거]
 tags: ["spring", "docs"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false
+image: ../teaser/swagger.png
 ---
 
 Spring REST Docs 같이 테스트 코드 작성하면서 문서화하는게 지겹다고요?

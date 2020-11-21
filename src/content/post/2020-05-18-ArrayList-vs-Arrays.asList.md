@@ -5,6 +5,7 @@ author : [티거]
 tags: ["collection"]
 date: "2020-05-18T12:00:00.000Z"
 draft: false
+image: ../teaser/arraylist.png
 ---
 
 **List**를 만들때 대부분은 `new ArrayList<>()`와 `Arrays.asList()`를 사용하여 만든다.

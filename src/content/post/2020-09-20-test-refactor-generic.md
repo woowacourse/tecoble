@@ -5,6 +5,7 @@ author: [카일]
 tags: ["refactoring" ,"test"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false
+image: ../teaser/generic.jpg
 ---
 
 ## 문제 상황

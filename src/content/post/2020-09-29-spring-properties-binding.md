@@ -5,6 +5,7 @@ author: [비밥]
 tags: ["spring"]
 date: "2020-09-29T12:00:00.000Z"
 draft: false
+image: ../teaser/spring-boot.png
 ---
 
 ## 개요

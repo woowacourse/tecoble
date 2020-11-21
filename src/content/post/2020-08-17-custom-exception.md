@@ -5,6 +5,7 @@ author: [우, 오렌지]
 tags: ["exception", "custom-exception"]
 date: "2020-08-17T12:00:00.000Z"
 draft: false
+image: ../teaser/exception.png
 ---
 
 우아한테크코스의 두 크루인 오렌지와 우가 싸우고 있다.

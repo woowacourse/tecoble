@@ -5,6 +5,7 @@ author: [오렌지]
 tags: ["object-calisthenic", "OOP"]
 date: "2020-04-28T12:00:00.000Z"
 draft: false
+image: ../teaser/message.png
 ---
 
  > getter는 멤버변수의 값을 호출하는 메소드이고, setter는 멤버변수의 값을 변경시키는 메소드이다.

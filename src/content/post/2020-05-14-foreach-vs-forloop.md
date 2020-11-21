@@ -5,6 +5,7 @@ author: [오렌지]
 tags: ["stream", "functional-programming"]
 date: "2020-05-14T12:00:00.000Z"
 draft: false
+image: ../teaser/loop.png
 ---
 
 

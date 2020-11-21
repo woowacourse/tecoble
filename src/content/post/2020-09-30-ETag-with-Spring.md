@@ -5,6 +5,7 @@ author: [티거]
 tags: ['spring', 'etag']
 date: "2020-09-30T12:00:00.000Z"
 draft: false
+image: ../teaser/etag.jpg
 ---
 
 ## ETag란 무엇일까?

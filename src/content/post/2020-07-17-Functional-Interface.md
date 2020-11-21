@@ -5,6 +5,7 @@ author : [티거]
 tags: ["interface"]
 date: "2020-07-17T12:00:00.000Z"
 draft: false
+image: ../teaser/functional.png
 ---
 
 Java8부터 함수형 프로그래밍을 지원한다.

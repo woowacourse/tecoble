@@ -5,6 +5,7 @@ author: [보스독]
 tags: ['event']
 date: "2020-09-30T12:00:00.000Z"
 draft: false
+image: ../teaser/events.png
 ---
 
 

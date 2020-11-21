@@ -6,7 +6,7 @@ tags: ['jpa']
 date: "2020-11-03T12:00:00.000Z"
 draft: false
 image: ../teaser/spring.png
-excerpt: Welcome, it's great to have you here
+excerpt: 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 중 발생한 예외에 관해서 이야기 하고자 한다. 제목에서 있듯 OSIV와 HandlerInterceptor에 대한 내용이므로 간단하게 두 개념에 관해 설명하고, 발생한 예외에 대해서 공유하고자 한다.
 ---
 
 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 중 발생한 예외에 관해서 이야기 하고자 한다. 제목에서 있듯 OSIV와 HandlerInterceptor에 대한 내용이므로 간단하게 두 개념에 관해 설명하고, 발생한 예외에 대해서 공유하고자 한다.

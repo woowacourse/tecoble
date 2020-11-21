@@ -6,6 +6,7 @@ author: [보스독]
 tags: ["asynchronous", "api"]
 date: "2020-07-19T12:00:00.000Z"
 draft: false
+image: ../teaser/sample2.png
 ---
 
 

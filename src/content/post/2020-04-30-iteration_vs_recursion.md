@@ -5,6 +5,7 @@ author: [보스독]
 tags: ["clean-code", "recursion"]
 date: "2020-04-30T12:00:00.000Z"
 draft: false
+image: ../teaser/recursive.png
 ---
 
 ## 반복문과 재귀함수

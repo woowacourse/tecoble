@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["reflection"]
 date: "2020-07-16T12:00:00.000Z"
 draft: false
+image: ../teaser/reflection.png
 ---
 Spring Framework를 학습하다 보면 Java Reflection API를 자주 접하게 된다. 하지만 Reflection API는 자바 입문서에 잘 나오지 않는 내용이기 때문에 나와 같은 초보 개발자들에겐 다소 생소한 내용이다.
 

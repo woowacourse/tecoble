@@ -5,6 +5,7 @@ author : [비밥, 보스독]
 tags: ["http-method", "put", "patch"]
 date: "2020-08-17T12:00:00.000Z"
 draft: false
+image: ../teaser/sample4.png
 ---
 
 

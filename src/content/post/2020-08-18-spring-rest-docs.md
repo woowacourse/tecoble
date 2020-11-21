@@ -5,6 +5,7 @@ author: [티거]
 tags: ["spring", "docs"]
 date: "2020-08-18T12:00:00.000Z"
 draft: false
+image: ../teaser/docs.png
 ---
 
 프로덕션 코드와 분리하여 문서 자동화를 하고 싶다고요?

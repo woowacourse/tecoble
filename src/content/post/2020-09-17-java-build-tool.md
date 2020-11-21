@@ -5,6 +5,7 @@ author: [둔덩]
 tags: ["build"]
 date: "2020-09-17T12:00:00.000Z"
 draft: false
+image: ../teaser/gradle.png
 ---
 
 프로젝트를 진행하려고 할 때, 자바 빌드 도구를 선택해야 하는 순간은 찾아오기 마련이다. Gradle이 좋다는 말은 많이 들리는데, 전체적인 사용률은 Maven이 앞선다. Google Trands 지수로 Maven과 Gradle의 전세계 검색 통계를 보자.

@@ -5,6 +5,7 @@ author : [티거]
 tags: ["object-calisthenic"]
 date: "2020-06-10T12:00:00.000Z"
 draft: false
+image: ../teaser/indent.png
 ---
 
 > Object Calisthenics Rule 1: One level of indentation per method

@@ -5,6 +5,7 @@ author : [티거]
 tags: ["object-calisthenic"]
 date: "2020-05-08T12:00:00.000Z"
 draft: false
+image: ../teaser/collection.png
 ---
 
 ## 일급 컬렉션이란?

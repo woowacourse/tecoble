@@ -20,6 +20,7 @@ import { colors } from '../styles/colors';
 import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 import { AuthorList } from '../components/AuthorList';
+import Utterances from "./Utterances";
 
 export interface Author {
   id: string;
@@ -235,6 +236,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
+          <Utterances repo={'woowacourse/javable-comments'}/>
         </main>
 
         <ReadNext
@@ -414,7 +416,7 @@ export const PostFullTitle = styled.h1`
 
 const PostFullImage = styled.figure`
   margin: 25px 0 50px;
-  height: 800px;
+  height: 560px;
   background: ${colors.lightgrey} center center;
   background-size: cover;
   border-radius: 5px;

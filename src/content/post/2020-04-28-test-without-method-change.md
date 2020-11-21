@@ -5,6 +5,7 @@ author : [카일]
 tags: ["refactoring", "test"]
 date: "2020-04-28T12:00:00.000Z"
 draft: false
+image: ../teaser/signature.jpg
 ---
 
 # 메소드 시그니처를 변경하지 않고 테스트하기
