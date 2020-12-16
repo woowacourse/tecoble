@@ -1,5 +1,6 @@
 {
   "name": "Javable",
+  "homepage": "https://woowacourse.github.io/javable/",
   "description": "woowacourse code review & devlog",
   "version": "0.0.0",
   "private": true,
@@ -11,7 +12,8 @@
     "lint": "eslint --ext .js,.ts,.tsx gatsby-casper",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx gatsby-casper",
     "start": "npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy" : "gatsby build && gh-pages -d public -b master",
   },
   "dependencies": {
     "@emotion/core": "11.0.0",
@@ -74,6 +76,7 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-react-hooks": "4.2.0",
+    "gh-pages": "^3.1.0",
     "typescript": "4.1.2"
   },
   "browserslist": [
