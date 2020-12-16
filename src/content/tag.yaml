@@ -1,0 +1,58 @@
+- id: spring
+  description: 스프링 프레임워크와 관련된 글.
+  image: teaser/spring.png
+- id: spring-boot
+  description: 스프링 부트 프레임워크와 관련된 글.
+  image: teaser/spring-boot.png
+- id: build
+  description: 빌드 도구와 관련된 글.
+  image: teaser/gradle.png
+- id: cache
+  description: 캐싱과 관련된 글.
+  image: teaser/cache.jpg
+- id: collection
+  description: 자바 콜렉션 프레임워크와 관련된 글.
+  image: teaser/collection.png
+- id: composition
+  description: 조합과 관련된 글.
+  image: teaser/composition.png
+- id: docs
+  description: 문서화와 관련된 글.
+  image: teaser/docs.png
+- id: enum
+  description: Enum과 관련된 글.
+  image: teaser/enum.png
+- id: etag
+  description: Etag와 관련된 글.
+  image: teaser/etag.jpg
+- id: event
+  description: 이벤트와 관련된 글.
+  image: teaser/events.png
+- id: interface
+  description: 인터페이스와 관련된 글.
+  image: teaser/interface.jpg
+- id: jpa
+  description: JPA와 관련된 글.
+  image: teaser/jpa.png
+- id: loop
+  description: 반복문과 관련된 글.
+  image: teaser/loop.png
+- id: naming
+  description: 네이밍와 관련된 글.
+  image: teaser/naming.png
+- id: oop
+  description: oop와 관련된 글.
+  image: teaser/oop.jpeg
+- id: refactoring
+  description: 리팩토링과 관련된 글.
+  image: teaser/sample2.png
+- id: solid
+  description: SOLID와 관련된 글.
+  image: teaser/solid.png
+- id: static
+  description: static과 관련된 글.
+  image: teaser/static.png
+- id: test
+  description: 테스트와 관련된 글.
+  image: teaser/test-case.png
+
