@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: 
-      - build
+      - develop
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,20 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: yarn install
-        run: yarn install
-
-      # Runs a set of commands using the runners shell
-      - name: gatsby build
-        env:
-          GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
-        run: yarn build
-        
-      - name: deploy
-        uses: maxheld83/ghpages@v3.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_PAT: ${{ secrets.GITHUB_API_KEY }}
-          BUILD_DIR: 'public/'
+      - uses: enriikke/gatsby-gh-pages-action@v2
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
