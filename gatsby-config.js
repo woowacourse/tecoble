@@ -7,6 +7,7 @@ module.exports = {
     description: 'woowacourse code review & devlog',
     siteUrl: 'https://woowacourse.github.io/javable/', // full path to blog - no ending slash
   },
+  pathPrefix: "/javable",
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
