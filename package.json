@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx gatsby-casper",
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy" : "gatsby build && gh-pages -d public -b build"
+    "deploy": "gatsby build && gh-pages -d public -b build"
   },
   "dependencies": {
     "@emotion/core": "11.0.0",
