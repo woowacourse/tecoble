@@ -26,6 +26,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+          access-token: ${{ secrets.FOR_JAVABLE }}
           deploy-branch: gh-pages
           gatsby-args: --prefix-paths
