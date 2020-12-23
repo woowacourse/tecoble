@@ -1,0 +1,64 @@
+- id: 스티치
+  avatar: avatars/stitch.jpeg
+  bio: 우아한테크코스 2기 스티치(이준영)입니다 :)
+  github: lxxjn0
+  website: https://lxxjn0-dev.netlify.app/
+  location: Seoul
+  profile_image: profile/stitch.jpg
+- id: 보스독
+  avatar: avatars/bossdog.jpeg
+  bio: 우아한테크코스 2기 보스독(최연석)입니다 :)
+  github: yeonnseok
+  website: https://velog.io/@ljinsk3
+  location: Seoul
+  profile_image: profile/bossdog.jpg
+- id: 둔덩
+  avatar: avatars/dundung.jpeg
+  bio: 우아한테크코스 2기 둔덩(홍준성)입니다 :)
+  github: DunDung
+  location: Incheon
+  profile_image: profile/dundung.jpg
+- id: 오렌지
+  avatar: avatars/orange.jpeg
+  bio: 우아한테크코스 2기 오렌지(조예린)입니다 :)
+  github: YerinCho
+  location: Seoul
+  profile_image: profile/orange.jpg
+- id: 티거
+  avatar: avatars/tigger.jpeg
+  bio: 우아한테크코스 2기 티거(김준석)입니다 :)
+  github: kimevanjunseok
+  website: https://velog.io/@tigger
+  location: Seoul
+  profile_image: profile/tigger.jpg
+- id: 카일
+  avatar: avatars/kyle.jpeg
+  bio: 우아한테크코스 2기 카일(김시영)입니다 :)
+  github: KIMSIYOUNG
+  location: Seoul
+  profile_image: profile/kyle.jpg
+- id: 비밥
+  avatar: avatars/bebob.jpeg
+  bio: 우아한테크코스 2기 비밥(박찬인)입니다 :)
+  website: https://bottom-to-top.tistory.com/
+  github: pci2676
+  location: Incheon
+  profile_image: profile/bebob.jpg
+- id: 우
+  avatar: avatars/woo.jpeg
+  bio: 우아한테크코스 2기 우(김현우)입니다 :)
+  github: hwookim
+  location: Incheon
+  profile_image: profile/woo.jpg
+- id: 유안
+  avatar: avatars/you.jpeg
+  bio: 우아한테크코스 2기 유안(김성규)입니다 :)
+  github: KimSeongGyu1
+  location: Seoul
+  profile_image: profile/you.jpg
+- id: 라테
+  avatar: avatars/latte.png
+  bio: 우아한테크코스 2기 라테(임민우)입니다 :)
+  github: minuyim
+  location: Seoul
+  profile_image: profile/latte.jpg
