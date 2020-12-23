@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "외부 서버와의 통신을 테스트해보자"
-author: "유안"
-comment: "true"
-tags: ["test"]
-toc: true
+title: 외부 서버와의 통신을 테스트해보자
+author: [유안]
+tags: ['test']
+date: "2020-09-30T12:00:00.000Z"
+draft: false
+image: ../teaser/testing-server.jpg
 ---
 
 메일을 주고 받을 때, RSS 피드를 읽어올 때, 크롤링을 할 때 등등 개발을 하다보면 외부서버와 연동되는 동작을 해야 할 때가 있습니다.
@@ -15,6 +16,7 @@ toc: true
 
 다음은 RSS Feed를 읽어오는 간단한 코드입니다.
 이 코드에 대한 테스트를 직접 작성해보며 어떻게 테스트 해야할 지 알아보겠습니다.
+
 ```java
 public class RssFeedReader {
 
