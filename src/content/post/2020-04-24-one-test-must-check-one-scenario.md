@@ -5,7 +5,7 @@ author: [스티치]
 tags: ['test']
 date: '2020-04-24T12:00:00.000Z'
 draft: false
-image: ../teaser/test-scenario.png
+image: ../teaser/test-case.png
 ---
 
 <p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://qa.world/writing-good-test-cases/">QA World</a></p>
