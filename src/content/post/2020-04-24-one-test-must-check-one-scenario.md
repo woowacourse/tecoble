@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "하나의 테스트 케이스는 단위 기능 중 하나의 시나리오만 테스트하라"
+title: '하나의 테스트 케이스는 단위 기능 중 하나의 시나리오만 테스트하라'
 author: [스티치]
-tags: ["test"]
-date: "2020-04-24T12:00:00.000Z"
+tags: ['test']
+date: '2020-04-24T12:00:00.000Z'
 draft: false
 image: ../teaser/test-scenario.png
 ---
+
+<p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://qa.world/writing-good-test-cases/">QA World</a></p>
 
 ## 단위 테스트(Unit Test)란
 
