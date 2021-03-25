@@ -5,7 +5,7 @@ author: [스티치]
 tags: ["test"]
 date: "2020-04-24T12:00:00.000Z"
 draft: false
-image: ../teaser/test-case.png
+image: ../teaser/test-scenario.png
 ---
 
 ## 단위 테스트(Unit Test)란
