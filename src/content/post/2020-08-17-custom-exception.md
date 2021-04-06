@@ -45,7 +45,7 @@ public class UserNameEmptyException extends RuntimeException {
 
 인수로 부적절한 값이 들어올 때 던지는 예외인 `IllegalArgumentException`, 
 일을 수행하기에 적합하지 않은 상태의 객체인 경우 던지는 예외인  `IllegalStateException`, 
-요청받은 작업을 지원하지 않는 경우에 던지는 예외인 `UnsupportedOperationExceptio` 등,
+요청받은 작업을 지원하지 않는 경우에 던지는 예외인 `UnsupportedOperationException` 등,
 우리는 이미 익숙하고, 쓰임에 대해 잘 알고있는 예외들이 많다.
 
 이런 예외들이 아닌 처음 보는 예외들은 당연히 구체적인 쓰임을 잘 모른다.
