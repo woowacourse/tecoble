@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 와이비
+  avatar : avatars/whybe.jpeg
+  bio : 우아한테크코스 3기 와이비(허영범)입니다 :)
+  github: hybeom0720
+  location: Seoul
+  profile_image : profile/whybe.jpg
