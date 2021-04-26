@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 영이
+  avatar: avatars/younge.png
+  bio: 우아한테크코스 3기 영이(최준영)입니다 :)
+  github: choijy1705
+  location: Seoul
+  profile_image: profile/younge.jpg
