@@ -61,10 +61,10 @@
   bio: 우아한테크코스 2기 라테(임민우)입니다 :)
   github: minuyim
   location: Seoul
-  profile_image: profile/latte.jpg
+  profile_image: profile/fano.png
 - id: 파노
-  avatar:
+  avatar: avatars/latte.png
   bio: 우아한테크코스 3기 프론트엔드 파노(전환오)입니다~~!
   github: jho2301
   location: Seoul
-  profile_image:
+  profile_image: profile/fano.jpg
