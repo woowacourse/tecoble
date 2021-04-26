@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: 자바 제네릭(Generics) 기초
+title: instanceof의 사용을 지양하자
 author: [샐리]
 tags: ['java', 'instanceof']
 date: "2021-04-26T12:00:00.000Z"
