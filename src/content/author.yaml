@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 와일더
+  avatar: avatars/wilder.png
+  bio: 우아한테크코스 3기 와일더(강규한)입니다 :)
+  github: lns13301
+  location: Seoul
+  profile_image: profile/wilder.jpg
