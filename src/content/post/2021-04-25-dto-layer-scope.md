@@ -41,6 +41,7 @@ Spring Framework 사용자라면 Controller와 Service 및 Repository 클래스�
 ```java
 @PostMapping
 public ResponseEntity<ArtileResponseDto> createArticle(@RequestBody ArticleRequestDto articleRequestDto) {
+    //로직 생략
     Article article = articleRequestDto.toEntity();
     Article savedArticle = articleService.createArticle(article);
     ArticleResponseDto articleResponseDto = ArticleResponseDto.from(savedArticle);
@@ -69,7 +70,7 @@ public ArticleDto createArticle(ArticleDto articleRequestDto) {
 }
 ```
 
-이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO가 계층간 데이터 전달을 위헤 사용하기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
+이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO를 계층간 데이터 전달을 위헤 사용하기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
 
 DTO를 어느 레이어까지 전달해서 사용해야 하며, DTO와 Entity(Domain) 간의 변환 작업은 어디에서 수행되어야 할까요? 즉, Entity(Domain)를 어느 계층까지 노출해도 될까요?
 
@@ -91,9 +92,7 @@ Repository 레이어는 Entity의 영속성을 관장하는 역할이라고 명�
 
 > A Service Layer defines an application's boundary [Cockburn PloP] and its set of available operations from the perspective of interfacing client layers. It encapsulates the application's business logic, controlling transactions and coor-dinating responses in the implementation of its operations.
 
-마틴 파울러는 Service 레이어란 어플리케이션의 경계를 정의하고 비즈니스 로직 등 도메인을 캡슐화하는 역할이라고 합니다. 즉, 도메인을 보호합니다. 요청에 대한 응답 역시 Service 레이어의 일부분이며, DTO를 레이어간 데이터 전달 목적으로 엄격하게 고수한다면 변환 로직이 Service 레이어에서 정의되어야 한다는 의견이 존재했습니다.
-
-또한 도메인 Model이 표현 계층에서 사용되는 경우 결합도가 증가하여, 도메인의 변경이 Controller의 변경을 촉발하는 유지보수의 문제로 이어질 수 있습니다.
+마틴 파울러는 Service 레이어란 어플리케이션의 경계를 정의하고 비즈니스 로직 등 도메인을 캡슐화하는 역할이라고 정의합니다. 즉, 도메인을 보호합니다. 도메인 Model을 표현 계층에서 사용하는 경우 결합도가 증가하여, 도메인의 변경이 Controller의 변경을 촉발하는 유지보수의 문제로 이어질 수 있습니다. 이러한 관점에서 바라볼 때, 레이어간 데이터 전달 목적으로 DTO를 엄격하게 고수한다면 변환 로직이 Service 레이어에서 정의되어야 한다는 의견이 존재했습니다. 요청에 대한 응답 역시 Service 레이어의 일부분이기 때문입니다.
 
 ### 3.3. 비용의 관점
 
