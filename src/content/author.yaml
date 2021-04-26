@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 주모
+  avatar: avatars/latte.png
+  bio: 우아한테크코스 3기 주모(한준모)입니다 :)
+  github: jum0
+  location: Seoul
+  profile_image: profile/latte.jpg
