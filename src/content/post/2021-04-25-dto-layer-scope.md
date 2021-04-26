@@ -70,7 +70,7 @@ public ArticleDto createArticle(ArticleDto articleRequestDto) {
 }
 ```
 
-이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO를 계층간 데이터 전달을 위헤 사용하기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
+이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO가 일반적으로 계층간 데이터 전달을 위헤 사용되기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
 
 DTO를 어느 레이어까지 전달해서 사용해야 하며, DTO와 Entity(Domain) 간의 변환 작업은 어디에서 수행되어야 할까요? 즉, Entity(Domain)를 어느 계층까지 노출해도 될까요?
 
