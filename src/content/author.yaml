@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 완태
+  avatar: avatars/wannte.jpg
+  bio: 우아한테크코스 3기 완태(김태완)입니다 :)
+  github: wannte
+  location: Seoul
+  profile_image: profile/wannte.jpg
