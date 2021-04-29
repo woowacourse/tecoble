@@ -8,7 +8,7 @@ draft: false
 image: ../teaser/defensive-copy.png
 ---
 
-# 방어적 복사 vs  Unmodifiable Collection
+## 방어적 복사 vs  Unmodifiable Collection
 
 불변 객체에 대해 공부할 때 자주 나오는 키워드들이다.
 
@@ -16,7 +16,7 @@ image: ../teaser/defensive-copy.png
 
 일급 컬렉션 ```List```를 예시로 들 것이다.
 
-# 방어적 복사란?
+## 방어적 복사란?
 
 생성자의 인자로 받은 객체의 복사본을 만들어 내부 필드를 초기화하거나,
 
@@ -24,7 +24,7 @@ image: ../teaser/defensive-copy.png
 
 방어적 복사를 사용할 경우, 외부에서 객체를 변경해도 내부의 객체는 변경되지 않는다.
 
-# 방어적 복사를 사용하지 않는다면
+## 방어적 복사를 사용하지 않는다면
 
 먼저, 방어적 복사를 하지 않았을 때의 코드를 살펴보자.
 
@@ -85,7 +85,7 @@ public class Application {
 
 ```crewNames```의 필드인 ```name```과 ```originalNames```가 주소를 공유하고 있기 때문이다. 
 
-# 방어적 복사를 사용한다면
+## 방어적 복사를 사용한다면
 
 이제 방어적 복사를 사용하는 경우를 살펴보자.
 
@@ -129,13 +129,13 @@ public class Application {
 
 ![image](https://user-images.githubusercontent.com/50273712/116027871-e99fd680-a690-11eb-8ad2-e2fbdc91615b.png)
 
-# 방어적 복사는 깊은 복사일까?
+## 방어적 복사는 깊은 복사일까?
 
 결론부터 말하자면 아니다. 위에서도 알 수 있듯 컬렉션의 주소만 공유하지 않을 뿐, 내부 요소들의 주소는 공유하고 있다. 
 
 컬렉션을 불변으로 만들고자 한다면 저 내부 요소들 또한 불변이어야 할 것이다.
 
-# Unmodifiable Collection이란?
+## Unmodifiable Collection이란?
 
 Unmodifiable Collection을 이용했을 경우 외부에서 변경 시 예외처리되기 때문에 안전하게 보장할 수 있다. 
 
@@ -164,13 +164,13 @@ public class Application {
 
 ![image](https://user-images.githubusercontent.com/50273712/116027872-ea386d00-a690-11eb-96c6-e78f3b6b6f78.png)
 
-# 방어적 복사와 Unmodifiable Collection 각각을 언제 어떻게 사용해야 할까?
+## 방어적 복사와 Unmodifiable Collection 각각을 언제 어떻게 사용해야 할까?
 
 핵심은 **객체 내부의 값을 외부로부터 보호하는 것**이라는 것을 유념하자.
 
 
 
-## 생성자의 인자로 객체를 받았을 때
+### 생성자의 인자로 객체를 받았을 때
 
 외부에서 넘겨줬던 객체를 변경해도 내부의 객체는 변하지 않아야 한다.
 
@@ -178,7 +178,7 @@ public class Application {
 
 
 
-## getter를 통해 객체를 리턴할 때
+### getter를 통해 객체를 리턴할 때
 
 이 상황에선 방어적 복사를 통해 복사본을 반환해도 좋고, Unmodifiable Collection을 이용한 값을 반환하는 것도 좋다.
 
