@@ -31,7 +31,7 @@ public boolean isSamePiece(Object piece1, Object piece2) {
 
 ## instanceof의 사용을 지양하라
 `체스` 미션을 진행하면서 위와 같이 instanceof를 사용한 구현을 했을 때, 피드백으로 받은 내용은 아래와 같다.
-![피드백](../img/2021-04-26-instanceof-2.png)
+![피드백](../images/2021-04-26-instanceof-2.png)
 
 이해를 돕기 위한 간단한 다형성을 이용한 예시 코드, instanceof를 이용한 예시 코드가 아래에 있다.
 추상클래스를 상속받은 각 객체들이 서로 다른 점수를 더해서 반환하는 코드이다.
