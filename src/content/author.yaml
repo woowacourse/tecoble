@@ -62,3 +62,9 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 샐리
+  avatar: avatars/sally.png
+  bio: 우아한테크코스 3기 샐리(조연우)입니다 :)
+  github: dusdn1702
+  location: Seoul
+  profile_image: profile/sally.png
