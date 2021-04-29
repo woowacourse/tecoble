@@ -211,38 +211,6 @@ public class Terrible extends Emotion {
 
 
 
-## 테스트
-
-간단한 상태패턴 구현이 완료됐다. 그러면 구현한 기능이 정상 동작을 하는지 테스트를 해볼 차례다.
-
-
-
-### StateTest
-
-상태가 변화되는 것을 테스트 한다. 아래와 같이 테스트를 진행 하면 간단하게 변화된 상태가 반환되는 것을 확인할 수 있다.
-
-```java
-class StateTest {
-    @DisplayName("기쁜 상태에서 로또 당첨을 잃어버렸을 때, 기분이 최악이 된다.")
-    @Test
-    void perfectToTerrible() {
-        State perfect = new Perfect();
-
-        assertThat(perfect.loseWinLottery()).isInstanceOf(Terrible.class);
-    }
-  
-    @DisplayName("나쁜 상태에서 돈을 얻으면 기분이 보통이 된다.")
-    @Test
-    void badToSoSo() {
-        State bad = new Bad();
-
-        assertThat(bad.earnMoney()).isInstanceOf(SoSo.class);
-    }
-}
-```
-
-
-
 ## 기능 적용
 
 ### Person
@@ -392,7 +360,7 @@ public enum State {
         return PERFECT;
     }
 
-  	// 위와 마찬가지로 switch 조건 분기로 상태를 처리한다.
+    // 위와 마찬가지로 switch 조건 분기로 상태를 처리한다.
     public State loseMoney() {
         switch (this) {
             case PERFECT:
@@ -433,7 +401,7 @@ SLEEP("졸립니다.");
         if (this == SO_SO) {
             return HAPPY;
         }
-   		if (this == HAPPY) {
+        if (this == HAPPY) {
           	return PERFECT;
         }
         default:
