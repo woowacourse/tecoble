@@ -117,3 +117,6 @@ Entity를 어느 계층까지 노출해야 하는가는 프로젝트의 상황�
 * [DTO는 어느 레이어까지 사용하는 것이 맞을까?](https://www.slipp.net/questions/93)
 * [Should services always return DTOs, or can they also return domain models?](https://stackoverflow.com/questions/21554977/should-services-always-return-dtos-or-can-they-also-return-domain-models)
 * [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html)
+* [Popular 3 Layer Architecture every developer must know](https://techdora.com/3-layer-architecture-every-developer-must-know/)
+* [모델-뷰-컨트롤러](https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%8D%B8-%EB%B7%B0-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC)
+* [Spring Layered Architecture](https://yoonho-devlog.tistory.com/25)
