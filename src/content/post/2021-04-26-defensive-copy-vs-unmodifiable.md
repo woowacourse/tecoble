@@ -1,3 +1,13 @@
+---
+layout: post  
+title: 방어적 복사와 Unmodifiable Collection
+author: [파피]
+tags: ['immutable', 'collection']
+date: "2021-04-26T12:00:00.000Z"
+draft: false
+image: ../teaser/defensive-copy.png
+---
+
 # 방어적 복사 vs  Unmodifiable Collection
 
 불변 객체에 대해 공부할 때 자주 나오는 키워드들이다.
