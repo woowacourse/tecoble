@@ -166,10 +166,11 @@ public class Application {
 
 ![image](https://user-images.githubusercontent.com/50273712/116027872-ea386d00-a690-11eb-96c6-e78f3b6b6f78.png)
 
-## 방어적 복사와 Unmodifiable Collection 각각을 언제 어떻게 사용해야 할까?
+## 결론 
+
+그래서, 방어적 복사와 Unmodifiable Collection 각각을 언제 어떻게 사용해야 할까?
 
 핵심은 **객체 내부의 값을 외부로부터 보호하는 것**이라는 것을 유념하자.
-
 
 
 ### 생성자의 인자로 객체를 받았을 때
@@ -177,7 +178,6 @@ public class Application {
 외부에서 넘겨줬던 객체를 변경해도 내부의 객체는 변하지 않아야 한다.
 
 따라서 방어적 복사가 적절하다.
-
 
 
 ### getter를 통해 객체를 리턴할 때
