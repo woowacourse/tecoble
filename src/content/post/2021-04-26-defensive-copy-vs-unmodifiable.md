@@ -8,6 +8,8 @@ draft: false
 image: ../teaser/defensive-copy.png
 ---
 
+<p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://www.asianinvestor.net/article/japanese-korean-asset-owners-seen-getting-defensive/451581">Asian Investor</a></p>
+
 ## 방어적 복사 vs  Unmodifiable Collection
 
 불변 객체에 대해 공부할 때 자주 나오는 키워드들이다.
