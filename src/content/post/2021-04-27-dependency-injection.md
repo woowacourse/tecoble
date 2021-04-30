@@ -68,6 +68,7 @@ class BurgerChef {
 ---
 
 ### 그렇다면 Dependency Injection은?
+
  의존관계가 무엇인지에 대해, 그리고 다양한 의존관계를 위해 인터페이스로 추상화함을 알아봤다. 그렇다면, **Dependency Injection**은 무엇인가?
 
 지금까지의 구현에서는 BurgerChef 내부적으로 의존관계인 BurgerRecipe가 어떤 값을 가질지 직접 정하고 있다. 만약 어떤 BurgerRecipe를 만들지를 버거 가게 사장님이 정하는 상황을 상상해보자. 즉, BurgerChef가 의존하고 있는 BurgerRecipe를 외부(사장님)에서 결정하고 주입하는 것이다.
@@ -82,9 +83,12 @@ class BurgerChef {
 >
 >   *- 이일민, 토비의 스프링 3.1, 에이콘(2012), p114*
 
+---
 
-#### 구현 방법
-DI는 의존관계를 외부에서 결정하는 것이기 때문에, 클래스 변수를 결정하는 방법들이 곧 DI를 구현하는 방법이다.
+### DI 구현 방법
+
+DI는 의존관계를 외부에서 결정하는 것이기 때문에, 클래스 변수를 결정하는 방법들이 곧 DI를 구현하는 방법이다. 런타임 시점의 의존관계를 외부에서 주입하여 DI 구현이 완성된다.(여기서는 주입하는 부분을 임의로 main 함수로 칭하였다.)
+
 - 생성자를 이용
 
 ```java
@@ -95,6 +99,11 @@ class BurgerChef {
         this.burgerRecipe = burgerRecipe;
     }
 }
+
+main() {
+    BurgerChef burgerChef = new BurgerChef(new CheeseBurgerRecipe());
+}
+
 ```
 
 - 메소드를 이용 (대표적으로 Setter 메소드)
@@ -107,12 +116,40 @@ class BurgerChef {
         this.burgerRecipe = burgerRecipe;
     }
 }
+
+main() {
+    BurgerChef burgerChef = new BurgerChef();
+    burgerChef.setBurgerRecipe(new CheeseBurgerRecipe());
+}
 ```
 
 ---
 
-## 정리
-DI(의존관계 주입)는 객체가 의존하는 또 다른 객체를 외부에서 선언하고 이를 주입받아 사용하는 것이다.
+### DI 장점
+
+그렇다면, DI, 의존 관계를 분리하여, 주입을 받는 방법의 코드 구현은 어떠한 장점이 있을까요?
+
+**1. 의존성이 줄어든다.**
+
+앞서 설명했듯이, 의존한다는 것은 그 의존대상의 변화에 취약하다는 것이다.(대상이 변화하였을 때, 이에 맞게 수정해야함) DI로 구현하게 되었을 때, 주입받는 대상이 변하더라도 그 구현 자체를 수정할 일이 없거나 줄어들게됨.
+
+**2. 재사용성이 높은 코드가 된다.**
+
+기존에 BurgerChef 내부에서만 사용되었던 BurgerRecipe을 별도로 구분하여 구현하면, 다른 클래스에서 재사용할 수가 있다.
+
+**3. 테스트하기 좋은 코드가 된다.**
+
+BurgerRecipe의 테스트를 BurgerChef 테스트와 분리하여 진행할 수 있다.
+
+**4. 가독성이 높아진다.**
+
+BurgerRecipe의 기능들을 별도로 분리하게 되어 자연스레 가동성이 높아진다.
+
+---
+
+### 정리
+DI(의존관계 주입)는 객체가 의존하는 또 다른 객체를 외부에서 선언하고 이를 주입받아 사용하는 것이다. 이를 구현함으로써 얻을 수 있는 장점들을 알아봤다.
+
 자바와 관련된 서적이나, 스프링에 처음 입문하게 될 때, 자주 맞닥뜨리는 단어 DI. 용어의 늪에 빠지지 말고, 이 글을 통해 정리되었으면 한다. 
 
 
@@ -120,3 +157,4 @@ DI(의존관계 주입)는 객체가 의존하는 또 다른 객체를 외부에
 -   토비의 스프링 3.1, Vol.1
 -   [DI는 IoC를 사용하지 않아도 된다](https://jwchung.github.io/DI%EB%8A%94-IoC%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EC%95%84%EB%8F%84-%EB%90%9C%EB%8B%A4)
 -   [Ioc(DI, Service Locator...)](https://ahea.wordpress.com/2018/09/09/1754/)
+-   [Dependency Injection Benefits](http://tutorials.jenkov.com/dependency-injection/dependency-injection-benefits.html)
