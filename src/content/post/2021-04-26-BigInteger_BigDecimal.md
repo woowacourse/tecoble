@@ -10,7 +10,7 @@ image: ../teaser/BigInteger_BigDecimal.png
 
 # BigInteger, BigDecimal?
 
-`BigInteger` , `BigDecimal` 은 java.math 패키지 안에 있는 클래스이다. 두 클래스 모두 숫자를 다루는 클래스이다. `BigInteger` 의 경우 정수형으로 표현할 수 있는 값을 다룰때 사용하고 `BigDecimal` 은 소수점이 있는 수를 다룰때 사용한다. 정수를 다루는 `int` , `long` 소수를 다루는 `double` , `float` 이 있음에도 이 두 클래스를 사용하는 경우가 있다.
+`BigInteger` , `BigDecimal` 은 java.math 패키지 안에 있는 숫자를 다루는 클래스이다. 두 클래스 모두 숫자를 다루는 클래스이다. `BigInteger` 의 경우 정수형으로 표현할 수 있는 값을 다룰 때 사용하고 `BigDecimal` 은 소수점이 있는 수를 다룰때 사용한다. 정수를 다루는 `int` , `long` 소수를 다루는 `double` , `float` 이 있음에도 이 두 클래스를 사용하는 경우가 있다.
 
 # BigInteger
 
@@ -24,7 +24,7 @@ image: ../teaser/BigInteger_BigDecimal.png
 // 문자열로 생성
 BigInteger bigInteger = new BigInteger("123456");
 
-//n진수 문자열로 생성
+//n진수 문자열로 생성 - n진수 형태로 생성하여도 10진수로 자동변환되어 표현
 BigInteger bigInteger = new BigInteger("FFFF", 16);
 
 //valueOf 생성
@@ -71,7 +71,7 @@ String String_bigNum = bigNumber.toString(); //BigIntger -> String
 
 # BigDecimal
 
-`BigDecimal` 은 앞서본 `BigInteger` 와 매우 비슷한 형태를 보여주고 있다. 가장 큰 차이점으로는 실수를 다루는 것이다. `double` 이나 `float` 으로 표현하던 소수를 좀 더 정밀하게 다루기 위하여 사용한다. `double` `float` 을 사용해본 사람이라면 아주 간단한 연산에서 조차 원하는 값이 나오지 않는 경험을 해보았을 것이다. 이러한 문제점을 해결하기 위하여 사용하는 것이 `BigDecimal`이다. 미세한 값을 사용하거나 돈등 값의 오차가 발생하면 안되는 경우 `BigDecimal`을 사용하는 것이 좋다. 계산 속도는 double , float을 사용하는 경우보다 조금 느리지만 정밀한 결과를 보장한다.
+`BigDecimal` 은 앞서본 `BigInteger` 와 매우 비슷한 형태를 보여주고 있다. 가장 큰 차이점으로는 실수를 다루는 것이다. `double` 이나 `float` 으로 표현하던 소수를 좀 더 정밀하게 다루기 위하여 사용한다. `double` `float` 을 사용해본 사람이라면 아주 간단한 연산에서 조차 원하는 값이 나오지 않는 경험을 해보았을 것이다. 이러한 문제점을 해결하기 위하여 사용하는 것이 `BigDecimal`이다. 미세한 값을 사용하거나 돈 등 값의 오차가 발생하면 안 되는 경우 `BigDecimal`을 사용하는 것이 좋다. 계산 속도는 double , float을 사용하는 경우보다 조금 느리지만 정밀한 결과를 보장한다.
 
 ### BigDecimal의 생성
 
@@ -81,7 +81,7 @@ String String_bigNum = bigNumber.toString(); //BigIntger -> String
 // 문자열로 생성
 BigDecimal bigDecimal = new BigDecimal("123.45678");
 
-//double 타입으로 생성
+//double 타입으로 생성(오차가 발생할 수 있다)
 BigDecimal bigDecimal = new BigDecimal(123.456);
 
 //int, long 타입으로 생성
