@@ -75,7 +75,7 @@ Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 
 
 하지만 모든 상황이 그렇게 칼 같이 분리되는 것은 아니다.
 
-그래서 문제를 presentational과 container로 나누기 힘들다면 우선은 모호하게 나두자.
+그래서 문제를 presentational과 container로 나누기 힘들다면 우선은 그대로 두자.
 
 아직 분리하기에 이른 것일 수 있기 때문이다.
 
