@@ -35,16 +35,23 @@ Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 
 ### ✔ presentational 컴포넌트
 
 - 어떻게 화면에 보이는지에 대해서 책임진다.
+
 - presentational과 container 모두를 내부적으로 가질 수 있다.
+
 - 상태를 가질 수 있지만 UI에 관련된 상태만 가질 수 있다.
+
 - ex. navbar, page, list
 
 ### ✔ container 컴포넌트
 
 - 어떠한 동작을 할 것인가에 대해 책임진다.
+
 - DOM 마크업 구조나 스타일을 가져서는 안된다.
+
 - presentational과 container 모두를 내부적으로 가질 수 있다.
+
 - 주로 상태를 가지고 있다.
+
 - 데이터를 처리하여 다른 컴포넌트에 전달한다.
 
 ### 🙋‍♂️ 해당 패턴을 도입하여 얻을 수 있는 이점은?
@@ -113,9 +120,23 @@ Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 
 
 ### 📦 presentational과 container를 나누는 기준
 
-어떤 기능을 하는지 보다는
+대체적으로 presentational 컴포넌트는 stateless한 경향이 있고
 
-어떤 목적을 가지고 있는지에 따라 분리하는 것이 좋다.
+container 컴포넌트는 stateful한 경향이 있다.
+
+하지만 이것은 presentational과 container를 나누는 절대적인 기준이 아니므로
+
+컴포넌트를 나눌 때는 state를 가지고 있냐 없냐 같은
+
+기능적인 부분에 집중하지 말고
+
+해당 컴포넌트가 어떤 목적을 가지고 있는지에 집중하는 것이 좋다.
+
+🔍 예시 )
+
+ContextMenu 컴포넌트는 어떤 `'동작'`을 수행하는 것이 목적이라기 보다는
+
+`'화면에 어떻게 보여지는가'`가 목적이기 때문에 presentational로 분류된다.
 
 ### 😵 오해
 
