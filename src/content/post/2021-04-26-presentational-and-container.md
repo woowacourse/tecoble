@@ -73,9 +73,43 @@ Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 
 
    반복되는 마크업 작업을 줄여줄 수 있다.
 
-   예를 들어 contextMenu라는 layout 컴포넌트에 props.children으로
+   🔍예시 )
+
+   ContextMenu라는 layout 컴포넌트에
+
+   메뉴 요소들만 props.children으로
 
    넘겨주는 방식으로 코드 중복을 막을 수 있다.
+
+   ```js
+   // contextMenu를 사용하는 곳마다 레이아웃 작업을 반복 해야함
+
+   <div className="context-menu">
+     // 레이아웃을 위한 div들이 중첩되어있다.
+     <div className="context-menu__inner">
+       <ul>
+         <li>메뉴1</li>
+         <li>메뉴2</li>
+         <li>메뉴3</li>
+         <li>메뉴4</li>
+       </ul>
+     </div>
+   </div>
+   ```
+
+   ```js
+   // 레이아웃 컴포넌트로 레이아웃 작업의 중복을 줄임
+
+   <ContextMenu>
+     // 메뉴의 레이아웃은 ContextMenu 컴포넌트가 처리
+     <ul>
+       <li>메뉴1</li>
+       <li>메뉴2</li>
+       <li>메뉴3</li>
+       <li>메뉴4</li>
+     </ul>
+   </ContextMenu>
+   ```
 
 ### 📦 presentational과 container를 나누는 기준
 
