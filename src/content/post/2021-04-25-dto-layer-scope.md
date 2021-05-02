@@ -10,7 +10,7 @@ image: ../teaser/dto-layered.png
 
 ## 1. 들어가기에 앞서
 
-우아한테크코스 레벨 2 과정은 Spring Framework를 활용하여 웹 어플리케이션을 개발하는 미션들로 구성되어 있습니다. Spring을 학습하면 빠짐없이 등장하는 개념이 ***MVC Pattern*** 과 ***Layered Architecture*** 인데요. 이번 포스팅을 이해하는데 도움이 되는 배경지식인 관계로 간략하게 짚고 넘어가보겠습니다.
+우아한테크코스 레벨 2 과정은 Spring Framework를 활용하여 웹 어플리케이션을 개발하는 미션들로 구성되어 있습니다. Spring을 학습하면 빠짐없이 등장하는 개념이 ***MVC Pattern*** 과 ***Layered Architecture*** 인데요. 이번 포스팅을 이해하는데 도움이 되는 배경지식인 관계로 간략하게 짚고 넘어가보겠습니다. [잘 정리된 글](https://4ngeunlee.tistory.com/222)을 참조하셔도 좋습니다.
 
 ### 1.1. MVC Pattern
 
@@ -40,7 +40,7 @@ Spring Framework 사용자라면 Controller와 Service 및 Repository 클래스�
 
 ```java
 @PostMapping
-public ResponseEntity<ArtileResponseDto> createArticle(@RequestBody ArticleRequestDto articleRequestDto) {
+public ResponseEntity<ArticleResponseDto> createArticle(@RequestBody ArticleRequestDto articleRequestDto) {
     //로직 생략
     Article article = articleRequestDto.toEntity();
     Article savedArticle = articleService.createArticle(article);
@@ -70,7 +70,7 @@ public ArticleDto createArticle(ArticleDto articleRequestDto) {
 }
 ```
 
-이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO가 일반적으로 계층간 데이터 전달을 위헤 사용되기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
+이처럼 Service 레이어가 요청으로 DTO를 받고 응답으로 DTO를 보내줘도 동작에 문제가 없기 때문입니다. 또한 DTO가 일반적으로 계층간 데이터 전달을 위해 사용되기 때문에, 표현 계층과 응용 계층 사이에서 Entity가 아닌 DTO를 사용하는 것이 더 자연스럽지 않을까 하는 생각이 들었습니다.
 
 DTO를 어느 레이어까지 전달해서 사용해야 하며, DTO와 Entity(Domain) 간의 변환 작업은 어디에서 수행되어야 할까요? 즉, Entity(Domain)를 어느 계층까지 노출해도 될까요?
 
@@ -96,7 +96,7 @@ Repository 레이어는 Entity의 영속성을 관장하는 역할이라고 명�
 
 ### 3.3. 비용의 관점
 
-그렇다고 레이어간의 응답-요청에 항상 DTO를 만들어 사용하는 것이 좋은 습관일까요? DTO를 통해 도메인과 표현 계층을 분리할 수 있겠지만, 도메인 Model과 유사한 코드 복제가 빈번하게 발생합니다. 추가적인 DTO 개발 비용(시간, 디버깅 등)이라는 단점이 존재하기 때문에, 작은 규모의 프로젝트에서는 불필요할 수 있습니다.
+그렇다고 레이어간의 응답-요청에 항상 DTO를 만들어 사용하는 것이 좋은 습관일까요? DTO를 통해 도메인과 표현 계층을 분리할 수 있겠지만, 도메인 Model과 유사한 코드 복제가 빈번하게 발생합니다. 또한 Service 레이어에 DTO 변환 로직이 추가되는 경우 코드의 복잡성이 증가할 수 있습니다. 추가적인 DTO 개발 비용(시간, 디버깅 등)이라는 단점이 존재하기 때문에, 작은 규모의 프로젝트에서는 DTO 사용이 불필요할 수 있습니다.
 
 ### 3.4. 리뷰어님의 의견
 
