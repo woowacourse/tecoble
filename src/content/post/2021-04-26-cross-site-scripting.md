@@ -59,7 +59,9 @@ document.querySelector('#input-btn').addEventListener("click", (e) => {
 ```
 위의 input에 `<img src="#" onerror="console.log('XSS')">` 와 같은 스크립트 코드를 입력해보자. 
 
-그러면 console 창에서 'XSS'문구가 출력되는 것을 볼 수 있을 것이다.
+그러면 console 창에서 'XSS'문구가 출력되는 것을 볼 수 있다.
+
+![example](../images/2021-04-26-cross-site-scripting-example.gif)
 
 이처럼 원리를 조금만 이해하면 누구나 웹 사이트에 스크립트 코드를 삽입하는 것이 가능하다.
 
@@ -71,10 +73,16 @@ document.querySelector('#input-btn').addEventListener("click", (e) => {
 
 위 예시와 같은 문제는 사용자로부터 입력 받은 값을 제대로 검사하지 않고 사용할 경우 나타난다.
 
-입력을 그대로 표시하지 않고, 스크립트에 자주 사용되는 특수문자를 필터링 해주는 것이다.
+입력을 그대로 표시하지 않고, 스크립트에 자주 사용되는 특수문자를 필터링 해주는 것이다.
 
-필터를 직접 만들기 어렵다면 만들어져있는 라이브러리를 가져다 사용해도 좋을 것 같다.
+다른 방법은 라이브러리를 사용하는 것이다.
+
+네이버의 오픈 소스 중에도 `lucy-xss-filter` 와 같은 라이브러리(Java)가 있다.
+
+XSS는 계속 새로운 방법으로 발전하고, 이를 모두 대응하기는 어려울 수 있기 때문에 이러한 라이브러리를 사용해도 좋을 것 같다.
 
 ## 참고 링크
 
 > [사이트 간 스크립팅 - 위키백과, 우리 모두의 백과사전](https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8C%85#cite_note-1)
+
+> [네이버 오픈소스 lucy-xss-filter](https://github.com/naver/lucy-xss-filter)
