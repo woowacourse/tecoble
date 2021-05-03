@@ -2,7 +2,7 @@
 layout: post  
 title: instanceof의 사용을 지양하자
 author: [샐리]
-tags: ['java', 'instanceof']
+tags: ['java', 'oop']
 date: "2021-04-26T12:00:00.000Z"
 draft: false
 image: ../teaser/instanceof.jpeg
@@ -39,7 +39,7 @@ public boolean isSamePiece(Object piece1, Object piece2) {
 - 다형성 사용
 
 ```java
-public abstract class Point {
+public abstract class Piece {
     public abstract int calculate(int point);
 }
 
@@ -60,12 +60,18 @@ public class Empty extends Piece {
         return point;
     }
 }
+
+public class Point {
+  public int calculate(Piece p, int point) {
+    return p.calculate(point);
+  }
+}
 ```  
 
 - instanceof 사용
 
 ```java
-public abstract class Point {
+public class Point {
     public int calculate(Piece p, int point) {
         if(p instanceof King) {
             return point + 10;
@@ -81,24 +87,34 @@ public abstract class Point {
 코드를 통해 알 수 있는 것처럼 간편하게 클래스의 타입을 확인할 수 있는 `instanceof`를 사용하지 말고 다형성을 이용할 것이 권장되는 이유는 무엇일까?  
 <br>
 
-### 확장성
-객체지향프로그래밍에는 OCP(Open Closed Principle)라는 *객체의 확장에는 열려있고, 변화에는 닫혀있도록 해야한다*는 원칙이 있다.  
+### 캡슐화 
+객체지향에서 말하는 캡슐화란 객체의 속성과 행위를 외부에서 사용하거나 보지 못하도록 숨기는 것을 의미한다.
+하지만 `instanceof`를 사용하는 경우, 각 객체가 무엇인지, 어떤 점수를 돌려주어야 하는지 불필요한 외부의 객체가 그 정보를 알게 되는 것이다.
+때문에 캡슐화가 깨진다는 것을 알 수 있다.  
+우리는 각 객체가 가진 책임과 역할을 분리해주고, 이로 인해 유지보수, 확장에 있어 편리함을 얻기 위해 객체지향프로그래밍을 한다. 
+캡슐화가 보장되지 않으면 그 의미가 없어진다. 
+`instanceof`의 사용을 지양해야 하는 가장 우선적인 이유이다.
+
+### Open Closed Principle 
 만일 Piece를 상속하는 Queen이라는 객체가 추가로 생긴다고 생각해보자.  
 다형성을 이용하면 새로운 객체를 만들고 그 객체에 구현하면 되는 반면에 instanceof를 사용하는 경우 새로운 메서드를 만들어주기 위해 사용되고 있는 모든 함수를 찾아가서 고쳐야한다.
-객체의 확장이 어려워진다는 문제점이 있다.  
+객체의 확장이 어려워진다는 문제점이 있다.
+*객체의 확장에는 열려있고, 변화에는 닫혀있도록 해야한다*는 **개방-폐쇄 원칙(OCP)** 에 위반됨을 알 수 있다.  
 <br>
 
-### Single Responsibility Principle
+### Single Responsibility Principle  
 instanceof가 사용되는 이유는 특정 타입임을 알아내고 특정 코드를 실행하기 위해서이다.
 이것은 instanceof를 사용하는 `calculate` 함수가 어떤 타입의 함수이든 pawn, king, empty의 `calculate` 구현을 모두 알고 있어야 하는 책임이 부가되는 것이다.
 각 타입에게 책임을 부여하면 되는 일이 하나의 메서드에게 모든 책임이 가중되는 일이 발생한 것이다.
-한 클래스는 하나의 책임만 가져야 한다는 객체지향프로그래밍의 원칙 중 하나인 **단일책임원칙(SRP)** 이 위반된 것이라고 볼 수 있다.  
+*한 클래스는 하나의 책임만 가져야 한다*는 객체지향프로그래밍의 원칙 중 하나인 **단일책임원칙(SRP)** 이 위반된 것이라고 볼 수 있다.  
 <br>
 
 ### 성능
 예시 코드와 같이 pawn, king, empty이 서로 다른 구현이 필요한 경우에 다형성을 적용한 구현을 하게되면 컴파일러는 어떠한 타입의 메서드를 실행해야할지 알 수 없으므로 `invokevirtual` 바이트코드를 이용해 메서드에 대한 가상의 호출을 한다.  
 이후 런타임에 특정 타입을 찾아 그에 맞는 구현을 실행한다.  
-이때의 성능이 instanceof를 검사하는 성능보다 빠르다. 심지어 확인해야할 객체가 많으면 많을수록 불필요한 instanceof 검사가 더 필요하고 성능의 차이는 점차 커진다.  
+반면에 instanceof의 경우 알맞은 타입을 찾을 때까지 컴파일 시에 모든 타입을 돌며 검사해야한다.  
+그로 인해 다형성을 적용한 성능이 instanceof를 검사하는 성능보다 빠르다.  
+심지어 확인해야할 객체가 많으면 많을수록 불필요한 instanceof 검사가 더 필요하고 성능의 차이는 점차 커진다.  
 <br>
 
 ### 깔끔한 구현, 쉬운 리팩토링
@@ -121,8 +137,8 @@ public boolean isLinked(Object object) {
     return object instanceof LinkedList;
 }
 ```  
-위와 같이 특정 자료형의 타입을 판별하는 경우 instanceof는 필요할 수 있다.
-하지만 우리는 java가 추구하는 추상화, 캡슐화, 다형성, 일반화와 같은 특성 뿐만 아니라 이 외에 객체지향 프로그래밍이 추구하는 solid 원칙을 최대한 지켜줄 필요성이 있다.  
+위와 같이 특정 자료형의 타입을 판별하는 경우 instanceof 필요할 수 있다.
+하지만 우리는 java가 추구하는 추상화, 캡슐화, 다형성, 일반화와 같은 특성 외에도 객체지향 프로그래밍이 추구하는 solid 원칙을 최대한 지킬 필요성이 있다.  
 다양한 원칙과 특성을 해치지 않는 선에서 올바르게 메서드를 사용하도록 하자.
 
 - [참고](https://link-intersystems.com/blog/2015/04/25/instanceof-vs-polimorphism/)  
