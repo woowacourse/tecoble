@@ -226,7 +226,7 @@ public class Application {
 
     Names crewNames = new Names(originalNames); // crewNames의 names: Fafi, Kevin
 
-    crewNames.getName(0).setName("Sally"); // crewNames의 names: Fafi, Sally
+    crewNames.getName(1).setName("Sally"); // crewNames의 names: Fafi, Sally
   }
 }
 ```
