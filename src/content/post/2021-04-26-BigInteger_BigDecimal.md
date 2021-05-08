@@ -1,11 +1,11 @@
 ---
 layout: post
-title: '하나의 테스트 케이스는 단위 기능 중 하나의 시나리오만 테스트하라'
+title: 'BigInteger_BigDecimal'
 author: [영이]
 tags: ['test']
 date: '2021-04-26T12:00:00.000Z'
 draft: false
-image: ../teaser/BigInteger_BigDecimal.png
+image: ../teaser/bigInteger_bigDecimal.png
 ---
 
 # BigInteger, BigDecimal?
@@ -41,11 +41,11 @@ BigInteger bigInteger = BigInteger.valueOf(1234567);
 BigInteger bigNumber1 = new BigInteger("100000");
 BigInteger bigNumber2 = new BigInteger("10000");
 
-System.out.println("덧셈(+) :" +bigNumber1.add(bigNumber2));
-System.out.println("뺄셈(-) :" +bigNumber1.subtract(bigNumber2));
-System.out.println("곱셈(*) :" +bigNumber1.multiply(bigNumber2));
-System.out.println("나눗셈(/) :" +bigNumber1.divide(bigNumber2));
-System.out.println("나머지(%) :" +bigNumber1.remainder(bigNumber2));
+System.out.println("덧셈(+) :" + bigNumber1.add(bigNumber2));
+System.out.println("뺄셈(-) :" + bigNumber1.subtract(bigNumber2));
+System.out.println("곱셈(*) :" + bigNumber1.multiply(bigNumber2));
+System.out.println("나눗셈(/) :" + bigNumber1.divide(bigNumber2));
+System.out.println("나머지(%) :" + bigNumber1.remainder(bigNumber2));
 ```
 
 두 수를 비교하는 `compareTo` 를 활용하면 두 수를 비교할 수있다. 같으면 0 다르면 -1을 반환한다.
@@ -102,11 +102,11 @@ BigDecimal bigDecimal = BigDecimal.valueOf(123456);
 BigDecimal bigNumber1 = new BigDecimal("100000.12345");
 BigDecimal bigNumber2 = new BigDecimal("10000");
 
-System.out.println("덧셈(+) :" +bigNumber1.add(bigNumber2));
-System.out.println("뺄셈(-) :" +bigNumber1.subtract(bigNumber2));
-System.out.println("곱셈(*) :" +bigNumber1.multiply(bigNumber2));
-System.out.println("나눗셈(/) :" +bigNumber1.divide(bigNumber2));
-System.out.println("나머지(%) :" +bigNumber1.remainder(bigNumber2));
+System.out.println("덧셈(+) :" + bigNumber1.add(bigNumber2));
+System.out.println("뺄셈(-) :" + bigNumber1.subtract(bigNumber2));
+System.out.println("곱셈(*) :" + bigNumber1.multiply(bigNumber2));
+System.out.println("나눗셈(/) :" + bigNumber1.divide(bigNumber2));
+System.out.println("나머지(%) :" + bigNumber1.remainder(bigNumber2));
 ```
 
 두 수를 비교하는 `compareTo` 는 마찬가지로 같으면 0 다르면 -1 을 반환한다.
