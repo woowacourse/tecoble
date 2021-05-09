@@ -24,7 +24,9 @@ image: ../teaser/dependency-injection.jpg
 
 "A가 B를 의존한다."는 표현은 어떤 의미일까? 추상적인 표현이지만, 토비의 스프링에서는 다음과 같이 정의한다.
 
-`의존대상 B가 변하면, 그것이 A에 영향을 미친다.`
+> **의존대상 B가 변하면, 그것이 A에 영향을 미친다.**
+>
+> *- 이일민, 토비의 스프링 3.1, 에이콘(2012), p113*
 
 즉, B의 기능이 추가 또는 변경되거나 형식이 바뀌면 그 영향이 A에 미친다. 
 
@@ -59,7 +61,18 @@ class BurgerChef {
         //burgerRecipe = new CheeseBurgerRecipe();
         //burgerRecipe = new ChickenBurgerRecipe();
     }
-    //인터페이스 BurgerRecipe를 구현한 Ham Cheese Chicken 버거 레시피
+}
+
+interface BugerRecipe {
+    newBurger();
+    // 이외의 다양한 메소드
+} 
+
+class HamBurgerRecipe implements BurgerRecipe {
+    public Burger newBurger() {
+        return new HamBerger();
+    }
+    // ...
 }
 ```
 
@@ -87,7 +100,9 @@ class BurgerChef {
 
 ### DI 구현 방법
 
-DI는 의존관계를 외부에서 결정하는 것이기 때문에, 클래스 변수를 결정하는 방법들이 곧 DI를 구현하는 방법이다. 런타임 시점의 의존관계를 외부에서 주입하여 DI 구현이 완성된다.(여기서는 주입하는 부분을 임의로 main 함수로 칭하였다.)
+DI는 의존관계를 외부에서 결정하는 것이기 때문에, 클래스 변수를 결정하는 방법들이 곧 DI를 구현하는 방법이다. 런타임 시점의 의존관계를 외부에서 주입하여 DI 구현이 완성된다.
+
+*Burger 레스토랑 주인이 어떤 레시피를 주입하는지 결정하는 예시로 설명하고자 한다.*
 
 - 생성자를 이용
 
@@ -100,26 +115,32 @@ class BurgerChef {
     }
 }
 
-main() {
-    BurgerChef burgerChef = new BurgerChef(new CheeseBurgerRecipe());
-}
+class BurgerRestaurantOwner {
+    private BurgerChef burgerChef = new BurgerChef(new HamburgerRecipe());
 
+    public void changeMenu() {
+        burgerChef = new BurgerChef(new CheeseBurgerRecipe());
+    }
+}
 ```
 
 - 메소드를 이용 (대표적으로 Setter 메소드)
 
 ```java
 class BurgerChef {
-    private BurgerRecipe burgerRecipe = null;
+    private BurgerRecipe burgerRecipe = new HamburgerRecipe();
 
     public void setBurgerRecipe(BurgerRecipe burgerRecipe) {
         this.burgerRecipe = burgerRecipe;
     }
 }
 
-main() {
-    BurgerChef burgerChef = new BurgerChef();
-    burgerChef.setBurgerRecipe(new CheeseBurgerRecipe());
+class BurgerRestaurantOwner {
+    private BurgerChef burgerChef = new BurgerChef();
+
+    public void changeMenu() {
+        burgerChef.setBurgerRecipe(new CheeseBurgerRecipe());
+    }
 }
 ```
 
