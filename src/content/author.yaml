@@ -94,3 +94,10 @@
   github: lns13301
   location: Seoul
   profile_image: profile/wilder.jpg
+- id: 케빈
+  avatar: avatars/kevin.jpg
+  bio: 우아한테크코스 3기 케빈(박진홍)입니다 :)
+  github: xlffm3
+  website: https://xlffm3.github.io/
+  location: Seoul
+  profile_image: profile/kevin.jpg
