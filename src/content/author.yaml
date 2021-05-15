@@ -62,3 +62,10 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 파피
+  avatar: avatars/fafi.jpeg
+  bio: 우아한테크코스 3기 파피(김태완)입니다 :)
+  website: https://velog.io/@rito
+  github: TaewanKimmmm
+  location: Incheon
+  profile_image: profile/fafi.jpg
