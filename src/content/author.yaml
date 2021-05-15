@@ -75,3 +75,10 @@
   github: choijy1705
   location: Seoul
   profile_image: profile/younge.jpg
+- id: 다니
+  avatar: avatars/danyee.jpg
+  bio: 우아한테크코스 3기 다니(이다은)입니다 :)
+  github: da-nyee
+  website: https://da-nyee.github.io/
+  location: Seoul
+  profile_image: profile/danyee.jpeg
