@@ -8,7 +8,7 @@ draft: false
 image: ../teaser/stack_vs_deque.jpg
 ---
 
-# (Java) Stack 대신 Deque 🤹‍♀️
+## 🤹‍♀️
 
 자바에서 자료구조 Stack 을 대신해서 사용하는 Deque 에 대해서 알아보자. 이 글은 기능을 사용하는 방식이 아닌 '왜 Stack 대신 Deque 를 사용해야 하는가?'에 대해서 설명한다.
 
