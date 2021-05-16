@@ -28,7 +28,25 @@ image: ../teaser/react-thinking.webp
 - 명령형 프로그래밍: 무엇을 **어떻게** 할 것인가
 - 선언형 프로그래밍: **무엇을** 할 것인가
 
-선언형 프로그래밍의 핵심은 내가 원하는 관심사만 선언하면 되도록 상세한 로직은 추상화되어 감추어져 있다는 특징에 있다. 이 관점으로 리액트를 사용하는 코드를 살펴보자.
+```html
+<div id="value">0</div>
+<button id="plus-button">+</button>
+<button id="minus-button">-</button>
+<script>
+  const value = document.querySelector('#value');
+  const plusButton = document.querySelector('#plus-button');
+  const minusButton = document.querySelector('#minus-button');
+
+  plusButton.addEventListener('click', () => {
+    value.innerText = Number(value.innerText) + 1;
+  });
+  minusButton.addEventListener('click', () => {
+    value.innerText = Number(value.innerText) - 1;
+  });
+</script>
+```
+
+기존의 View를 다루는 방식은 DOM 요소를 불러오는 것부터 데이터를 수정하고 적용하는 것까지 일일이 신경 써야 한다. 즉 원하는 목적을 이루기 위해 컴퓨터에 모든 과정에 대한 명령을 내려야 하기 때문에 이는 명령형 프로그래밍에 가깝다고 할 수 있다. 그에 반해 선언형 프로그래밍의 핵심은 내가 원하는 관심사만 선언하면 되도록 상세한 로직은 추상화되어 감추어져 있다는 특징에 있다. 이 관점으로 리액트를 사용하는 코드를 살펴보자.
 
 ```jsx
 class Counter extends React.Component {
