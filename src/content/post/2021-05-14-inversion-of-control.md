@@ -14,13 +14,14 @@ image: ../teaser/inversion-of-control.png
 >
 > (연락하지 마세요. 우리가 연락할게요.)
 
-처음 이 개념이 등장했을 무렵에는 `Hollywood principle`로 불리었다.
+처음 `inversion of Control(이하 IoC)`의 개념이 등장했을 무렵에는 `Hollywood principle`로 불리었다.
 그 시절 할리우드에서는 배우들이 오디션에 탈락하였을 때, 이를 돌려말하기 위해
 
 `Don't call us. we'll call you` 라고 말하곤 했는데
 
-이 구절이 IoC의 핵심과 일맥상통하기 때문에 `Hollywood principle`로 불리게 되었다고 한다.
-현재에는 `Inversion of Control(이하 IoC)`이라고 많이 불리는데
+이 구절이 오늘 소개할 개념의 핵심과 일맥상통하기 때문에 `Hollywood principle`로 불리게 되었다고 한다.
+
+현재에는 `IoC(Inversion of Control)`라고 많이 불리는데
 말 그대로 일반적인 제어 흐름이 아니라 흐름이 역전된 것을 의미한다.
 
 IoC를 처음 듣게 되면 `일반적인 제어 흐름`은 무엇인지,
