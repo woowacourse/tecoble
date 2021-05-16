@@ -8,53 +8,80 @@ draft: false
 image: ../teaser/presentational.png
 ---
 
-@ 본 글은 리액트를 기준으로 쓰여진 글입니다.
+@ 본 글은 Hook 개념이 없는 과거 리액트를 기준으로 쓰여진 글입니다.
 
-리액트에서 자주 활용되는 패턴 중
+리액트에서 **과거에** 자주 언급되고 활용되었던 패턴 중
+`Presentational and Container Components` 라는 패턴이 있다.
 
-Presentational and Container Components 라는 패턴이 있다.
+처음 이 패턴을 소개한 Dan Abramov는 2019년 기준으로 현재는 **이 패턴을 사용하지 말라**고 언급하고 있다. [(출처)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 
-Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 것일까?
+> 2019년 업데이트 : 이 아티클을 예전에 썼었고 이제는 내 관점이 달라졌다.
+> 특히 나는 더 이상 이런 방식으로 component를 나누는 것을 추천하지 않는다.
+> 만약 자연스럽게 이 패턴의 필요성을 찾는다면 이 패턴은 유용할 것이다.
+> 하지만 **어떤 필요성 없이, 독단적으로 이 패턴이 강제**되고 있음을 여러번 보았다.
+> 내가 이 패턴을 유용하게 보았던 주된 이유는 이 패턴이 다른 관점의 컴포넌트로부터
+> **복잡하고 stateful한 로직을 분리**하게 해주었기 때문이다.
+> 임의의 분리없이 **Hook**은 똑같은 일을 할 수 있다.
+> 이 글은 역사적인 이유로 보길 바라며 **심각하게 받아들이지 마라.**
 
-함께 알아보도록하자.
+비록 Dan Abramov가 추천하고 있지는 않지만 이전에는 어떤 필요성에 의해
+이런 패턴이 고안되었는지 생각해볼 필요가 있다고 느껴 글을 작성하게 되었다.
 
-### 👀 왜 이런 패턴을 사용하는가
+Dan Abramov와 같이 우리도 **역사적인 자료**로써 presentational and container 패턴을 알아보도록 하자.
+
+## 👀 왜 이런 패턴을 사용했는가
 
 리액트의 컴포넌트는 상태, DOM, 이벤트 등을 모두 관리할 수 있다.
-
 이는 리액트의 생태계에서 자유롭게 컴포넌트를 활용할 수 있다는 의미이지만
-
 컴포넌트 간의 의존도가 높아지는 것을 경계하지 않는다면 추후 어플리케이션이 비대해졌을 때
 
 **코드의 재사용**이 불가능해진다.
 
 그래서 컴포넌트 내에서도 추가적으로 레이어를 적절히 나눠 의존도를 낮춰주어야 할 필요를 느꼈고
+Hook의 개념이 존재하지 않았던 이전에, 로직과 view를 분리하기 위한 방법으로 등장한 것이 `Presentational and Container 패턴`이다.
 
-이를 해결하기 위한 패턴 중 하나로 등장한 것이 Presentational and Container 패턴이다.
+## 🔥 Presentational, Container 개념 잡기
 
 ### ✔ presentational 컴포넌트
 
-- 어떻게 화면에 보이는지에 대해서 책임진다.
+1. html, css, presentational component만 사용 가능하다.
 
-- presentational과 container 모두를 내부적으로 가질 수 있다.
+2. app에 대해 완전히 몰라야한다.
+   => 다른 app에서도 이 component를 사용할 수 있을지 스스로에게 물어보자
 
-- 상태를 가질 수 있지만 UI에 관련된 상태만 가질 수 있다.
+3. presentational과 container 모두를 내부적으로 가질 수 있다.
 
-- ex. navbar, page, list
+4. 작은 레고 블럭처럼 가능한 작게 만들어야 한다.
+
+5. 상태를 가질 수 있지만 UI에 관련된 상태만 가질 수 있다.
+
+6. 필요 시 visual을 바꾸는 props를 받을 수 있어야 한다.
+
+7. 가끔 완전히 다른 스타일을 불러오는 props를 받기도 한다.
+   ```
+   export enum ButtonTypes {
+     default = 'default',
+     primary = 'primary',
+     secondary = 'secondary',
+   }
+   ```
 
 ### ✔ container 컴포넌트
 
-- 어떠한 동작을 할 것인가에 대해 책임진다.
+1. 어떠한 동작을 할 것인가에 대해 책임진다.
 
-- DOM 마크업 구조나 스타일을 가져서는 안된다.
+2. 절대로 DOM 마크업 구조나 스타일을 가져서는 안된다.
 
-- presentational과 container 모두를 내부적으로 가질 수 있다.
+3. presentational과 container 모두를 내부적으로 가질 수 있다.
 
-- 주로 상태를 가지고 있다.
+4. 주로 상태를 가지고 있다.
 
-- 데이터를 처리하여 다른 컴포넌트에 전달한다.
+5. side effects를 만들 수 있다.
+   ex) db에 CRUD를 요청
 
-### 🙋‍♂️ 해당 패턴을 도입하여 얻을 수 있는 이점은?
+6. props를 자유롭게 받을 수 있다.
+
+## 🙋‍♂️ 해당 패턴을 도입하여 얻을 수 있는 이점은?
 
 1. 재사용성을 높일 수 있다.
 
@@ -80,57 +107,13 @@ Presentational? Container? 그게 뭐길래 리액트에서 자주 활용되는 
 
    반복되는 마크업 작업을 줄여줄 수 있다.
 
-   🔍예시 )
+## 📦 presentational과 container를 나누는 기준
 
-   ContextMenu라는 layout 컴포넌트에
-
-   메뉴 요소들만 props.children으로
-
-   넘겨주는 방식으로 코드 중복을 막을 수 있다.
-
-   ```js
-   // contextMenu를 사용하는 곳마다 레이아웃 작업을 반복 해야함
-
-   <div className="context-menu">
-     // 레이아웃을 위한 div들이 중첩되어있다.
-     <div className="context-menu__inner">
-       <ul>
-         <li>메뉴1</li>
-         <li>메뉴2</li>
-         <li>메뉴3</li>
-         <li>메뉴4</li>
-       </ul>
-     </div>
-   </div>
-   ```
-
-   ```js
-   // 레이아웃 컴포넌트로 레이아웃 작업의 중복을 줄임
-
-   <ContextMenu>
-     // 메뉴의 레이아웃은 ContextMenu 컴포넌트가 처리
-     <ul>
-       <li>메뉴1</li>
-       <li>메뉴2</li>
-       <li>메뉴3</li>
-       <li>메뉴4</li>
-     </ul>
-   </ContextMenu>
-   ```
-
-### 📦 presentational과 container를 나누는 기준
-
-대체적으로 presentational 컴포넌트는 stateless한 경향이 있고
-
-container 컴포넌트는 stateful한 경향이 있다.
+대체적으로 presentational 컴포넌트는 `stateless`한 경향이 있고
+container 컴포넌트는 `stateful`한 경향이 있다.
 
 하지만 이것은 presentational과 container를 나누는 절대적인 기준이 아니므로
-
-컴포넌트를 나눌 때는 state를 가지고 있냐 없냐 같은
-
-기능적인 부분에 집중하지 말고
-
-해당 컴포넌트가 어떤 목적을 가지고 있는지에 집중하는 것이 좋다.
+컴포넌트를 나눌 때는 state를 가지고 있냐 없냐 같은 기능적인 부분에 집중하지 말고 해당 컴포넌트가 **어떤 목적을 가지고 있는지에 집중**하는 것이 좋다.
 
 🔍 예시 )
 
@@ -138,20 +121,35 @@ ContextMenu 컴포넌트는 어떤 `'동작'`을 수행하는 것이 목적이�
 
 `'화면에 어떻게 보여지는가'`가 목적이기 때문에 presentational로 분류된다.
 
-### 😵 오해
+## ✨ 정리
 
-가끔 레이어를 칼 같이 분리하여야 할 것 같은 생각이 들 수 있다.
+이 글을 작성하며 느낀 Presentational and Container 패턴이 **과거에 존재했던 이유는 2가지 정도**라고 생각한다.
 
-하지만 모든 상황이 그렇게 칼 같이 분리되는 것은 아니다.
+1. 로직과 순수한 view를 나눠 view를 좀 더 재사용이 가능한 형태로 강제했다.
+2. 표현(마크업)과 로직을 분리해 복잡도를 낮추었다.
+   마크업 작업이 필요하면 presentational을 보고
+   로직 수정이 필요하면 container를 보는 등 유지보수하는데 이점이 있었음
 
-그래서 문제를 presentational과 container로 나누기 힘들다면 우선은 그대로 두자.
+현재의 시점에서 2가지의 장점들을 바라본다면
+1번은 component를 bottom-up 방식으로 정적인 페이지부터 만들면 어느정도 해결될 수 있다고 생각한다.
+2번은 리액트 Hook이 탄생하며 로직과 표현의 분리가 가능해졌기에 해결가능하다.
 
-아직 분리하기에 이른 것일 수 있기 때문이다.
+따라서 **현재는 이 장점들이 빛이 바래** 해당 패턴을 적용하기에는 애매한 부분이 있다.
+하지만 필자는 **과거의 패턴에서 얻을 수 있는 충분한 인사이트**가 있다고 생각한다.
 
-presentational and container 패턴도
+Hook이 단지 함수형 컴포넌트에서 state를 사용하기 위함만이 아님을 알 수 있었고,
+view와 로직은 재사용성을 위해 최대한 분리하는 것이 좋다는 것을 알 수 있었다.
 
-코드의 재사용성을 높히기 위한 방법론 중 하나일 뿐이지 정답은 아니다.
+또한 과거의 패턴을 돌아보며 가장 크게 느꼈던 것은
+**현재의 패턴들도 분명히 더 나은 패턴으로 나아갈 여지가 있다**는 것이다.
 
-항상 맹목적으로 따르는 습관을 버리고
+`Dan Abramov`와 같은 구루 개발자도 과거의 자신이 언급했던 **패턴이 현재에는 맞지 않음**을 이야기하며 심지어 트위터에서는 패턴 소개글을 작성한 것이 후회된다고 까지 이야기했다.
 
-좀 더 좋은 방법이 있다면 변형시켜 사용하는 습관을 가지자.
+항상 정답은 없으니 패턴을 **맹목적으로 따르는 것을 경계**하고
+좀 더 나은 방법이 있다면 **변형시켜 사용하는 자세**를 가지도록 하자.
+
+### 참고
+
+[dan abramov의 presentational and container 소개 글](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
+[Why presentational/container components pattern is still important in 2021](https://medium.com/silex-technologies/why-presentational-container-components-pattern-is-still-important-in-2021-44b4f54d6493)
