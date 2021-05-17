@@ -165,7 +165,7 @@ Spring에 등록된 여러 MessageConverter 중 MappingJackson2HttpMessageConver
 ## 3. @ModelAttribute
 
 > Annotation that binds a method parameter or method return value to a named model attribute, exposed to a web view. Supported for controller classes with @RequestMapping methods.<br><br>
-POST HTTP1.1 /requestbody<br>
+POST HTTP1.1 /modelattribute<br>
 Request params:	id=13 name=kevin
 
 @ModelAttribute 애너테이션의 역할은 클라이언트가 보내는 HTTP 파라미터들을 특정 Java Object에 **바인딩(맵핑)** 하는 것입니다.
