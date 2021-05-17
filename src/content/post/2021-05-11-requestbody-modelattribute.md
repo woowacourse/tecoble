@@ -88,7 +88,7 @@ void requestBody() throws Exception {
 
 RequestBodyDto 객체를 JSON 문자열 변환한 뒤, 이를 Post 요청 본문에 담아 보내고 다시 응답 본문으로 받는 테스트입니다. 해당 테스트를 실행하면 요청 본문의 JSON 값이 DTO로 잘 변환되어 성공합니다.
 
-### 2.1. 생성자와 Setter가 없는데?
+### 2.1. 생성자와 setter가 없는데?
 
 > RequestBodyDto.java
 
