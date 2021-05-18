@@ -1,3 +1,15 @@
+---
+layout: post  
+title: Spring Boot 슬라이스 테스트
+author: [파피]
+tags: ['test']
+date: "2021-05-18T12:00:00.000Z"
+draft: false
+image: ../teaser/slice-test.png
+---
+
+<p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://apkfab.com/slice-it-all/com.tummygames.sliceit">APKFab</a></p>
+
 ## Spring Boot 슬라이스 테스트
 
 ### 슬라이스 테스트란?
@@ -119,6 +131,3 @@ https://github.com/woowacourse/jwp-chess/pull/314#discussion_r625533041
 https://github.com/woowacourse/jwp-refactoring/pull/2#discussion_r491075672
 
 https://goddaehee.tistory.com/212
-
-
-
