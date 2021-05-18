@@ -88,7 +88,7 @@ public class Point {
 <br>
 
 ### 캡슐화 
-객체지향에서 말하는 캡슐화란 객체의 속성과 행위를 외부에서 사용하거나 보지 못하도록 숨기는 것을 의미한다.
+객체지향에서 말하는 캡슐화란 객체가 가진 상태나 행위를 다른 이가 사용하거나 보지 못하도록 숨기는 것을 의미한다.  
 하지만 `instanceof`를 사용하는 경우, 각 객체가 무엇인지, 어떤 점수를 돌려주어야 하는지 불필요한 외부의 객체가 그 정보를 알게 되는 것이다.
 때문에 캡슐화가 깨진다는 것을 알 수 있다.  
 우리는 각 객체가 가진 책임과 역할을 분리해주고, 이로 인해 유지보수, 확장에 있어 편리함을 얻기 위해 객체지향프로그래밍을 한다. 
@@ -107,6 +107,8 @@ instanceof가 사용되는 이유는 특정 타입임을 알아내고 특정 코
 이것은 instanceof를 사용하는 `calculate` 함수가 어떤 타입의 함수이든 pawn, king, empty의 `calculate` 구현을 모두 알고 있어야 하는 책임이 부가되는 것이다.
 각 타입에게 책임을 부여하면 되는 일이 하나의 메서드에게 모든 책임이 가중되는 일이 발생한 것이다.
 *한 클래스는 하나의 책임만 가져야 한다*는 객체지향프로그래밍의 원칙 중 하나인 **단일책임원칙(SRP)** 이 위반된 것이라고 볼 수 있다.  
+
+두 원칙에 대해서 추가적으로 [이 글](https://woowacourse.github.io/javable/post/2020-07-31-solid-1/)을 참고하면 더 공부할 수 있다.  
 <br>
 
 ### 성능
@@ -115,6 +117,30 @@ instanceof가 사용되는 이유는 특정 타입임을 알아내고 특정 코
 반면에 instanceof의 경우 알맞은 타입을 찾을 때까지 컴파일 시에 모든 타입을 돌며 검사해야한다.  
 그로 인해 다형성을 적용한 성능이 instanceof를 검사하는 성능보다 빠르다.  
 심지어 확인해야할 객체가 많으면 많을수록 불필요한 instanceof 검사가 더 필요하고 성능의 차이는 점차 커진다.  
+이해를 돕기 위해 간단한 코드를 통해 성능을 테스트 해보았다.  
+```java
+  @Test
+  void test() {
+      Pawn pawn = new Pawn(BLACK);
+      long start = 0;
+      long end = 0;
+
+ 26     start = System.nanoTime();
+      assertTrue(pawn instanceof Pawn);
+      end = System.nanoTime();
+      System.out.println("instanceof: " + (end-start));
+
+      start = System.nanoTime();
+      assertTrue(pawn.isPawn());
+      end = System.nanoTime();
+      System.out.println("다형성: " + (end-start));
+  }
+```
+이 코드는 실제 체스를 구현한 코드에서 Pawn인지 확인하고자 하는 코드이다.  
+실험 결과는 아래와 같다.  
+![test](../images/2021-04-26-instanceof-3.png)  
+작은 테스트임에도 차이가 나는 것을 쉽게 확인할 수 있다.  
+
 <br>
 
 ### 깔끔한 구현, 쉬운 리팩토링
