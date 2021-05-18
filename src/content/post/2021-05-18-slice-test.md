@@ -64,7 +64,7 @@ public class SomeThingTest {
   	@Test
   	void someThingTest() {
       	given(someThingService.getSomeThing()) // someThingService의 getSomeThing 메서드를 호출하면
-          	.willReturn("SomeThing") // "SomeThing"을 반환하도록 지정했다.
+          	.willReturn("SomeThing"); // "SomeThing"을 반환하도록 지정했다.
     }
 }
 ```
