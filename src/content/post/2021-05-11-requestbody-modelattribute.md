@@ -155,7 +155,7 @@ Spring에 등록된 여러 MessageConverter 중 MappingJackson2HttpMessageConver
 
 이를 통해 우리가 알 수 있는 것은 다음과 같습니다.
 
-* @RequestBody를 사용하면 HttpMessageConverter를 통해 요청 본문의 JSON 데이터가 Java 객체로 **변환** 된다.
+* @RequestBody를 사용하면 요청 본문의 JSON, XML, Text 등의 데이터가 적합한 HttpMessageConverter를 통해 파싱되어 Java 객체로 **변환** 된다.
 * @RequestBody를 사용할 객체는 필드를 바인딩할 생성자나 setter 메서드가 필요없다.
   * 다만 직렬화를 위해 기본 생성자는 필수다.
   * 또한 데이터 바인딩을 위한 필드명을 알아내기 위해 getter나 setter 중 1가지는 정의되어 있어야 한다.
@@ -168,12 +168,12 @@ Spring에 등록된 여러 MessageConverter 중 MappingJackson2HttpMessageConver
 POST HTTP1.1 /modelattribute<br>
 Request params:	id=13 name=kevin
 
-@ModelAttribute 애너테이션의 역할은 클라이언트가 보내는 HTTP 파라미터들을 특정 Java Object에 **바인딩(맵핑)** 하는 것입니다.
+@ModelAttribute 애너테이션의 역할은 클라이언트가 보내는 HTTP 파라미터들을 특정 Java Object에 **바인딩(맵핑)** 하는 것입니다. ``/modelattribute?name=req&age=1`` 같은 Query String 형태 혹은 요청 본문에 삽입되는 Form 형태의 데이터를 처리합니다.
 
 > Controller.java
 
 ```java
-@PostMapping("/modelattribute")
+@GetMapping("/modelattribute")
 public ResponseEntity<ModelAttributeDto> testModelAttribute(@ModelAttribute ModelAttributeDto modelAttributeDto) {
     return ResponseEntity.ok(modelAttributeDto);
 }
@@ -200,6 +200,37 @@ public class ModelAttributeDto {
 }
 ```
 
+@RequestBody 예제와 비슷하게 컨트롤러 및 DTO를 작성했습니다. ModelAttributeDto는 RequestBodyDto와 동일한 필드와 생성자 및 Getter 메서드를 가지고 있습니다. 차이점이라고 한다면 Setter가 정의되어 있지 않고, 컨트롤러는 @RequestBody 대신 @ModelAttribute를 사용한 것입니다.
+
+> ControllerTest.java
+
+```java
+@Test
+void modelAttribute() throws Exception {
+    mockMvc.perform(get("/modelattribute")
+            .param("name", "req")
+            .param("age", "1")
+            .param("password", "pass")
+            .param("email", "naver"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("name").value("req"))
+            .andExpect(jsonPath("age").value("1"))
+            .andExpect(jsonPath("password").value("pass"))
+            .andExpect(jsonPath("email").value("email"));
+}
+```
+
+먼저, Http 파라미터와 함께 Get 요청을 테스트해봅시다. HTTP 파라미터들은 URL 뒤에 붙어 ``/modelAttribute?name=req&age=1&password=pass&email=naver`` 형태의 Query String이 됩니다. 테스트 실행 결과는 ``ModelAttributeDto{name='req', age=1, password='pass', email='naver'}``로 데이터가 잘 바인딩됨을 확인할 수 있습니다.
+
+> Controller.java
+
+```java
+@PostMapping("/modelattribute")
+public ResponseEntity<ModelAttributeDto> testModelAttribute(@ModelAttribute ModelAttributeDto modelAttributeDto) {
+    return ResponseEntity.ok(modelAttributeDto);
+}
+```
+
 > ControllerTest.java
 
 ```java
@@ -220,26 +251,21 @@ void modelAttribute() throws Exception {
 }
 ```
 
-@RequestBody 예제와 동일하게 컨트롤러 및 테스트를 작성했습니다. ModelAttributeDto는 RequestBodyDto와 동일한 필드와 생성자 및 Getter 메서드를 가지고 있습니다. 차이점이라고 한다면 Setter가 정의되어 있지 않고, 컨트롤러는 @RequestBody 대신 @ModelAttribute를 사용한 것입니다.
-
-이 테스트를 실행하면 당연히 실패합니다. 전달하고자 하는 데이터를 HTTP 파라미터 대신 요청 본문에 담았으니, @ModelAttribute가 처리를 못하기 때문이죠.
+이번에는 Post 요청을 테스트해봅시다. 이 테스트를 실행하면 당연히 실패합니다. @ModelAttribute는 Form 형식의 HTTP 요청 본문 데이터만을 인식해 맵핑지만, 현재는 JSON 형태의 데이터를 전송하고 있기 때문입니다. 데이터가 바인딩되지 않거나 415 Unsupported Media Type 에러가 발생합니다.
 
 > ControllerTest.java
 
 ```java
-@Test
-void modelAttribute() throws Exception {
-    mockMvc.perform(post("/modelattribute")
-            .param("name", "req")
-            .param("age", "1")
-            .param("password", "pass")
-            .param("email", "naver"))
-            .andExpect(status().isOk())
-            .andExpect(content().string("modelattribute ok"));
-}
+mockMvc.perform(post("/modelattribute")
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .content("name=req&age=1&password=pass&email=naver"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("name").value("req"))
+        .andExpect(jsonPath("pass").value("pass"))
+        //...
 ```
 
-이와 같이 인자를 HTTP 파라미터로 전달하면 테스트가 성공합니다. 콘솔에도 ``ModelAttributeDto{name='req', age=1, password='pass', email='naver'}`` 결과가 잘 찍히는 것을 확인할 수 있습니다.
+이와 같이 contentType을 x-www-form-url-encoded로, 요청 본문 내용을 Form 형식으로 보내도록 테스트를 수정해봅시다. 테스트 실행 결과는 ``ModelAttributeDto{name='req', age=1, password='pass', email='naver'}``로 데이터가 잘 바인딩됨을 확인할 수 있습니다.
 
 ### 3.1. 생성자가 없을 때는 setter를
 
@@ -259,9 +285,9 @@ public class ModelAttributeDto {
 }
 ```
 
-테스트를 실행하면 실패합니다. 콘솔 로그에 결과로 ``ModelAttributeDto{name='null', age=0, password='null', email='null'}``가 출력됩니다. Post 요청으로 HTTP 파라미터는 정상적으로 보냈지만, Controller에서 데이터를 ModelAttribute에 바인딩하지 못하고 있습니다.
+테스트를 실행하면 실패합니다. 콘솔 로그에 결과로 ``ModelAttributeDto{name='null', age=0, password='null', email='null'}``가 출력됩니다. Post 요청으로 HTTP 파라미터는 정상적으로 보냈지만, Controller에서 데이터를 ModelAttributeDto에 바인딩하지 못하고 있습니다.
 
-그럼 ModelAttribute에 setter 메서드를 추가하고 테스트를 실행하면 어떻게 될까요? 테스트는 생성자가 있을 때 처럼 성공하게 됩니다.
+그럼 ModelAttributeDto에 setter 메서드를 추가하고 테스트를 실행하면 어떻게 될까요? 테스트는 생성자가 있을 때 처럼 성공하게 됩니다.
 
 ### 3.2. 정리
 
@@ -269,6 +295,7 @@ public class ModelAttributeDto {
 
 * @ModelAttribute를 사용하면 HTTP 파라미터 데이터를 Java 객체에 **맵핑**한다.
   * 따라서 객체의 필드에 접근해 데이터를 바인딩할 수 있는 생성자 혹은 setter 메서드가 필요하다.
+* Query String 및 Form 형식이 아닌 데이터는 처리할 수 없다.
 
 <br>
 
