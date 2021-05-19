@@ -112,6 +112,7 @@ public class MoneyTest {
     }
 }
 ```
+<br/>
 
 다음은 equals()와 hashCode() 메소드를 오버라이딩 하지 않았을 때의 테스트 결과이다.<br/>
 
@@ -168,6 +169,7 @@ public class MoneyTest {
     }
 }
 ```
+<br/>
 
 다음은 두 메소드를 오버라이딩 했을 때의 테스트 결과이다.<br/>
 
