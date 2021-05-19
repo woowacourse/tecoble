@@ -18,7 +18,7 @@ DTO와 VO는 분명히 다른 개념이다. 그런데, 같은 개념으로 생�
 ## DTO(Data Transfer Object)
 DTO는 데이터를 전달하기 위한 객체이다. 계층간 데이터를 주고 받을 때, 데이터를 담아서 전달하는 바구니로 생각할 수 있다.
 여러 레이어 사이에서 DTO를 사용할 수 있지만, 주로 View와 Controller 사이에서 데이터를 주고 받을 때 활용한다.<br/>
-DTO는 오직 `getter/setter` 메소드만 가진다. 이 외의 다른 로직은 포함하지 않는다.<br/>
+DTO는 `getter/setter` 메소드를 포함한다. 또, 도메인(Entity)로의 변환 책임을 가진다. 이 외의 다른 로직은 포함하지 않는다.<br/>
 
 아래 코드처럼 `setter`를 가지는 경우 가변 객체로 활용할 수 있다.<br/>
 
@@ -113,6 +113,8 @@ public class MoneyTest {
 }
 ```
 
+다음은 equals()와 hashCode() 메소드를 오버라이딩 하지 않았을 때의 테스트 결과이다.<br/>
+
 <p align="center">
     <img width="418" alt="money_test_fail" src="https://user-images.githubusercontent.com/50176238/118396188-4c313480-b689-11eb-8973-7522ea9b6586.png">
 </p>
@@ -166,6 +168,8 @@ public class MoneyTest {
     }
 }
 ```
+
+다음은 두 메소드를 오버라이딩 했을 때의 테스트 결과이다.<br/>
 
 <p align="center">
     <img width="318" alt="money_test_pass" src="https://user-images.githubusercontent.com/50176238/118396263-b4801600-b689-11eb-9f4f-749b38e75576.png">
@@ -230,3 +234,4 @@ public class Member {
 - Core J2EE Patterns: Best Practices and Design Strategies
 - [[10분 테코톡] 📍인비의 DTO vs VO](https://www.youtube.com/watch?v=z5fUkck_RZM&t=1s)
 - [[10분 테코톡] 🎼라흐의 DTO vs VO](https://www.youtube.com/watch?v=J_Dr6R0Ov8E&list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH&index=66&t=2s)
+- [지하철 노선도 관리 미션 (파피 PR) - 닉 리뷰](https://github.com/woowacourse/atdd-subway-map/pull/105#discussion_r628706043)
