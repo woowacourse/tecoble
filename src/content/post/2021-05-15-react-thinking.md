@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '리액트로 생각하기'
-author: [카일]
+author: [3기_카일]
 tags: ['react']
 date: '2021-05-15T12:00:00.000Z'
 draft: false
