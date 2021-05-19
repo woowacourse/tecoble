@@ -10,7 +10,7 @@ image: ../teaser/questions.png
 
 DTO와 VO는 분명히 다른 개념이다. 그런데, 같은 개념으로 생각해서 사용하는 경우가 많다. 왜일까?<br/>
 ⌜Core J2EE Patterns: Best Practices and Design Strategies⌟ 책의 초판에서는 데이터 전송용 객체를 `VO`로 정의했다.
-한편, 2판에서는 해당 객체를 `TO`로 정정해서 작성했다. 이 때문에 DTO와 VO를 혼동하게 된 것 같다.<br/>
+그 이후 2판에서는 해당 객체를 `TO`로 정정해서 작성했다. 이 때문에 DTO와 VO를 혼동하게 된 것 같다.<br/>
 이번 글에서는 DTO, VO, Entity의 정의와 특징을 살펴본다. 마지막에는 세 객체를 도표로 비교하며 정리를 한다.<br/>
 
 <br/>
@@ -44,6 +44,7 @@ public class MemberDto {
     }
 }
 ```
+<br/>
 
 한편, setter가 아닌 `생성자`를 이용해서 초기화하는 경우 불변 객체로 활용할 수 있다.
 불변 객체로 만들면 데이터를 전달하는 과정에서 데이터가 변조되지 않음을 보장할 수 있다.<br/>
@@ -115,6 +116,7 @@ public class MoneyTest {
 <p align="center">
     <img width="418" alt="money_test_fail" src="https://user-images.githubusercontent.com/50176238/118396188-4c313480-b689-11eb-8973-7522ea9b6586.png">
 </p>
+<br/>
 
 한편, 두 메소드를 오버라이딩 하면 테스트가 통과한다. 앞서 말했듯이 VO는 주소가 아닌 값을 비교하기 때문이다.<br/>
 
@@ -225,5 +227,6 @@ public class Member {
 <br/>
 
 ## References
+- Core J2EE Patterns: Best Practices and Design Strategies
 - [[10분 테코톡] 📍인비의 DTO vs VO](https://www.youtube.com/watch?v=z5fUkck_RZM&t=1s)
 - [[10분 테코톡] 🎼라흐의 DTO vs VO](https://www.youtube.com/watch?v=J_Dr6R0Ov8E&list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH&index=66&t=2s)
