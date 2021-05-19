@@ -34,7 +34,7 @@ Body:
     "email": "kevin@naver.com"
 }
 
-@RequestBody 애너테이션의 역할은 클라이언트가 보내는 HTTP 요청 본문(JSON 및 XML 등)을 Java 오브젝트로 **변환**하는 것입니다. HTTP 요청 본문 값은 Spring에서 제공하는 HttpMessageConverter를 통해 타입에 맞는 객체로 변환됩니다.
+@RequestBody 애너테이션의 역할은 클라이언트가 보내는 HTTP 요청 본문(JSON 및 XML 등)을 Java 오브젝트로 **변환**하는 것입니다. HTTP 요청 본문 데이터는 Spring에서 제공하는 HttpMessageConverter를 통해 타입에 맞는 객체로 변환됩니다.
 
 > Controller.java
 
