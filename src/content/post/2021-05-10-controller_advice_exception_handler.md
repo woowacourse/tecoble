@@ -10,7 +10,7 @@ image: ../teaser/exception-handler.png
 
 ## @ExceptionHandler
 
-**@ExceptionHandler** 는 **@Controller** , **@RestController** 가 적용된 Bean 에서 발생하는 예외를 잡아서 하나의 메서드에서 처리해주는 기능이다. **@ExceptiionHandler** 에 설정한 예외가 발생하면 handler가 실행된다. **@Controller**, **@RestController**가 아닌 **@Service** 나 **@Repository** 가 적용된 Bean에서는 사용할 수 없다. **@ExceptionHandler** 인터페이스로 들어가 보면 아래와 같다.
+**@ExceptionHandler** 는 **@Controller** , **@RestController** 가 적용된 Bean 에서 발생하는 예외를 잡아서 하나의 메서드에서 처리해주는 기능이다. **@ExceptionHandler** 에 설정한 예외가 발생하면 handler가 실행된다. **@Controller**, **@RestController**가 아닌 **@Service** 나 **@Repository** 가 적용된 Bean에서는 사용할 수 없다. **@ExceptionHandler** 인터페이스로 들어가 보면 아래와 같다.
 
 ```java
 @Target(ElementType.METHOD)
@@ -37,16 +37,16 @@ public class SimpleController {
 
     // ...
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<String> handle(IOException ex) {
         // ...
     }
 }
 ```
 
-우선 `@ExceptionHandler(value = Exception.class)` 를 통하여 어떤 예외를 처리 할 것 인지를 설정하였다. SimpleController에서의 작업중 Exception이 발생하면 **@ExceptionHandler**가 동작하게 된다. 동작 시 원하는 것을 구현해주면 된다.
+우선 `@ExceptionHandler(value = RuntimeException.class)` 를 통하여 어떤 예외를 처리 할 것 인지를 설정하였다. SimpleController에서의 작업 중 RuntimeException이 발생하면 **@ExceptionHandler**가 동작하게 된다. 동작 시 원하는 것을 구현해주면 된다.
 
-**@ExceptionHandler** 는 등록된 해당 Controller 에서 만 적용이 된다. 다른 컨트롤러에서의 예외는 잡을 수 없다. 같은 예외가 발생한 것이고 같은 처리를 해주고 싶은 경우가 있는데 다른 컨트롤러에서의 작업이라면 해당 컨트롤러에 같은 **@ExceptionHandler** 를 적용해주어야 한다. 똑같은 기능을 하는 똑같이 생긴 코드를 반복하는 것은 번거럽고 낭비이다. 이러한 번거로움을 해결할 수 있는 방법이 있는데 **@ControllerAdvice** 이다.
+**@ExceptionHandler** 는 등록된 해당 Controller 에서만 적용이 된다. 다른 컨트롤러의 예외는 잡을 수 없다. 같은 예외가 발생한 것이고 같은 처리를 해주고 싶은 경우가 있을 수 있다. 다른 컨트롤러에서의 작업이라면 해당 컨트롤러에 같은 **@ExceptionHandler** 를 적용해주어야 한다. 똑같은 기능을 하는 똑같이 생긴 코드를 반복하는 것은 번거럽고 낭비이다. 이러한 번거로움을 해결할 수 있는 방법이 있는데, 바로 **@ControllerAdvice** 이다.
 
 ## @ControllerAdvice
 
