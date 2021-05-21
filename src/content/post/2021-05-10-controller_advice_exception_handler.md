@@ -1,6 +1,6 @@
 ---
 layout: post
-title: @ExceptionHandler 와 @ControllerAdvice
+title: ExceptionHandler 와 ControllerAdvice
 author: [영이]
 tags: ['java', 'spring']
 date: "2021-05-10T12:00:00.000Z"
