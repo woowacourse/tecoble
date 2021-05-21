@@ -62,6 +62,13 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 미키
+  avatar: avatars/mickey.jpeg
+  bio: 우아한테크코스 3기 미키(권세진)입니다 :)
+  github: 0307kwon
+  website: https://velog.io/@0307kwon
+  location: Seoul
+  profile_image: profile/mickey.jpg
 - id: 주모
   avatar: avatars/jum0.jpg
   bio: 우아한테크코스 3기 주모(한준모)입니다 :)
