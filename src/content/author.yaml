@@ -62,13 +62,18 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 주모
+  avatar: avatars/jum0.jpg
+  bio: 우아한테크코스 3기 주모(한준모)입니다 :)
+  github: jum0
+  location: Seoul
+  profile_image: profile/scenery.jpg
 - id: 파노
   avatar: avatars/fano.png
   bio: 우아한테크코스 3기 프론트엔드 파노(전환오)입니다~~!
   github: jho2301
   location: Seoul
   profile_image: profile/fano.jpg
-
 - id: 파피
   avatar: avatars/fafi.jpeg
   bio: 우아한테크코스 3기 파피(김태완)입니다 :)
