@@ -2,21 +2,21 @@
 layout: post
 title: 'presentational and container 패턴이란 무엇인가'
 author: [미키]
-tags: ['refactoring', 'design-pattern']
+tags: ['refactoring']
 date: '2021-04-25T12:00:00.000Z'
 draft: false
 image: ../teaser/presentational.png
 ---
 
-@ 본 글은 Hook 개념이 없는 과거 리액트를 기준으로 쓰여진 글입니다.
+❗ 본 글은 Hook 개념이 없는 과거 리액트를 기준으로 쓰여진 글입니다.
 
 리액트에서 **과거에** 자주 언급되고 활용되었던 패턴 중
 `Presentational and Container Components` 라는 패턴이 있다.
 
-처음 이 패턴을 소개한 Dan Abramov는 2019년 기준으로 현재는 **이 패턴을 사용하지 말라**고 언급하고 있다. [(출처)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+처음 이 패턴을 소개한 Dan Abramov는 2019년 기준으로 현재는 **이 패턴을 사용하지 말라**고 언급하고 있다. [(출처)](https://medium.com/dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 
 > 2019년 업데이트 : 이 아티클을 예전에 썼었고 이제는 내 관점이 달라졌다.
-> 특히 나는 더 이상 이런 방식으로 component를 나누는 것을 추천하지 않는다.
+> 특히 나는 더 이상 이런 방식으로 component를 나누는 것을 추천하지 않는다.  
 > 만약 자연스럽게 이 패턴의 필요성을 찾는다면 이 패턴은 유용할 것이다.
 > 하지만 **어떤 필요성 없이, 독단적으로 이 패턴이 강제**되고 있음을 여러번 보았다.
 > 내가 이 패턴을 유용하게 보았던 주된 이유는 이 패턴이 다른 관점의 컴포넌트로부터
@@ -150,6 +150,6 @@ view와 로직은 재사용성을 위해 최대한 분리하는 것이 좋다는
 
 ### 참고
 
-[dan abramov의 presentational and container 소개 글](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+[dan abramov의 presentational and container 소개 글](https://medium.com/dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
 
 [Why presentational/container components pattern is still important in 2021](https://medium.com/silex-technologies/why-presentational-container-components-pattern-is-still-important-in-2021-44b4f54d6493)
