@@ -18,7 +18,7 @@ DTO와 VO는 분명히 다른 개념이다. 그런데, 같은 개념으로 생�
 ## DTO(Data Transfer Object)
 DTO는 데이터를 전달하기 위한 객체이다. 계층간 데이터를 주고 받을 때, 데이터를 담아서 전달하는 바구니로 생각할 수 있다.
 여러 레이어 사이에서 DTO를 사용할 수 있지만, 주로 View와 Controller 사이에서 데이터를 주고 받을 때 활용한다.<br/>
-DTO는 `getter/setter` 메소드를 포함한다. 또, 도메인(Entity)로의 변환 책임을 가진다. 이 외의 다른 로직은 포함하지 않는다.<br/>
+DTO는 `getter/setter` 메소드를 포함한다. 이 외의 비즈니스 로직은 포함하지 않는다.<br/>
 
 아래 코드처럼 `setter`를 가지는 경우 가변 객체로 활용할 수 있다.<br/>
 
@@ -74,7 +74,7 @@ public class MemberDto {
 ## VO(Value Object)
 VO는 값 자체를 표현하는 객체이다. VO는 객체들의 주소가 달라도 값이 같으면 동일한 것으로 여긴다.
 예를 들어, 고유번호가 서로 다른 만원 2장이 있다고 생각하자. 이 둘은 고유번호(주소)는 다르지만 10000원(값)은 동일하다.<br/>
-VO는 `getter` 메소드와 함께 다른 로직들도 포함할 수 있다. 단, `setter` 메소드는 가지지 않는다.
+VO는 `getter` 메소드와 함께 비즈니스 로직도 포함할 수 있다. 단, `setter` 메소드는 가지지 않는다.
 또, 값 비교를 위해 `equals()`와 `hashCode()` 메소드를 오버라이딩 해줘야 한다.<br/>
 
 아래 코드처럼 equals()와 hashCode() 메소드를 오버라이딩 하지 않으면 테스트가 실패한다.<br/>
@@ -180,18 +180,18 @@ public class MoneyTest {
 <br/>
 
 ## Entity
-Entity는 실제 DB 테이블과 1:1 매핑되는 핵심 클래스이다. 이를 기준으로 테이블이 생성되고 스키마가 변경된다.
+Entity는 실제 DB 테이블과 매핑되는 핵심 클래스이다. 이를 기준으로 테이블이 생성되고 스키마가 변경된다.
 따라서, 절대로 Entity를 요청이나 응답값을 전달하는 클래스로 사용해서는 안 된다.<br/>
-Entity는 id로 구분되고, `getter/setter` 메소드와 함께 다른 로직들도 포함할 수 있다.<br/>
+Entity는 id로 구분된다. 그리고 비즈니스 로직을 포함할 수 있다.<br/>
 
-Entity는 VO와 다르게 가변 객체이다. 따라서, 생성 이후 상태를 변경할 수 있다.<br/>
+Entity는 DTO처럼 `setter`를 가지는 경우 가변 객체로 활용할 수 있다.<br/>
 
 ```java
 public class Member {
-    private Long id;
-    private String email;
-    private String password;
-    private Integer age;
+    private final Long id;
+    private final String email;
+    private final String password;
+    private final Integer age;
 
     public Member() {
     }
@@ -202,22 +202,6 @@ public class Member {
         this.password = password;
         this.age = age;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
 }
 ```
 
@@ -226,8 +210,8 @@ public class Member {
 ## 세 객체 비교
 |분류 |DTO |VO |Entity |
 |:--:|:--:|:--:|:--:|
-|정의 |레이어간 데이터 전송용 객체 |값 표현용 객체 |DB 테이블 1:1 매핑용 객체 |
-|상태 변경 여부 |가변 또는 불변 객체 |불변 객체 |가변 객체 |
+|정의 |레이어간 데이터 전송용 객체 |값 표현용 객체 |DB 테이블 매핑용 객체 |
+|상태 변경 여부 |가변 또는 불변 객체 |불변 객체 |가변 또는 불변 객체 |
 |로직 포함 여부 |로직을 포함할 수 없다. |로직을 포함할 수 있다. |로직을 포함할 수 있다. |
 
 <br/>
@@ -236,4 +220,3 @@ public class Member {
 - Core J2EE Patterns: Best Practices and Design Strategies
 - [[10분 테코톡] 📍인비의 DTO vs VO](https://www.youtube.com/watch?v=z5fUkck_RZM&t=1s)
 - [[10분 테코톡] 🎼라흐의 DTO vs VO](https://www.youtube.com/watch?v=J_Dr6R0Ov8E&list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH&index=66&t=2s)
-- [지하철 노선도 관리 미션 (파피 PR) - 닉 리뷰](https://github.com/woowacourse/atdd-subway-map/pull/105#discussion_r628706043)
