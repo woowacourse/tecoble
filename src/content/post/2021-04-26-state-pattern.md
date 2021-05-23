@@ -2,7 +2,7 @@
 layout: post
 title: '상태 패턴(State Pattern)을 사용해보자'
 author: [와일더]
-tags: ['state-pattern', 'state', 'pattern']
+tags: ['design-pattern']
 date: '2021-04-26T12:00:00.000Z'
 draft: false
 image: ../teaser/emotion.png
