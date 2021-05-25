@@ -84,25 +84,25 @@ JWT(JSON Web Token)란 인증에 필요한 정보들을 암호화시킨 토큰�
 
 ### 4.1. JWT 구조
 
-![jwt](../images/jwt-total.png)
+![jwt](../images/2021-05-22-jwt-total.png)
 
 JWT는 .을 구분자로 나누어지는 세 가지 문자열의 조합입니다. 실제 디코딩된 JWT는 다음과 같은 구조를 지닙니다.
 
 #### Header
 
-![jwt-header](../images/jwt-header.png)
+![jwt-header](../images/2021-05-22-jwt-header.png)
 
 Header는 alg과 typ는 각각 정보를 암호화할 해싱 알고리즘 및 토큰의 타입을 지정합니다.
 
 #### Payload
 
-![jwt-payload](../images/jwt-payload.png)
+![jwt-payload](../images/2021-05-22-jwt-payload.png)
 
 Payload는 토큰에 담을 정보를 지니고 있습니다. 주로 클라이언트의 고유 ID 값 및 유효 기간 등이 포함되는 영역입니다. key-value 형식으로 이루어진 한 쌍의 정보를 Claim이라고 칭합니다.
 
 #### Signature
 
-![jwt-signature](../images/jwt-signature.png)
+![jwt-signature](../images/2021-05-22-jwt-signature.png)
 
 Signature는 인코딩된 Header와 Payload를 더한 뒤 비밀키로 해싱하여 생성합니다. Header와 Payload는 단순히 인코딩된 값이기 때문에 제 3자가 복호화 및 조작할 수 있지만, Signature는 서버 측에서 관리하는 비밀키가 유출되지 않는 이상 복호화할 수 없습니다. 따라서 Signature는 토큰의 위변조 여부를 확인하는데 사용됩니다.
 
