@@ -6,15 +6,14 @@ tags: ['spring-boot']
 date: "2021-05-10T12:00:00.000Z"
 draft: false
 image: ../teaser/spring-response-entity.png
-
 ---
+
 웹 서비스에서는 많은 정보를 수송신하게 됩니다.
 각각의 다른 웹 서비스들이 대화하려면, 서로 정해진 약속에 맞게 데이터를 가공해서 보내야합니다.
 보내는 요청 및 데이터의 형식을 우리는 _HTTP(HyperText Transport Protocol)_ 이라고 합니다.
 _Java Spring_ 에서도 마찬가지로 _HTTP_ 에 맞게 데이터를 송수신해야합니다. 
 하지만 _HTTP_ 응답을 보낼 때에, 이 규격에 맞게 응답을 직접 만드는 것은 까다롭습니다.
 이를 쉽게 만들어주는 _ResponseEntity_ 를 통해서, 빠르게 쉽게 규격에 맞는 응답을 보내봅시다.
----
 
 
 ## Spring에서 데이터를 송수신하는 방법
@@ -169,6 +168,8 @@ _Constructor_ 를 사용시에 _Body_ 부분, _Header_ 그리고 상태로 지�
 _Spring_ 또한 _HTTP_ 에 맞는 응답을 클라이언트에게 제공을 해주어야 합니다.
 _Header_ 설정에서의 유연성을 가진 _ResponseEntity_ 를 사용하여, 빠르면서도 실수를 줄이는 _HTTP_ 응답을 구현할 수 있습니다.
 
-
-
+## 참고 자료
+- [모질라 재단 HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)
+- [Oracle Spring ResponseEntity 문서](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html)
+- [Spring ResponseBody 문서](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-responsebody)
 
