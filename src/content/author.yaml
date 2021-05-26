@@ -62,6 +62,76 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 미키
+  avatar: avatars/mickey.jpg
+  bio: 우아한테크코스 3기 미키(권세진)입니다 :)
+  github: 0307kwon
+  website: https://velog.io/@0307kwon
+  location: Seoul
+  profile_image: profile/mickey.jpg
+- id: 주모
+  avatar: avatars/jum0.jpg
+  bio: 우아한테크코스 3기 주모(한준모)입니다 :)
+  github: jum0
+  location: Seoul
+  profile_image: profile/scenery.jpg
+- id: 파노
+  avatar: avatars/fano.png
+  bio: 우아한테크코스 3기 프론트엔드 파노(전환오)입니다~~!
+  github: jho2301
+  location: Seoul
+  profile_image: profile/fano.jpg
+- id: 파피
+  avatar: avatars/fafi.jpeg
+  bio: 우아한테크코스 3기 파피(김태완)입니다 :)
+  website: https://velog.io/@rito
+  github: TaewanKimmmm
+  location: Incheon
+  profile_image: profile/fafi.jpg
+- id: 영이
+  avatar: avatars/younge.jpeg
+  bio: 우아한테크코스 3기 영이(최준영)입니다 :)
+  github: choijy1705
+  location: Seoul
+  profile_image: profile/younge.jpg
+- id: 다니
+  avatar: avatars/danyee.jpg
+  bio: 우아한테크코스 3기 다니(이다은)입니다 :)
+  github: da-nyee
+  website: https://da-nyee.github.io/
+  location: Seoul
+  profile_image: profile/danyee.jpeg
+- id: 완태
+  avatar: avatars/wannte.jpg
+  bio: 우아한테크코스 3기 완태(김태완)입니다 :)
+  github: wannte
+  location: Seoul
+  profile_image: profile/wannte.jpg
+- id: 와일더
+  avatar: avatars/wilder.jpeg
+  bio: 우아한테크코스 3기 와일더(강규한)입니다 :)
+  github: lns13301
+  location: Seoul
+  profile_image: profile/wilder.jpg
+- id: 케빈
+  avatar: avatars/kevin.jpg
+  bio: 우아한테크코스 3기 케빈(박진홍)입니다 :)
+  github: xlffm3
+  website: https://xlffm3.github.io/
+  location: Seoul
+  profile_image: profile/kevin.jpg
+- id: 카일
+  avatar: avatars/kyle_2.jpg
+  bio: 우아한테크코스 3기 카일(임광열)입니다 :)
+  github: GwangYeol-Im
+  location: Seoul
+  profile_image: profile/kyle_2.jpeg
+- id: 샐리
+  avatar: avatars/sally.png
+  bio: 우아한테크코스 3기 샐리(조연우)입니다 :)
+  github: dusdn1702
+  location: Seoul
+  profile_image: profile/sally.png
 - id: 와이비
   avatar : avatars/whybe.jpeg
   bio : 우아한테크코스 3기 와이비(허영범)입니다 :)
