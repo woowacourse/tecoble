@@ -5,7 +5,7 @@ author: [와이비]
 tags: ['spring-boot']
 date: "2021-05-10T12:00:00.000Z"
 draft: false
-image: ../teaser/spring-ResponseEntity.png
+image: ../teaser/spring-response-entity.png
 
 ---
 웹 서비스에서는 많은 정보를 수송신하게 됩니다.
