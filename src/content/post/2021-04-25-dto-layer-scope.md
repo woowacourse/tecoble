@@ -135,7 +135,7 @@ public Article createArticle(Article article) {
 위 코드는 다음과 같은 로직을 가지고 있습니다.
 
 * View로부터 받아온 DTO를 Controller에서 Domain(Entity)으로 변환하고 Service 레이어에게 이를 전달하여 작업을 수행합니다.
-* Service 레이어는 Controller에게 Domain으 반환하고, Controller는 Domain을 DTO로 변환해 View에게 응답을 보냅니다.
+* Service 레이어는 Controller에게 Domain을 반환하고, Controller는 Domain을 DTO로 변환해 View에게 응답을 보냅니다.
 
 그런데 DTO를 학습하면서, **"꼭 DTO와 Domain간의 변환 위치가 Controller(표현 계층)여야 하는가?"** 라는 궁금증이 들었습니다.
 
