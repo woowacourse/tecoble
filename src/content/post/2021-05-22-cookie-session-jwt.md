@@ -133,7 +133,7 @@ Signature는 인코딩된 Header와 Payload를 더한 뒤 비밀키로 해싱하
 
 ### 4.4. 단점
 
-1. 쿠키/세션과 다르게 JWT는 토큰의 길이가 길어, 인증 요청이 많아질수록 서버의 부하가 심해집니다.
+1. 쿠키/세션과 다르게 JWT는 토큰의 길이가 길어, 인증 요청이 많아질수록 네트워크 부하가 심해집니다.
 2. Payload 자체는 암호화되지 않기 때문에 유저의 중요한 정보는 담을 수 없습니다.
 3. 토큰을 탈취당하면 대처하기 어렵습니다.
   * 토큰은 한 번 발급되면 유효기간이 만료될 때 까지 계속 사용이 가능하기 때문입니다.
@@ -163,6 +163,12 @@ JWT 사용시 상기한 단점들을 극복하기 위해 다양한 전략을 채
 
 <br>
 
+## 6. 정리
+
+![jwt-cells](../images/2021-05-29-jwt-cells.png)
+
+<br>
+
 ---
 
 ## Reference
@@ -175,3 +181,4 @@ JWT 사용시 상기한 단점들을 극복하기 위해 다양한 전략을 채
 * [[JWT] 토큰 기반 인증이란](https://velog.io/@dnjscksdn98/JWT-%ED%86%A0%ED%81%B0-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D%EC%9D%B4%EB%9E%80)
 * [토근 기반 인증에서 bearer는 무엇일까?](https://velog.io/@cada/%ED%86%A0%EA%B7%BC-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D%EC%97%90%EC%84%9C-bearer%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)
 * [Refresh Token과 Sliding Sessions를 활용한 JWT의 보안 전략](https://blog.ull.im/engineering/2019/02/07/jwt-strategy.html)
+* [Refresh Tokens: When to Use Them and How They Interact with JWTs](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/)
