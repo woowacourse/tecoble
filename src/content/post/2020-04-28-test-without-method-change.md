@@ -1,9 +1,9 @@
 ---
-layout : post
-title : 메소드 시그니처를 변경하지 않고, 테스트 가능한 구조 만들기.
-author : [카일]
-tags: ["refactoring", "test"]
-date: "2020-04-28T12:00:00.000Z"
+layout: post
+title: 메소드 시그니처를 변경하지 않고, 테스트 가능한 구조 만들기.
+author: [2기_카일]
+tags: ['refactoring', 'test']
+date: '2020-04-28T12:00:00.000Z'
 draft: false
 image: ../teaser/signature.jpg
 ---
@@ -15,17 +15,17 @@ image: ../teaser/signature.jpg
 ```java
 public class Car {
     private int position;
-    
+
     public Car(int position) {
-	    this.position = position;   
+	    this.position = position;
     }
-        
+
     public void move() {
     	if ((int)(Math.random() * 10) > 4) {
     		this.position++;
-    	}   
+    	}
     }
-    
+
     public boolean isSamePosition(int position) {
         return this.position == position;
     }
@@ -60,7 +60,7 @@ protected int randomInt() { // 메소드 분리
 
 ```java
 class CarTest {
-    
+
     @Test
     void moveTest() {
     	Car car = new Car(3) {
@@ -70,9 +70,9 @@ class CarTest {
             }
     	};
     	car.move();
-    	assertThat(car.isSamePosition(4)).isTrue();     
+    	assertThat(car.isSamePosition(4)).isTrue();
     }
-   
+
     @Test
     void notMoveTest() {
     	final Car car = new Car(3) {
@@ -82,7 +82,7 @@ class CarTest {
             }
     	};
     	car.move();
-    	assertThat(car.isSamePosition(3)).isTrue();     
+    	assertThat(car.isSamePosition(3)).isTrue();
     }
 }
 ```
