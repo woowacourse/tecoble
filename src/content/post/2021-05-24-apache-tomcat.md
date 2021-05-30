@@ -5,16 +5,16 @@ author: [와이비]
 tags: ['spring-boot']
 date: "2021-05-24T12:00:00.000Z"
 draft: false
-image: ../teaser/ApacheTomcat.png
+image: ../teaser/apache_tomcat.png
 
 ---
-_Java Spring Boot_ 을 공부하면서 어떻게 구현해야 할지에 대한 내용뿐만이 아니라 어떻게 구성이 되어있는지에 대해서도 공부를 하게 되었습니다.
+_Spring Boot_ 을 공부하면서 어떻게 구현해야 할지에 대한 내용뿐만이 아니라 어떻게 구성이 되어있는지에 대해서도 공부를 하게 되었습니다.
 _Client_ 로부터 받은 _HTTP_ 요청을 알맞게 처리하여, _Spring_ 의 _Controller_ 로 넘겨주게 됩니다. 
 이 때, _Spring_에서는 _WAS(Web Application Server)_ 의 역할을 _Apache Tomcat_ 이라는 서버가 작동하게 된다고 공부를 하였습니다.
 하지만 좀 더 공부해보니, _Apache_ 라는 서버가 존재하는데, 이것은_WAS_ 와 또 다른 개념인 _Web Server_ 라는 것을 알게 되었습니다. 
 두 단어가 상당히 비슷하여 헷갈리는 점이 많았습니다. 
 이 때문에 _Spring Boot_ 의 구성 요소 중 _WAS_ 와 _Web Server_ 에 대해서 정리하고자 합니다.
----
+
 
 ## Web Server와 Apache Server
 _Client_ 에서는 미리 정해진 _HTTP_ 규격에 맞게 요청을 보내게 됩니다.
