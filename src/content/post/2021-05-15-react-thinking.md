@@ -54,8 +54,8 @@ image: ../teaser/react-thinking.webp
 
 ```jsx
 class Counter extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       value: 0,
