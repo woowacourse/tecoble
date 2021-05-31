@@ -1,9 +1,9 @@
 ---
-layout: post  
-title: "불변객체를 만드는 방법"  
-author: [카일]
-tags: ["immutable", "refactoring"]
-date: "2020-05-18T12:00:00.000Z"
+layout: post
+title: '불변객체를 만드는 방법'
+author: [2기_카일]
+tags: ['immutable', 'refactoring']
+date: '2020-05-18T12:00:00.000Z'
 draft: false
 image: ../teaser/immutable.png
 ---
@@ -15,7 +15,7 @@ image: ../teaser/immutable.png
 위키피디아에 의하면 `불변 객체는 생성 후 그 상태를 바꿀 수 없는 객체`를 의미합니다. 여기서 상태를 바꿀 수 없다는 것은 어떤 의미일까요? 이는 힙영역에서 그 객체가 가리키고 있는 데이터 자체의 변화가 불가능하다는 것을 의미합니다.
 
 <img width="609" alt="스크린샷 2020-05-29 오전 8 31 17" src="https://user-images.githubusercontent.com/49060374/83204436-c7eb5600-a186-11ea-919b-29b2e9ac94b6.png">
- 
+
 
 힙 영역이라는 말이 생소한 분들을 위해 간단하게 설명하자면, 위의 그림처럼 `Reference`를 가지고 있는 타입(`object, array`) 은 실제 데이터는 `힙` 영역에 저장하고 그 힙 영역을 가리키는 주솟값을 `Stack` 영역에서 가지고 있는데, 아래의 코드를 보며 조금 더 설명하겠습니다.
 
@@ -51,19 +51,19 @@ public class JavaApplication {
 
 import java.util.List;
 
-public class Cars {     
+public class Cars {
     private final List<Car> cars;
-    
+
     public Cars(List<Car> cars) {
-    	this.cars = cars; 
+    	this.cars = cars;
     }
 }
 
-public class Car { 
+public class Car {
     private final String name;
-    
+
     public Car(String name) {
-    	this.name = name;  
+    	this.name = name;
     }
 }
 ```
@@ -76,39 +76,39 @@ public static void main(String[] args) {
     carNames.add(new Car("hodol"));
     Cars cars = new Cars(carNames);  // hodol만 들어간 리스트를 통해 생성
 
-    for(Car car : cars.getCars()) { 
-        System.out.println(car.toString()); // 결과 : 호돌 
+    for(Car car : cars.getCars()) {
+        System.out.println(car.toString()); // 결과 : 호돌
     }
     System.out.println(cars);  // 주소 kail.study.java.study.immutable.Cars@4b1210ee
-	
-    carNames.add(new Car("pobi")); //다른 값을 추가로 넣어줌.	
+
+    carNames.add(new Car("pobi")); //다른 값을 추가로 넣어줌.
     System.out.println(cars) // 주소 kail.study.java.study.immutable.Cars@4b1210ee
 
-    for(Car car : cars.getCars()) { 
-        System.out.println(car.toString()); //결과 : 호돌 포비 
+    for(Car car : cars.getCars()) {
+        System.out.println(car.toString()); //결과 : 호돌 포비
     }
 }
 ```
 
-- Cars가 생성될 때 인자로 넘어온 리스트를 외부에서 변경하면 Cars가 참조하고 있는 내부 인스턴스 또한 변한다는 것을 확인 할 수 있습니다. 위의 예에서 Cars의 인스턴스 변수인 `private final List<Car> cars` 가 불변이길 원하지만 다른 값을 넣더라도 같은 주소값을 가지면서 `pobi` 라는 값을 추가적으로 갖게 되었습니다.  **`불변 객체란 외부에서 불변 객체의 값을 수정 할 수 없는 객체`**를 의미합니다. 위의 예에서는 `외부(Main method)` 에서 Cars가 가지고 있는 cars라는 인스턴스 변수의 요소를 변경할 수 있었기 때문에 불변객체라고 할 수 없는 것입니다. 그렇다면 위의 예제에서 Cars를 어떻게 불변 객체로 만들 수 있을까요?
+- Cars가 생성될 때 인자로 넘어온 리스트를 외부에서 변경하면 Cars가 참조하고 있는 내부 인스턴스 또한 변한다는 것을 확인 할 수 있습니다. 위의 예에서 Cars의 인스턴스 변수인 `private final List<Car> cars` 가 불변이길 원하지만 다른 값을 넣더라도 같은 주소값을 가지면서 `pobi` 라는 값을 추가적으로 갖게 되었습니다. **`불변 객체란 외부에서 불변 객체의 값을 수정 할 수 없는 객체`**를 의미합니다. 위의 예에서는 `외부(Main method)` 에서 Cars가 가지고 있는 cars라는 인스턴스 변수의 요소를 변경할 수 있었기 때문에 불변객체라고 할 수 없는 것입니다. 그렇다면 위의 예제에서 Cars를 어떻게 불변 객체로 만들 수 있을까요?
 
 ```java
-public class Cars { 
+public class Cars {
     private final List<Car> cars;
-    
+
     public Cars(List<Car> cars) {
-	    this.cars = new ArrayList<>(cars); 
+	    this.cars = new ArrayList<>(cars);
     }
-    
+
     public List<Car> getCars() {
-    	return cars; 
+    	return cars;
     }
 }
 
 // 위와 같은 Main method 실행 결과
 
 //[kail.study.java.study.immutable.Car@4b1210ee]  -- 서로 다른 주소값
-//hodol 
+//hodol
 //kail.study.java.study.immutable.Cars@4d7e1886
 //hodol -- pobi가 추가되지 않음.
 ```
@@ -120,13 +120,13 @@ public static void main(String[] args) {
     List<Car> carNames = new ArrayList<>();
     carNames.add(new Car("hodol"));
     Cars cars = new Cars(carNames);
-    
+
     for(Car car : cars.getCars()) {
         System.out.println(car.getName());
     }
-    
+
     cars.getCars().add(new Car("pobi"));
-    
+
     for(Car car : cars.getCars()) {
         System.out.println(car.getName());
     }
@@ -142,15 +142,15 @@ public static void main(String[] args) {
 - 실행 결과 Cars의 인스턴스 변수가 가리키고 있는 실제 데이터에 pobi가 추가된 것을 볼 수 있습니다. 이를 방지하기 위해선 `Collections` 가 제공해주는 api를 활용하여 이런 부작용을 방지 할 수 있습니다.
 
 ```java
-public class Cars { 
+public class Cars {
     private final List<Car> cars;
-    
+
     public Cars(List<Car> cars) {
-    	this.cars = new ArrayList<>(cars); 
+    	this.cars = new ArrayList<>(cars);
     }
 
-    public List<Car> getCars() { 
-        return Collections.unmodifiableList(cars); 
+    public List<Car> getCars() {
+        return Collections.unmodifiableList(cars);
     }
 }
 ```
@@ -165,7 +165,7 @@ public static void main(String[] args) {
 
     List<Car> modifiableCars = new ArrayList<>(cars.getCars());
     List<Car> unmodifiableCars = cars.getCars();
-  
+
     modifiableCars.add(new Car("pobi"));
     unmodifiableCars.add(new Car("pobi"));	} // 실행에서 에러 발생
 ```
