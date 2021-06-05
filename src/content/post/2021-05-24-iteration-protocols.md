@@ -74,18 +74,14 @@ for (const i of str) {
 
 ```jsx
 // custom iterable 만들기.
-const iterable = {
-  from: 1,
-  to: 5,
-};
+const iterable = {};
 
 //Symbol.iterator키의 값은 iterator를 반환하는 함수이다.
 iterable[Symbol.iterator] = function () {
   return {
-    current: this.from,
-    last: this.to,
-
-    next() {
+    current: 1,
+    last: 5,
+    next: function () {
       if (this.current <= this.last) {
         return { done: false, value: this.current++ };
       } else {
