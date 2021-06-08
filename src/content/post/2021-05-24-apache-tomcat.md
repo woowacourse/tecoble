@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Apache? Apache Tomcat? 서버 바로 알기
+title: Apache HTTP Server? Apache Tomcat? 서버 바로 알기
 author: [와이비]
 tags: ['spring-boot']
 date: "2021-05-24T12:00:00.000Z"
@@ -10,11 +10,11 @@ image: ../teaser/apache_tomcat.png
 ---
 _Spring Boot_ 을 공부하면서 어떻게 구성이 되어있는지도 공부를 하게 되었습니다.
 전체적인 흐름은 _Client_ 로부터 받은 _HTTP_ 요청을 알맞게 처리하여, _Controller_ 로 넘겨주게 됩니다. 
-이때, _WAS(Web Application Server)_ 의 역할을 _Apache Tomcat_ 이라는 서버가 하게 된다고 공부를 하였습니다.
-하지만 _Apache HTTP Server_ 라는 서버도 존재합니다. 
+이때, 해당 기능을 실행하는 _WAS(Web Application Server)_ 의 역할을 _Apache Tomcat_ 이라는 서버가 하게 된다고 공부를 하였습니다.
+하지만 비슷한 이름을 가진 _Apache HTTP Server_ 라는 서버도 존재합니다. 
 이 과정에서 _WAS_ 와 또 다른 개념인 _Web Server_ 라는 것을 알게 되었습니다. 
-단어들이 상당히 비슷하여 헷갈리는 점이 많았습니다. 
-이 때문에 _Spring Boot_ 를 동작시키는 구성 요소 중 _Apache HTTP Server_ 와 _Apache Tomcat_ 에 대해서 정리하고자 합니다.
+서버에서 쓰이는 개념들 중 단어들이 상당히 비슷하여 헷갈리는 점이 많았습니다. 
+_Spring Boot_ 를 동작시키는 구성 요소 중 _Apache HTTP Server_ 와 _Apache Tomcat_ 에 대해서 정리하고자 합니다.
 
 ## _Web Server_ 와 _Apache Server_
 _Client_ 에서는 미리 정해진 _HTTP_ 규격에 맞게 요청을 보내게 됩니다.
