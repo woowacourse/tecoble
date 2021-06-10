@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: '인증 방식 : Cookie & Session vs JWT'
-author: [케빈]
+author: [3기_케빈]
 tags: ['jwt', 'web']
 date: "2021-05-22T12:00:00.000Z"
 draft: false
