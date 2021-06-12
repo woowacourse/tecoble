@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: DTO의 사용 범위에 대하여
-author: [케빈]
+author: [3기_케빈]
 tags: ['java', 'dto', 'spring', 'mvc', 'layered architecture']
 date: "2021-04-25T12:00:00.000Z"
 draft: false
