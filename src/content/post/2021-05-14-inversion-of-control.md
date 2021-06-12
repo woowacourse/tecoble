@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '자바스크립트에서의 Inversion of Control'
+title: '프론트엔드에서의 Inversion of Control'
 author: [3기_미키]
 tags: ['refactoring', 'design-pattern']
 date: '2020-05-15T12:00:00.000Z'
@@ -104,7 +104,7 @@ const mickey = new Customer(jun);
 
 인스턴스 생성에 대한 책임을 역전시키므로써 Customer와 TaxiDriver 간의 결합을 느슨하게 만들 수 있다.
 
-## 🔍 javascript에서의 IoC
+## 🔍 프론트엔드에서의 IoC
 
 ### ✔ IoC of Redux
 
