@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '자바스크립트에서의 Inversion of Control'
-author: [미키]
+author: [3기_미키]
 tags: ['refactoring', 'design-pattern']
 date: '2020-05-15T12:00:00.000Z'
 draft: false
