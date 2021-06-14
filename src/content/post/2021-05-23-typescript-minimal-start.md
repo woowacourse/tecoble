@@ -210,6 +210,38 @@ function playWithDoge(type: 'throw' | 'buy') {
 
 `|` 연산자를 통해서 하나의 변수, 인자가 두 가지 이상의 타입을 허용할 수도 있습니다.
 
+## 함수 타입
+
+함수도 타입으로 정의할 수 있습니다. JS는 함수를 1급시민(first-class citizen)으로 다루고, 또 자주 사용되기에 이 부분도 알아두셔야 합니다.
+
+```js
+// ts
+const buyDoge = (krw: number) => {
+  return krw / 370 + '도지 코인을 구매하셨습니다.';
+};
+```
+
+위 buyDoge라는 함수가 있습니다. `number`를 전달 받아 `string`을 반환합니다.
+
+```ts
+const buyDoge: (krw: number) => string = (krw: number) => {
+  return krw / 370 + '도지 코인을 구매하셨습니다.';
+};
+```
+
+함수타입은 krw 식별자에 타입을 지정해주고 => 이후 리턴타입을 작성해줌으로써 정의할 수 있습니다.
+
+```ts
+// type
+type BuyDogeType = (krw: number) => void;
+
+const buyDoge: BuyDogeType = (krw: number) => {
+  console.log(krw / 370 + '도지 코인을 구매하셨습니다.');
+};
+```
+
+함수 타입 역시 별명을 따로 붙여줄 수도 있습니다.
+
 ## 1부 마침
 
 이렇게 타입스크립트의 기본적인 문법을 알아보았습니다!
@@ -221,3 +253,7 @@ function playWithDoge(type: 'throw' | 'buy') {
 ### Reference
 
 https://www.typescriptlang.org/docs/handbook/2/basic-types.html
+
+```
+
+```
