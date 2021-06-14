@@ -38,19 +38,19 @@ image: ../teaser/ts-minimal-start.png
 
 ## 1. 타입 넣기
 
-![](https://images.velog.io/images/fan/post/003f81bf-6209-4195-972c-850cf11ddc7d/code3.png)
+![image](https://user-images.githubusercontent.com/44419181/121903271-199b5a00-cd63-11eb-89b4-bc8599f51986.png)
 
 간단한 자바스크립트 변수 초기화와 함수선언입니다. 이 코드에서 어떤 요소에 타입을 정해줄 수 있을까요?
 
-![](https://images.velog.io/images/fan/post/ac25cc54-9558-4c58-aa87-ed8e9eafceee/image.png)
+![image](https://user-images.githubusercontent.com/44419181/121903342-29b33980-cd63-11eb-9c71-b1b2866eb8ab.png)
 
 변수의 타입과 함수 인자의 타입, 리턴값에 대한 타입을 정해줄 수 있을 것 같습니다.
 
-![](https://images.velog.io/images/fan/post/f35d6863-98dc-4a9a-aaf2-9ef6c912fae6/code4.png)
+![image](https://user-images.githubusercontent.com/44419181/121903378-30da4780-cd63-11eb-9eeb-8d680962374e.png)
 
 타입을 정해주었습니다. 위 코드와 같이 변수 이름, 인자 이름, 함수 인자 괄호 옆에 `: [타입이름]`을 붙여주게 되면 각각 변수 타입, 인자 타입, 함수리턴 타입이 정해집니다.
 
-![](https://images.velog.io/images/fan/post/d2afe5fa-4884-4b1f-9365-f79e1cc8d78f/image.png)
+![image](https://user-images.githubusercontent.com/44419181/121903392-38015580-cd63-11eb-975a-b3b2b81344ed.png)
 
 만약 지정해준 타입의 공간에 잘못된 타입의 리터럴을 넣어주면 위와같은 에러메시지가 IDE 또는 콘솔창에 나타나게 됩니다.
 
