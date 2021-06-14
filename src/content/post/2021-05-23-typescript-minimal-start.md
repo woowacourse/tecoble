@@ -247,6 +247,15 @@ const buyDoge: BuyDogeType = (krw: number) => {
 
 함수 타입 역시 별명을 따로 붙여줄 수도 있습니다.
 
+그리고 이전에 타입 설명할 때 넘어갔던 `void`가 보입니다.
+
+상단의 buyDoge함수는 console.log만 호출하고, 어떤 값을 리턴하지 않고 있습니다.
+
+리턴타입의 `void`는 어떤 리턴 값도 갖고 있지 않음을 나타냅니다.
+
+```ts
+
+
 ## 1부 마침
 
 이렇게 타입스크립트의 기본적인 문법을 알아보았습니다!
@@ -258,6 +267,8 @@ const buyDoge: BuyDogeType = (krw: number) => {
 ### Reference
 
 https://www.typescriptlang.org/docs/handbook/2/basic-types.html
+
+```
 
 ```
 
