@@ -251,10 +251,9 @@ const buyDoge: BuyDogeType = (krw: number) => {
 
 상단의 buyDoge함수는 console.log만 호출하고, 어떤 값을 리턴하지 않고 있습니다.
 
-리턴타입의 `void`는 어떤 리턴 값도 갖고 있지 않음을 나타냅니다.
+`void`는 `any`와 반대로 어떤 타입도 아님을 나타냅니다.
 
-```ts
-
+리턴타입에 주로 쓰이는데, 이는 함수가 어떤 리턴 값도 갖고 있지 않음을 의미합니다.
 
 ## 1부 마침
 
@@ -267,9 +266,3 @@ const buyDoge: BuyDogeType = (krw: number) => {
 ### Reference
 
 https://www.typescriptlang.org/docs/handbook/2/basic-types.html
-
-```
-
-```
-
-```
