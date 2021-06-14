@@ -8,7 +8,9 @@ draft: false
 image: ../teaser/sample2.png
 ---
 
-지난 글에서는 innerHTML의 위험성, **XSS**에 대해 알아보았다.
+지난 글에서는 웹사이트에 악성 스크립트를 삽입할 수 있는 취약점, **XSS**에 대해 알아보았다.
+
+그리고 innerHTML을 사용하는 것은 **XSS**에 취약하다는 이야기를 하였습니다.
 
 그래서 이번에는 Vanilla JavaScript에서 innerHTML을 사용하지 않고,
 
