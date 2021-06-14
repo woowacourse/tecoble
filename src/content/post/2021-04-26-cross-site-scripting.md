@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "innerHTML의 위험성, XSS에 대해 알아보자"
+title: 'innerHTML의 위험성, XSS에 대해 알아보자'
 author: [심바]
 tags: []
-date: "2021-04-26T12:00:00.000Z"
+date: '2021-04-26T12:00:00.000Z'
 draft: false
 image: ../teaser/sample2.png
 ---
@@ -18,7 +18,7 @@ image: ../teaser/sample2.png
 
 ## XSS(Cross-Site Scripting)이란?
 
->사이트 간 스크립팅(또는 크로스 사이트 스크립팅, 영문 명칭 cross-site scripting, 영문 약어 XSS)은 웹 애플리케이션에서 많이 나타나는 취약점의 하나로 웹사이트 **관리자가 아닌 이가 웹 페이지에 악성 스크립트를 삽입할 수 있는 취약점**이다.
+> 사이트 간 스크립팅(또는 크로스 사이트 스크립팅, 영문 명칭 cross-site scripting, 영문 약어 XSS)은 웹 애플리케이션에서 많이 나타나는 취약점의 하나로 웹사이트 **관리자가 아닌 이가 웹 페이지에 악성 스크립트를 삽입할 수 있는 취약점**이다.
 
 XSS에 대해 정의된 공식 문서는 찾지못했지만, wikipedia에서는 XSS에 대해 위와 같이 정의하고 있다.
 
@@ -40,7 +40,6 @@ XSS에 대해 정의된 공식 문서는 찾지못했지만, wikipedia에서는 
 
 웹 브라우저는 이 스크립트 코드가 누가 작성한 것인지 알 수 없기 때문에 실행하게 된다.
 
-
 ```javascript
 //example
 
@@ -57,7 +56,8 @@ document.querySelector('#input-btn').addEventListener("click", (e) => {
   document.querySelector('#submitted-input').innerHTML = userInput
 })
 ```
-위의 input에 `<img src="#" onerror="console.log('XSS')">` 와 같은 스크립트 코드를 입력해보자. 
+
+위의 input에 `<img src="#" onerror="console.log('XSS')">` 와 같은 스크립트 코드를 입력해보자.
 
 그러면 console 창에서 'XSS'문구가 출력되는 것을 볼 수 있다.
 
@@ -67,19 +67,29 @@ document.querySelector('#input-btn').addEventListener("click", (e) => {
 
 하지만 생각보다 많은 웹사이트들이 XSS에 대한 방어 조치를 해두지 않아 공격을 받는 경우가 있다고 한다.
 
-그럼 XSS 공격을 어떻게 방어할 수 있을까? 
+그럼 XSS 공격을 어떻게 방어할 수 있을까?
 
 ## XSS 방지 방법
 
 위 예시와 같은 문제는 사용자로부터 입력 받은 값을 제대로 검사하지 않고 사용할 경우 나타난다.
 
-입력을 그대로 표시하지 않고, 스크립트에 자주 사용되는 특수문자를 필터링 해주는 것이다.
+XSS 공격은 스크립트를 삽입하는 방식으로 발생하기 때문에 기본적으로 스크립트 태그를 사용한다.
 
-다른 방법은 라이브러리를 사용하는 것이다.
+그래서 스크립트 태그에 자주 사용되는 `<`, `>` 등 과 같은 문자를 필터링 해주는 방법으로 방어 할 수 있다.
 
-네이버의 오픈 소스 중에도 `lucy-xss-filter` 와 같은 라이브러리(Java)가 있다.
+문자 입력을 그대로 표시하지 않고, 입력 시 문자 참조(HTML entity)로 필터링하고, 서버에서 브라우저로 전송 시 문자를 인코딩하는 것이다.
 
-XSS는 계속 새로운 방법으로 발전하고, 이를 모두 대응하기는 어려울 수 있기 때문에 이러한 라이브러리를 사용해도 좋을 것 같다.
+HTML 문자 참조란 ASCII 문자를 동일한 의미의 HTML 문자로 변경하는 과정이며, HTML 문자는 대부분의 브라우저에서 단순한 문자로 처리된다.
+
+예를 들어, `<script>`의 `<`는 동일한 의미의 HTML 문자 `&lt;`로, `>`는 `&gt;`로 변경한다.
+
+이렇게 하면 사용자에게는 `<script>`로 보이지만, HTML 문서에는 `&lt;script&gt;`로 나타나고 브라우저에서 일반 문자로 인식되어 스크립트가 실행되지 않는다.
+
+XSS 필터를 직접 만들어서 사용해도 좋지만, 라이브러리를 사용하는 것도 좋은 방법이다.
+
+XSS는 계속 새로운 방식으로 발전하고, 이를 모두 대응하기는 어려울 수 있기 때문이다.
+
+네이버의 오픈 소스 중에도 `lucy-xss-filter` 와 같은 라이브러리(Java)가 있으니 참고해보면 좋을 것 같다.
 
 ## 참고 링크
 
