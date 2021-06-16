@@ -23,8 +23,7 @@ image: ../teaser/test.jpeg
 
 프로그래밍 언어마다 단위 테스트 시 사용하는 프레임워크가 다르다. Java의 경우 `JUnit`으로 테스트한다.<br/>
 
-아래 코드는 JUnit5로 작성한 단위 테스트 코드이다.
-단위 테스트는 보통 `given-when-then` 형식을 가진다.<br/>
+아래 코드는 JUnit5로 작성한 단위 테스트 코드이다.<br/>
 
 ```java
 @DisplayName("구간과 구간을 합친다.")
@@ -89,16 +88,14 @@ Java의 경우 `RestAssured`, `MockMvc`와 같은 도구를 활용하여 인수 
 아래 코드는 RestAssured로 작성한 인수 테스트 코드이다.<br/>
 
 ```java
-public static ExtractableResponse<Response> 지하철역_수정_요청(StationResponse response, StationRequest params) {
-    회원_등록되어_있음(EMAIL, PASSWORD, AGE);
-    TokenResponse tokenResponse = 로그인되어_있음(EMAIL, PASSWORD);
+public static ExtractableResponse<Response> 회원_생성_요청(MemberRequest memberRequest) {
+    회원_이메일_중복_확인(memberRequest.getEmail());
 
     return RestAssured
             .given().log().all()
-            .auth().oauth2(tokenResponse.getAccessToken())
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(params)
-            .when().put("/api/stations/" + response.getId())
+            .body(memberRequest)
+            .when().post("/api/members")
             .then().log().all()
             .extract();
 }
