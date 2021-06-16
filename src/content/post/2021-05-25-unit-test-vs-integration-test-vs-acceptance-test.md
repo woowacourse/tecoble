@@ -89,8 +89,6 @@ Java의 경우 `RestAssured`, `MockMvc`와 같은 도구를 활용하여 인수 
 
 ```java
 public static ExtractableResponse<Response> 회원_생성_요청(MemberRequest memberRequest) {
-    회원_이메일_중복_확인(memberRequest.getEmail());
-
     return RestAssured
             .given().log().all()
             .contentType(MediaType.APPLICATION_JSON_VALUE)
