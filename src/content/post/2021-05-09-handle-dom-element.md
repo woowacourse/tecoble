@@ -60,7 +60,11 @@ CSS 선택자를 활용해서 elem를 찾을 수 있는 querySelector 더 많이
 
 ![](../images/2021-05-09-read-dom-element-3.png)
 
-이때 반환된 elem 들은 NodeList로 반환되며, Array는 아니지만 유사배열로 `forEach` 를 사용할 수 있다.
+이때 반환된 elem 들은 NodeList라는 유사배열로 반환됩니다. 유사배열이란 배열은 아니지만, 마치 배열 처럼 처리할 수 있는 객체를 의미하며, 숫자로 인덱싱 된 key와 length 프로퍼티가 특징입니다.
+
+NodeList는 `forEach`를 사용할 수 있지만, 배열이 아니기 때문에 map이나 filter, reduce 등의 다른 배열 메서드를 쓸 수 없습니다.
+
+만약 다른 배열 메서드를 사용해야 하는 경우, 스프레드 연산자(`[...'NodeList']`)를 사용하거나 `Array.from('NodeList')` 문법을 사용하여 배열로 변환하여 사용할 수 있습니다.
 
 ## 3. DOM element 삽입
 
