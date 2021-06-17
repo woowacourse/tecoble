@@ -29,19 +29,30 @@ image: ../teaser/test.jpeg
 아래 코드는 `JUnit5`로 작성한 단위 테스트 코드이다.<br/>
 
 ```java
-@DisplayName("구간과 구간을 합친다.")
+@DisplayName("자동차가 전진한다")
 @Test
-void merge() {
+public void moveCar() {
     // given
-    Sections beforeMerge = new Sections(Arrays.asList(강남_역삼, 역삼_선릉));
+    Car car = new Car("dani");
 
     // when
-    Section afterMerge = beforeMerge.merge(2L);
+    car.move(4);
 
     // then
-    assertThat(afterMerge)
-            .usingRecursiveComparison()
-            .isEqualTo(강남_선릉);
+    assertThat(car.getPosition()).isEqualTo(1);
+}
+
+@DisplayName("자동차가 멈춘다")
+@Test
+public void stopCar() {
+    // given
+    Car car = new Car("dani");
+
+    // when
+    car.move(3);
+    
+    // then
+    assertThat(car.getPosition()).isEqualTo(0);
 }
 ```
 
@@ -55,8 +66,10 @@ void merge() {
 그러나, 통합 테스트가 응용 프로그램이 완전하게 작동하는 걸 무조건 증명하지는 않는다.<br/>
 
 통합 테스트의 장점은 단위 테스트에서 발견하기 어려운 버그를 찾을 수 있다는 점이다.
-예를 들어, 통합 테스트에서는 환경 버그(ex. 싱글 코어 CPU에서는 잘 실행되나 쿼드 코어 CPU에서는 잘 실행되지 않음)이 발생할 수 있다.
-한편, 통합 테스트의 단점은 단위 테스트보다 더 많은 코드를 테스트하기 때문에 신뢰성이 떨어질 수 있고 테스트를 유지보수하기 힘들다는 점이다.<br/>
+예를 들어, 통합 테스트에서는 환경 버그(ex. 싱글 코어 CPU에서는 잘 실행되나 쿼드 코어 CPU에서는 잘 실행되지 않음)이 발생할 수 있다.<br/>
+
+한편, 통합 테스트의 단점은 단위 테스트보다 더 많은 코드를 테스트하기 때문에 신뢰성이 떨어질 수 있다는 점이다.
+또, 어디서 에러가 발생했는지 확인하기 쉽지 않아 유지보수하기 힘들다는 점도 있다.<br/>
 
 스프링부트에서는 클래스 상단에 `@SpringBootTest` 어노테이션을 붙여 통합 테스트를 수행할 수 있다.<br/>
 
@@ -97,11 +110,11 @@ Java에서는 `RestAssured`, `MockMvc` 같은 도구를 활용하여 인수 테�
 ```java
 public static ExtractableResponse<Response> 회원_생성_요청(MemberRequest memberRequest) {
     return RestAssured
-            .given().log().all()
+            .given()
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(memberRequest)
             .when().post("/api/members")
-            .then().log().all()
+            .then()
             .extract();
 }
 ```
