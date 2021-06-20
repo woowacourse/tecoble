@@ -3,7 +3,7 @@ layout: post
 title: 'Optional 과 null 에 대해 ⌥␀'
 author: [와일더]
 tags: ['stream']
-date: '2021-05-23T12:00:00.000Z'
+date: '2021-06-20T12:00:00.000Z'
 draft: false
 image: ../teaser/optional-vs-null.png
 ---
@@ -97,7 +97,7 @@ Station station = optStation.orElseThrow(UnsupportedOperationException::new);
 
 ## Optional 의 단점
 
-- Wrapper 클래스이기 때문에 두 개의 참조를 가지기 때문에 생성 비용이 비싸다.
+- Wrapper 클래스이기 때문에 두 개의 참조를 가지므로 생성 비용이 비싸다.
 - 직렬화가 불가능하다.
 
 
@@ -126,7 +126,7 @@ Optional 객체의 공백 여부를 확인하기 위해서 Optional 의 isPresen
     }
 ```
 
-이렇게 되면 왜 Optional 을 사용해서 얻는 이점이 없어 보인다. Optional 을 처음 접하거나 Optional 의 개념을 제대로 이해하지 못한 상황이라면 다음과 같은 고민을 하게 된다.
+이렇게 되면 Optional 을 사용해서 얻는 이점이 없어 보인다. Optional 을 처음 접하거나 Optional 의 개념을 제대로 이해하지 못한 상황이라면 다음과 같은 고민을 하게 된다.
 
 > 어떻게 Optional 의 null 체크를 해야할까?
 
