@@ -99,7 +99,7 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
             className="site-header-background"
           >
             <SiteHeaderContent css={inner} className="site-header-content">
-              <SiteTitle className="site-title">{tag}</SiteTitle>
+              <SiteTitle className="site-title">{'#'+tag}</SiteTitle>
               <SiteDescription className="site-description">
                 {tagData?.node.description ? (
                   tagData.node.description

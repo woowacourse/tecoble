@@ -190,7 +190,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                   {post.frontmatter.tags.map((tag, index) => (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
                       {index !== 0 ? ', ' : ''}
-                      {tag}
+                      {'#'+tag}
                     </Link>
                   ))}
                 </PostFullTags>
@@ -312,7 +312,7 @@ const PostFullTags = styled.section`
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};
-  font-size: 1.3rem;
+  font-size: 3.0rem;
   line-height: 1.4em;
   font-weight: 600;
   text-transform: uppercase;
