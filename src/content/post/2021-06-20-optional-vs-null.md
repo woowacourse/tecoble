@@ -2,7 +2,7 @@
 layout: post
 title: 'Optional 과 null 에 대해 ⌥␀'
 author: [와일더]
-tags: ['stream']
+tags: ['optional', 'null']
 date: '2021-06-20T12:00:00.000Z'
 draft: false
 image: ../teaser/optional-vs-null.png
