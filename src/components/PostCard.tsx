@@ -187,7 +187,7 @@ const PostCardPrimaryTag = styled.div`
   margin: 0 0 0.2em;
   /* color: var(--blue); */
   color: ${colors.blue};
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 500;
   letter-spacing: 0.2px;
   text-transform: uppercase;
