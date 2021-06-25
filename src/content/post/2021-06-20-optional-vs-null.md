@@ -7,6 +7,7 @@ date: '2021-06-20T12:00:00.000Z'
 draft: false
 image: ../teaser/optional-vs-null.png
 ---
+
 런타임에서 발생하는 NullPointException 방어를 위해 만들어둔 로직체크는 코드의 가독성과 유지 보수성이 떨어진다. 어떻게 null 을 다루면 좋을 지에 대한 해결책을 함수형 언어에서 찾았다. 함수형 언어는 <b>존재하지 않을 수도 있는 값</b>에 대한 별도의 타입을 가지고 있다. 개발자들은 여러가지 API 를 통해 간접적으로 값에 접근할 수 있다. 자바는 함수형 언어로부터 영감을 받아  <b>자바 8</b>에서 처음 Optional 이 도입 되었다.
 
 ## Optional?
@@ -80,7 +81,7 @@ Station station = optStation.orElseGet(() -> new Station("임시역"));
 4. orElseThrow(Supplier<? Extends X> exceptionSupplier)
 
 ```java
-// 비어있는 Optional 객체에 대해서 orElseThrow 로부터 넘어온 함수형 인자를 통해 예의를 던진다.
+// 비어있는 Optional 객체에 대해서 orElseThrow 로부터 넘어온 함수형 인자를 통해 예외를 던진다.
 Optional<Station> optStation = Optional.empty();
 Station station = optStation.orElseThrow(UnsupportedOperationException::new);
 ```
