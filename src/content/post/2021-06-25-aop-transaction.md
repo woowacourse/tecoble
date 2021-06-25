@@ -254,4 +254,6 @@ AOP는 이해하기 어렵고, 제대로 사용하기 위해서는 꾸준히 학
 ## Reference
 
 * [SPRING - AOP(1) - ASPECT ORIENTED PROGRAMMING](https://seongmun-hong.github.io/spring/Spring-Aspect-Oriented-Programming(AOP)(1))
+* [Spring AOP Introduction and Concepts of AOP](https://dev.to/anouar1611/spring-aop-introduction-and-concepts-of-aop-4oan)
+* [AOP 정리 (4)](https://jojoldu.tistory.com/72)
 * 토비의 스프링 3.1(이일민 저)
