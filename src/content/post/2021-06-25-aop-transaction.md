@@ -30,12 +30,10 @@ image: ../teaser/aop.png
 public class UserService {
 
     private final UserDao userDao;
-    private final EntityManagerFactory entityManagerFactory;
+    private final PlatformTransactionManager transactionManager;
 
     public void sendMoneyToAnotherUser(Long senderId, Long receiverId, Long money) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+        TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             //로깅 관련 로직 추가
             //보안 관련 로직 추가
@@ -43,25 +41,23 @@ public class UserService {
             Account receiverAccount = userDao.findAccountById(receiverId);
             userDao.updateMoney(senderId, senderAccount.withdraw(money));
             userDao.updateMoney(receiverId, receiverAccount.add(money));
-            transaction.commit();
+            transactionManager.commit(transaction);
         } catch (RuntimeException runtimeException) {
-            transaction.rollback();
+            transactionManager.rollback(transaction);
             throw runtimeException;
         }
     }
 
     public void withdrawMoney(Long id, Long money) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+        TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             //로깅 관련 로직 추가
             //보안 관련 로직 추가
             Account account = userDao.findAccountById(senderId);
             userDao.updateMoney(senderId, account.withdraw(money));
-            transaction.commit();
+            transactionManager.commit(transaction);
         } catch (RuntimeException runtimeException) {
-            transaction.rollback();
+            transactionManager.rollback(transaction);
             throw runtimeException;
         }
     }
@@ -118,20 +114,18 @@ public class UserServiceImpl implements UserService {
 public class UserServiceProxy implements UserService {
 
     private final UserService target;
-    private final EntityManagerFactory entityManagerFactory;
+    private final PlatformTransactionManager transactionManager;
 
     @Override
     public void sendMoneyToAnotherUser(Long senderId, Long receiverId, Long money) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+        TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             //로깅 관련 로직 추가
             //보안 관련 로직 추가
             target.sendMoneyToAnotherUser(senderId, receiverId, money);
-            transaction.commit();
+            transactionManager.commit(transaction);
         } catch (RuntimeException runtimeException) {
-            transaction.rollback();
+            transactionManager.rollback(transaction);
             throw runtimeException;
         }
     }
@@ -162,7 +156,7 @@ Spring에서 Bean을 자동으로 프록시로 만들어주는 메커니즘이 �
 
 ## 4. AOP(Aspect-Oriented Programming)
 
-관점 지향 프로그래밍이란 전통적인 OOP로는 독립적으로 모듈화하기 어려운 **부가 기능**을 모듈화하는 방식입니다. 이 글에서 트랜잭션 관리와 같은 부분이 바로 부가 기능 모듈이며, Apsect라고 합니다. 어플리케이션의 핵심 비즈니스 로직을 담고 있지는 않지만 어플리케이션에 부가됨으로써 의미를 갖는 특별한 모듈입니다. AOP는 어플리케이션의 핵심 로직과 부가 기능 Aspect를 분리하는 등 OOP를 보완하는 역할입니다.
+관점 지향 프로그래밍이란 전통적인 OOP로는 독립적으로 모듈화하기 어려운 **부가 기능**을 모듈화하는 방식입니다. 이 글에서 트랜잭션 관리와 같은 부분이 바로 부가 기능 모듈이며, Aspect라고 합니다. 어플리케이션의 핵심 비즈니스 로직을 담고 있지는 않지만 어플리케이션에 부가됨으로써 의미를 갖는 특별한 모듈입니다. AOP는 어플리케이션의 핵심 로직과 부가 기능 Aspect를 분리하는 등 OOP를 보완하는 역할입니다.
 
 AOP 기능을 제공하는 프레임워크나 라이브러리를 사용하면, 번거로운 프록시 클래스 작성없이 UserService 비즈니스 로직에서 트랜잭션이라는 부가 기능 관심사를 간편하게 분리할 수 있습니다. 더불어 다양한 클래스가 해당 관심사를 재활용하며 공통 사용할 수 있습니다.
 
@@ -188,7 +182,7 @@ Aspect는 부가될 기능을 정의한 Advice와, 해당 Advice를 어디에 �
 @RequiredArgsConstructor
 public class TxAspect {
 
-    private final EntityManagerFactory entityManagerFactory;
+    private final PlatformTransactionManager transactionManager;
 
     @Pointcut("execution(* com.demo.user.UserService.send*(..))")
     public void getUsers() {
@@ -200,15 +194,13 @@ public class TxAspect {
 
     @Around("getUsers() || getBakns()")
     public Object applyTx(ProceedingJoinPoint joinpoint) throws Throwable {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+        TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             Object object = jointPoint.proceed();
-            transaction.commit();
+            transactionManager.commit(transaction);
             return object;
         } catch (RuntimeException runtimeException) {
-            transaction.rollback();
+            transactionManager.rollback(transaction);
             throw runtimeException;
         }
     }
