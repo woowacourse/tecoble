@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Typescript Minimal-Start - 2. 좀 더 나아가기
-author: [3기_3기_3기_파노]
+author: [3기_파노]
 tags: ['typescript']
 date: '2021-06-21T12:00:00.000Z'
 draft: false
