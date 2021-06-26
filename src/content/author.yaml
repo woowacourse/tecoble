@@ -31,7 +31,7 @@
   website: https://velog.io/@tigger
   location: Seoul
   profile_image: profile/tigger.jpg
-- id: 카일
+- id: 2기_카일
   avatar: avatars/kyle.jpeg
   bio: 우아한테크코스 2기 카일(김시영)입니다 :)
   github: KIMSIYOUNG
@@ -60,6 +60,12 @@
   avatar: avatars/latte.png
   bio: 우아한테크코스 2기 라테(임민우)입니다 :)
   github: minuyim
+  location: Seoul
+  profile_image: profile/latte.jpg
+- id: 심바
+  avatar: avatars/simba.png
+  bio: 우아한테크코스 3기 심바(임선빈)입니다 :)
+  github: 0imbean0
   location: Seoul
   profile_image: profile/latte.jpg
 - id: 미키
@@ -113,14 +119,14 @@
   github: lns13301
   location: Seoul
   profile_image: profile/wilder.jpg
-- id: 케빈
+- id: 3기_케빈
   avatar: avatars/kevin.jpg
   bio: 우아한테크코스 3기 케빈(박진홍)입니다 :)
   github: xlffm3
   website: https://xlffm3.github.io/
   location: Seoul
   profile_image: profile/kevin.jpg
-- id: 카일
+- id: 3기_카일
   avatar: avatars/kyle_2.jpg
   bio: 우아한테크코스 3기 카일(임광열)입니다 :)
   github: GwangYeol-Im
@@ -132,3 +138,9 @@
   github: dusdn1702
   location: Seoul
   profile_image: profile/sally.png
+- id: 와이비
+  avatar: avatars/whybe.jpeg
+  bio: 우아한테크코스 3기 와이비(허영범)입니다 :)
+  github: hybeom0720
+  location: Seoul
+  profile_image: profile/whybe.jpg
