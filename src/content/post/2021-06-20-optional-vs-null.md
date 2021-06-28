@@ -8,13 +8,30 @@ draft: false
 image: ../teaser/optional-vs-null.png
 ---
 
-런타임에서 발생하는 NullPointException 방어를 위해 만들어둔 로직체크는 코드의 가독성과 유지 보수성이 떨어진다. 어떻게 null 을 다루면 좋을 지에 대한 해결책을 함수형 언어에서 찾았다. 함수형 언어는 <b>존재하지 않을 수도 있는 값</b>에 대한 별도의 타입을 가지고 있다. 개발자들은 여러가지 API 를 통해 간접적으로 값에 접근할 수 있다. 자바는 함수형 언어로부터 영감을 받아  <b>자바 8</b>에서 처음 Optional 이 도입 되었다.
+런타임에서 발생하는 NullPointException 방어를 위해 만들어둔 로직체크는 코드의 가독성과 유지 보수성이 떨어진다. 어떻게 null 을 다루면 좋을 지에 대한 해결책을 함수형 언어에서 찾았다. 함수형 언어는 <b>존재하지 않을 수도 있는 값</b>에 대한 별도의 타입을 가지고 있다. 개발자들은 여러가지 API 를 통해 간접적으로 값에 접근할 수 있다. 자바는 함수형 언어로부터 영감을 받아  <b>자바 8</b>에 처음 Optional 이 도입 되었다.
 
 ## Optional?
 
 > 값이 존재할 수도, 존재하지 않을 수도 있는 값을 포장한 객체
 
-<b>Null 이 될 가능성을 가진 값</b>을 객체로 감싸는 래퍼 클래스다. 즉, Optional 에 포장된 객체는 하나의 원소 혹은 Null 원소가 되는 것을 뜻한다. Null 을 직접 다루면 위험한 상황이 발생하거나 굉장히 까다롭다. 이를 Optional 객체에 포장하므로서 유연한 처리가 가능해 진다. Null 을 Optional 에 포장하게 되면 Null 을 값으로 보고 로직을 구현할 수 있다.
+<b>Null 이 될 가능성을 가진 값</b>을 객체로 감싸는 래퍼 클래스다. 즉, Optional 에 포장된 객체는 하나의 원소 혹은 Null 원소가 되는 것을 뜻한다. Null 을 직접 다루면 위험한 상황이 발생하거나 굉장히 까다롭다. 이를 Optional 객체에 포장함으로써 유연한 처리가 가능해 진다. Null 을 Optional 에 포장하게 되면 Null 을 값으로 보고 로직을 구현할 수 있다.
+
+Null 을 직접 다루면 생기는 위험한 상황의 예시다.
+
+```java
+public String phoneNumberFromCustomer(Order order) {
+	return order.getCustomer().getPhoneNumber();
+}
+```
+
+위와 같이 주문(order)한 고객(customer)의 휴대폰 전화번호(phoneNumber)를 반환하는 기능이 있다. 만약 주문(order)이 null 로 넘어온다면 order.getCustomer( )는 null, order.getPhoneNumber( )도  null 이 된다. null 을 리턴하게 되면서 호출 부에 NPE 를 발생시킬 수 있는 상황이 발생한다.
+
+```java
+Order order = null;
+
+String phoneNumber = phoneNumberFromCustomer(order); // null 이 반환됨
+System.out.println(phoneNumber.length()); // NullPointException 발생
+```
 
 
 
@@ -28,24 +45,21 @@ Optional 사용법에 대해서는 [공식문서](https://docs.oracle.com/javase
 
 세 가지 정적 팩토리 메서드를 사용해서 만들 수 있다.
 
-1. Optional.empty( )
+1. Optional.empty( ) : 비어있는(null) Optional 객체를 가져온다.
 
 ```java
-// 비어있는(null) Optional 객체를 가져온다.
 Optional<Station> optStation = Optional.empty();
 ```
 
-2. Optional.of(T value)
+2. Optional.of(T value) : 객체를 담은 Optional 객체를 생성한다. 이 경우 null 이 들어오면 NPE 가 발생한다.
 
 ```java
-// 객체를 담은 Optional 객체를 생성한다. 이 경우 null 이 들어오면 NPE 가 발생한다.
 Optional<Line> optLine = Optional.of(new Line("1호선"));
 ```
 
-3. Optional.ofNullable(T value)
+3. Optional.ofNullable(T value) : 비어있거나 값이 있을 수 있는 객체를 생성한다. (null 여부를 확신할 수 없을 때)
 
 ```java
-// 비어있거나 값이 있을 수 있는 객체를 생성한다. (null 여부를 확신할 수 없을 때)
 Optional<Section> optNullSection = Optional.ofNullable(null);
 Optional<Section> optSection = Optional.ofNullable(new Section("잠실역", "몽촌토성역", "850m"));
 ```
@@ -99,7 +113,8 @@ Station station = optStation.orElseThrow(UnsupportedOperationException::new);
 ## Optional 의 단점
 
 - Wrapper 클래스이기 때문에 두 개의 참조를 가지므로 생성 비용이 비싸다.
-- 직렬화가 불가능하다.
+- 직렬화 불가능하기 때문에 클래스의 인스턴스 필드로 사용하면 안된다.
+- 필드로 사용하기 위해 고안된 것이 아니기 때문에 값을 반환하는 용도로 사용해야 한다.
 
 
 
@@ -145,45 +160,17 @@ Optional 을 정확하게 이해하고 사용 한다면, 위와 같이 한 줄�
 
 
 
-## DAO 에서 Optional 을 사용해야 할까?
-
-JDBC template 을 사용하여 DB 에서 값을 가져올 때, 그 값을 어떻게 처리하여 반환할 지에 대해 사람들의 생각이 갈렸다.
-
-1. DAO 에서 값을 조회하고 Optional 로 포장해서 포장된 값을 반환하고 Service 에서 값에 대한 로직을 수행하는 방법
-2. DAO 에서 조회 결과가 null 일 경우 발생하는 예외(EmptyResultDataAccessException)를 잡아서 예외를 던지고 ControllerAdvice 에서 처리를 하는 방법
-
-즉, Optional 처리를 할 지 null 처리를 할 지 의견이 분분하다.
-
-<b>Optional 로 포장해서 구현하는 방법을 택하면 다음과 같은 상황이 발생한다.</b>
-
-1. DB 처럼 Java application 외부의 로직에 관여하는 상황이 발생한다.
-2. 위에서 언급한 것처럼 Optional 스럽지 못한 구현이 생길 수 있다. 아래 코드는 null 을 다루었을 때 더 적절한 코드라는 것을 알 수 있다.
-
-```java
-    public Station save(Station station) {
-        if (stationDao.findByName(station.getName()).isPresent()) {
-            throw new DuplicatedStationException();
-        }
-        return stationDao.save(station);
-    }
-```
-
-<b>Null 처리를 하면 다음과 같은 상황이 발생한다.</b>
-
-1. Dao 에서 예외를 던지기와 같은 해야할 행위가 늘어난다.
-2. Service 에서 다양한 상황에 대한 처리를 할 수 없게 된다.
-
-당신은 어떤 방식으로 데이터를 처리하는 것이 더 좋은 방법이라고 생각하는가?
-
-
-
 ## 결론
 
 무분별한 Optional 사용은 되려 독이 될 수 있다. Optional 이 필요하다고 생각되는 부분에서 Optional 을 사용한다면 유연한 코드를 구사할 수 있을 것이다. Null 이라는 것은 개발자가 평생 짊어지고갈 까다로운 녀석이다. 까다로운 녀석을 어떻게 다룰지 한 번 곰곰히 생각해본다면 의외로 간단하게 다룰 수 있을지도 모르겠다.
+
+
 
 ## 참고
 
 - [공식문서](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
 - [자바 옵셔널(Java Optional)](https://jdm.kr/blog/234)
+- [자바8 Optional 1부: 빠져나올 수 없는 null 처리의 늪](https://www.daleseo.com/java8-optional-before/)
 - [자바8 Optional 2부: null을 대하는 새로운 방법](https://www.daleseo.com/java8-optional-after/)
 - 모던 자바 인 액션
+
