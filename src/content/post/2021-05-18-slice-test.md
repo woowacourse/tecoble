@@ -18,7 +18,7 @@ image: ../teaser/slice-test.png
 
 말 그대로 레이어별로 잘라서, 레이어를 하나의 단위로 보는 단위 테스트를 한다는 것이다.
 
-`spring.io` 에서는 다음과 같이 말한다.
+[spring.io](https://spring.io/blog/2016/08/30/custom-test-slice-with-spring-boot-1-4) 에서는 다음과 같이 말한다.
 
 > Test slicing is about segmenting the ApplicationContext that is created for your test. 
 > Typically, if you want to test a controller using MockMvc, surely you don’t want to bother with the data layer. 
