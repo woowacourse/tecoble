@@ -88,7 +88,7 @@ Interceptor를 사용하지 않을 때의 Controller 구현은 다음과 같다.
 
 ```java
   @PostMapping("/blog")
-  public ResponseEntity postBlog(HttpServletRequest request) {
+  public ResponseEntity<Void> postBlog(HttpServletRequest request) {
       String accessToken = AuthorizationExtractor.extract(request);
       if (jwtTokenProvider.validateToken(accessToken)) {
           return ResponseEntity.noContent().build();
@@ -128,7 +128,7 @@ Interceptor는 적용하고자 하는 url를 직접 추가해줌으로써 구현
 
 ```java
   @PostMapping("/blog")
-  public ResponseEntity postBlog() {
+  public ResponseEntity<Void> postBlog() {
     return ResponseEntity.noContent().build();
   }
 ```  
