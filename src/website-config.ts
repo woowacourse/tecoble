@@ -52,7 +52,7 @@ const config: WebsiteConfig = {
   title: 'Tecoble',
   description: 'woowacourse code review & devlog',
   coverImage: 'img/wooteco.jpeg',
-  logo: 'img/javable.png',
+  logo: 'img/tecoble.png',
   lang: 'en',
   siteUrl: 'https://woowacourse.github.io/tecoble/',
   showSubscribe: false,

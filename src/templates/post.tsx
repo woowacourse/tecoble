@@ -442,7 +442,7 @@ const PostFullImage = styled.figure`
 
 export const query = graphql`
   query($slug: String, $primaryTag: String) {
-    logo: file(relativePath: { eq: "img/javable.png" }) {
+    logo: file(relativePath: { eq: "img/tecoble.png" }) {
       childImageSharp {
         fixed {
           ...GatsbyImageSharpFixed
