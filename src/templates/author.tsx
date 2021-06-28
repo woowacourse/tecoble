@@ -229,7 +229,7 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          excerpt
+          excerpt(truncate: true)
           timeToRead
           frontmatter {
             title
