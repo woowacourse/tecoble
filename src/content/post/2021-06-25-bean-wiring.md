@@ -140,8 +140,8 @@ public class SgtPeppers implements CompactDisc {
 - setter 주입
 - 필드 주입
 
-생성자를 사용하면 @Autowired 를 생략해줄수 있다. 가급적이면 생성자를 통한 주입을 사용하는 것이 좋다. [왜 Constructor Injection을 사용해야하는가](https://woowacourse.github.io/javable/post/2020-07-18-di-constuctor-injection/) 를 읽어보면 좋을 것 같다.
+생성자를 사용하면 @Autowired 를 생략해줄 수 있다. 가급적이면 생성자를 통한 주입을 사용하는 것이 좋다. [왜 Constructor Injection을 사용해야 하는가](https://woowacourse.github.io/javable/post/2020-07-18-di-constuctor-injection/) 를 읽어보면 좋을 것 같다.
 
 
-생성자나 세터 메소드를 포함한 어떤 메소드이든 스프링은 메소드 파라미터에 의존성을 가진다. 한 개의 빈이 일치하면 그 빈은 와이어링된다. 매칭되는 빈이 없다면 스프링은 애플리케이션 컨텍스트가 생성될 때 예외를 발생시킨다.
-예외를 피하기 위해서 `@Autowired` 에서 required 애트리뷰트를 false로 설정하게 된다. 
+생성자나 세터 메소드를 포함한 어떤 메소드이든 스프링은 메소드 파라미터에 의존성을 가진다. 한 개의 빈이 일치하면 그 빈은 와이어링 된다. 매칭되는 빈이 없다면 스프링은 애플리케이션 컨텍스트가 생성될 때 예외를 발생시킨다.
+예외를 피하기 위해 `@Autowired` 에서 required 애트리뷰트를 false로 설정하면 된다. 
