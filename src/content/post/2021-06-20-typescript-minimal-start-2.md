@@ -76,6 +76,27 @@ addEventListener메서드에 전달하는 콜백함수의 인자를 event타입�
 
 하지만 위와 같이 분기에 따라 반환이 될 수도 있고, 되지 않을 수도 있는 경우에 `noImplicitReturn`옵션이 `true`라면 컴파일 에러가 발생합니다. 반환값이 `undefined`가 되기에 추후에 발생할 수 있는 버그를 미연에 방지할 수 있습니다.
 
+### 더 나은 타입안정성을 위한 옵션3: strictNullCheck
+
+객체 인덱싱 하려고할 때 객체가 런타임에서 `undefined`, `null`이 나올 가능성이 있다면 에러를 출력합니다.
+
+```ts
+const twoDimensionArray = [
+  [1, 2],
+  [2, 3],
+  [4, 5],
+];
+
+const found = twoDimensionArray.find((el) => el[0] === 9);
+
+console.log(found[1]);
+
+```
+![image](https://user-images.githubusercontent.com/44419181/123765840-137bb080-d901-11eb-9e12-c0bb3dda35f7.png)
+
+find 메서드는 대상을 찾지 못하면 `undefined`를 반환합니다. 따라서 `found[1]`이라는 인덱싱은 가능할 수도, 불가능할 수도 있는 식입니다. `strictNullCheck`라는 옵션에 `true`값을 주면 해당 라인에 에러를 나타냅니다.
+
+
 ## 2. 타입 강제
 
 이렇게 똑똑한 타입스크립트 컴파일러지만 모든 경우에 컴파일러의 타입추론이 제대로 동작하는 것은 아닙니다.
