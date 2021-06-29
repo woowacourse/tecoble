@@ -62,6 +62,12 @@
   github: minuyim
   location: Seoul
   profile_image: profile/latte.jpg
+- id: 심바
+  avatar: avatars/simba.png
+  bio: 우아한테크코스 3기 심바(임선빈)입니다 :)
+  github: 0imbean0
+  location: Seoul
+  profile_image: profile/latte.jpg
 - id: 3기_미키
   avatar: avatars/mickey.jpg
   bio: 우아한테크코스 3기 미키(권세진)입니다 :)
