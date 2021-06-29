@@ -36,6 +36,9 @@ image: ../teaser/ts-minimal-start.png
 변수선언에 타입을 따로 지정해주지 않았음에도 변수에 1000이라는 숫자 리터럴이 할당되었기에 타입스크립트 컴파일러는 해당 변수의 타입이 `number`라고 추론하는 것이죠.
 이는 변수선언 뿐만이 아닌 타입이 명시적으로 선언될 수 있는 함수의 인자, 리턴 타입 등에 적용됩니다.
 
+이런 타입추론을 통해 개발자는 모든 변수, 리턴타입에 일일이 타입을 지정해주지 않아도 원활하게 타입스크립트 프로그래밍을 할 수 있게 됩니다.
+생산성과 타입안정성을 어느정도 교환하는 것이라고 보아도 무방합니다.
+
 타입스크립트의 타입추론은 생각보다 똑똑하게 동작합니다.
 
 ![image](https://user-images.githubusercontent.com/44419181/123501506-64c93d00-d680-11eb-9555-1db3f36c1368.png)
@@ -119,27 +122,16 @@ const genericFunc = <T>(t: T): T => t;
 
 // 선언식
 function genericFunc<T>(t: T): T {
-<<<<<<< HEAD
-  return t
-=======
   return t;
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 }
 
 genericFunc<number>(1);
 genericFunc<string>('2');
 
-<<<<<<< HEAD
-genericFunc<number>('숫자') // Argument of type 'string' is not assignable to parameter of type 'number'.
-```
-
-꺽쇠(<>)를 사용해서 `T`라는 ***타입변수***를 지정합니다.
-=======
 genericFunc<number>('숫자'); // Argument of type 'string' is not assignable to parameter of type 'number'.
 ```
 
 꺽쇠(<>)를 사용해서 `T`라는 **_타입변수_**를 지정합니다.
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 
 ![image](https://user-images.githubusercontent.com/44419181/123505396-d497f180-d699-11eb-8b22-e39b4d8b5cf7.png)
 
@@ -148,11 +140,7 @@ genericFunc<number>('숫자'); // Argument of type 'string' is not assignable to
 ```ts
 const genericFunc2 = <T1, T2>(a: T1, b: T2): [T1, T2] => [a, b];
 
-<<<<<<< HEAD
-genericFunc2<number, string>(123, '헬로') // [123, '헬로']
-=======
 genericFunc2<number, string>(123, '헬로'); // [123, '헬로']
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 ```
 
 위와 같이 쉼표(,)를 이용해서 여러 개의 타입변수를 전달할 수도 있습니다.
@@ -160,19 +148,11 @@ genericFunc2<number, string>(123, '헬로'); // [123, '헬로']
 그런데 지금의 제네릭은 모든 타입을 허용하는 듯합니다. 함수의 인자도 타입을 명시해서 전달할 수 있는 타입을 제한하는데 제네릭은 타입변수를 어떻게 제한할까요?
 
 ```ts
-<<<<<<< HEAD
-const genericFunc3 = <T extends string | number>(a: T): T[] => [a]
-
-genericFunc3<string>('hi') // ['hi']
-
-genericFunc3<boolean>(false) // Type 'boolean' does not satisfy the constraint 'string | number'
-=======
 const genericFunc3 = <T extends string | number>(a: T): T[] => [a];
 
 genericFunc3<string>('hi'); // ['hi']
 
 genericFunc3<boolean>(false); // Type 'boolean' does not satisfy the constraint 'string | number'
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 ```
 
 `extends`라는 키워드를 통해 타입을 제한할 수 있습니다. `boolean` 타입을 타입변수로 전달했더니 컴파일러가 에러를 나타냈습니다.
@@ -189,25 +169,15 @@ genericFunc3<boolean>(false); // Type 'boolean' does not satisfy the constraint 
 새롭게 만들려는 타입이 기존 객체타입에 의존성을 갖고 있고, 필요없는 프로퍼티를 소거해 가져오는 것보다 필요한 것만 명시해서 가져오는게 이득이 클 경우 사용합니다.
 
 ```ts
-<<<<<<< HEAD
-interface UserInfo { // 유저의 정보를 담는 타입
-=======
 interface UserInfo {
   // 유저의 정보를 담는 타입
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
   id: string;
   password: string;
   name: string;
   address: string;
 }
 
-<<<<<<< HEAD
-
-type UserLogin = Pick<UserInfo, "id" | "password">; // 로그인에 필요한 ID와 password 프로퍼티만 가져온다.
-
-=======
 type UserLogin = Pick<UserInfo, 'id' | 'password'>; // 로그인에 필요한 ID와 password 프로퍼티만 가져온다.
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 ```
 
 ![image](https://user-images.githubusercontent.com/44419181/123508107-4b3beb80-d6a8-11eb-9ca9-2135bc073c38.png)
@@ -219,12 +189,8 @@ type UserLogin = Pick<UserInfo, 'id' | 'password'>; // 로그인에 필요한 ID
 `Omit`은 `Pick`과 대척점에 서있는 유틸리티 타입입니다. omit, 단어의 뜻 그대로 해당 객체타입 `Type`에서 프로퍼티를 소거해 새로운 객체타입을 만드는데 사용합니다.
 
 ```ts
-<<<<<<< HEAD
-interface SignUpForm { // 회원가입시에 사용하는 객체 타입
-=======
 interface SignUpForm {
   // 회원가입시에 사용하는 객체 타입
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
   id: string;
   password: string;
   passwordForCheck: string;
@@ -232,12 +198,7 @@ interface SignUpForm {
   address: string;
 }
 
-<<<<<<< HEAD
-type SignUpSubmit = Omit<SignUpForm, "passwordForCheck">; // 서버에 전달할 때는 password 하나만 전달함으로 passwordForCheck를 생략한다.
-
-=======
 type SignUpSubmit = Omit<SignUpForm, 'passwordForCheck'>; // 서버에 전달할 때는 password 하나만 전달함으로 passwordForCheck를 생략한다.
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 ```
 
 ![image](https://user-images.githubusercontent.com/44419181/123508274-4e83a700-d6a9-11eb-98c3-c25c800d2ccc.png)
@@ -249,15 +210,9 @@ type SignUpSubmit = Omit<SignUpForm, 'passwordForCheck'>; // 서버에 전달할
 `Exclude` 타입은 `Omit`과 역할이 유사하나, union타입에서 멤버타입을 소거한 타입을 생성하고자 할 때 사용합니다. Omit은 객체타입, Exclude는 union 타입. 기억해두면 편리합니다.
 
 ```ts
-<<<<<<< HEAD
-type Color = "red" | "blue" | "pink" | "orange";
-
-type RedishColor = Exclude<Color, "blue">; // 색상 중 blue를 제외한 붉은 컬러만 union 타입으로 구성한다.
-=======
 type Color = 'red' | 'blue' | 'pink' | 'orange';
 
 type RedishColor = Exclude<Color, 'blue'>; // 색상 중 blue를 제외한 붉은 컬러만 union 타입으로 구성한다.
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 ```
 
 ### Partial<Type>
@@ -265,11 +220,7 @@ type RedishColor = Exclude<Color, 'blue'>; // 색상 중 blue를 제외한 붉�
 `Partial`은 전달한 객체타입의 모든 프로퍼티를 optional로 만듭니다.
 `Partial`을 통해 생성된 타입은 원 객체타입 중 프로퍼티를 전달하지 않거나, 일부만 전달해도 적합한 타입으로 인정받지만, 원 객체타입에 없는 프로퍼티를 전달하면 에러를 발산합니다.
 
-<<<<<<< HEAD
-개인적으로 fetch함수를 추상화한 httpClient 메서드 중에서 PUT 요청 함수를 만들 때 굉장히 유용했습니다.
-=======
 개인적으로 기존 객체를 업데이트하는 함수를 만들때 인자로 Partial 타입을 사용하니 굉장히 코드가 깔끔해졌습니다.
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 
 ```ts
 interface UserInfo {
@@ -296,15 +247,7 @@ type UserInfoUpdate = Partial<UserInfo>;
 감사합니다!
 
 ### Reference
-<<<<<<< HEAD
-=======
-
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
 - https://www.typescriptlang.org/docs/handbook/type-inference.html
 - https://www.typescriptlang.org/docs/handbook/utility-types.html
 - https://www.typescriptlang.org/docs/handbook/2/generics.html
 - https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions
-<<<<<<< HEAD
-
-=======
->>>>>>> bd9f8589120cff7bc22a5c3ec3163dec38eaa713
