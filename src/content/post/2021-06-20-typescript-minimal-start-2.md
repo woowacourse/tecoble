@@ -47,7 +47,7 @@ forEach메서드에 전달하는 콜백함수에 대한 인자를 추론하기�
 addEventListener메서드에 전달하는 콜백함수의 인자를 event타입이라고 추론하기도 합니다.
 이를 코드의 위치에 따라 타입을 추론한다하여, Contextual Typing이라고 합니다.
 
-### noImplicitAny
+### 더 나은 타입안정성을 위한 옵션1: noImplicitAny
 
 일반적인 함수의 인자 타입과 같이 명시해주지 않으면, 어떤 타입을 받을 것인지 추론할 수 없는 경우가 있습니다.
 
@@ -57,14 +57,14 @@ addEventListener메서드에 전달하는 콜백함수의 인자를 event타입�
 따라서 해당 요소는 모든 타입을 수용할 수 있게 됩니다.
 이는 암시적으로 타이핑이 이뤄지는 것이기에 장기적으로 봤을 때 버그가 될 수 있는 지점입니다. 다른 사용자 (혹은 미래의 나)가 함수의 의도를 오인하고 잘못된 타입의 인자를 전달해줄 수 있기 때문입니다. 그러므로 지양해야 합니다.
 
-이때 `noImplicitAny`라는 [`tsconfig.json`](https://typescript-kr.github.io/pages/tsconfig.json.html) 파일의 옵션을 `true`로 지정해주는 것이 좋습니다.
+이때 `noImplicitAny`라는 [tsconfig.json](https://typescript-kr.github.io/pages/tsconfig.json.html) 파일의 옵션을 `true`로 지정해주는 것이 좋습니다.
 
 `noImplicitAny`옵션은 명시되지 않은 타입을 컴파일러가 추론할 때 `any`로 추론하게 되면 컴파일 에러로 나타내는 기능입니다.
 
 
-### noImplicitReturn
+### 더 나은 타입안정성을 위한 옵션2: noImplicitReturn
 
-`noImplicitAny`와 같은 맥락의 `tsconfig.json` 파일의 옵션으로, 함수가 조건에 따라 명시적으로 `return`을 하지 않았을 때 에러를 발생시켜주는 기능입니다.
+`noImplicitAny`와 같은 맥락의 tsconfig.json 파일의 옵션으로, 함수가 조건에 따라 명시적으로 `return`을 하지 않았을 때 에러를 발생시켜주는 기능입니다.
 
 
 함수 내에 `return`문이 존재하지 않는다면 컴파일러는 해당 함수의 리턴타입을 `void`로  추론합니다. 따라서 문제가 발생하지 않습니다.
