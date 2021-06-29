@@ -16,7 +16,7 @@ image: ../teaser/mockito.png
 
 ## Mockito
 
-Mock 객체와 Mockito에 대한 설명은 스티치의 ["Test Double을 알아보자"](https://woowacourse.github.io/tecoble/2020-09-19-what-is-test-double)와 ["Mockito와 BDDMockito는 뭐가 다를까?"](https://woowacourse.github.io/tecoble/2020-09-29-compare-mockito-bddmockito)를, 더 자세한 내용은 [공식문서](https://site.mockito.org)를 읽어보길 바란다.
+Mock 객체와 Mockito에 대한 설명은 스티치의 ["Test Double을 알아보자"](https://woowacourse.github.io/tecoble/post/2020-09-19-what-is-test-double)와 ["Mockito와 BDDMockito는 뭐가 다를까?"](https://woowacourse.github.io/tecoble/post/2020-09-29-compare-mockito-bddmockito)를, 더 자세한 내용은 [공식문서](https://site.mockito.org)를 읽어보길 바란다.
 
 간단하게 말하자면, Mockito는 단위 테스트를 위한 mocking 프레임워크이다. 
 
@@ -149,7 +149,7 @@ Mockito는 언제 사용하는 게 좋을까?
 
 하지만 이 경우에도 무조건적으로 Mockito를 사용하기 보다는 설계를 바꾸는 것이 더 바람직하다.
 메소드 내에서 테스트하기 어려운 부분을 메소드 외부에서 관리하도록 변경해 테스트하기 쉽게 설계를 변경하는 것이다.
-이에 대한 자세한 이야기는 스티치의 ["메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기"](https://woowacourse.github.io/tecoble/2020-05-07-appropriate_method_for_test_by_parameter)를 참고하길 바란다.
+이에 대한 자세한 이야기는 스티치의 ["메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기"](https://woowacourse.github.io/tecoble/post/2020-05-07-appropriate_method_for_test_by_parameter)를 참고하길 바란다.
 
 프로덕션 서버와의 분리를 위해 Mockito를 사용하는 경우도 있다.
 앞선 예제가 바로 그런 경우다.
@@ -159,7 +159,7 @@ Mockito는 언제 사용하는 게 좋을까?
 혹은 프로덕션 서버와 같은 환경의 별도 테스트 DB를 구축하는 것도 하나의 방법이다.
 
 DB를 Mocking하지 않고 사용하게 된다면 테스트간의 의존성 문제가 발생할 수 있다.
-이러한 테스트 격리 방법에 대해서는 보스독의 ["인수테스트에서 테스트 격리하기"](https://woowacourse.github.io/tecoble/2020-09-15-test-isolation)를 읽어본다면 많은 도움이 될 것이다.
+이러한 테스트 격리 방법에 대해서는 보스독의 ["인수테스트에서 테스트 격리하기"](https://woowacourse.github.io/tecoble/post/2020-09-15-test-isolation)를 읽어본다면 많은 도움이 될 것이다.
 
 그렇다면 Mockito를 사용하지 않고 전부 대체해야 할까?
 
