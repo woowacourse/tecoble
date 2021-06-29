@@ -148,7 +148,7 @@ void foo (int x, int y) {
 
 먼저 **코드 커버리지의 중요성**은 **테스트 코드의 중요성과 일맥상통**한다고 생각한다.
 
-> 테스트 코드의 중요성, 테스트 코드를 작성함으로써 얻을 수 있는 장점에 대해서는 [메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기](https://woowacourse.github.io/tecoble/2020-05-07-appropriate_method_for_test_by_parameter)를 참고하면 도움이 될 것이다. 
+> 테스트 코드의 중요성, 테스트 코드를 작성함으로써 얻을 수 있는 장점에 대해서는 [메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기](https://woowacourse.github.io/tecoble/post/2020-05-07-appropriate_method_for_test_by_parameter)를 참고하면 도움이 될 것이다. 
 
 그렇다면 테스트 코드를 잘 작성하고 있는지는 어떻게 알 수 있을까?
 

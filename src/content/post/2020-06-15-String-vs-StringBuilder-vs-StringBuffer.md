@@ -16,7 +16,7 @@ String 클래스는 잘 사용하면 상관이 없지만, 잘못 사용하면 �
 
 ## String 클래스
 
-우선 String 클래스는 [Immutable Object(불변 객체)](https://woowacourse.github.io/tecoble/2020-05-18-immutable-object)이다.
+우선 String 클래스는 [Immutable Object(불변 객체)](https://woowacourse.github.io/tecoble/post/2020-05-18-immutable-object)이다.
 
 ```java
 String str = "Hello"
