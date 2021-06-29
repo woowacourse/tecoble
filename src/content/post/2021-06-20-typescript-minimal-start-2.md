@@ -49,7 +49,7 @@ addEventListener메서드에 전달하는 콜백함수의 인자를 event타입�
 
 ### noImplicitAny
 
-일반적인 함수의 인자 타입과 같이 명시해주지 않으면, 어떤 타입을 받을 것인지 추론할 수 없는 경우가 있습니다.
+일반적인 함수의 인자 타입과 같이 타입을 직접 명시해주지 않으면, 어떤 타입을 받을 것인지 추론할 수 없는 경우가 있습니다.
 
 ![image](https://user-images.githubusercontent.com/44419181/123502037-33527080-d684-11eb-85a7-1f490ad1dc3b.png)
 
