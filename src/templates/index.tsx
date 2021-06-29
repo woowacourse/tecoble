@@ -145,7 +145,7 @@ const IndexPage: React.FC<IndexProps> = props => {
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
-    logo: file(relativePath: { eq: "img/javable.png" }) {
+    logo: file(relativePath: { eq: "img/tecoble.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.

@@ -61,7 +61,7 @@ public class Board {
 왜 낯선 객체에 메시지를 보내는 설계를 피해야 할까?  
 즉 디미터 법칙을 위반했을 때의 문제점은 무엇일까?
 
-앞서 살펴봤던 `Post`객체에서 만약 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 [일급컬렉션](https://woowacourse.github.io/javable/2020-05-08/First-Class-Collection) 객체로 수정된다면 어떻게 될까?
+앞서 살펴봤던 `Post`객체에서 만약 인스턴스 변수가 `List<Comment> comments`에서 `Comments`라는 [일급컬렉션](https://woowacourse.github.io/tecoble/2020-05-08-First-Class-Collection) 객체로 수정된다면 어떻게 될까?
 
 ```java
 public class Post {
