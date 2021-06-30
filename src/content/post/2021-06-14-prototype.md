@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'Prototype'
+title: 'Prototype, 그리고 Class'
 author: [3기_카일]
-tags: ['prototype', 'OOP']
+tags: ['prototype', 'OOP', 'class']
 date: '2021-06-14T12:00:00.000Z'
 draft: false
 image: ../teaser/prototype.png
@@ -53,12 +53,12 @@ console.log(anotherObj.b); // undefined
 
 ### `Object.prototype`
 
-JS에서 모든 Prototype Chain의 종착점에는 `Object.prototype`이라는 객체가 자리하고 있다. 이 객체는 모든 [Built-in 객체](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)들의 원형 객체이며, Built-in 객체들의 다양한 공통 특성들을 한 데 가진다. ('프로토타입'이라는 단어를 사용한 이유를 여기서 짐작해볼 수 있겠다.)
+JS에서 모든 Prototype Chain의 종착점에는 `Object.prototype`이라는 객체가 자리하고 있다. 이 객체는 모든 [Built-in 객체](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)들의 원형(原型) 객체이며, Built-in 객체들의 다양한 공통 특성들을 한 데 가진다. (원형의 의미를 가진 '프로토타입'이라는 단어가 사용된 이유를 여기서 짐작해볼 수 있겠다.)
 
 <img src="../img/object_prototype.png" alt="object prototype" />
 <br />
 
-`Object.prototype`이라는 원형 객체와 연결된 객체마다 필요에 의하여 기능들을 상속받고 확장해 나간다. 그러한 과정에서 공통된 특성들은 하나의 원형 객체에 모아 그것들을 참조하게 하여 메모리 자원을 보다 효율적으로 사용할 수 있다. 또한 원형 객체에서 파생된 객체들의 프로퍼티를 수정하고 싶을 때, 그것들의 원형 객체에만 선언함으로써 리팩토링의 강점을 취할 수도 있다.
+`Object.prototype`과 연결된 객체마다 필요에 의하여 기능들을 상속받고 확장해 나간다. 그러한 과정에서 공통된 특성들은 하나의 프로토타입 객체에 모아 그것들을 참조하게 하여 메모리 자원을 보다 효율적으로 사용할 수 있다. 또한 프로토타입 객체에서 파생된 객체들의 프로퍼티를 수정하고 싶을 때, 그것들의 프로토타입 객체에만 선언함으로써 리팩토링의 강점을 취할 수도 있다.
 
 ### Prototype Object
 
@@ -116,7 +116,7 @@ const crew = new Person('Kyle');
 console.log(crew.say()); // Hi, My name is Kyle.
 ```
 
-두 코드의 결과는 동일하며, 동작 방식도 거의 차이가 없다. 즉 ES6 클래스 문법은 단지 생성자-프로토타입 패턴을 숨기기 위한 Syntactic Sugar에 불과하다. JS는 여전히 프로토타입 기반 언어이다.
+두 코드의 결과는 동일하며, 동작 방식도 거의 차이가 없다. 즉 ES6 클래스 문법은 단지 생성자-프로토타입 패턴을 숨기기 위한 [Syntactic Sugar](https://www.techopedia.com/definition/10212/syntactic-sugar)에 불과하다. JS는 여전히 프로토타입 기반 언어이다.
 
 그렇다면 클래스 기반 언어와 JS에서 다루는 클래스의 동작 방식은 구체적으로 어떻게 다른 걸까? (모든 프로토타입 기반 언어에서 클래스를 가지고 있는 것은 아니기에 JS로 한정하여 비교해보려 한다.)
 
