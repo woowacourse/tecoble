@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'StreamAPI 나도 한 번 써보자!'
-author: [와일더]
+author: [3기_와일더]
 tags: ['stream']
 date: '2021-05-23T12:00:00.000Z'
 draft: false

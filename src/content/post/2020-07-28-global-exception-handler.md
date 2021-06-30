@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Spring에서 전역 예외 처리하기"
-author: [티거]
+author: [2기_티거]
 tags: ["exception"]
 date: "2020-07-28T12:00:00.000Z"
 draft: false

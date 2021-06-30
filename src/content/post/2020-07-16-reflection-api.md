@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "Reflection API 간단히 알아보자."  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["reflection"]
 date: "2020-07-16T12:00:00.000Z"
 draft: false

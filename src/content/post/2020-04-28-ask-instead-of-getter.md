@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "getter를 사용하는 대신 객체에 메시지를 보내자"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["object-calisthenic", "OOP"]
 date: "2020-04-28T12:00:00.000Z"
 draft: false

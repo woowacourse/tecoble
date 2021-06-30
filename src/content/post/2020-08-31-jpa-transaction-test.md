@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "JPA 사용시 테스트 코드에서 @Transactional 주의하기"
-author: [비밥]
+author: [2기_비밥]
 tags: ["JPA", "transaction", "test"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false

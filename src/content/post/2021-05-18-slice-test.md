@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: Spring Boot 슬라이스 테스트
-author: [파피]
+author: [3기_파피]
 tags: ['test']
 date: "2021-05-18T12:00:00.000Z"
 draft: false

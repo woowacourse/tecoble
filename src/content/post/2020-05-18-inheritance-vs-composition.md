@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "상속보다는 조합(Composition)을 사용하자."  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["OOP", "composition", "inheritance", "clean-code"]
 date: "2020-05-18T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: Spring ArgumentResolver와 Interceptor
-author: [샐리]
+author: [3기_샐리]
 tags: ['spring']
 date: "2021-05-22T12:00:00.000Z"
 draft: false

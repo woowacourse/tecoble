@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "Entity Lifecycle을 고려해 코드를 작성하자 2편"  
-author: [라테]
+author: [2기_라테]
 tags: ["JPA", "entity", "transaction", "security"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false

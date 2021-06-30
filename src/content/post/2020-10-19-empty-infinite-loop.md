@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 몸체가 비어있는 무한 루프
-author: [둔덩]
+author: [2기_둔덩]
 tags: ['loop']
 date: "2020-10-19T12:00:00.000Z"
 draft: false

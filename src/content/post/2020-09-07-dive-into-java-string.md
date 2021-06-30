@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "Java의 문자열을 파해치자!"  
-author: [스티치]
+author: [2기_스티치]
 tags: ["java" ,"string", "immutable"]
 date: "2020-09-07T12:00:00.000Z"
 draft: false

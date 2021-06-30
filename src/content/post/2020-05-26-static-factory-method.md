@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "정적 팩토리 메서드(Static Factory Method)는 왜 사용할까?"
-author: [보스독]
+author: [2기_보스독]
 tags: ["static-factory-method"]
 date: "2020-05-26T12:00:00.000Z"
 draft: false

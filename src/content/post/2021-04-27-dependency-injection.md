@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 의존관계 주입(Dependency Injection) 쉽게 이해하기
-author: [완태]
+author: [3기_완태]
 tags: ['java']
 date: "2021-04-27T12:00:00.000Z"
 draft: false

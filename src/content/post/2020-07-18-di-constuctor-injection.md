@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "왜 Constructor Injection을 사용해야 하는가?"
-author: [스티치]
+author: [2기_스티치]
 tags: ["Spring", "DI"]
 date: "2020-07-18T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "요청과 응답으로 엔티티(Entity) 대신 DTO를 사용하자"
-author: [보스독]
+author: [2기_보스독]
 tags: ["DTO", "Entity"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false

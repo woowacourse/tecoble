@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "사용성을 고려해 객체를 설계하자"
-author: [스티치, 라테]
+author: [2기_스티치, 2기_라테]
 tags: ["OOP", "interface", "functional-programming", "enum"]
 date: "2020-08-18T12:00:00.000Z"
 draft: false

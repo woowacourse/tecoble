@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: ResponseEntity - Spring Boot에서 Response를 만들자
-author: [와이비]
+author: [3기_와이비]
 tags: ['spring-boot']
 date: "2021-05-10T12:00:00.000Z"
 draft: false

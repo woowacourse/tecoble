@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "상태 코드, 뭘 줘야할까?"
-author: [우]
+author: [2기_우]
 tags: ["http", "status-code"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false

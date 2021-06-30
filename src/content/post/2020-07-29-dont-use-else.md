@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "else 예약어를 쓰지 않는다"
-author: [스티치]
+author: [2기_스티치]
 tags: ["object-calisthenic", "OOP", "clean-code", "enum"]
 date: "2020-07-29T12:00:00.000Z"
 draft: false

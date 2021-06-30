@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 자바 제네릭(Generics) 기초
-author: [둔덩]
+author: [2기_둔덩]
 tags: ['java', 'generics']
 date: "2020-11-09T12:00:00.000Z"
 draft: false
