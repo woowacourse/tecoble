@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "하나의 메서드는 하나의 기능을 수행하자"
-author: [보스독]
+author: [2기_보스독]
 tags: ["clean-code", "refactoring"]
 date: "2020-05-10T12:00:00.000Z"
 draft: false

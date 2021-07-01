@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 싱글톤(Singleton) 패턴이란?
-author: [보스독]
+author: [2기_보스독]
 tags: ['java', 'singleton']
 date: "2020-11-07T12:00:00.000Z"
 draft: false

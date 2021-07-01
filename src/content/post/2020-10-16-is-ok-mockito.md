@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mockito, 이대로 괜찮은가?
-author: [우]
+author: [2기_우]
 tags: ['test', 'mockito']
 date: "2020-10-16T12:00:00.000Z"
 draft: false

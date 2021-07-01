@@ -2,7 +2,7 @@
 
 layout: post  
 title: "클라이언트에서 비동기 요청 시 최신 데이터를 가져오는 방법"
-author: [보스독]
+author: [2기_보스독]
 tags: ["asynchronous", "api"]
 date: "2020-07-19T12:00:00.000Z"
 draft: false

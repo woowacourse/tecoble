@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 외부 서버와의 통신을 테스트해보자
-author: [유안]
+author: [2기_유안]
 tags: ['test']
 date: "2020-09-30T12:00:00.000Z"
 draft: false

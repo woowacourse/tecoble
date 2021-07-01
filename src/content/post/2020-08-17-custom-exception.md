@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "custom exception을 언제 써야 할까?"
-author: [우, 오렌지]
+author: [2기_우, 2기_오렌지]
 tags: ["exception", "custom-exception"]
 date: "2020-08-17T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 코드 커버리지(Code Coverage)가 뭔가요?
-author: [스티치]
+author: [2기_스티치]
 tags: ['java' ,'test']
 date: "2020-10-24T12:00:00.000Z"
 draft: false

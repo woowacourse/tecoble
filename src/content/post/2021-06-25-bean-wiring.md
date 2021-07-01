@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: bean wiring
-author: [영이]
+author: [3기_영이]
 tags: ['spring', 'bean']
 date: "2021-06-25T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "정적 메소드, 너 써도 될까?"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["static", "static-factory-method", "static-method", "OOP"]
 date: "2020-07-16T12:00:00.000Z"
 draft: false

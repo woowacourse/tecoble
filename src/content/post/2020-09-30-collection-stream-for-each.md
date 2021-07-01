@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "Collection.forEach와 Stream.forEach는 뭐가 다를까?"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["stream", "collection", "loop"]
 date: "2020-09-30T12:00:00.000Z"
 draft: false

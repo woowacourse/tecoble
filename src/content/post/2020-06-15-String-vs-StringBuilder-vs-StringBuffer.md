@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "String 클래스를 조심히 사용하자."  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["class", "immutable", "refactoring"]
 date: "2020-06-15T12:00:00.000Z"
 draft: false

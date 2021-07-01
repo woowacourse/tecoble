@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "디미터 법칙(Law of Demeter)"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["law-of-demeter", "clean-code", "object-calisthenic"]
 date: "2020-06-02T12:00:00.000Z"
 draft: false

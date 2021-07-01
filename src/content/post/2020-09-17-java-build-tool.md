@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "자바 빌드 도구"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["build"]
 date: "2020-09-17T12:00:00.000Z"
 draft: false

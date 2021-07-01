@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "반복적으로 사용되는 인스턴스 캐싱하기"
-author: [스티치]
+author: [2기_스티치]
 tags: ["cache"]
 date: "2020-06-24T12:00:00.000Z"
 draft: false

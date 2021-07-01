@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "좋은 코드를 위한 자바 변수명 네이밍"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["naming", "convention"]
 date: "2020-04-24T12:00:00.000Z"
 draft: false

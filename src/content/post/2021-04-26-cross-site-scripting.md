@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'innerHTML의 위험성, XSS에 대해 알아보자'
-author: [심바]
+author: [3기_심바]
 tags: []
 date: '2021-04-26T12:00:00.000Z'
 draft: false

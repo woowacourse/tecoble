@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 단위 테스트 vs 통합 테스트 vs 인수 테스트
-author: [다니]
+author: [3기_다니]
 tags: ['test', 'unit test', 'integration test', 'acceptance test']
 date: "2021-05-25T12:00:00.000Z"
 draft: false

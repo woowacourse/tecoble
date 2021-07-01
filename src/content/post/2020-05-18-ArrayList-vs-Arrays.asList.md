@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "new ArrayList<>() vs Arrays.asList()"
-author : [티거]
+author : [2기_티거]
 tags: ["collection"]
 date: "2020-05-18T12:00:00.000Z"
 draft: false

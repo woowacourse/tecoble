@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Typescript Minimal-Start - 1.기본 문법
-author: [파노]
+author: [3기_파노]
 tags: ['typescript']
 date: '2021-05-23T12:00:00.000Z'
 draft: false

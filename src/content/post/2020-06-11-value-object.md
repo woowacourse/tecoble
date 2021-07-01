@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "VO(Value Ojbect)란 무엇일까?"
-author : [보스독]
+author : [2기_보스독]
 tags: ["value-object", "immutable"]
 date: "2020-06-11T12:00:00.000Z"
 draft: false

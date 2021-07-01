@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: '@RequestMapping'
-author: [샐리]
+author: [3기_샐리]
 tags: ['spring']
 date: "2021-06-18T12:00:00.000Z"
 draft: false

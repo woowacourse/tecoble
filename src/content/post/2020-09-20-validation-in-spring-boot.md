@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Spring Boot에서 DTO 검증하기"
-author: [티거]
+author: [2기_티거]
 tags: ["spring", "validation"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false

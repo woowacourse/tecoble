@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "원시 타입을 포장해야 하는 이유"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["OOP", "object-calisthenic"]
 date: "2020-05-29T12:00:00.000Z"
 draft: false
