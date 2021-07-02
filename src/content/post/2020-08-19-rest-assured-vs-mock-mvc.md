@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "MockMvc VS RestAssured"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["spring" ,"test"]
 date: "2020-08-19T12:00:00.000Z"
 draft: false

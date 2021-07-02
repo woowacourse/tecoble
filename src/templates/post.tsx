@@ -20,7 +20,7 @@ import { colors } from '../styles/colors';
 import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 import { AuthorList } from '../components/AuthorList';
-import Utterances from "./Utterances";
+import Utterances from './Utterances';
 
 export interface Author {
   id: string;
@@ -189,7 +189,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags.map((tag, index) => (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      {index !== 0 ? ', ' : ''}{tag}
+                      {index !== 0 ? ', ' : ''}
+                      {'#'+tag}
                     </Link>
                   ))}
                 </PostFullTags>
@@ -204,7 +205,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                       <h4 className="author-name">
                         {post.frontmatter.author.map((author, index) => (
                           <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
-                            {index !== 0 ? ', ' : ''}{author.id}
+                            {index !== 0 ? ', ' : ''}
+                            {author.id}
                           </Link>
                         ))}
                       </h4>
@@ -236,7 +238,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
-          <Utterances repo={'woowacourse/javable-comments'}/>
+          <Utterances repo={'woowacourse/javable-comments'} />
         </main>
 
         <ReadNext
@@ -307,10 +309,11 @@ export const PostFullHeader = styled.header`
 const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
+  flex-wrap : wrap;
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};
-  font-size: 1.3rem;
+  font-size: 2.5rem;
   line-height: 1.4em;
   font-weight: 600;
   text-transform: uppercase;
@@ -440,7 +443,7 @@ const PostFullImage = styled.figure`
 
 export const query = graphql`
   query($slug: String, $primaryTag: String) {
-    logo: file(relativePath: { eq: "img/javable.png" }) {
+    logo: file(relativePath: { eq: "img/tecoble.png" }) {
       childImageSharp {
         fixed {
           ...GatsbyImageSharpFixed

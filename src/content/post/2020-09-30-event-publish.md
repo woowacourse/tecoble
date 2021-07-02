@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 이벤트 발행으로 비즈니스 로직 분리하기
-author: [보스독]
+author: [2기_보스독]
 tags: ['event']
 date: "2020-09-30T12:00:00.000Z"
 draft: false

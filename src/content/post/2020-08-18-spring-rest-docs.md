@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "API 문서 자동화 - Spring REST Docs 팔아보겠습니다"
-author: [티거]
+author: [2기_티거]
 tags: ["spring", "docs"]
 date: "2020-08-18T12:00:00.000Z"
 draft: false

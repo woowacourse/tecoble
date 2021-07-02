@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "인수테스트에서 테스트 격리하기"
-author: [보스독]
+author: [2기_보스독]
 tags: ["test", "isolation"]
 date: "2020-09-15T12:00:00.000Z"
 draft: false

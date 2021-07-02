@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "자원을 수정하는 HTTP 메서드 - PUT vs PATCH"
-author : [비밥, 보스독]
+author : [2기_비밥, 2기_보스독]
 tags: ["http-method", "put", "patch"]
 date: "2020-08-17T12:00:00.000Z"
 draft: false
