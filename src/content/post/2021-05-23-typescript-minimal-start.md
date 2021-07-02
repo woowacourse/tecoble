@@ -258,7 +258,7 @@ const buyDoge: BuyDogeType = (krw: number) => {
 ## 1부 마침
 
 이렇게 타입스크립트의 기본적인 문법을 알아보았습니다!
-2장에서는 제네릭, 타입추론, 타입강제, 유용한 유틸리티타입을,
+[2장](https://woowacourse.github.io/tecoble/post/2021-06-20-typescript-minimal-start-2.md)에서는 제네릭, 타입추론, 타입강제, 유용한 유틸리티타입을,
 3장에서는 프론트엔드 프레임워크인 리액트에 적용해보는 시간과 타입스크립트를 사용하면서 애매한 부분에 대한 내용을 다뤄보겠습니다.
 
 감사합니다!
