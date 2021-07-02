@@ -3,25 +3,26 @@ layout: post
 title: Typescript Minimal-Start - 2. 좀 더 나아가기
 author: [3기_파노]
 tags: ['typescript']
-date: '2021-06-21T12:00:00.000Z'
+date: '2021-06-20T12:00:00.000Z'
 draft: false
 image: ../teaser/ts-minimal-start.png
 ---
 
 ## 0.Intro
 
-1편에서 타입스크립트의 기본적인 문법에 대해 알아보았습니다.
+[1편](https://woowacourse.github.io/tecoble/)에서 타입스크립트의 기본적인 문법에 대해 알아보았습니다.
 이번 포스팅에서는 타입스크립트에서 조금 더 심화된 내용을 다뤄봅니다.
 시리즈의 컨셉을 따라 개념적 맥락을 파악할 수 있는 수준에서 최소한의 개념을 다룹니다.
 
 ## Table of Contents
 
-1. 타입 추론
-2. 타입 강제
-3. 제네릭
-4. 유용한 유틸리티 타입
 
-## 1. 타입추론
+1. [타입 추론](#타입-추론)
+2. [타입 강제](#타입-강제)
+3. [제네릭](#제네릭)
+4. [유용한 유틸리티 타입](#유용한-유틸리티-타입)
+
+## 타입 추론
 
 1편에서 봤던 변수와 함수에 대한 타입선언 기억나시나요?
 
@@ -80,7 +81,7 @@ addEventListener메서드에 전달하는 콜백함수의 인자를 event타입�
 
 객체 인덱싱 하려고할 때 객체가 런타임에서 `undefined`, `null`이 나올 가능성이 있다면 에러를 출력합니다.
 
-```ts
+```js
 const twoDimensionArray = [
   [1, 2],
   [2, 3],
@@ -97,7 +98,7 @@ console.log(found[1]);
 find 메서드는 대상을 찾지 못하면 `undefined`를 반환합니다. 따라서 `found[1]`이라는 인덱싱은 가능할 수도, 불가능할 수도 있는 식입니다. `strictNullCheck`라는 옵션에 `true`값을 주면 해당 라인에 에러를 나타냅니다.
 
 
-## 2. 타입 강제
+## 타입 강제
 
 이렇게 똑똑한 타입스크립트 컴파일러지만 모든 경우에 컴파일러의 타입추론이 제대로 동작하는 것은 아닙니다.
 
@@ -118,7 +119,7 @@ find 메서드는 대상을 찾지 못하면 `undefined`를 반환합니다. 따
 타입 강제는 사용자가 임의로 타입을 정하는 부분이므로 사용에 주의가 필요합니다.
 최대한 사용을 자제하되 불가피하게 사용되어야 하는 부분에 정확한 타입을 강제하여 주세요.
 
-## 3. 제네릭
+## 제네릭
 
 제네릭은 타입스크립트만의 특별한 문법이 아닙니다. 그러므로 다른 언어(대표적으로 C++이나 JAVA)에서 제네릭에 대해 배운 적이 있다면 빠르게 넘어가실 수 있을 겁니다.
 
@@ -141,7 +142,7 @@ const sayHi = (target) => {
 // 표현식
 const genericFunc = <T>(t: T): T => t;
 
-// 선언식
+// 선언문
 function genericFunc<T>(t: T): T {
   return t;
 }
@@ -152,7 +153,7 @@ genericFunc<string>('2');
 genericFunc<number>('숫자'); // Argument of type 'string' is not assignable to parameter of type 'number'.
 ```
 
-꺽쇠(<>)를 사용해서 `T`라는 **_타입변수_**를 지정합니다.
+꺽쇠(<>)를 사용해서 임의의 ***타입변수***(예시 코드에서는 `T`)를 지정합니다.
 
 ![image](https://user-images.githubusercontent.com/44419181/123505396-d497f180-d699-11eb-8b22-e39b4d8b5cf7.png)
 
@@ -178,7 +179,7 @@ genericFunc3<boolean>(false); // Type 'boolean' does not satisfy the constraint 
 
 `extends`라는 키워드를 통해 타입을 제한할 수 있습니다. `boolean` 타입을 타입변수로 전달했더니 컴파일러가 에러를 나타냈습니다.
 
-## 4. 유용한 유틸리티 타입
+## 유용한 유틸리티 타입
 
 타입스크립트는 사용자가 만든 타입의 활용도를 더 끌어올리기 위해 유틸리티 타입을 제공합니다. 유틸리티 타입은 기존의 타입을 활용해
 새로운 타입을 만들어주는 타입이라고 정의할 수 있습니다.
@@ -187,7 +188,7 @@ genericFunc3<boolean>(false); // Type 'boolean' does not satisfy the constraint 
 
 객체타입 `Type`에서 해당 객체타입이 가진 프로퍼티 key가 조합된 `Keys`를 전달해 `Keys` 프로퍼티만으로 구성된 객체타입을 새롭게 구성합니다.
 
-새롭게 만들려는 타입이 기존 객체타입에 의존성을 갖고 있고, 필요없는 프로퍼티를 소거해 가져오는 것보다 필요한 것만 명시해서 가져오는게 이득이 클 경우 사용합니다.
+새롭게 만들려는 타입이 기존 객체타입에 의존성을 갖고 있고, 필요없는 프로퍼티를 제외해 가져오는 것보다 필요한 것만 명시해서 가져오는게 이득이 클 경우 사용합니다.
 
 ```ts
 interface UserInfo {
@@ -207,7 +208,7 @@ type UserLogin = Pick<UserInfo, 'id' | 'password'>; // 로그인에 필요한 ID
 
 ### Omit<Type, keys>
 
-`Omit`은 `Pick`과 대척점에 서있는 유틸리티 타입입니다. omit, 단어의 뜻 그대로 해당 객체타입 `Type`에서 프로퍼티를 소거해 새로운 객체타입을 만드는데 사용합니다.
+`Omit`은 `Pick`과 반대 용도로 사용하는 유틸리티 타입입니다. omit, 단어의 뜻 그대로 해당 객체타입 `Type`에서 `keys` 프로퍼티를 제외한 새로운 객체타입을 만드는데 사용합니다.
 
 ```ts
 interface SignUpForm {
@@ -228,7 +229,7 @@ type SignUpSubmit = Omit<SignUpForm, 'passwordForCheck'>; // 서버에 전달할
 
 ### Exclude<Type, ExcludedUnion>
 
-`Exclude` 타입은 `Omit`과 역할이 유사하나, union타입에서 멤버타입을 소거한 타입을 생성하고자 할 때 사용합니다. Omit은 객체타입, Exclude는 union 타입. 기억해두면 편리합니다.
+`Exclude` 타입은 `Omit`과 역할이 유사하나, union타입에서 멤버타입을 제외한 타입을 생성하고자 할 때 사용합니다. Omit은 객체타입, Exclude는 union 타입. 기억해두면 편리합니다.
 
 ```ts
 type Color = 'red' | 'blue' | 'pink' | 'orange';
