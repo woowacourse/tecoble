@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "왜 Constructor Injection을 사용해야 하는가?"
+title: '왜 Constructor Injection을 사용해야 하는가?'
 author: [2기_스티치]
-tags: ["Spring", "DI"]
-date: "2020-07-18T12:00:00.000Z"
+tags: ['spring', 'di']
+date: '2020-07-18T12:00:00.000Z'
 draft: false
 image: ../teaser/spring.png
 ---
@@ -12,7 +12,7 @@ image: ../teaser/spring.png
 
 글의 본문을 들어가기 이전에 글에서 주로 언급하게 될 DI의 개념에 대해 짚어보고 가겠다.
 
-**DI**는 *Dependency Injection*, 말 그대로 **의존성 주입**을 말한다. 이는 **객체 간의 의존성을 외부에서 주입하여 관리하겠다**라는 개념인데 아래의 예제를 통해서 DI에 대해 알아보자.
+**DI**는 _Dependency Injection_, 말 그대로 **의존성 주입**을 말한다. 이는 **객체 간의 의존성을 외부에서 주입하여 관리하겠다**라는 개념인데 아래의 예제를 통해서 DI에 대해 알아보자.
 
 만약 지하철의 라인을 관리하기 위한 LineService가 존재하고, LineService에서는 DB에서 데이터를 가져오기 위해 LineRepository가 필요하다고 가정해보자.
 
@@ -20,11 +20,11 @@ image: ../teaser/spring.png
 @Service
 public class LineService {
     private final LineRepository repository;
-    
+
     public LineService() {
         this.repository = new LineRepository();
     }
-    
+
     ...
 
 }
@@ -41,10 +41,10 @@ DI를 적용하기 이전에는 LineRepository를 사용하는 LineService에서
 public class LineService {
     @Autowired
     private LineRepository repository;
-    
+
     public LineService() {
     }
-    
+
     ...
 
 }
@@ -72,7 +72,7 @@ Spring에서 의존성을 주입받는 방법은 크게 3가지가 존재한다.
 public class LineService {
     @Autowired
     private LineRepository repository;
-    
+
     public LineService() {
     }
 }
@@ -88,10 +88,10 @@ public class LineService {
 @Service
 public class LineService {
     private LineRepository repository;
-    
+
     public LineService() {
     }
-    
+
     @Autowired
     public void setRepository(LineRepository lineRepository) {
         this.repository = lineRepository;
@@ -107,7 +107,7 @@ public class LineService {
 @Service
 public class LineService {
     private final LineRepository repository;
-    
+
     public LineService(LineRepository repository) {
         this.repository = repository;
     }
@@ -169,4 +169,3 @@ Constructor Injection은 이러한 관점에서 충분히 장점을 가지는 DI
 > [DI(의존성 주입)가 필요한 이유와 Spring에서 Field Injection보다 Constructor Injection이 권장되는 이유 - Mimul](https://www.mimul.com/blog/di-constructor-injection/)
 >
 > [Spring DI(Dependency Injection)의 정의와 사용 - Jins' Dev Inside](https://jins-dev.tistory.com/entry/Spring-DIDependency-Injection-의-정의와-사용)
-
