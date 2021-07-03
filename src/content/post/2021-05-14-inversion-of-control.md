@@ -57,53 +57,6 @@ IoC를 처음 듣게 되면 `일반적인 제어 흐름`은 무엇인지,
 IoC를 활용하여 상위 모듈과 하위 모듈 간의 결합도를 줄일 수 있다.
 IoC의 구현 방법 중 하나인 Dependency Injection으로 런타임에서 의존성을 지정해줄 수 있어 모듈 간의 결합을 좀 더 느슨하게 만들 수 있다.
 
-## 😵 Dependency Injection
-
-IoC의 개념을 이야기할 때 자주 언급되는 개념이 있다.
-바로 Dependency Injection(이하 DI)이다.
-그래서 간혹 DI와 IoC가 같은 개념이라고 오해하는 경우가 있다.
-하지만 DI는 제어의 역전을 구현하기 위한 한 가지 방법일 뿐이다.
-코드로 확인해보자.
-
-### 👎 DI가 적용되지 않은 경우
-
-```js
-class TaxiDriverJun extends TaxiDriver {}
-
-class Customer {
-	constructor() {
-        this.taxiDriver = new TaxiDriverJun();
-	}
-    ...
-}
-
-const mickey = new Customer();
-```
-
-이 경우 `Customer`이라는 클래스가 TaxiDriverJun 이라는 인스턴스를 언제 만들지, 그리고 어떻게 만들지를 모두 알고 있어야한다.
-
-이 모든 과정이 컴파일 타임에서 정해지기 때문에 다른 TaxiDriver 인스턴스로 변경이 불가능하다. TaxiDriverJun 인스턴스와 강한 결합을 이루고 있는 상황이다.
-
-### 👍 DI가 적용된 경우
-
-```js
-class TaxiDriverJun extends TaxiDriver {}
-
-class Customer {
-	constructor(taxiDriver) {
-        this.taxiDriver = taxiDriver;
-	}
-    ...
-}
-
-const jun = new TaxiDriverJun();
-const mickey = new Customer(jun);
-```
-
-이 경우 TaxiDriverJun 인스턴스는 Customer 내부에서 생성되는 것이 아닌, 상위에서 생성되어 주입되고 있으므로 런타임에서 taxiDriver가 결정되고 다른 taxiDriver로 바꾸고 싶을 때도 얼마든지 가능하다.
-
-인스턴스 생성에 대한 책임을 역전시키므로써 Customer와 TaxiDriver 간의 결합을 느슨하게 만들 수 있다.
-
 ## 🔍 프론트엔드에서의 IoC
 
 ### ✔ IoC of Redux
