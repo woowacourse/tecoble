@@ -189,8 +189,6 @@ React로 프로젝트를 하면서 IoC라는 용어를 처음 알게되었고
 
 ## 📜 참고 자료
 
-[React 이름의 유래](https://www.freecodecamp.org/news/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76/)
-
-[The many meanings of Inversion of Control (IoC) in JavaScript](https://www.youtube.com/watch?v=grF-BVK1vzM)
-
-[inversion of control - Kent C. Dodds](https://kentcdodds.com/blog/inversion-of-control)
+- [React 이름의 유래](https://www.freecodecamp.org/news/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76/)
+- [The many meanings of Inversion of Control (IoC) in JavaScript](https://www.youtube.com/watch?v=grF-BVK1vzM)
+- [inversion of control - Kent C. Dodds](https://kentcdodds.com/blog/inversion-of-control)
