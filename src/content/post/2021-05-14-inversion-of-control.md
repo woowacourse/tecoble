@@ -3,7 +3,7 @@ layout: post
 title: '프론트엔드에서의 Inversion of Control'
 author: [3기_미키]
 tags: ['refactoring', 'design-pattern']
-date: '2020-05-15T12:00:00.000Z'
+date: '2021-05-14T12:00:00.000Z'
 draft: false
 image: ../teaser/inversion-of-control.png
 ---
