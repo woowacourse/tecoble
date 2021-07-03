@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 자원을 자동으로 해제, try-with-resource
-author: [와이비]
+author: [3기_와이비]
 tags: ['java']
 date: "2021-04-26T12:00:00.000Z"
 draft: false

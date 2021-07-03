@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "Functional Interface란"
-author : [티거]
+author : [2기_티거]
 tags: ["interface"]
 date: "2020-07-17T12:00:00.000Z"
 draft: false

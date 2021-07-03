@@ -1,12 +1,11 @@
+import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { FixedObject } from 'gatsby-image';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import { css } from '@emotion/react';
-
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
+import SiteNavBackground from '../components/header/SiteNavBackground';
 import Pagination from '../components/Pagination';
 import { PostCard } from '../components/PostCard';
 import { Wrapper } from '../components/Wrapper';
@@ -17,11 +16,9 @@ import {
   PostFeed,
   Posts,
   SiteDescription,
-  SiteHeader,
   SiteHeaderContent,
   SiteMain,
   SiteTitle,
-  SiteHeaderStyles,
 } from '../styles/shared';
 import config from '../website-config';
 import { PageContext } from './post';
@@ -90,13 +87,7 @@ const IndexPage: React.FC<IndexProps> = props => {
         <meta property="og:image:height" content={height.toString()} />
       </Helmet>
       <Wrapper>
-        <div
-          css={[outer, SiteHeader, SiteHeaderStyles]}
-          className="site-header-background"
-          style={{
-            backgroundImage: `url('${props.data.header.childImageSharp.fixed.src}')`,
-          }}
-        >
+        <SiteNavBackground>
           <div css={inner}>
             <SiteNav isHome />
             <SiteHeaderContent className="site-header-conent">
@@ -114,7 +105,7 @@ const IndexPage: React.FC<IndexProps> = props => {
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
           </div>
-        </div>
+        </SiteNavBackground>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={[inner, Posts]}>
             <div css={[PostFeed]}>
@@ -172,6 +163,7 @@ export const pageQuery = graphql`
       edges {
         node {
           timeToRead
+          excerpt(truncate: true)
           frontmatter {
             title
             date
@@ -199,7 +191,6 @@ export const pageQuery = graphql`
               }
             }
           }
-          excerpt
           fields {
             layout
             slug

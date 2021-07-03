@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'BigInteger_BigDecimal'
-author: [영이]
+author: [3기_영이]
 tags: ['test']
 date: '2021-04-26T12:00:00.000Z'
 draft: false

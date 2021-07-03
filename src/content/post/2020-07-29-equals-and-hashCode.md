@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "equals와 hashCode는 왜 같이 재정의해야 할까?"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["java"]
 date: "2020-07-29T12:00:00.000Z"
 draft: false

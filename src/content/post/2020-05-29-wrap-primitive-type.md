@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "원시 타입을 포장해야 하는 이유"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["OOP", "object-calisthenic"]
 date: "2020-05-29T12:00:00.000Z"
 draft: false
@@ -19,7 +19,7 @@ Age age = new Age(20);
 
 원시 타입의 변수를 선언하는 방법과,
 원시 타입의 변수를 객체로 포장한 변수를 선언하는 방법이 있다. 
-(Collection으로 선언한 변수도 포장한다. 이를 일급 컬렉션이라 하며 [티거의 일급 컬렉션](https://woowacourse.github.io/tecoble/2020-05-08-First-Class-Collection)을 참고하길 바란다.)
+(Collection으로 선언한 변수도 포장한다. 이를 일급 컬렉션이라 하며 [티거의 일급 컬렉션](https://woowacourse.github.io/tecoble/post/2020-05-08-First-Class-Collection)을 참고하길 바란다.)
 
 이번 글에서는 객체지향 생활 체조에도 언급된
 **원시 타입의 값을 객체로 포장하면 얻을 수 있는 이점**들에 대해 소개하려고 한다.

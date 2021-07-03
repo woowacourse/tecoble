@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ExceptionHandler 와 ControllerAdvice
-author: [영이]
+author: [3기_영이]
 tags: ['java', 'spring']
 date: "2021-05-10T12:00:00.000Z"
 draft: false

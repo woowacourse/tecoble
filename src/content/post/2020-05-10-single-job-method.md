@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "하나의 메서드는 하나의 기능을 수행하자"
-author: [보스독]
+author: [2기_보스독]
 tags: ["clean-code", "refactoring"]
 date: "2020-05-10T12:00:00.000Z"
 draft: false
@@ -75,7 +75,7 @@ Max Position은 우승자를 구하는 로직에 쓰이는 중요한 값이지�
 
 잘 지은 메서드 명은 코드의 가독성이 증가시키고 유지 보수를 수월하게 해준다. 이름의 길이는 중요하지 않다. 축약된 단어를 쓰지 말고, 메서드가 수행하는 기능을 잘 대변할 수 있는 이름을 짓는 것이 중요하다.
 
-메서드 네이밍 컨벤션도 지키며 코드를 작성하면 많은 도움이 될 것이다. 메서드 네이밍 컨벤션에 대한 자세한 내용은 [메서드 네이밍 컨벤션](https://woowacourse.github.io/tecoble/2020-04-26-Method-Naming) 글을 참고하자.
+메서드 네이밍 컨벤션도 지키며 코드를 작성하면 많은 도움이 될 것이다. 메서드 네이밍 컨벤션에 대한 자세한 내용은 [메서드 네이밍 컨벤션](https://woowacourse.github.io/tecoble/post/2020-04-26-Method-Naming) 글을 참고하자.
 
 
 

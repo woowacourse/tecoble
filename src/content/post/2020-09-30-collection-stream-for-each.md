@@ -1,14 +1,14 @@
 ---
 layout: post  
 title: "Collection.forEach와 Stream.forEach는 뭐가 다를까?"  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["stream", "collection", "loop"]
 date: "2020-09-30T12:00:00.000Z"
 draft: false
 image: ../teaser/stream.jpg
 ---
 
-[자바 반복문 알고 쓰자!](https://woowacourse.github.io/tecoble/2020-08-31-java-loop) 를 작성하다가 궁금해진 내용이다. 아래처럼 Collection.forEach 메서드로 반복할 때와 Stream.forEach 메서드로 반복할 때는 무슨 차이가 있을까?
+[자바 반복문 알고 쓰자!](https://woowacourse.github.io/tecoble/post/2020-08-31-java-loop) 를 작성하다가 궁금해진 내용이다. 아래처럼 Collection.forEach 메서드로 반복할 때와 Stream.forEach 메서드로 반복할 때는 무슨 차이가 있을까?
 
 ```java
 public void print(List<Integer> nums) {
@@ -23,7 +23,7 @@ public void print(List<Integer> nums) {
 
 ## Stream 객체 사용 여부
 
-[자바 반복문 알고 쓰자!](https://woowacourse.github.io/tecoble/2020-08-31-java-loop) 에서도 다뤘던 내용이지만 한 번 더 앞에서 봤던 코드의 표면적인 차이를 살펴보자.
+[자바 반복문 알고 쓰자!](https://woowacourse.github.io/tecoble/post/2020-08-31-java-loop) 에서도 다뤘던 내용이지만 한 번 더 앞에서 봤던 코드의 표면적인 차이를 살펴보자.
 
 ```java
 public void print(List<Integer> nums) {
@@ -64,7 +64,7 @@ public interface Collection<E> extends Iterable<E> {
 
 위의 예제처럼 단순 반복이 목적이라면 Stream.forEach는 stream()으로 생성된 Stream 객체가 버려지는 오버헤드가 있기에, filter, map 등의 Stream 기능들과 함께 사용할 때만 Stream.forEach를 사용하고 나머지의 경우엔 Collection.forEach를 쓰는 것이 좋아 보인다.
 
-forEach 메서드를 사용할 때 주의해야 할 점은 [Stream의 foreach 와 for-loop 는 다르다.](https://woowacourse.github.io/tecoble/2020-05-14-foreach-vs-forloop) 이 글을 참고하자.
+forEach 메서드를 사용할 때 주의해야 할 점은 [Stream의 foreach 와 for-loop 는 다르다.](https://woowacourse.github.io/tecoble/post/2020-05-14-foreach-vs-forloop) 이 글을 참고하자.
 
 ---
 

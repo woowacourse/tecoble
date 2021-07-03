@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "getter를 사용하는 대신 객체에 메시지를 보내자"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["object-calisthenic", "OOP"]
 date: "2020-04-28T12:00:00.000Z"
 draft: false
@@ -14,7 +14,7 @@ image: ../teaser/message.png
  > **자바 빈  설계 규약**에 따르면 자바 빈 클래스 설계 시,
  > 클래스의 멤버변수의 접근제어자는 private이며, 모든 멤버변수에 대해 get메소드와 set메소드가 존재해야 한다.
  > get메소드는 매개변수가 없어야 하며 set메소드는 하나 이상의 매개변수가 있어야 한다.
- > [좋은 코드를 위한 자바 메서드 네이밍](https://woowacourse.github.io/tecoble/2020-04-26-Method-Naming) 에도 간단히 설명되어 있다.
+ > [좋은 코드를 위한 자바 메서드 네이밍](https://woowacourse.github.io/tecoble/post/2020-04-26-Method-Naming) 에도 간단히 설명되어 있다.
 
 상태값을 갖는 객체에서는 상태값을 외부에서 직접 접근해 변경하지 못하도록 메소드만 노출시킨다.
 이때, 멤버변수(상태값)는 접근 제한자를 private으로 설정해 직접적인 접근을 막고, getter와 setter를 이용해서만 변수에 접근이 가능하도록 한다.

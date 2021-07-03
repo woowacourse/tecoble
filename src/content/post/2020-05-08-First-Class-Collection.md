@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "일급 컬렉션을 사용하는 이유"
-author : [티거]
+author : [2기_티거]
 tags: ["object-calisthenic"]
 date: "2020-05-08T12:00:00.000Z"
 draft: false

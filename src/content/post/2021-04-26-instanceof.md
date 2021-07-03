@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: instanceof의 사용을 지양하자
-author: [샐리]
+author: [3기_샐리]
 tags: ['java', 'oop']
 date: "2021-04-26T12:00:00.000Z"
 draft: false

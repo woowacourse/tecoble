@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기"
-author: [스티치]
+author: [2기_스티치]
 tags: ["refactoring", "test"]
 date: "2020-05-07T12:00:00.000Z"
 draft: false

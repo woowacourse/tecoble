@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JPA에서 Fetch Join과 Pagination을 함께 사용할때 주의하자
-author: [비밥]
+author: [2기_비밥]
 tags: ['spring']
 date: "2020-10-21T12:00:00.000Z"
 draft: false

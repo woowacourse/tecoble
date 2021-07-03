@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "토큰을 어디에 저장할까?"
-author: [유안]
+author: [2기_유안]
 tags: ["token", "authorization"]
 date: "2020-08-31T12:00:00.000Z"
 draft: false

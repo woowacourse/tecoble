@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "Java의 문자열을 파해치자!"  
-author: [스티치]
+author: [2기_스티치]
 tags: ["java" ,"string", "immutable"]
 date: "2020-09-07T12:00:00.000Z"
 draft: false
@@ -164,7 +164,7 @@ String Constant Pool에는 이미 `name`으로 인해 생성된 객체가 있을
 
 > Java의 String은 성능의 최적화를 위해 문자열 연산의 경우 내부적으로 **StringBuilder**를 사용한다.
 >
-> StringBuilder에 대해 자세히 알고 싶다면 둔덩의 [String 클래스를 조심히 사용하자](https://woowacourse.github.io/tecoble/2020-06-15-String-vs-StringBuilder-vs-StringBuffer)를 참고하도록 하자.
+> StringBuilder에 대해 자세히 알고 싶다면 둔덩의 [String 클래스를 조심히 사용하자](https://woowacourse.github.io/tecoble/post/2020-06-15-String-vs-StringBuilder-vs-StringBuffer)를 참고하도록 하자.
 
 ## 정리하면
 

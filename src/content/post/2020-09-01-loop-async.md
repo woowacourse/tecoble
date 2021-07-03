@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 반복문에서 비동기 처리를 동기적으로 처리
-author: [오렌지]
+author: [2기_오렌지]
 tags: ['javascript', 'asynchronous']
 date: "2020-09-01T12:00:00.000Z"
 draft: false
