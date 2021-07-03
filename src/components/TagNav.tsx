@@ -56,7 +56,9 @@ const TagNav: VFC<Props> = ({ className }) => {
     const tagNameMap: Record<string, Tag> = {};
 
     edges.forEach(edge => {
-      edge.node.frontmatter.tags.forEach(tagName => {
+      edge.node.frontmatter.tags.forEach(tag => {
+        const tagName = _.kebabCase(tag);
+
         if (!tagNameMap[tagName]) {
           tagNameMap[tagName] = {
             name: tagName,
@@ -71,7 +73,7 @@ const TagNav: VFC<Props> = ({ className }) => {
 
     const sortedTags = Object.values(tagNameMap).sort(({ name: aTagName }, { name: bTagName }) => {
       return aTagName.toUpperCase() >= bTagName.toUpperCase() ? 1 : -1;
-    })
+    });
 
     setTags(sortedTags);
   }, []);
@@ -81,7 +83,7 @@ const TagNav: VFC<Props> = ({ className }) => {
       <ul>
         {tags.map(tag => (
           <li key={tag.name}>
-            <Link to={`/tags/${_.kebabCase(tag.name)}`}>{`#${tag.name} (${tag.count})`}</Link>
+            <Link to={`/tags/${tag.name}`}>{`#${tag.name} (${tag.count})`}</Link>
           </li>
         ))}
       </ul>
