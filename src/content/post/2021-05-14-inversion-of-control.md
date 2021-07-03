@@ -149,12 +149,6 @@ React로 프로젝트를 하면서 IoC라는 용어를 처음 알게되었고
 
 [React 이름의 유래](https://www.freecodecamp.org/news/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76/)
 
-[IoC의 이점](https://cydin.tistory.com/6)
-
 [The many meanings of Inversion of Control (IoC) in JavaScript](https://www.youtube.com/watch?v=grF-BVK1vzM)
 
-[IoC와 DI에 관한 설명](https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring)
-
-[IoC의 기원](https://johngrib.github.io/wiki/inversion-of-control/)
-
-[Hollywood principle](https://johngrib.github.io/wiki/hollywood-principle/)
+[inversion of control - Kent C. Dodds](https://kentcdodds.com/blog/inversion-of-control)
