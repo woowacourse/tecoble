@@ -50,7 +50,7 @@ IoC를 처음 듣게 되면 `일반적인 제어 흐름`은 무엇인지,
 ### 1. 유지보수 비용을 줄일 수 있다.
 
 일반적인 제어 흐름으로 구현했을 경우 유지보수 비용이 높은 경우가 있다.
-상세한 코드를 하단에서 예시로 제시할 것이지만 지금은 간단히 우리가 재사용 가능한 함수(상위 모듈)를 하나 만들어
+상세한 코드를 하단에서 예시로 제시할 것이지만 지금은 간단히 우리가 재사용 가능한 함수를 하나 만들어
 다른 개발자도 이 함수를 사용하는 상황을 가정해보자.
 
 함수는 처음엔 한가지 일을 잘하는 함수로 만들어지겠지만 점점 예외적인 상황이 생길 것이다.
@@ -63,15 +63,92 @@ IoC를 처음 듣게 되면 `일반적인 제어 흐름`은 무엇인지,
 
 ### 2. 구현이 좀 더 단순해진다.
 
-만약 IoC를 적용하지 않고 상위 모듈에서 모든 상황에 대한 처리를 구현한다면 로직이 복잡해질 수 있다.
-예를 들어 상위 모듈에서 arguments,options,props와 같은 옵션의 조합을 대부분의 개발자가 사용하지 않더라도
-로직이 깨지는 것을 막기 위해 구현해놓아야하는 경우가 많이 발생한다.
+IoC를 적용하지 않고 상위 모듈에서 모든 상황에 대한 처리를 구현한다면 로직이 복잡해질 수 있다.
+예를 들어 상위 모듈에서 arguments,options,props와 같은 옵션의 조합을 대부분의 개발자가 사용하지 않더라도 구현해놓아야하는 경우가 많이 발생한다.
+구현하지 않는다면 해당 옵션을 사용하고 있는 앱의 로직이 깨질 수 있기 때문이다. 이는 모든 옵션에 대한 구현을 상위 모듈에 강제하므로 점점 로직이 복잡해지는 문제로 이어진다.
 
-IoC를 적용한다면 로직을 하위 모듈에서 구현하므로 상위 모듈의 구현은 좀 더 단순해진다.
+그대신 IoC를 활용한 추상화를 적용한다면 로직을 하위 모듈에서 구현하므로 상위 모듈의 구현이 좀 더 단순해진다는 장점이 있다.
 
-## 🔍 프론트엔드에서의 IoC
+## 🔍 프론트엔드에서의 IoC - 간단한 예시
 
-### ✔ IoC of Redux
+간단한 예시로 `Array.prototype.filter()` 내장 함수가 없다고 생각하고 우리가 직접 만들어보자.
+
+### 👎 전형적인 추상화
+
+```js
+function filter(array, { filterNull = true, filterUndefined = true, filterNumber = false } = {}) {
+  let newArray = [];
+
+  array.forEach(element => {
+    if (filterNull && element === null) return;
+    if (filterUndefined && element === undefined) return;
+    if (filterNumber && typeof element === 'number') return;
+
+    newArray.push(element);
+  });
+
+  return newArray;
+}
+
+filter([0, 1, undefined, 2, null, 3, 'four', '']);
+// [0, 1, 2, 3, 'four', '']
+
+filter([0, 1, undefined, 2, null, 3, 'four', ''], { filterNumber: true });
+// [ 'four', '' ]
+```
+
+위와 같이 구현하는 것이 간단한 추상화의 방식이다.
+여기서 더 필요한 use case가 있다면 여러 옵션이 추가될 수도 있다.
+
+그리고 시간이 흘렀을 때 우리는 다음과 같이 생각할 수 있다.
+
+`옵션 몇 개 정도는 잘 사용하지도 않는데 삭제해도 되겠는데?`
+
+하지만 이를 깨닫게 되더라도 우리가 실제로 옵션을 삭제하게 되는 데에는 많은 시간이 걸릴 것이다.
+왜냐하면 우리가 만든 filter 함수를 사용하는 사람들의 앱이 깨질 수도 있기 때문이다.
+
+문제점은 여기서 끝나지 않는다. 이렇게 설계하였을 때, 우리는 대부분 사용하지 않거나 추후에 사용될 수도 있는
+모든 옵션에 대해 정상 작동하는지 테스트도 진행해야한다.
+유지보수 비용이 크게 증가하는 원인이 될 수 있는 것이다.
+
+### 👍 IoC를 적용한 추상화
+
+```js
+function filter(array, filterFunction) {
+  let newArray = [];
+
+  array.forEach(element => {
+    if (filterFunction(element)) {
+      newArray.push(element);
+    }
+  });
+
+  return newArray;
+}
+
+// 더 특별한 case에 대한 처리가 가능함
+filter(
+  [
+    { name: '독서하기', duration: 120 },
+    { name: '밥먹기', duration: 60 },
+    { name: '공부하기', duration: 100 },
+  ],
+  task => task.duration >= 100,
+);
+// [ { name: '독서하기', duration: 120 }, { name: '공부하기', duration: 100 } ]
+```
+
+IoC를 적용해 다시 filter 함수를 만들어 본다면 위와 같은 형태가 될 것이다.
+filter는 배열에 포함될 요소를 판단하는 filterFunction 함수를 인자로 받아 호출만 하고 있다.
+그리고 세부적인 filterFunction 함수의 로직은 하위 모듈에서 구현하고 있다.
+
+항상 IoC가 적용된 추상화가 좋은 것은 아니다.
+하지만 filter 예시의 경우에서는 use case가 굉장히 다양하고
+IoC는 다양한 use case에 대한 대응이 가능하기 때문에 훨씬 좋은 방법이라고 할 수 있다.
+
+## 🔍 프론트엔드에서의 IoC - 라이브러리
+
+### ✅ Redux
 
 일반적인 제어의 흐름에서 화면의 구성을 담당하는 component는 상태의 변화가 언제 일어나는지 알고 있어야 한다. 그래야 getState() 와 같은 함수로 업데이트 된 상태를 가져와 화면과 동기화 시킬 수 있기 때문이다.
 
@@ -82,7 +159,7 @@ IoC가 리덕스에 적용된 예시 중 하나라고 할 수 있다.
 
 컴포넌트가 집중해야할 `화면을 어떻게 표시하는가` 에 더 집중할 수 있고 그 외의 부분은 신경쓰지 않아도 되므로 선언적 프로그래밍에 가깝다.
 
-### ✔ IoC of React
+### ✅ React
 
 React는 `reactive view update` 라는 의미를 가진 라이브러리다.
 상태의 변화가 일어나면 자동으로 view를 업데이트하기 때문이다.
