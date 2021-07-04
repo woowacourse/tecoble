@@ -6,8 +6,9 @@ tags: ['message', 'msa']
 date: "2021-07-03T12:00:00.000Z"
 draft: false
 image: ../teaser/message-oriented-middleware.png
----/
-프로젝트를 진행하면서, 서버와 서버 사이에 메시지를 통해 비동기적으로 전달하는 방법이 필요했다. 관련된 개념인 Message Oriented Middleware(메시지 기반 미들웨어)에 관해 설명하고, 메시지 전달의 두 가지 방식인 메시지 큐와 Pub-Sub 메시지 전략을 비교한다.
+---
+
+프로젝트를 진행하면서, 서버와 서버 사이에 메시지를 통해 비동기적으로 전달하는 방법이 필요했다. 관련된 개념인 Message Oriented Middleware(메시지 기반 미들웨어)에 관해 알아보고, 메시지 전달의 두 가지 방식인 메시지 큐와 Pub/Sub 모델을 비교한다.
 <!-- end -->
  
 
@@ -15,11 +16,11 @@ image: ../teaser/message-oriented-middleware.png
 
 ## Message Oriented Middleware(MOM)
 
-Message Oriented Middleware를 이해하기에 앞서 미들웨어의 개념을 먼저 알아보자. 미들웨어, Middle + (soft)ware, 소프트웨어 중간에 존재하여 상호작용을 하게 해주는 것이다. 대표적으로 Java 서버를 DB와 연결해주는 JDBC를 들 수 있다.
+Message Oriented Middleware를 이해하기에 앞서 미들웨어의 개념을 먼저 알아보자. 미들웨어, Middle + (soft)ware, 소프트웨어 중간에 존재하여 상호작용을 하게 해주는 것이다. 대표적으로 Java서버를 DB와 연결해주는 JDBC를 들 수 있다.
 
 `그렇다면 Message Oriented Middleware는 무엇일까?`
 
-메시지를 기반으로 한 미들웨어, 비동기 메시지를 통해 두 소프트웨어의 통신을 중개하는 것이다.
+MOM(Message Oriented Middleware)시스템은 메시지를 기반으로 한 미들웨어이며, 비동기 메시지를 통해 두 소프트웨어의 통신을 중개한다.
 
 ![image](../images/2021-07-03-message-oriented-middleware-1.png)
 출처: oracle docs
@@ -40,7 +41,9 @@ MOM이 메시지를 전달하는 방식은 크게 메시지 큐 모델, Pub-Sub 
 ![image](../images/2021-07-03-message-oriented-middleware-2.png)
 Queue는 First-In First-Out의 자료구조이다. 즉, 메시지 큐는 들어온 메시지 저장하고 들어온 순서대로 컨슈머에 전달되어 처리되는 구조이다.
 
-이때, 여러 컨슈머를 정하면 높은 속도로 일을 처리할 수가 있다. 하나의 컨슈머에서만 처리를 보장하기 위해 컨슈머에 전달되어 처리되면 큐에서 삭제된다. 네트워크나 컨슈머의 문제가 생겼을 때, 나중에 메시지를 새로 보내게 되는데, 이 결과로 순서를 보장하지는 못한다.
+여러 컨슈머를 사용하면 높은 속도로 일을 처리할 수가 있다. 각각의 컨슈머는 메시지를 하나씩 전달받고 병렬적으로 작업을 처리하게 된다. 메시지 큐 모델은 메시지의 단일 처리를 보장하는데, 이를 위해 메시지가 컨슈머에 전달되어 처리되면 큐에서 삭제된다.
+
+네트워크나 컨슈머의 문제가 생겨 전송되지 못한 메시지의 경우 별도의 `Dead Letter Queue`로 저장된다. 이 큐는 재처리, 무시, 관리자가 직접 처리 등 다양한 방식으로 처리를 할 수 있다. 재처리로 메시지를 새로 메시지 큐에 넣게 되면, 메시지의 순서를 보장하지 못하게 된다.
 
 대표적인 예시가 정산 시스템이다. 정산은 속도가 빠르면 좋고, 순서는 상관없으며, 한 번씩만 처리되는 것이 매우 중요하기 때문에 메시지 큐를 이용하기 매우 적합하다.
 
@@ -51,11 +54,11 @@ Queue는 First-In First-Out의 자료구조이다. 즉, 메시지 큐는 들어�
 ## Pub/Sub 모델
 
 ![image](../images/2021-07-03-message-oriented-middleware-3.png)
-Pub/Sub 모델은 Publish/Subscribe의 축약형이다. 이 모델에서는 producer, consumer를 각각 publisher, subscriber라고 명명한다. 또한, topic을 단위로 카테고리를 구분한다.
+Pub/Sub 모델은 Publish/Subscribe의 축약형이다. 이 모델에서는 Producer, Consumer를 각각 `Publisher`, `Subscriber`라고 명명한다. 또한, Topic을 단위로 카테고리를 구분한다.
 
-뉴스나 블로그를 구독하여 한 곳에 받아 볼 수 있는 RSS 시스템이 가장 간단한 Pub-Sub 시스템이다. 글 작성자(publisher)가 블로그(topic)에 글을 올리게 되면, 이 블로그(topic)를 구독하고 있는 구독자(subscriber)에게 메시지를 던져준다.
+뉴스나 블로그를 구독하여 한 곳에 받아 볼 수 있는 RSS 시스템이 가장 간단한 Pub/Sub 시스템이다. 글 작성자(publisher)가 블로그(topic)에 글을 올리게 되면, 이 블로그(topic)를 구독하고 있는 구독자(subscriber)에게 메시지를 던져준다.
 
-즉 메시지 전달 pub-sub 모델은 특정 토픽에 message가 오면 이 토픽을 구독하고 있는 모든 구독자에게 메시지를 전달해주고, 구독자는 이를 처리한다.
+즉 Pub/Sub 모델은 특정 토픽에 Message가 오면 이 토픽을 구독하고 있는 모든 구독자에게 메시지를 전달해주고, 구독자는 이를 처리한다.
 
 Pub/Sub 모델을 기반으로 만들어진 기술은 Apache Kafka, Google Cloud Pub/Sub 등이 있다.
 
