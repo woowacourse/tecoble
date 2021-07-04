@@ -20,7 +20,7 @@ Message Oriented Middleware를 이해하기에 앞서 미들웨어의 개념을 
 
 `그렇다면 Message Oriented Middleware는 무엇일까?`
 
-MOM(Message Oriented Middleware)시스템은 메시지를 기반으로 한 미들웨어이며, 비동기 메시지를 통해 두 소프트웨어의 통신을 중개한다.
+MOM(Message Oriented Middleware) 시스템은 메시지를 기반으로 한 미들웨어이며, 비동기 메시지를 통해 두 소프트웨어의 통신을 중개한다.
 
 ![image](../images/2021-07-03-message-oriented-middleware-1.png)
 출처: oracle docs
