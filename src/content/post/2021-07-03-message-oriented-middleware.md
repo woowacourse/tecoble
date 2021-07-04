@@ -56,9 +56,9 @@ Queue는 First-In First-Out의 자료구조이다. 즉, 메시지 큐는 들어�
 ![image](../images/2021-07-03-message-oriented-middleware-3.png)
 Pub/Sub 모델은 Publish/Subscribe의 축약형이다. 이 모델에서는 Producer, Consumer를 각각 `Publisher`, `Subscriber`라고 명명한다. 또한, Topic을 단위로 카테고리를 구분한다.
 
-뉴스나 블로그를 구독하여 한 곳에 받아 볼 수 있는 RSS 시스템이 가장 간단한 Pub/Sub 시스템이다. 글 작성자(publisher)가 블로그(topic)에 글을 올리게 되면, 이 블로그(topic)를 구독하고 있는 구독자(subscriber)에게 메시지를 던져준다.
+뉴스나 블로그를 구독하여 한 곳에 받아 볼 수 있는 RSS시스템이 가장 간단한 Pub/Sub 시스템이다. 글 작성자(publisher)가 블로그(topic)에 글을 올리게 되면, 이 블로그(topic)를 구독하고 있는 구독자(subscriber)에게 메시지를 던져준다.
 
-즉 Pub/Sub 모델은 특정 토픽에 Message가 오면 이 토픽을 구독하고 있는 모든 구독자에게 메시지를 전달해주고, 구독자는 이를 처리한다.
+즉 Pub/Sub 모델은 특정 토픽에 Message가 오면 이 토픽을 구독하고 있는 모든 구독자에게 메시지를 전달해주고, 구독자는 이를 처리한다. 즉, Pub/Sub 모델은 메시지 큐 모델과는 달리 단일 처리를 보장해주지 못한다.
 
 Pub/Sub 모델을 기반으로 만들어진 기술은 Apache Kafka, Google Cloud Pub/Sub 등이 있다.
 
