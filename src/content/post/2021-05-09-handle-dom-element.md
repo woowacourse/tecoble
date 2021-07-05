@@ -2,21 +2,29 @@
 layout: post
 title: 'DOM(Document Object Model) Element를 다뤄보자.'
 author: [심바]
-tags: []
+tags: [dom-element]
 date: '2021-05-09T12:00:00.000Z'
 draft: false
 image: ../teaser/sample2.png
 ---
 
-지난 글에서는 웹사이트에 악성 스크립트를 삽입할 수 있는 취약점, **XSS**에 대해 알아보았다.
+지난 글에서는 웹사이트에 악성 스크립트를 삽입할 수 있는 취약점, **XSS**에 대한 내용과 함께 innerHTML을 사용하는 것은 **XSS**에 취약하다는 이야기를 하였다. (\*[innerHTML의 위험성, XSS에 대해 알아보자](https://woowacourse.github.io/tecoble/post/2021-04-26-cross-site-scripting/))
 
-그리고 innerHTML을 사용하는 것은 **XSS**에 취약하다는 이야기를 하였습니다.
+그래서 이번 글에서는 Vanilla JavaScript에서 innerHTML을 사용하지 않고, DOM에 element 를 추가하고, 다루는 방법에 대해 예시를 통해 알아보려고 한다.
 
-그래서 이번에는 Vanilla JavaScript에서 innerHTML을 사용하지 않고,
+## 0. DOM element 관계
 
-DOM에 element를 추가하고, 다루는 방법에 대해 예시를 통해 알아보려고 한다.
+먼저 글의 이해를 돕기위해 element 사이의 부모 자식 관계와 형제 관계에 대해 설명하려고 한다.
 
 ![](../images/2021-05-09-handle-dom-element.png)
+
+부모 자식 관계에서 부모는 자식을 감싸고 있는 element 이고, 자식은 부모에 감싸진 element 이다.
+
+위의 예시에서 `parent`와 `first`는 부모 자식 관계이며, `parent`가 부모이고, `first`가 자식이다. (마찬가지로 `parent`와 `second`, `parent`와 `third` 도 부모 자식 관계이다.)
+
+형제 관계에서 형제는 같은 부모 안에 있는 element 를 의미하며, 위의 예시에서 `first`와 `second`, `third` 는 형제 관계이다.
+
+이제 본론으로 돌아가서 element 를 생성하고, 다루는 방법에 대해 알아보자.
 
 ## 1. DOM element 생성
 
@@ -24,11 +32,11 @@ DOM에 element를 추가하고, 다루는 방법에 대해 예시를 통해 알�
 const newTag = document.createElement('tagName');
 ```
 
-`document.createElement` 를 사용하여 element 생성할 수 있다. 이때 인자로 태그를 넘겨주면 원하는 태그의 element 생성할 수 있다.
+`document.createElement` 를 사용하여 element 를 생성할 수 있다. 이때 인자로 태그를 넘겨주면 원하는 태그의 element 생성할 수 있다.
 
 ![](../images/2021-05-09-create-dom-element-1.png)
 
-생성된 element 에는 `setAttribute` 를 사용하여 속성을 부여하거나, `textContent` 를 사용하여 태그 안에 텍스트를 넣을 수 있다.
+생성된 element 에는 `setAttribute` 를 사용하여 속성을 부여하거나, `textContent` 를 사용하여 태그 안에 텍스트를 넣을 수도 있다.
 
 ![](../images/2021-05-09-create-dom-element-2.png)
 
