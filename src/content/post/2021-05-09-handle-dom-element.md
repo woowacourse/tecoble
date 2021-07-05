@@ -40,13 +40,9 @@ const newTag = document.createElement('tagName');
 
 ![](../images/2021-05-09-create-dom-element-2.png)
 
-또한 `newTag.id` 혹은 `newTag.classList` 처럼 element 속성 값에 직접 접근할 수 도 있다.
-
-![](../images/2021-05-09-create-dom-element-3.png)
-
 ## 2. DOM element 조회
 
-생성된 element 을 DOM에 추가하려면 추가하려는 위치, 즉 부모 요소를 선택해야한다.
+생성된 element 를 DOM에 추가하려면 추가하려는 위치, 즉 부모 요소를 선택해야한다.
 
 ```javascript
 const targetElement = document.querySelector('Target');
@@ -54,9 +50,9 @@ const targetElement = document.querySelector('Target');
 const targetElements = document.querySelectorAll('Target');
 ```
 
-id, className 혹은 tagName 등을 이용해 원하는 element 찾는 `getElementsBy*` 도 있지만,
+id, className 혹은 tagName 등을 이용해 원하는 element 를 찾는 `getElementsBy*` 도 있지만,
 
-CSS 선택자를 활용해서 elem를 찾을 수 있는 querySelector 더 많이 사용하고 있다.
+CSS 선택자를 활용해서 element 를 찾을 수 있는 querySelector 더 많이 사용하고 있다.
 
 `querySelector` 는 주어진 CSS 선택자에 대응하는 element 중 첫 번째 element 를 반환한다.
 
@@ -82,19 +78,19 @@ NodeList는 `forEach`를 사용할 수 있지만, 배열이 아니기 때문에 
 parentElement.appendChild(newElement);
 ```
 
-가장 대표적인 방법은 `appendChild` 를 사용하는 것이다. 부모 element 의 자식 element 중 마지막 자식으로 element 를 추가한다.
+가장 대표적인 방법은 `appendChild` 를 사용하는 것이다. 부모 element 의 마지막 자식으로 추가한다.
 
 ![](../images/2021-05-09-update-dom-element.png)
 
 ```javascript
-parentElement.insertBefore(newElement, referenceElement);
+parentElement.insertBefore(newElement, siblingElement);
 
 targetElement.insertAdjacentElement('where', newElement);
 ```
 
-그 외에도 `insertBefore` 를 사용하면, 부모 element 의 자식 중 기준이 되는 자식의 앞에 element 를 추가 할 수 있다.
+그 외에도 `insertBefore` 를 사용하면, 기준이 되는 형제 element의 앞에 element를 추가 할 수 있다.
 
-그리고 `insertAdjacentElement`를 사용하면, 타겟이 되는 element 의 `beforebegin, afterbegin, beforeend, afterend` 중 하나의 위치에 element 를 추가 할 수 있다.
+그리고 `insertAdjacentElement`를 사용하면, 타겟이 되는 element 의 `'beforebegin', 'afterbegin', 'beforeend', 'afterend'` 중 하나의 위치에 element 를 추가 할 수 있다. (`'beforebegin', 'afterbegin', 'beforeend', 'afterend'`는 html 코드 스니펫이다.)
 
 ```
 <!-- beforebegin -->
