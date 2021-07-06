@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "하드코딩을 피해라."
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["hard-coding", "clean-code"]
 date: "2020-05-07T12:00:00.000Z"
 draft: false

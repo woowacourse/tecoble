@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "다이나믹 테스트(Dynamic Test)란?"
-author: [보스독]
+author: [2기_보스독]
 tags: ["test", "dynamic-test"]
 date: "2020-07-31T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "반복문(iteration) vs 재귀(recursion)"
-author: [보스독]
+author: [2기_보스독]
 tags: ["clean-code", "recursion"]
 date: "2020-04-30T12:00:00.000Z"
 draft: false

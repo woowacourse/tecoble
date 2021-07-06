@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "좋은 코드를 위한 자바 메서드 네이밍"
-author: [티거]
+author: [2기_티거]
 tags: ["naming", "convention"]
 date: "2020-04-26T12:00:00.000Z"
 draft: false

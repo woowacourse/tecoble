@@ -1,7 +1,7 @@
 ---
 layout : post
 title : "한 메서드에 오직 한 단계의 들여쓰기만"
-author : [티거]
+author : [2기_티거]
 tags: ["object-calisthenic"]
 date: "2020-06-10T12:00:00.000Z"
 draft: false

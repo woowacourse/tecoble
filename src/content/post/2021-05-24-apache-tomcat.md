@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: Apache HTTP Server? Apache Tomcat? 서버 바로 알기
-author: [와이비]
+author: [3기_와이비]
 tags: ['spring-boot']
 date: "2021-05-24T12:00:00.000Z"
 draft: false

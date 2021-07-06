@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '생성자 인자가 많을 땐? Builder!'
-author: [유안, 2기_카일]
+author: [2기_유안, 2기_카일]
 tags: ['design-pattern', 'class']
 date: '2020-08-17T12:00:00.000Z'
 draft: false
