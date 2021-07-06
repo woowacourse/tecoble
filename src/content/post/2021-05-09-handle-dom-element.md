@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'DOM(Document Object Model) Element를 다뤄보자.'
-author: [심바]
+author: [3기_심바]
 tags: [dom-element]
 date: '2021-05-09T12:00:00.000Z'
 draft: false
