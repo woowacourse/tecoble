@@ -1,11 +1,11 @@
 ---
 layout: post  
 title: ConstraintValidator를 이용한 커스텀 어노테이션 예외 처리
-author: [파피]
-tags: ['spring', 'validation']
+author: [3기_파피]
+tags: ['spring-boot']
 date: "2021-06-25T12:00:00.000Z"
 draft: false
-image: ../teaser/defensive-copy.png
+image: ../teaser/custom-annotation.png
 ---
 
 ## Spring Boot `ConstraintValidator`를 이용한 커스텀 어노테이션 예외 처리
@@ -33,11 +33,11 @@ image: ../teaser/defensive-copy.png
 어노테이션의 이름은 `NotEqual`로 하자.
 
 ```java
-@Constraint(validatedBy = NotEqualValidator.class) // 차후 NotEqualValidator 클래스를 만들어 검증하게 할 것이다.
-@Target({ElementType.TYPE}) // 만들어진 어노테이션이 부착될 수 있는 타입을 지정하는 것이다. TYPE은 클래스, 인터페이스, Enum에 부착할 수 있게 한다는 의미이다. 
-@Retention(RetentionPolicy.RUNTIME) // 어노테이션의 라이프 사이클, 즉 어노테이션이 언제까지 살아 남아 있을지를 정하는 것이다.
-public @interface NotEqual { // @interface는 어노테이션 인터페이스를 의미한다.
-    String message() default "상행 역과 하행 역은 같을 수 없습니다."; // 예외 발생 시 메시지
+@Constraint(validatedBy = NotEqualValidator.class)
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NotEqual {
+    String message() default "상행 역과 하행 역은 같을 수 없습니다.";
 
     Class<?>[] groups() default {};
 
@@ -55,11 +55,21 @@ public @interface NotEqual { // @interface는 어노테이션 인터페이스를
 }
 ```
 
+`@Constraint` 어노테이션의 `validatedBy` 값으로 `NotEqualValidator.class`를 지정하였다.
+차후 NotEqualValidator 클래스를 만들어 검증하게 할 것이다.
+
+#### `@Target`
+만들어진 어노테이션이 부착될 수 있는 타입을 지정하는 것이다. `TYPE`은 클래스, 인터페이스, Enum에 부착할 수 있게 한다는 의미이다.
+
+#### `@Retention`
+어노테이션의 라이프 사이클, 즉 어노테이션이 언제까지 살아 남아 있을지를 정하는 것이다.
+
+#### `@interface`
+어노테이션 인터페이스를 의미한다.
+
+---
+
 이제 검증해 줄`Validator` 클래스를 만든다.
-
-`ConstraintValidator` 인터페이스를 구현하는데, `isValid` 메서드로 예외 상황인지를 검증한다.
-
-`BeanWrapperImpl`은 리플렉션을 이용해 필드 값을 가져온다.
 
 ```java
 package wooteco.subway.line;
@@ -74,19 +84,35 @@ public class NotEqualValidator implements ConstraintValidator<NotEqual, Object> 
     private String downStationId;
 
     @Override
-    public void initialize(NotEqual constraintAnnotation) { // 어노테이션을 부착한 객체로부터 필드명을 가져와서 초기화
+    public void initialize(NotEqual constraintAnnotation) {
         this.upStationId = constraintAnnotation.upStationId();
         this.downStationId = constraintAnnotation.downStationId();
     }
 
     @Override
-    public boolean isValid(Object object, ConstraintValidatorContext context) { // 어노테이션이 부착된 객체를 인자로 한다.
-        Object upStationValue = new BeanWrapperImpl(object).getPropertyValue(upStationId); // 초기화했던 필드명을 이용해 어노테이션이 부착된 객체로부터 필드 값을 가져온다.
+    public boolean isValid(Object object, ConstraintValidatorContext context) {
+        Object upStationValue = new BeanWrapperImpl(object).getPropertyValue(upStationId);
         Object downStationValue = new BeanWrapperImpl(object).getPropertyValue(downStationId);
         return !upStationValue.equals(downStationValue);
     }
 }
 ```
+
+`ConstraintValidator` 인터페이스를 구현하는데, `initialize`메서드와 `isValid` 메서드를 오버라이딩한다. 
+
+#### `initialize`
+어노테이션을 부착한 객체로부터 필드명을 가져와서 초기화한다.
+
+#### `isValid` 
+`isValid` 메서드는 필수로 오버라이딩하여 예외 상황을 검증하도록 한다.
+
+어노테이션이 부착된 객체를 인자로 한다.
+
+`initialize` 메서드에서 초기화했던 필드명을 이용해 어노테이션이 부착된 객체로부터 필드 값을 가져온다.
+
+`BeanWrapperImpl`은 리플렉션을 이용해 필드 값을 가져온다.
+
+---
 
 이제 요청 객체에 어노테이션을 적용한다. 구간 추가 요청 객체와 노선 추가 요청 객체에 적용시키면 다음과 같다.
 
@@ -126,9 +152,11 @@ public class LineRequest {
 
 코드가 간결해진다는 장점 하나만 보고 커스텀 어노테이션을 남용하지 않게 주의해야 한다.
 
+반복적으로 사용하지도 않고, 특정 요청 외에는 사용할 일이 없어 보이는 유효성 검사라면 단순 메서드로 만들어 처리하는 것이 더 좋을 것이다.
+
 ### 결론
 
-커스텀 어노테이션을 잘 이용하면 불필요한 반복코드가 줄어들고, 비즈니스 로직에 집중할 수 있다는 장점이 있다.
+커스텀 어노테이션을 잘 이용하면 불필요한 반복코드가 줄어들고, **비즈니스 로직에 더 집중**할 수 있다는 장점이 있다.
 
 다만, 커스텀 어노테이션은 의도와 목적을 명확히 하여 구성원간 공감대를 이룬 후 추가하는 것이 좋다.
 
@@ -137,6 +165,3 @@ public class LineRequest {
 https://www.baeldung.com/spring-mvc-custom-validator
 
 https://woowabros.github.io/experience/2020/06/26/custom-annotation.html
-
-
-
