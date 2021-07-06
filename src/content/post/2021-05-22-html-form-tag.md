@@ -1,7 +1,7 @@
 ---
 layout: post
 title: HTML <form> 태그 잘 쓰는 법.
-author: [보스독]
+author: [3기_심바]
 tags: [html, form]
 date: '2021-05-22T12:00:00.000Z'
 draft: false
