@@ -2,11 +2,14 @@
 layout: post  
 title: ConstraintValidator를 이용한 커스텀 어노테이션 예외 처리
 author: [3기_파피]
-tags: ['spring-boot']
+tags: ['spring-boot', 'validation']
 date: "2021-06-25T12:00:00.000Z"
 draft: false
 image: ../teaser/custom-annotation.png
 ---
+
+<p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://www.c-sharpcorner.com/article/custom-data-annotation-validation-in-mvc/">c-sharpcorner.com</a></p>
+
 
 ## Spring Boot `ConstraintValidator`를 이용한 커스텀 어노테이션 예외 처리
 
