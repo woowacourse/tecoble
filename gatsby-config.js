@@ -3,11 +3,11 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Javable',
+    title: 'Tecoble',
     description: 'woowacourse code review & devlog',
-    siteUrl: 'https://woowacourse.github.io/javable/', // full path to blog - no ending slash
+    siteUrl: 'https://woowacourse.github.io/tecoble/', // full path to blog - no ending slash
   },
-  pathPrefix: "/javable",
+  pathPrefix: "/tecoble",
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
@@ -30,6 +30,7 @@ module.exports = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
+        "excerpt_separator": `<!-- end -->`,
         plugins: [
           {
             resolve: 'gatsby-remark-responsive-iframe',
@@ -55,7 +56,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://woowacourse.github.io/javable/',
+        siteUrl: 'https://woowacourse.github.io/tecoble/',
       },
     },
     'gatsby-plugin-typescript',

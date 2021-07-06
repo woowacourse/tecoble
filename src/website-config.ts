@@ -49,12 +49,12 @@ export interface WebsiteConfig {
 }
 
 const config: WebsiteConfig = {
-  title: 'Javable',
+  title: 'Tecoble',
   description: 'woowacourse code review & devlog',
   coverImage: 'img/wooteco.jpeg',
-  logo: 'img/javable.png',
+  logo: 'img/tecoble.png',
   lang: 'en',
-  siteUrl: 'https://woowacourse.github.io/javable/',
+  siteUrl: 'https://woowacourse.github.io/tecoble/',
   showSubscribe: false,
   mailchimpAction: 'https://twitter.us19.list-manage.com/subscribe/post?u=a89b6987ac248c81b0b7f3a0f&amp;id=7d777b7d75',
   mailchimpName: 'b_a89b6987ac248c81b0b7f3a0f_7d777b7d75',

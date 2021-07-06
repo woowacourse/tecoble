@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 'Java 의 Stack 대신 Deque'
-author: [와일더]
-tags: ['stack-vs-deque', 'stack', 'deque']
+author: [3기_와일더]
+tags: ['java', 'stack', 'deque']
 date: '2021-05-10T12:00:00.000Z'
 draft: false
 image: ../teaser/stack_vs_deque.jpg

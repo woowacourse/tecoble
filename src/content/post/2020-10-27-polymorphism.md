@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 다형성(Polymorphism)이란?
-author: [보스독]
+author: [2기_보스독]
 tags: ['java', 'OOP']
 date: "2020-10-27T12:00:00.000Z"
 draft: false

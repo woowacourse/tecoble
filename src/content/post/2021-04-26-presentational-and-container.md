@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'presentational and container 패턴이란 무엇인가'
-author: [미키]
+author: [3기_미키]
 tags: ['refactoring']
 date: '2021-04-25T12:00:00.000Z'
 draft: false

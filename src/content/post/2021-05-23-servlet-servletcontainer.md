@@ -1,11 +1,11 @@
 ---
 layout: post  
 title: 'Servlet 과 ServletContainer'
-author: [영이]
+author: [3기_영이]
 tags: ['http']
 date: "2021-05-23T12:00:00.000Z"
 draft: false
-image: ../teaser/servlet
+image: ../teaser/servlet.png
 ---
 
 ## Servlet

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '상태 패턴(State Pattern)을 사용해보자'
-author: [와일더]
+author: [3기_와일더]
 tags: ['design-pattern']
 date: '2021-04-26T12:00:00.000Z'
 draft: false
@@ -431,7 +431,7 @@ public State loseMoney() {
 
 
 
-enum 하나에서 모든 상태를 관리하는 것은 좋아 보일 수 있다. 하지만 메서드를 실행하기 위해 생긴 많은 분기를 보아라. 상태가 계속해서 생겨날 경우, 기능의 수정이 발생하는 경우, Enum 값을 [if 혹은 switch 문으로 판단하는 경우](https://woowacourse.github.io/javable/post/2020-07-29-dont-use-else/)에는 [OCP(개방폐쇄원칙)](https://woowacourse.github.io/javable/post/2020-07-31-solid-1/)를 준수하지 못한다.  상태가 많아질수록 복잡해지는 조건문이 여러 코드에서 중복해서 출현하고 그만큼 코드 변경을 어렵게 만든다.
+enum 하나에서 모든 상태를 관리하는 것은 좋아 보일 수 있다. 하지만 메서드를 실행하기 위해 생긴 많은 분기를 보아라. 상태가 계속해서 생겨날 경우, 기능의 수정이 발생하는 경우, Enum 값을 [if 혹은 switch 문으로 판단하는 경우](https://woowacourse.github.io/tecoble/post/2020-07-29-dont-use-else/)에는 [OCP(개방폐쇄원칙)](https://woowacourse.github.io/tecoble/post/2020-07-31-solid-1/)를 준수하지 못한다.  상태가 많아질수록 복잡해지는 조건문이 여러 코드에서 중복해서 출현하고 그만큼 코드 변경을 어렵게 만든다.
 
 상태 패턴에 대해 이해가 바로 되지는 않을 것이다. 프로그램을 구상할 때 상태가 필요한 곳에서 상태 패턴을 사용하여 프로그램을 설계 해보다 보면 상태 패턴에 대한 이해가 자연스럽게 될 것이다. <b>디자인 패턴부터 학습하는 방식보다는 경험을 토대로 구현을 해본 후 디자인 패턴과 비교해보며 학습하는 방식을 추천한다.</b>
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'StreamAPI 나도 한 번 써보자!'
-author: [와일더]
+author: [3기_와일더]
 tags: ['stream']
 date: '2021-05-23T12:00:00.000Z'
 draft: false
@@ -187,7 +187,7 @@ IntelliJ 를 사용해서 프로그래밍하고 있다면 중간 연산 단계�
 
 ### 최종 연산
 
-중간 연산이 끝나거나 혹은 사용하지 않을 때, 최종적으로 스트림의 결과를 지정해주는 단계다. 컬렉션으로 만들거나 스트림 요소가 숫자라면 계산을 하면서 마무리한다. 스트림 요소 중에 한 개의 값만 골라낼 때는 Optional 을 사용해서 골라낼 수 있다. 반복 작업을 위한 forEach() 메서드도 사용할 수 있지만, 이것과 관련해서는 [여기](https://woowacourse.github.io/javable/post/2020-05-14-foreach-vs-forloop/)를 참고해 보는 것을 추천한다.
+중간 연산이 끝나거나 혹은 사용하지 않을 때, 최종적으로 스트림의 결과를 지정해주는 단계다. 컬렉션으로 만들거나 스트림 요소가 숫자라면 계산을 하면서 마무리한다. 스트림 요소 중에 한 개의 값만 골라낼 때는 Optional 을 사용해서 골라낼 수 있다. 반복 작업을 위한 forEach() 메서드도 사용할 수 있지만, 이것과 관련해서는 [여기](https://woowacourse.github.io/tecoble/post/2020-05-14-foreach-vs-forloop/)를 참고해 보는 것을 추천한다.
 
 
 
