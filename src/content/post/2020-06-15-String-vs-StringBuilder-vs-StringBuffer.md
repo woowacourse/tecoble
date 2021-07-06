@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: "String 클래스를 조심히 사용하자."  
-author: [둔덩]
+author: [2기_둔덩]
 tags: ["class", "immutable", "refactoring"]
 date: "2020-06-15T12:00:00.000Z"
 draft: false
@@ -16,7 +16,7 @@ String 클래스는 잘 사용하면 상관이 없지만, 잘못 사용하면 �
 
 ## String 클래스
 
-우선 String 클래스는 [Immutable Object(불변 객체)](https://woowacourse.github.io/javable/2020-05-18/immutable-object)이다.
+우선 String 클래스는 [Immutable Object(불변 객체)](https://woowacourse.github.io/tecoble/post/2020-05-18-immutable-object)이다.
 
 ```java
 String str = "Hello"

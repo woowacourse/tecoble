@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring Boot에서 Spring Bean 초기화 과정에 대해 알아보자.
-author: [비밥]
+author: [2기_비밥]
 tags: ["Spring"]
 date: "2020-09-17T12:00:00.000Z"
 draft: false

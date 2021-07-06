@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "로그 전략을 통해 메시지를 남기자"
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["spring", "spring-boot", "logback", "logger"]
 date: "2020-07-30T12:00:00.000Z"
 draft: false

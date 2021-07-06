@@ -1,9 +1,9 @@
 ---
-layout : post
-title : OSIV와 Custom Interceptor를 같이 사용하기!
-author : [카일]
+layout: post
+title: OSIV와 Custom Interceptor를 같이 사용하기!
+author: [2기_카일]
 tags: ['jpa']
-date: "2020-11-03T12:00:00.000Z"
+date: '2020-11-03T12:00:00.000Z'
 draft: false
 image: ../teaser/spring.png
 excerpt: 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 중 발생한 예외에 관해서 이야기 하고자 한다. 제목에서 있듯 OSIV와 HandlerInterceptor에 대한 내용이므로 간단하게 두 개념에 관해 설명하고, 발생한 예외에 대해서 공유하고자 한다.
@@ -11,7 +11,7 @@ excerpt: 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 �
 
 이번 포스팅은 OSIV(Open Session In View)와 관련해서 개발 중 발생한 예외에 관해서 이야기 하고자 한다. 제목에서 있듯 OSIV와 HandlerInterceptor에 대한 내용이므로 간단하게 두 개념에 관해 설명하고, 발생한 예외에 대해서 공유하고자 한다.
 
-> OSIV(Open Session In View) -  말 그대로 View 레이어에서도 Session을 Open 하겠다는 의미이다. 영속성 컨텍스트와 트랜잭션은 일반적으로 같은 생명주기를 갖는데, OSIV를 키는 경우 트랜잭션이 닫히더라도 View 레이어까지 영속성 컨텍스트가 살아있는데 이를 OSIV라고 한다. (참고로 Hibernate에서 영속성 컨텍스트를 부르는 이름이 Session이다.)
+> OSIV(Open Session In View) - 말 그대로 View 레이어에서도 Session을 Open 하겠다는 의미이다. 영속성 컨텍스트와 트랜잭션은 일반적으로 같은 생명주기를 갖는데, OSIV를 키는 경우 트랜잭션이 닫히더라도 View 레이어까지 영속성 컨텍스트가 살아있는데 이를 OSIV라고 한다. (참고로 Hibernate에서 영속성 컨텍스트를 부르는 이름이 Session이다.)
 
 > HandlerInterceptor - 특정한 요청을 가로채 요청 처리 전, 후에 추가적인 처리를 할 수 있는 하나의 방법이다. Filter와의 차이는 Spring Container 내에서 동작하기 때문에 Component를 활용한 인증처리 등을 할 수 있다. 해당 포스팅에서는 인증을 관리하는 용도로 사용된다.
 
@@ -72,7 +72,7 @@ public class ChickenService {
     public Chicken update(Chicken chicken) {
         return chicken.update();
     }
-    
+
     public Chicken get() {
         return chickenRepository.findById(1L)
             .orElseThrow(IllegalArgumentException::new);
@@ -138,21 +138,24 @@ Spring Boot에서 OSIV가 켜져 있는 경우 OpenSessionInViewInterceptor 라�
 사실 해결방법은 간단하다. OpenSessionInViewFilter 라는 객체를 빈 등록해주는 경우 HandlerInterceptor 앞단에서 열린 영속성 컨텍스트를 공유하게 되고, 그렇다면 예상대로(Custom 한 인터셉터 이후에 동일한 영속성 컨텍스트를 사용하게 된다.) 위와 같이 OpenSessionInViewFilter를 빈으로 등록하게 되면, HandlerInterceptor 앞단에서 열린 영속성 컨텍스트를 사용하기 때문에, HandlerInterceptor에서 사용한 영속성 컨텍스트를 Controller에서도 공유하게 된다. 기본적인 순서도는 아래와 같다.
 
 - OpenSessionInViewInterceptor만 등록되어 있을 때(Spring Boot를 사용하면 기본 등록되어 있음.)
-    - HandlerInterceptor
-    - OpenEntityManagerInViewInterceptor - 영속성 컨텍스트 시작
-    - Controller
-    - Service - 트랜잭션 시작
-    - ...
+
+  - HandlerInterceptor
+  - OpenEntityManagerInViewInterceptor - 영속성 컨텍스트 시작
+  - Controller
+  - Service - 트랜잭션 시작
+  - ...
 
 - OpenSessionInViewFilter를 등록했을 때 로직 순서
-    - OpenSessionInViewFilter - 영속성 컨텍스트 시작
-    - HandlerInterceptor
-    - OpenEntityManagerInViewInterceptor 
-    - Controller
-    - Service - 트랜잭션 시작
-    - ...
+
+  - OpenSessionInViewFilter - 영속성 컨텍스트 시작
+  - HandlerInterceptor
+  - OpenEntityManagerInViewInterceptor
+  - Controller
+  - Service - 트랜잭션 시작
+  - ...
 
 - OpenSessionInViewFilter 등록 코드
+
 ```java
     @Bean
     public FilterRegistrationBean registerOpenEntityManagerInViewFilterBean() {
@@ -163,4 +166,5 @@ Spring Boot에서 OSIV가 켜져 있는 경우 OpenSessionInViewInterceptor 라�
         return registrationBean;
     }
 ```
+
 필자는 개인적으로 OSIV를 끄는 것을 선호하지만, 만약 키고 사용한다면(Spring Boot에서 기본 설정은 true이다.) Custom Interceptor를 등록할 때 주의해서 사용하길 바란다.

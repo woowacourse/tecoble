@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 정적, 비정적 내부 클래스 알고 사용하기
-author: [비밥]
+author: [2기_비밥]
 tags: ['java']
 date: "2020-11-05T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring Boot에서 properties 값 주입받기
-author: [비밥]
+author: [2기_비밥]
 tags: ["spring"]
 date: "2020-09-29T12:00:00.000Z"
 draft: false

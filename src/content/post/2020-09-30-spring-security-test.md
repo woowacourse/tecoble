@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring Security가 적용된 곳을 효율적으로 테스트하자.
-author: [라테]
+author: [2기_라테]
 tags: ['security', 'test']
 date: "2020-09-30T12:00:00.000Z"
 draft: false
