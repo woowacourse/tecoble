@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: DispatcherServlet - Part 1
-author: [다니]
+author: [3기_다니]
 tags: ['spring', 'spring mvc', 'dispatcherservlet']
 date: "2021-06-25T12:00:00.000Z"
 draft: false
