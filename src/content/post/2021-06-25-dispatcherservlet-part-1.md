@@ -80,7 +80,7 @@ public class HelloServlet extends DispatcherServlet {
 
 > 이미지 출처: [15.2 The DispatcherServlet](https://docs.spring.io/spring-framework/docs/3.0.0.RC2/spring-framework-reference/html/ch15s02.html)<br/>
 
-조금 더 자세한 동작 흐름은 아래와 같다.<br/>
+좀 더 자세한 동작 흐름은 아래와 같다. 전체적으로 Spring MVC가 어떻게 흘러가는지 한눈에 보여준다.<br/>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/50176238/123378608-f3c64e80-d5c7-11eb-9c27-1a491aa74c56.png"></p>
 
@@ -94,6 +94,8 @@ public class HelloServlet extends DispatcherServlet {
 - ⑥ View 이름을 `ViewResolver`에게 전달하고, ViewResolver는 해당하는 View 객체를 반환한다.
 - ⑦ DispatcherServlet은 View에게 Model을 전달하고 화면 표시를 요청한다. 이때, Model이 null이면 View를 그대로 사용한다. 반면, 값이 있으면 View에 Model 데이터를 렌더링한다.
 - ⑧ 최종적으로 DispatcherServlet은 `View 결과(HttpServletResponse)`를 클라이언트에게 반환한다.
+
+해당 흐름은 @Controller를 기준으로 설명했다. @RestController의 경우 ⑥, ⑦ 과정이 생략된다. 즉, ViewResolver를 타지 않고 반환값에 알맞는 MessageConverter를 찾아 응답 본문을 작성한다.<br/>
 
 <br/>
 
