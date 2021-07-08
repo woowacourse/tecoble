@@ -1,7 +1,7 @@
 ---
 layout: post
 title: java에서 객체를 생성하는 다양한 방법
-author: [샐리]
+author: [3기_샐리]
 tags: ['java']
 date: '2021-05-17T12:00:00.000Z'
 draft: false
