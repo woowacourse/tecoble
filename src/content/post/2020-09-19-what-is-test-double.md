@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Test Double을 알아보자"
-author: [스티치]
+author: [2기_스티치]
 tags: ["test-double", "test"]
 date: "2020-09-19T12:00:00.000Z"
 draft: false

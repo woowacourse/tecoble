@@ -49,7 +49,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           <PostCardHeader className="post-card-header">
             {post.frontmatter.tags && (
               <PostCardPrimaryTag className="post-card-primary-tag">
-                {post.frontmatter.tags[0]}
+                {'#'+post.frontmatter.tags[0]}
               </PostCardPrimaryTag>
             )}
             <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
@@ -187,7 +187,7 @@ const PostCardPrimaryTag = styled.div`
   margin: 0 0 0.2em;
   /* color: var(--blue); */
   color: ${colors.blue};
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   font-weight: 500;
   letter-spacing: 0.2px;
   text-transform: uppercase;

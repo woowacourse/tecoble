@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: DTO vs VO vs Entity
-author: [다니]
+author: [3기_다니]
 tags: ['spring', 'dto', 'vo', 'entity']
 date: "2021-05-16T12:00:00.000Z"
 draft: false

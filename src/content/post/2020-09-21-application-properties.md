@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "프로퍼티 파일을 활용해 쉽게 실행 환경 분리하기"
-author: [우]
+author: [2기_우]
 tags: ["properties"]
 date: "2020-09-21T12:00:00.000Z"
 draft: false

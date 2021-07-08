@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: '@RequestBody vs @ModelAttribute'
-author: [케빈]
+author: [3기_케빈]
 tags: ['spring']
 date: "2021-05-11T12:00:00.000Z"
 draft: false

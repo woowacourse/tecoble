@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Stream의 foreach 와 for-loop 는 다르다."
-author: [오렌지]
+author: [2기_오렌지]
 tags: ["stream", "functional-programming"]
 date: "2020-05-14T12:00:00.000Z"
 draft: false

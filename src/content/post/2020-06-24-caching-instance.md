@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "반복적으로 사용되는 인스턴스 캐싱하기"
-author: [스티치]
+author: [2기_스티치]
 tags: ["cache"]
 date: "2020-06-24T12:00:00.000Z"
 draft: false
@@ -245,7 +245,7 @@ public class LottoNumberGenerator {
 
 LottoNumber라는 원시 타입 포장 객체를 만든 이유는 원시 타입을 감싸므로서 LottoNumber에 대한 유효성 검사를 객체 내부에서 처리할 수 있기 때문이다.
 
-> 원시 타입을 포장해서 얻는 이점은 [원시 타입을 포장해야 하는 이유](https://woowacourse.github.io/javable/2020-05-29/wrap-primitive-type) 글을 참고해보기를 추천한다. 
+> 원시 타입을 포장해서 얻는 이점은 [원시 타입을 포장해야 하는 이유](https://woowacourse.github.io/tecoble/post/2020-05-29-wrap-primitive-type) 글을 참고해보기를 추천한다. 
 
 원시 타입의 객체를 감싸면 얻을 수 있는 장점들도 존재하지만 인스턴스가 생성되면서 관리해야하는 자원이 늘어나는 단점도 존재한다.
 

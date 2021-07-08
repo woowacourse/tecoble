@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: 방어적 복사와 Unmodifiable Collection
-author: [파피]
+author: [3기_파피]
 tags: ['immutable', 'collection']
 date: "2021-04-26T12:00:00.000Z"
 draft: false

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "웹소켓에 대해 알아보자"
-author: [유안]
+author: [2기_유안]
 tags: ["websocket"]
 date: "2020-09-20T12:00:00.000Z"
 draft: false
