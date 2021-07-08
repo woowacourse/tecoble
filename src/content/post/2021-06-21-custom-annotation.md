@@ -2,7 +2,7 @@
 layout: post  
 title: ConstraintValidator를 이용한 커스텀 어노테이션 예외 처리
 author: [3기_파피]
-tags: ['spring-boot', 'validation']
+tags: ['validation']
 date: "2021-06-25T12:00:00.000Z"
 draft: false
 image: ../teaser/custom-annotation.png
@@ -11,13 +11,13 @@ image: ../teaser/custom-annotation.png
 <p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://www.c-sharpcorner.com/article/custom-data-annotation-validation-in-mvc/">c-sharpcorner.com</a></p>
 
 
-## Spring Boot `ConstraintValidator`를 이용한 커스텀 어노테이션 예외 처리
+## `ConstraintValidator`를 이용한 커스텀 어노테이션 예외 처리
 
 ### 커스텀 어노테이션이란?
 
-일반적으로 사용자 입력의 유효성을 검사해야 할 때 Spring 은 [Constraint 어노테이션](https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/javax/validation/constraints/package-summary.html) 을 제공한다.
+사용자 입력의 유효성을 보다 세부적으로 입력을 검증해야 할 때, 커스텀 어노테이션을 이용하여 예외 검증 로직을 생성할 수 있다. 
 
-보다 세부적으로 입력을 검증해야하는 경우에는 커스텀 어노테이션을 이용하여 예외 검증 로직을 생성할 수 있다.
+이 때, hibernate에서 제공하는 [Constraint 어노테이션](https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/javax/validation/constraints/package-summary.html) 을 사용할 수 있다.
 
 ### 커스텀 어노테이션의 장점
 
