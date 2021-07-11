@@ -117,6 +117,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
+  const defaultImage = require('../content/img/tecoble-background.png');
+
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -228,6 +230,15 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                   <Img
                     style={{ height: '100%' }}
                     fluid={post.frontmatter.image.childImageSharp.fluid}
+                    alt={post.frontmatter.title}
+                  />
+                </PostFullImage>
+              )}
+              {!post.frontmatter.image?.childImageSharp && (
+                <PostFullImage>
+                  <img
+                    style={{ height: '100%', width: '100%' }}
+                    src={defaultImage}
                     alt={post.frontmatter.title}
                   />
                 </PostFullImage>

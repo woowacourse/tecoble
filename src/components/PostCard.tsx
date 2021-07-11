@@ -24,6 +24,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
+  const defaultImage = require('../content/img/tecoble-background.png');
+
   return (
     <article
       className={`post-card ${post.frontmatter.image ? '' : 'no-image'} ${
@@ -41,6 +43,17 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
                 fluid={post.frontmatter.image.childImageSharp.fluid}
               />
             )}
+          </PostCardImage>
+        </Link>
+      )}
+      {!post.frontmatter.image && (
+        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
+          <PostCardImage className="post-card-image">
+            <img
+              alt={`${post.frontmatter.title} cover image`}
+              style={{ height: '100%', width: '100%' }}
+              src={defaultImage}
+            />
           </PostCardImage>
         </Link>
       )}
