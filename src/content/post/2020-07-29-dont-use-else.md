@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "else 예약어를 쓰지 않는다"
+title: 'else 예약어를 쓰지 않는다'
 author: [2기_스티치]
-tags: ["object-calisthenic", "OOP", "clean-code", "enum"]
-date: "2020-07-29T12:00:00.000Z"
+tags: ['object-calisthenic', 'oop', 'clean-code', 'enum']
+date: '2020-07-29T12:00:00.000Z'
 draft: false
 image: ../teaser/if-else.png
 ---
 
-> [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조** 중 **규칙 2**에 대한 내용이다. 
+> [The ThoughtWorks Anthology](https://wikibook.co.kr/thoughtworks-anthology/)의 **더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조** 중 **규칙 2**에 대한 내용이다.
 
 <br/>
 
@@ -22,7 +22,7 @@ image: ../teaser/if-else.png
 
 > 도대체 왜? 이유가 뭐지???
 
-이전까지 코딩하면서 너무 당연하게 써왔던 else 예약어를 쓰지 말라니. 'else를 사용하지 않고 코딩이 가능한가?'라는 생각이 들었다. 
+이전까지 코딩하면서 너무 당연하게 써왔던 else 예약어를 쓰지 말라니. 'else를 사용하지 않고 코딩이 가능한가?'라는 생각이 들었다.
 
 그러나 이유 없이 이런 요구사항을 달진 않으셨을 거라 생각하고 이유를 찾아봤었다.
 
@@ -35,7 +35,7 @@ image: ../teaser/if-else.png
 ```java
 public int getWootecoCrewScore(String crew) {
     int score = 0;
-    
+
     if ("터틀".equals(crew)) {
         score = 0;
     } else {
@@ -52,7 +52,7 @@ public int getWootecoCrewScore(String crew) {
 ```java
 public int getWootecoCrewScore(String crew) {
     int score = 0;
-    
+
     if ("터틀".equals(crew)) {
         score = 0;
     } else if ("또링".equals(crew)) {
@@ -62,7 +62,7 @@ public int getWootecoCrewScore(String crew) {
     } else if ("코즈".equals(crew)) {
         score = 3;
     }
-    /* 
+    /*
      * else if 예약어의 반복...
      */
     else if ("스티치".equals(crew)) {
@@ -81,7 +81,7 @@ public int getWootecoCrewScore(String crew) {
 그렇다면 위의 코드에서 존재하는 else를 모두 제거해본다면 어떻게 될까?
 
 ```java
-public int getWootecoCrewScore(String crew) {    
+public int getWootecoCrewScore(String crew) {
     if ("터틀".equals(crew)) {
         return 0;
     }
@@ -116,7 +116,7 @@ else 예약어를 쓰지 말라는 말을 조금 더 넓은 관점에서 생각�
 
 ## 객체지향적인 구조가 된다
 
-조금 더 객체 지향적으로 생각해보면 각각의 크루는 이름과 점수를 가지고 있다. 그리고  `getWootecoCrewScore()` 메서드에서는 매개변수로 전달받은 이름에 해당하는 크루의 점수를 반환한다.
+조금 더 객체 지향적으로 생각해보면 각각의 크루는 이름과 점수를 가지고 있다. 그리고 `getWootecoCrewScore()` 메서드에서는 매개변수로 전달받은 이름에 해당하는 크루의 점수를 반환한다.
 
 Crew라는 클래스를 만들고 필드 변수로 name과 score를 가지도록 하면 조금 더 객체지향적인 코드가 될 수 있다. 그러나 이 방법을 사용하려면 크루 각각에 대한 Crew 객체를 생성하고, 모든 Crew 객체들을 담고 있는 자료구조를 정의해야 한다.
 
@@ -135,22 +135,22 @@ public enum Crew {
      */
     STITCH("스티치", 10000000),
     EMPTY("없음", -1);
-    
+
     private final String name;
     private final int score;
-    
+
     Crew(String name, long score) {
         this.name = name;
         this.score = score;
     }
-    
+
     public static Crew fromName(String name) {
         return Arrays.stream(Crew.values())
                      .filter(crew -> crew.name.equals(name))
                      .findAny()
                      .orElse(EMPTY);
     }
-    
+
     public int getScore() {
         return score;
     }
@@ -183,15 +183,15 @@ public enum Crew {
      */
     STITCH("스티치", 10000000),
     EMPTY("없음", -1);
-    
+
     private final String name;
     private final int score;
-    
+
     Crew(String name, long score) {
         this.name = name;
         this.score = score;
     }
-    
+
     public int getCrewScore(String name) {
         return Arrays.stream(Crew.values())
                      .filter(crew -> crew.name.equals(name))
@@ -233,5 +233,3 @@ public int getWootecoCrewScore(String name) {
 > [효과적으로 TDD, 리팩토링, OOP를 연습하는 방법은? - YodaCodd](https://medium.com/@codesquad_yoda/효과적으로-tdd-리팩토링-oop를-연습하는-방법은-7ecc9ddb5d45)
 >
 > [더 나은 소프트웨어를 향한 9단계: 객체지향 생활 체조(3)](https://developerfarm.wordpress.com/2012/01/27/object_calisthenics_3/)
->
-> 

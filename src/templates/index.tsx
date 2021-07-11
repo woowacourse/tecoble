@@ -8,6 +8,7 @@ import SiteNav from '../components/header/SiteNav';
 import SiteNavBackground from '../components/header/SiteNavBackground';
 import Pagination from '../components/Pagination';
 import { PostCard } from '../components/PostCard';
+import TagNav from '../components/TagNav';
 import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import {
@@ -107,6 +108,7 @@ const IndexPage: React.FC<IndexProps> = props => {
           </div>
         </SiteNavBackground>
         <main id="site-main" css={[SiteMain, outer]}>
+          <TagNav className="tag-nav" />
           <div css={[inner, Posts]}>
             <div css={[PostFeed]}>
               {props.data.allMarkdownRemark.edges.map((post, index) => {
@@ -202,6 +204,10 @@ export const pageQuery = graphql`
 `;
 
 const HomePosts = css`
+  .tag-nav {
+    margin-top: 10px;
+  }
+
   @media (min-width: 795px) {
     .post-card-large {
       flex: 1 1 100%;

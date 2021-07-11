@@ -2,13 +2,13 @@
 layout: post
 title: Spring Boot에서 Spring Bean 초기화 과정에 대해 알아보자.
 author: [2기_비밥]
-tags: ["Spring"]
-date: "2020-09-17T12:00:00.000Z"
+tags: ['spring']
+date: '2020-09-17T12:00:00.000Z'
 draft: false
 image: ../teaser/spring-boot.png
 ---
 
-Spring Boot를 사용하면 자연스럽게 Spring Bean을 직접 생성하고 사용할 일이 많아진다. 따라서 우리는 Spring Bean을 생성하는 방법은 당연히 알고 있어야 하고 더 나아가 어떠한 방식으로 등록되는지 알고 있어야 한다. 
+Spring Boot를 사용하면 자연스럽게 Spring Bean을 직접 생성하고 사용할 일이 많아진다. 따라서 우리는 Spring Bean을 생성하는 방법은 당연히 알고 있어야 하고 더 나아가 어떠한 방식으로 등록되는지 알고 있어야 한다.
 
 이 글에서 개발자가 생성하거나 Spring Boot가 제공하는 Spring Bean을 어떻게 사용할 수 있게 되는지 간략하게 알아보도록 하자.
 
@@ -18,7 +18,7 @@ Spring Boot를 사용하면 자연스럽게 Spring Bean을 직접 생성하고 �
 
 `@Component` 어노테이션을 이용하는 방법과 `@Bean` 어노테이션을 이용하는 방법이다.
 
-`@Component` 어노테이션의 경우 아래와 같이 클래스에 명시해 주면 된다. 
+`@Component` 어노테이션의 경우 아래와 같이 클래스에 명시해 주면 된다.
 
 ```java
 @Component
@@ -47,9 +47,9 @@ public class MyBeanConfiguration {
 
 ## Spring Bean의 등록
 
-그렇다면 개발자가 작성하거나 Spring Boot가 제공하는 Spring Bean은 어떻게 등록되는 것일까?  
+그렇다면 개발자가 작성하거나 Spring Boot가 제공하는 Spring Bean은 어떻게 등록되는 것일까?
 
-Spring Bean이 등록되는 방법은 두 가지가 있다.  
+Spring Bean이 등록되는 방법은 두 가지가 있다.
 
 Component Scan과 Auto Configuration 방식이다.
 
@@ -67,9 +67,9 @@ component scan 방식은 이름에서 알 수 있듯 `@Component` 어노테이�
 
 `@ComponentScan` 어노테이션은 `value` 혹은 `basePackages`의 값으로 component scan의 시작지점(패키지 경로)을 명시할 수 있다. 시작지점으로 지정된 패키지를 포함하여 하위 패키지에 있는 `@Component` 어노테이션과 `@Bean` 어노테이션을 찾아서 Spring Bean으로 등록을 한다. 만약 `value` 혹은 `basePackages`을 명시하지 않는다면 `@ComponentScan`이 작성된 패키지 아래의 모든 `@Component`, `@Bean` 어노테이션을 찾아서 Spring Bean으로 등록한다.
 
->[Spring docs - @ComponentScan](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html)
+> [Spring docs - @ComponentScan](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html)
 >
->Either `basePackageClasses()` or `basePackages()` (or its alias `value()`) may be specified to define specific packages to scan. **If specific packages are not defined, scanning will occur from the package of the class that declares this annotation.**
+> Either `basePackageClasses()` or `basePackages()` (or its alias `value()`) may be specified to define specific packages to scan. **If specific packages are not defined, scanning will occur from the package of the class that declares this annotation.**
 
 `@SpringBootApplication` 어노테이션에 포함되어 있는 `@ComponentScan`은 `value`도 `basePackages`도 값이 지정되어있지 않기 때문에 Application 클래스가 위치한 패키지를 포함한 하위 패키지를 component scan 대상으로 하게 된다. 따라서 개발자가 `@Component`와 `@Bean`을 이용해서 만든 객체가 Spring Bean으로 등록될 수 있는 것이다.
 
@@ -85,7 +85,7 @@ auto configuration 방식은 Spring Boot가 제공하는 클래스를 Spring Bea
 
 <img src="../images/2020-09-17-spring-bean-initialization-spring-factories.png" alt="spring-bean-initialization-spring-factories" width="800px" />
 
-*만약 spring.factories 에 명시된 클래스 정보를 불러오는 부분을 직접 확인해 보고 싶다면 `AutoConfigurationImportSelector.getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes)` 부분 부터 IDE의 debug 기능을 이용해서 천천히 살펴보면 된다.*
+_만약 spring.factories 에 명시된 클래스 정보를 불러오는 부분을 직접 확인해 보고 싶다면 `AutoConfigurationImportSelector.getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes)` 부분 부터 IDE의 debug 기능을 이용해서 천천히 살펴보면 된다._
 
 <img src="../images/2020-09-17-spring-bean-initialization-get-candidate-configuration.png" width="700" />
 
@@ -103,4 +103,4 @@ auto configuration 방식은 Spring Boot가 제공하는 클래스를 Spring Bea
 
 #### 참고
 
->https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-understanding-auto-configured-beans
+> https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-understanding-auto-configured-beans

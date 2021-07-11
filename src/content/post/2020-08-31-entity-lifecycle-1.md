@@ -1,22 +1,24 @@
 ---
-layout: post  
-title: "Entity Lifecycle을 고려해 코드를 작성하자 1편"  
+layout: post
+title: 'Entity Lifecycle을 고려해 코드를 작성하자 1편'
 author: [2기_라테]
-tags: ["JPA", "entity", "transaction"]
-date: "2020-08-31T12:00:00.000Z"
+tags: ['jpa', 'entity', 'transaction']
+date: '2020-08-31T12:00:00.000Z'
 draft: false
 image: ../teaser/cycle.png
 ---
+
 서비스를 개발하다보면 생각하지도 못한 부분에서 버그가 발생하는 때가 있다. 특히 프로젝트 막바지에 이런 경험을 한다면? 생각하기도 싫은 상황일 것이다. 레벨3 프로젝트를 진행하면서 이런 경험을 한 적이 있는데, 이 때 어려움을 겪은 부분을 공유해보고자 한다.
 
-## 문제 상황 
+## 문제 상황
 
-현재 로그인된 사용자의 정보를 Spring Security의 @AuthenticationPrincipal를 이용한 Annotation을 활용해 다음과 같이 받아 사용하고 있다. 
->@AuthenticationPrincipal은 Security에서 미리 구현한 Annotation이다. 사용자 인증 정보를 통해 얻어진 유저 정보(UserDetails)를 가지고 올 수 있는 Annotation이며, 현재 유저 정보는 미리 구현한 CustomUserDetailsService 통해 load 된다.
+현재 로그인된 사용자의 정보를 Spring Security의 @AuthenticationPrincipal를 이용한 Annotation을 활용해 다음과 같이 받아 사용하고 있다.
+
+> @AuthenticationPrincipal은 Security에서 미리 구현한 Annotation이다. 사용자 인증 정보를 통해 얻어진 유저 정보(UserDetails)를 가지고 올 수 있는 Annotation이며, 현재 유저 정보는 미리 구현한 CustomUserDetailsService 통해 load 된다.
 >
->@CurrentUser는 @AuthenticationPrincipal의 expression을 활용하여 유저 정보에서 실제로 구현한 User 클래스를 가지고 올 수 있는 Annotation이다.
+> @CurrentUser는 @AuthenticationPrincipal의 expression을 활용하여 유저 정보에서 실제로 구현한 User 클래스를 가지고 올 수 있는 Annotation이다.
 >
->쉽게 @CurrentUser는 로그인 유저 정보를 활용해 도메인에서 실제로 쓰이는 User 객체를 가져오는 일종의 ArgumentResolver를 생각하면 편할 것이다.
+> 쉽게 @CurrentUser는 로그인 유저 정보를 활용해 도메인에서 실제로 쓰이는 User 객체를 가져오는 일종의 ArgumentResolver를 생각하면 편할 것이다.
 
 ```java
 @RequestMapping("/user")
@@ -43,7 +45,7 @@ public class User {
 
    private String password;
 
-   // Getter, Setter...  
+   // Getter, Setter...
 }
 ```
 
@@ -62,8 +64,8 @@ public class UserResponse {
 ```java
 @Target({ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-// anonymousUser이면 EmptyUser를 반환하고, 아니면 구현 클래스에 있는 user 필드를 반환. EmptyUser는 비로그인 유저를 표현하기 위한 객체 
-@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? new (...).EmptyUser() : user") 
+// anonymousUser이면 EmptyUser를 반환하고, 아니면 구현 클래스에 있는 user 필드를 반환. EmptyUser는 비로그인 유저를 표현하기 위한 객체
+@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? new (...).EmptyUser() : user")
 public @interface CurrentUser {
 }
 ```
@@ -98,7 +100,7 @@ public class Favorite {
     @ManyToOne
     private User user;
     private ...
-   // Getter, Setter...  
+   // Getter, Setter...
 }
 ```
 
@@ -115,8 +117,8 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Favorite> favorites = new HashSet<>();
-   
-   // Getter, Setter...  
+
+   // Getter, Setter...
 }
 ```
 
@@ -194,7 +196,7 @@ Proxy는 실제 Entity를 상속받아 만들어진다. Proxy 객체는 실제 E
 
 지연로딩(Lazy loading)은 연관 Entity를 프록시 형태로 조회한다. 그리고 추후 연관 Entity가 필요할 경우, Proxy를 초기화하여 실제 Entity의 참조를 얻어내고 실제 Entity의 기능을 호출해 결과를 반환하는 형태로 기능을 수행한다. 초기화 과정을 살펴보면 실제 엔티티의 참조를 얻어내기 위해서는 영속성 컨텍스트의 도움이 필요하다는 것을 알 수 있고 영속성 컨텍스트가 존재하지 않을 경우, 실제 Entity에 대한 참조를 얻을 수 없기 때문에 문제가 생길 것을 예상해볼 수 있다.
 
-위 Exception은 영속성 컨텍스트가 종료된 상황에서 지연로딩된 Proxy 객체에게 연관 Entity(Favorite)를 조회해달라고 요청한 부분이 문제였던 것이다. 영속성 컨텍스트 종료된 상황(no Session)에서 객체는 영속성 컨텍스트의 도움을 받을 수 없는 준영속 상태가 된다. User는 영속성 컨텍스트를 통해 연관 객체의 정보를 확인할 수 없기 때문에 Exception이 발생한 것이고, 그 Exception이 LazyInitializationException이었던 것이다. 
+위 Exception은 영속성 컨텍스트가 종료된 상황에서 지연로딩된 Proxy 객체에게 연관 Entity(Favorite)를 조회해달라고 요청한 부분이 문제였던 것이다. 영속성 컨텍스트 종료된 상황(no Session)에서 객체는 영속성 컨텍스트의 도움을 받을 수 없는 준영속 상태가 된다. User는 영속성 컨텍스트를 통해 연관 객체의 정보를 확인할 수 없기 때문에 Exception이 발생한 것이고, 그 Exception이 LazyInitializationException이었던 것이다.
 
 정리하면 @CurrentUser라는 어노테이션을 통해 User를 편리하게 가지고 올 수 있었지만, Entity의 생명주기를 파악하지 못해 발생한 문제였다.
 
@@ -202,7 +204,7 @@ Proxy는 실제 Entity를 상속받아 만들어진다. Proxy 객체는 실제 E
 
 ## 생각해볼 수 있는 해결방안
 
-1) Entity 다시 불러오기
+1. Entity 다시 불러오기
 
 ```java
 // UserService.java
@@ -226,7 +228,7 @@ public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
 
 기존에 받아온 User를 이용해 다시 한 번 정보를 조회한 후 영속성 컨텍스트 안에서 연관 Entity를 조회한다. 문제는 해결되지만 기존에 한 번 찾았던 Entity를 다시 한 번 불러오는 건 어색해보인다.
 
-2) Entity 강제로 초기화 : 영속성 컨텍스트가 존재하는 상황에서 미리 필요한 Entity를 초기화하면 준영속 상태에서도 사용할 수 있다.
+2. Entity 강제로 초기화 : 영속성 컨텍스트가 존재하는 상황에서 미리 필요한 Entity를 초기화하면 준영속 상태에서도 사용할 수 있다.
 
 ```java
 // CustomUserDetailsService.java
@@ -246,7 +248,7 @@ public UserDetails loadUserByUsername(String email) throws UsernameNotFoundExcep
 
 Spring Data Jpa는 Hibernate를 사용하기 때문에 `Hibernate.initialize(user.getFavorites());`를 통해 직접 연관 Entity를 초기화를 해주는 방법도 있다. 하지만 @CurrentUser가 UserController에서 유저 정보를 조회하는 데에만 그치지 않고 유저 정보를 활용하는 또 다른 Controller에서 사용된다면, User가 가지고 있는 Favorites는 불필요한 정보가 될 것이다.
 
-3) FetchType.EAGER : User Entity를 가지고 올 때 항상 Favorite도 같이 조회한다. 
+3. FetchType.EAGER : User Entity를 가지고 올 때 항상 Favorite도 같이 조회한다.
 
 ```java
 @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -256,9 +258,9 @@ private Set<Favorite> favorites = new HashSet<>();
 사실 Fetch 전략을 Eager로 설정하면 간단하게 문제는 해결된다. 영속성 컨텍스트가 없어도 상위 Entity를 조회할 때 미리 연관 Entity도 같이 조회하기에 사용할 수 있게 되는 것이다. 하지만 다음과 같은 단점을 가진다.
 
 1. 사용하지 않는 엔티티를 로딩한다.
-    - 2)와 같은 문제로 Favorites는 불필요한 정보가 될 것이다.
+   - 2)와 같은 문제로 Favorites는 불필요한 정보가 될 것이다.
 2. N+1 문제가 발생한다.
-    - 현재 내정보를 조회하는 로직에서는 하나의 User만 조회하지만 추후 전체 User를 조회하는 기능이 생길 경우 즉시 로딩을 통해 연관 Entity까지 모두 조회하면, [N+1](https://jojoldu.tistory.com/165) 문제가 발생한다. 자세한 내용은 너무 내용이 길어지기에 링크를 참조하길 바란다. 간단하게 요약하면 불필요하게 쿼리가 많이 발생하기에 Application 성능이 저하되는 문제가 생긴다는 것이다.
+   - 현재 내정보를 조회하는 로직에서는 하나의 User만 조회하지만 추후 전체 User를 조회하는 기능이 생길 경우 즉시 로딩을 통해 연관 Entity까지 모두 조회하면, [N+1](https://jojoldu.tistory.com/165) 문제가 발생한다. 자세한 내용은 너무 내용이 길어지기에 링크를 참조하길 바란다. 간단하게 요약하면 불필요하게 쿼리가 많이 발생하기에 Application 성능이 저하되는 문제가 생긴다는 것이다.
 
 4) join fetch 사용 : UserRepository에서 @Query를 통해 JPQL fetch join을 사용하면 Fetch 전략을 Eager로 가져가지 않고도 연관 Entity를 조회할 수 있다.
 
@@ -273,9 +275,9 @@ Optional<User> findByEmail(String email);
 
 ## 그런데 말입니다.
 
-위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까? 
+위에서 나온 해결방법은 결국 Controller에서 준영속 상태인 Entity가 지연로딩이 불가능하기 때문에 미리 연관 Entity를 불러오는 방식을 채택하고 있다. 이는 불필요한 정보를 항상 함께 조회한다는 문제점을 가지고 있다. 그렇다면 영속성 컨텍스트를 Controller까지 살아있도록 해주면 되지 않을까?
 
-OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 [Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 값](https://woowacourse.github.io/tecoble/post/2020-09-11-osiv)은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다. 
+OSIV(Open Session In View)를 활용한다면 Controller에서도 영속성 컨텍스트가 존재해 지연 로딩이 가능해진다. 그런데 [Spring Boot에서 OSIV 설정(spring.jpa.open-in-view) Default 값](https://woowacourse.github.io/tecoble/post/2020-09-11-osiv)은 **true**다! 이 말은 즉 현재 상황에서 Controller에는 여태까지의 설명과는 다르게 영속성 컨텍스트가 존재한다는 말과 같다.
 
 하지만 기존에 작성해놓은 테스트에서는 분명히 LazyInitializationException이 발생했고, Proxy 초기화를 통해서 연관 Entity를 가지고 오는 것이 가능해졌다. 왜 이런 일이 발생했을까?
 

@@ -1,9 +1,9 @@
 ---
-layout: post  
+layout: post
 title: 단위 테스트 vs 통합 테스트 vs 인수 테스트
 author: [3기_다니]
-tags: ['test', 'unit test', 'integration test', 'acceptance test']
-date: "2021-05-25T12:00:00.000Z"
+tags: ['test', 'unit-test', 'integration-test', 'acceptance-test']
+date: '2021-05-25T12:00:00.000Z'
 draft: false
 image: ../teaser/test.jpeg
 ---
@@ -14,6 +14,7 @@ image: ../teaser/test.jpeg
 <br/>
 
 ## 단위 테스트(Unit Test)
+
 > 단위 테스트는 응용 프로그램에서 테스트 가능한 가장 작은 소프트웨어를 실행하여 예상대로 동작하는지 확인하는 테스트이다.<br/>
 
 단위 테스트에서 테스트 대상 단위의 크기는 엄격하게 정해져 있지 않다. 하지만, 일반적으로 클래스 또는 메소드 수준으로 정해진다.
@@ -50,7 +51,7 @@ public void stopCar() {
 
     // when
     car.move(3);
-    
+
     // then
     assertThat(car.getPosition()).isEqualTo(0);
 }
@@ -59,6 +60,7 @@ public void stopCar() {
 <br/>
 
 ## 통합 테스트(Integration Test)
+
 > 통합 테스트는 단위 테스트보다 더 큰 동작을 달성하기 위해 여러 모듈들을 모아 이들이 의도대로 협력하는지 확인하는 테스트이다.<br/>
 
 통합 테스트는 단위 테스트와 달리 개발자가 변경할 수 없는 부분(ex. 외부 라이브러리)까지 묶어 검증할 때 사용한다.
@@ -85,6 +87,7 @@ class SubwayApplicationTests {
 <br/>
 
 ## 인수 테스트(Acceptance Test)
+
 > 인수 테스트는 사용자 스토리(시나리오)에 맞춰 수행하는 테스트이다.<br/>
 
 앞선 두 테스트들과 달리 비즈니스 쪽에 초점을 둔다.
@@ -122,6 +125,7 @@ public static ExtractableResponse<Response> 회원_생성_요청(MemberRequest m
 <br/>
 
 ## 결론
+
 지금까지 단위 테스트, 통합 테스트, 인수 테스트에 관해 알아봤다.
 각 테스트의 정의와 특징을 살펴보고 간단한 코드로 확인했다.<br/>
 
@@ -132,6 +136,7 @@ public static ExtractableResponse<Response> 회원_생성_요청(MemberRequest m
 <br/>
 
 ## References
+
 - [What's the difference between unit, functional, acceptance, and integration tests? [closed]](https://stackoverflow.com/questions/4904096/whats-the-difference-between-unit-functional-acceptance-and-integration-test)
 - [Testing Strategies in a Microservice Architecture](https://martinfowler.com/articles/microservice-testing/)
 - [[tdd] 인수테스트, 단위테스트, 통합테스트, 전 구간 테스트](https://joont92.github.io/tdd/%EC%9D%B8%EC%88%98%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%86%B5%ED%95%A9%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A0%84-%EA%B5%AC%EA%B0%84-%ED%85%8C%EC%8A%A4%ED%8A%B8/)
