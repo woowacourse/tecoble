@@ -24,6 +24,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
+  const defaultImage = require('../content/img/tecoble-background.png');
+
   return (
     <article
       className={`post-card ${post.frontmatter.image ? '' : 'no-image'} ${
@@ -44,12 +46,23 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           </PostCardImage>
         </Link>
       )}
+      {!post.frontmatter.image && (
+        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
+          <PostCardImage className="post-card-image">
+            <img
+              alt={`${post.frontmatter.title} cover image`}
+              style={{ height: '100%', width: '100%' }}
+              src={defaultImage}
+            />
+          </PostCardImage>
+        </Link>
+      )}
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
           <PostCardHeader className="post-card-header">
             {post.frontmatter.tags && (
               <PostCardPrimaryTag className="post-card-primary-tag">
-                {'#'+post.frontmatter.tags[0]}
+                {post.frontmatter.tags[0]}
               </PostCardPrimaryTag>
             )}
             <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
@@ -187,7 +200,7 @@ const PostCardPrimaryTag = styled.div`
   margin: 0 0 0.2em;
   /* color: var(--blue); */
   color: ${colors.blue};
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0.2px;
   text-transform: uppercase;

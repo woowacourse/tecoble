@@ -117,6 +117,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
+  const defaultImage = require('../content/img/tecoble-background.png');
+
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -190,7 +192,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                   {post.frontmatter.tags.map((tag, index) => (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
                       {index !== 0 ? ', ' : ''}
-                      {'#'+tag}
+                      {tag}
                     </Link>
                   ))}
                 </PostFullTags>
@@ -228,6 +230,15 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                   <Img
                     style={{ height: '100%' }}
                     fluid={post.frontmatter.image.childImageSharp.fluid}
+                    alt={post.frontmatter.title}
+                  />
+                </PostFullImage>
+              )}
+              {!post.frontmatter.image?.childImageSharp && (
+                <PostFullImage>
+                  <img
+                    style={{ height: '100%', width: '100%' }}
+                    src={defaultImage}
                     alt={post.frontmatter.title}
                   />
                 </PostFullImage>
@@ -309,11 +320,10 @@ export const PostFullHeader = styled.header`
 const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
-  flex-wrap : wrap;
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};
-  font-size: 2.5rem;
+  font-size: 1.3rem;
   line-height: 1.4em;
   font-weight: 600;
   text-transform: uppercase;
