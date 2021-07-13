@@ -130,7 +130,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta property="og:url" content={config.siteUrl + location.pathname} />
+        <meta property="og:url" content={location.href} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             property="og:image"
@@ -149,7 +149,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
+        <meta name="twitter:url" content={location.href} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             name="twitter:image"
