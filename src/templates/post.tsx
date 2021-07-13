@@ -249,7 +249,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
-          <Utterances repo={'woowacourse/javable-comments'} />
+          <Utterances repo={'woowacourse/tecoble-comments'} />
         </main>
 
         <ReadNext
