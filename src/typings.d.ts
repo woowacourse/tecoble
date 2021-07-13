@@ -12,6 +12,8 @@ declare module '*.module.css' {
   export = cssModule;
 }
 
+declare module '*.png';
+
 declare module 'rehype-react' {
   interface RehypeOptions {
     createElement: any;
