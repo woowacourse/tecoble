@@ -26,14 +26,11 @@ image: ../teaser/oauth.jpeg
 
 OAuth 동작에 관여하는 참여자는 크게 세 가지로 구분할 수 있습니다.
 
-1. Resource Server
-  * Client가 제어하고자 하는 자원을 보유하고 있는 서버입니다.
+* Resource Server : Client가 제어하고자 하는 자원을 보유하고 있는 서버입니다.
   * Facebook, Google, Twitter 등이 이에 속합니다.
-2. Resource Owner
-  * 자원의 소유자입니다.
+* Resource Owner : 자원의 소유자입니다.
   * Client가 제공하는 서비스를 통해 로그인하는 실제 유저가 이에 속합니다.
-3. Client
-  * Resoure Server에 접속해서 정보를 가져오고자 하는 클라이언트(웹 어플리케이션)입니다.
+* Client : Resoure Server에 접속해서 정보를 가져오고자 하는 클라이언트(웹 어플리케이션)입니다.
 
 <br>
 
@@ -54,7 +51,7 @@ Client(웹 어플리케이션)가 Resource Server를 이용하기 위해서는 �
 2. **Client Secret** : Client ID에 대한 비밀키로서, 절대 노출해서는 안 됩니다.
 3. **Authorized redirect URL** : Authorization Code를 전달받을 리다이렉트 주소입니다.
 
-Google 등 외부 서비스를 통해 인증을 마치면 클라이언트를 명시된 주소로 리다이렉트 시키는데, 이 때 Query String으로 특별한 Code가 함께 전달됩니다. 클라이언트는 해당 Code와 Client Id 및 Client Secret을 Resource Server에 보내, Resource Server의 자원을 사용할 수 있는 Access Token을 발급 받습니다. 등록되지 않은 리다이렉트 URL을 사용하는 경우, Resource Server가 인증을 거부합니다.
+Google 등 외부 서비스를 통해 인증을 마치면 클라이언트를 명시된 주소로 리다이렉트 시키는데, 이 때 Query String으로 특별한 Code가 함께 전달됩니다. 클라이언트는 해당 Code와 Client ID 및 Client Secret을 Resource Server에 보내, Resource Server의 자원을 사용할 수 있는 Access Token을 발급 받습니다. 등록되지 않은 리다이렉트 URL을 사용하는 경우, Resource Server가 인증을 거부합니다.
 
 ### 3.2. Resource Owner의 승인
 
@@ -73,8 +70,8 @@ Resource Owner는 Client의 웹 어플리케이션을 이용하다가, 해당 �
 
 Resource Owner는 Resource Server에 접속하여 로그인을 수행합니다. 로그인이 완료되면 Resource Server는 Query String으로 넘어온 파라미터들을 통해 Client를 검사합니다.
 
-* 파라미터로 전달된 Client Id와 동일한 ID 값이 존재하는지 확인합니다.
-* 해당 Client Id에 해당하는 Redirect URL이 파라미터로 전달된 Redirect URL과 같은지 확인합니다.
+* 파라미터로 전달된 Client ID와 동일한 ID 값이 존재하는지 확인합니다.
+* 해당 Client ID에 해당하는 Redirect URL이 파라미터로 전달된 Redirect URL과 같은지 확인합니다.
 
 <img width="601" alt="스크린샷 2021-07-15 오전 12 31 48" src="https://user-images.githubusercontent.com/56240505/125652996-386acd70-938e-448b-8bb0-cb07c3079662.png">
 
@@ -103,7 +100,7 @@ public ResponseEntity<String> afterlogin(@RequestParam String code) {
     RestTemplate restTemplate = new RestTemplate();
     OauthDto oauthDto = new OauthDto();
     oauthDto.setCode(code);
-    oauthDto.setClient_id("7e930566ecaa306c71b5");
+    oauthDto.setClient_ID("7e930566ecaa306c71b5");
     oauthDto.setClient_secret("client secret 입력");
     String accessToken = restTemplate.postForObject("https://github.com/login/oauth/access_token", oauthDto, String.class);
     return ResponseEntity.ok(accessToken);
