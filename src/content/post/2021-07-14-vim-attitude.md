@@ -3,7 +3,7 @@ layout: post
 title: 'vim을 대하는 자세'
 author: [3기_완태]
 tags: ['vim']
-date: "2021-07-14T12:00:00.000Z"
+date: "2021-07-15T12:00:00.000Z"
 draft: false
 image: ../teaser/vim-attitude.png
 ---
@@ -116,6 +116,4 @@ delete 명령어는 뒤에 이동 위치가 오고 그 사이의 값들을 지�
 ---
 
 ### 참고 자료
--   [Vim 도대체 왜 쓰는가](https://bengi.kr/1349)
--   [Git 내부 구조를 알아보자 (1) — 기본 오브젝트](https://medium.com/happyprogrammer-in-jeju/git-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%A1%B0%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90-1-%EA%B8%B0%EB%B3%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-81b34f85fe53)
--   [Git Manual](https://git.kernel.org/pub/scm/git/git.git/tree/README?id=e83c5163316f89bfbde7d9ab23ca2e25604af290)
+- [Vim 도대체 왜 쓰는가](https://bengi.kr/1349)
