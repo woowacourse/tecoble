@@ -1,7 +1,6 @@
 ---
 layout: post  
-title: git 브랜치 전략에 대해서
-author: [3기_샐리]
+title: git 브랜치 전략에 대해서 author: [3기_샐리]
 tags: ['git']
 date: "2021-07-15T12:00:00.000Z"
 draft: false image: ../teaser/dot-git.jpg
@@ -36,7 +35,7 @@ git flow는 `feature`, `develop`, `release`, `hotfix`, `master` 5가지의 브�
 2. develop  
    develop 브랜치는 말 그대로 개발을 진행하는 브랜치로 중심적인 브랜치이다.  
    하나의 feature 브랜치가 머지될 때마다 develop 브랜치에 해당 기능이 더해지며 살을 붙여간다.  
-   develop 브랜치는 배포할 수준의 기능을 갖추면 release 브랜치로 병합된다.
+   develop 브랜치는 배포할 수준의 기능을 갖추면 release 브랜치로 머지된다.
 
 3. release  
    release 브랜치는 개발된 내용을 배포하기 위해 준비하는 브랜치이다.  
@@ -66,7 +65,7 @@ github flow는 master 브랜치 하나만을 가지고 진행하는 방식이다
 master 브랜치는 어떤 기능이 구현되든, 오류가 수정되든 모두 master에 머지되어 항상 update된 상태를 유지한다.
 
 아래 흐름은 github flow의 흐름을 보여주는 그림이다.  
-![github flow](https://user-images.githubusercontent.com/43775108/125813582-d1500c51-e1af-44e7-9f90-83901dfec03f.png)  
+![github flow](https://user-images.githubusercontent.com/43775108/125813582-d1500c51-e1af-44e7-9f90-83901dfec03f.png)
 
 자세한 github flow의 과정을 알아보자.
 
@@ -80,50 +79,52 @@ master 브랜치는 어떤 기능이 구현되든, 오류가 수정되든 모두
 
 github flow는 시시각각 master에 머지될 때마다 배포가 이루어지는 것이 좋다.  
 따라서 CI/CD를 통한 배포 자동화를 적용하는 것이 좋다.  
-브랜치 전략이 단순해 master 브랜치에서 pull 하고, 기능 구현하고, merge 하는 일의 반복이다.  
+브랜치 전략이 단순해 master 브랜치에서 pull 하고, 기능 구현하고, 머지하는 일의 반복이다.  
 하지만 pull request에서 팀원간의 충분한 리뷰와 피드백이 진행되지 않으면 배포된 자체에서 버그가 발생할 수 있으므로 주의해야 한다.
 
 <br>
 
-### GitLab Flow  
+### GitLab Flow
+
 gitlab flow는 복잡하지 않고 효율을 높이고자 생겨난 브랜치 전략으로 master, feature, production 브랜치가 존재한다.  
-gitlab flow는 이슈트래킹을 연동해 프로세스를 단순화하고자 한다. merge request를 통해 승인이 되는 이슈만 merge하도록 하는 것이 핵심이다.  
+gitlab flow는 이슈트래킹을 연동해 프로세스를 단순화하고자 한다. merge request를 통해 승인이 되는 이슈만 머지하도록 하는 것이 핵심이다.
 
 아래 그림은 gitlab flow의 흐름을 간단히 보여준다.  
-![gitlab flow](https://user-images.githubusercontent.com/43775108/125818498-abf31b7e-f21a-4fa2-9849-4d69cf202fb5.png)  
+![gitlab flow](https://user-images.githubusercontent.com/43775108/125818498-abf31b7e-f21a-4fa2-9849-4d69cf202fb5.png)
 
 각 브랜치에 대해서 알아보자.
 
 1. feature  
    모든 기능 구현은 feature 브랜치에서 진행된다.  
-   이 feature 브랜치는 master 브랜치에서 나와 master 브랜치로 병합된다.  
+   이 feature 브랜치는 master 브랜치에서 나와 master 브랜치로 머지된다.  
    기능 구현이 완료되면 merge request를 보낸다.  
-   merge request에서 팀원 간의 협의가 완료되면 master 브랜치로 머지한다.  
+   merge request에서 팀원 간의 협의가 완료되면 master 브랜치로 머지한다.
 
-2. master
-gitlab flow의 master 브랜치는 git flow의 develop 브랜치와 같다.  
+2. master gitlab flow의 master 브랜치는 git flow의 develop 브랜치와 같다.  
    master 브랜치는 feature 브랜치에서 병합된 기능에 대해 test 한다.  
    전체적인 테스트가 진행되어 기능에 대한 보장이 되었다면 production 브랜치로 머지한다.
-   
+
 3. production  
-production 브랜치는 한 마디로 배포 브랜치이다. git flow의 master 브랜치와 같다.  
+   production 브랜치는 한 마디로 배포 브랜치이다. git flow의 master 브랜치와 같다.  
    안정된 소스코드가 되었을 때 production 브랜치에 병합해 배포하도록 한다.  
-   하지만 여기서 견고한 test를 거치고 싶은 경우 pre-production 브랜치를 생성해 production에 병합하기 전에 test server에 배포해 확인할 수도 있다.  
-   
+   하지만 여기서 견고한 test를 거치고 싶은 경우 pre-production 브랜치를 생성해 production에 병합하기 전에 test server에 배포해 확인할 수도 있다.
+
 gitlab flow는 git flow처럼 복잡하지 않으면서, github flow처럼 너무 단순하지 않아 비교적 적용이 쉬우면서도 원활한 운영이 가능하다.  
 gitlab의 CEO는 [최대한의 효울을 위해 지켜야 할 11가지 규칙](https://about.gitlab.com/blog/2016/07/27/the-11-rules-of-gitlab-flow/)에 대해 서술해두었다.  
-이 11가지 규칙에 대해서 이해하고 적용한다면 최상의 git branch 전략을 가져갈 수 있을 것이다.  
+이 11가지 규칙에 대해서 이해하고 적용한다면 최상의 gitlab flow 전략을 가져갈 수 있을 것이다.  
 
 <br>
 
-### 마치며  
+### 마치며
+
 이렇게 오늘은 3가지의 브랜치 전략에 대해서 알아보았다.  
 각 팀의 상황과 문화에 따라서 적합한 브랜치 전략이 있을 것이다.  
-협업을 하며 최대의 효율을 내기 위해 적용할 브랜치 전략에 대해서 팀원들과 충분한 대화를 해보는 것은 어떨까?  
+협업을 하며 최대의 효율을 내기 위해 적용할 브랜치 전략에 대해서 팀원들과 충분한 대화를 해보는 것은 어떨까?
 
 <br>
 
 ### 참고
+
 [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
 [Github Flow](https://guides.github.com/introduction/flow/)  
 [Github Flow - Scott Chacon](https://scottchacon.com/2011/08/31/github-flow.html)  
