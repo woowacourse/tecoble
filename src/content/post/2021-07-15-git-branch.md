@@ -1,17 +1,20 @@
 ---
 layout: post  
-title: git 브랜치 전략에 대해서 author: [3기_샐리]
-tags: ['git']
-date: "2021-07-15T12:00:00.000Z"
-draft: false image: ../teaser/dot-git.jpg
+title: git 브랜치 전략에 대해서  
+author: [3기_샐리]  
+tags: ['git']  
+date: "2021-07-15T12:00:00.000Z"  
+draft: false  
+image: ../teaser/dot-git.jpg  
 ---
 
 ## Git
 
-우리는 개발을 진행하면서 우리가 구현한 소스코드를 git이라는 버전 관리 시스템을 관리한다.  
-git을 사용함으로써 우리는 시시각각 코드를 전송하고 일일이 병합하는 과정을 생략하고도 손쉽게 소스코드를 관리할 수 있다.  
-git을 사용하지 못했더라면 협업을 진행하면서 하나씩 메일이나 USB로 소스코드를 주고받아야 했을 것이다.  
-뿐만 아니라 꼼꼼한 commit 로그 작성을 통해 과거의 소스코드와도 비교할 수 있다.  
+우리는 개발을 진행하면서 우리가 구현한 소스코드를 git이라는 버전 관리 시스템을 통해 관리한다.  
+git을 사용하지 않았더라면 협업을 진행하면서 메일이나 USB로 소스코드를 주고받아야 했을 것이다.
+git을 사용함으로써 우리는 시시각각 코드를 전송할 수 있다. 
+게다가 일일이 병합하는 과정을 생략하고도 손쉽게 소스코드를 관리할 수 있다.
+뿐만 아니라 꼼꼼한 commit 로그 작성을 통해 과거의 소스코드와도 한 눈에 비교할 수 있다.  
 협업을 할 때도 이 git을 사용해 분산 버전관리를 할 수 있어 브랜치에 따라 독자적인 개발을 하고 메인 저장소에 merge 하는 방식으로 체계적으로 개발을 진행할 수 있다.
 
 그렇다면 이러한 브랜치를 어떻게 나누고 개발할 수 있을까?
@@ -28,7 +31,8 @@ git flow는 `feature`, `develop`, `release`, `hotfix`, `master` 5가지의 브�
 
 1. feature  
    feature 브랜치는 기능의 구현을 담당한다.  
-   브랜치명은 팀마다 컨벤션을 가지고 지을 수 있지만 `feature/login`과 같은 명칭으로 login 기능을 구현하는 브랜치임을 알 수 있다.  
+   브랜치명은 팀마다 컨벤션을 가지고 지을 수 있지만 `feature/{구현기능명}`과 같은 명칭을 준수하는 것이 일반적이다.  
+   예를 들어, `feature/login`은 login 기능을 구현하는 브랜치임을 알 수 있다.    
    feature 브랜치는 develop 브랜치에서 생성되며, develop 브랜치로 머지된다.  
    머지된 후에는 해당 브랜치가 삭제된다.
 
@@ -40,13 +44,13 @@ git flow는 `feature`, `develop`, `release`, `hotfix`, `master` 5가지의 브�
 3. release  
    release 브랜치는 개발된 내용을 배포하기 위해 준비하는 브랜치이다.  
    브랜치명은 `release-1`과 같은 방식으로 첫번째 릴리즈, 두번째 릴리즈 등을 지정하는 것이 보편적이다.  
-   release 브랜치에서 버그를 발견하고 수정해 배포할 준비가 완전히 되었다고 판단되면 master로 머지해 배포한다.    
+   release 브랜치에서 충분한 테스트를 통해 버그를 검사하고 수정해 배포할 준비가 완전히 되었다고 판단되면 master로 머지해 배포한다.    
    release 브랜치는 develop 브랜치에서 생성되며 버그 수정 내용을 develop 브랜치에도 반영하고, 최종적으로 master 브랜치에 머지한다.
 
 4. hotfix  
    hotfix 브랜치는 배포된 소스에서 버그가 발생하면 생성되는 브랜치이다.  
-   브랜치명은 `hotfix-1`로 지정된다. release 브랜치를 거쳐 한차례 버그 검사를 했지만 예상치 못하게 배포 후에 발견된 버그들에 대해서 수정한다.    
-   수정이 완료되면 develop 브랜치, release 브랜치와 master 브랜치에 수정 사항을 반영한다.
+   브랜치명은 `hotfix-1`로 지정된다. release 브랜치를 거쳐 한차례 버그 검사를 했지만 예상치 못하게 배포 후에 발견된 버그들에 대해서 수정한다.
+   hotfix 브랜치는 master 브랜치에서 생성되며, 수정이 완료되면 develop 브랜치, release 브랜치와 master 브랜치에 수정 사항을 반영한다.  
 
 5. master  
    master 브랜치는 최종적으로 배포되는 가장 중심의 브랜치이다.  
@@ -71,7 +75,7 @@ master 브랜치는 어떤 기능이 구현되든, 오류가 수정되든 모두
 
 1. master 브랜치에서 개발이 시작된다.
 2. 기능 구현이나 버그가 발생하면 issue를 작성한다.
-3. 로컬 브랜치에서 이슈와 관련한 commit log를 작성한다.
+3. 팀원들이 issue 해결을 위해 master 브랜치에서 생성한 `feature/{구현기능}` 브랜치에서 개발을 하고 commit log를 작성한다.
 4. push를 하면 pull request를 날릴 수 있다.
 5. pull request를 통해 팀원들 간의 피드백, 버그 찾는 과정이 진행된다. release 브랜치가 없으므로 이 과정이 탄탄하게 진행되어야 한다.
 6. 모든 리뷰가 이루어지면, merge하기 전에 배포를 통해 최종 테스트를 진행한다.
@@ -90,7 +94,7 @@ gitlab flow는 복잡하지 않고 효율을 높이고자 생겨난 브랜치 �
 gitlab flow는 이슈트래킹을 연동해 프로세스를 단순화하고자 한다. merge request를 통해 승인이 되는 이슈만 머지하도록 하는 것이 핵심이다.
 
 아래 그림은 gitlab flow의 흐름을 간단히 보여준다.  
-![gitlab flow](https://user-images.githubusercontent.com/43775108/125818498-abf31b7e-f21a-4fa2-9849-4d69cf202fb5.png)
+![gitlab flow](https://user-images.githubusercontent.com/43775108/125891998-ccba14fb-b15d-4259-8220-d11bc1b809f0.png)
 
 각 브랜치에 대해서 알아보자.
 
