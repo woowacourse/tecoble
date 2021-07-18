@@ -11,6 +11,8 @@ image: ../teaser/dispatcherservlet.png
 지난 1편에서는 DispatcherServlet 정의, 설정 방법, 동작 흐름에 대해 알아봤다.
 이번 2편에서는 DispatcherServlet의 동작 원리를 코드와 함께 살펴보자.<br/>
 
+<!-- end -->
+
 아직 1편을 읽지 않았다면, 아래 글을 먼저 읽고 오자.<br/>
 
 > [DispatcherServlet - Part 1](https://woowacourse.github.io/tecoble/post/2021-06-25-dispatcherservlet-part-1/)
@@ -24,6 +26,7 @@ DispatcherServlet은 해당 객체들을 파라미터로 전달받고, 웹 요�
 그리고 해당 메소드 내부에서 이어 `doDispatch()` 메소드를 호출한다.<br/>
 
 ```java
+// DispatcherServlet.java
 @Override
 protected void doService(HttpServletRequest request, HttpServletResponse response) throws Exception {
     logRequest(request);
@@ -45,6 +48,7 @@ doDispatch() 메소드에는 DispatcherServlet이 호출하는 모든 메소드�
 이때, 해당 메소드의 반환 타입은 `HandlerExecutionChain`이다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -77,6 +81,7 @@ protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Ex
 이를 위해 `getHandlerAdatper()` 메소드를 호출한다. 해당 메소드의 반환 타입은 `HandlerAdapter`이다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -103,12 +108,13 @@ protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletExcepti
 
 <br/>
 
-찾은 HandlerAdapter로 Handler의 메소드를 실행하기 앞서 Interceptor의 `applyPreHandle()` 메소드를 호출한다.
+찾은 HandlerAdapter로 Handler의 메소드를 실행하기 앞서 <sup>*</sup>Interceptor의 `applyPreHandle()` 메소드를 호출한다.
 해당 메소드의 반환 타입은 boolean이다.
 만약, 반환값이 `true`면 Interceptor를 통과하여 다음 단계로 진행된다.
 반면, 반환값이 `false`면 Interceptor를 통과하지 못해 로직을 더이상 수행하지 않고 종료한다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -138,11 +144,18 @@ boolean applyPreHandle(HttpServletRequest request, HttpServletResponse response)
 
 <br/>
 
+<sup>*</sup>Interceptor가 무엇인지 궁금하다면, 테코블에 있는 아래 글을 참고해보자.
+
+> [Spring ArgumentResolver와 Interceptor](https://woowacourse.github.io/tecoble/post/2021-05-24-spring-interceptor/)
+
+<br/>
+
 Interceptor를 통과하면, 앞서 찾은 HandlerAdapter를 이용하여 `handle()` 메소드로 Handler(Controller)의 메소드를 실행한다.
 handle() 메소드의 반환 타입은 `ModelAndView`이다.
 HandlerAdapter는 인터페이스로 정의되어 있어, 다양한 종류의 HandlerAdapter 구현체에서 해당 메소드를 구현한다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -154,6 +167,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
     ...
 }
 
+// HandlerAdapter.java
 public interface HandlerAdapter {
     @Nullable
     ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception;
@@ -174,6 +188,7 @@ handle() 메소드를 수행하고 나면, Interceptor에서 `applyPostHandle()`
 이는 비즈니스 로직을 전부 수행하고 실행하는 메소드로, 반환 타입은 void이다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -201,7 +216,7 @@ void applyPostHandle(HttpServletRequest request, HttpServletResponse response, @
 handle() 메소드를 실행하면, DispatcherServlet 뒤에 있는 비즈니스 로직을 수행하고 결과로 ModelAndView를 반환한다.
 그리고 applyPostHandle() 메소드로 ModelAndView에 대해 후처리를 진행한다.<br/>
 
-이때, 1편에도 언급했듯이 @Controller면 ModelAndView를 반환하고 @RestController면 객체를 반환한다.
+이때, 1편에도 언급했듯이 @Controller면 ModelAndView를 반환하고 @RestController면 null을 반환한다.
 따라서, @RestController의 경우 이후 View에 Model이 렌더링되는 과정은 생략하고 바로 그 다음 단계를 진행한다.<br/>
 
 다음으로, `processDispatchResult()` 메소드에서 `render()` 메소드를 호출한다. 해당 메소드의 반환 타입은 void이다.
@@ -209,6 +224,7 @@ handle() 메소드를 실행하면, DispatcherServlet 뒤에 있는 비즈니스
 마지막으로, View 객체의 `render()` 메소드를 호출하여 View에 Model 데이터를 렌더링한다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     ...
 
@@ -277,6 +293,7 @@ protected View resolveViewName(String viewName, @Nullable Map<String, Object> mo
     return null;
 }
 
+// View.java
 public interface View {
     void render(
         @Nullable Map<String, ?> model,
@@ -291,6 +308,7 @@ public interface View {
 해당 메소드는 View에 Model를 렌더링한 이후, 즉 가장 마지막에 실행된다.<br/>
 
 ```java
+// DispatcherServlet.java
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
     if (mappedHandler != null) {
         mappedHandler.triggerAfterCompletion(request, response, null);
@@ -320,8 +338,6 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 <p align="center">
     <img src="https://user-images.githubusercontent.com/50176238/125677429-6cf0f780-3e75-4f05-a525-ffec0e190569.png">
 </p>
-
-> 이미지 출처: 직접 키노트로 만듦<br/>
 
 <br/>
 
