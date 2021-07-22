@@ -57,6 +57,7 @@ interface PageTemplateProps {
         excerpt: string;
         tags: string[];
         author: Author[];
+        source: string;
       };
     };
     relatedPosts: {
@@ -99,6 +100,7 @@ export interface PageContext {
     draft?: boolean;
     tags: string[];
     author: Author[];
+    source: string;
   };
 }
 
@@ -232,6 +234,11 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                     fluid={post.frontmatter.image.childImageSharp.fluid}
                     alt={post.frontmatter.title}
                   />
+                  {post.frontmatter.source !== null && (
+                    <div style={{ color: 'darkgray'}}>
+                      (자료 출처 : {post.frontmatter.source})
+                    </div>
+                  )}
                 </PostFullImage>
               )}
               {!post.frontmatter.image?.childImageSharp && (
@@ -492,6 +499,7 @@ export const query = graphql`
             }
           }
         }
+        source
       }
     }
     relatedPosts: allMarkdownRemark(
