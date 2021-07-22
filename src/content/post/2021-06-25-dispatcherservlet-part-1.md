@@ -80,11 +80,13 @@ public class HelloServlet extends DispatcherServlet {
 
 > 이미지 출처: [15.2 The DispatcherServlet](https://docs.spring.io/spring-framework/docs/3.0.0.RC2/spring-framework-reference/html/ch15s02.html)<br/>
 
+<br/>
+
 좀 더 자세한 동작 흐름은 아래와 같다. 전체적으로 Spring MVC가 어떻게 흘러가는지 한눈에 보여준다.<br/>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/50176238/123378608-f3c64e80-d5c7-11eb-9c27-1a491aa74c56.png"></p>
 
-> 이미지 출처: [Overview of Spring MVC Architecture](https://terasolunaorg.github.io/guideline/5.0.1.RELEASE/en/Overview/SpringMVCOverview.html#overview-of-spring-mvc-processing-sequence))<br/>
+> 이미지 출처: [Overview of Spring MVC Architecture](https://terasolunaorg.github.io/guideline/5.0.1.RELEASE/en/Overview/SpringMVCOverview.html#overview-of-spring-mvc-processing-sequence)<br/>
 
 - ① DispatcherServlet으로 클라이언트의 `웹 요청(HttpServletRequest)`가 들어온다.
 - 웹 요청을 LocaleResolver, ThemeResolver, MultipartResolver 인터페이스 구현체에서 분석한다.
