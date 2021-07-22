@@ -64,10 +64,18 @@ Pub/Sub 모델을 기반으로 만들어진 기술은 Apache Kafka, Google Cloud
 
 ---
 
-### 정리
-지금까지 Message Oriented Middleware에 대해 알아봤다. 많은 메시지 전달 기술들은 메시지 큐 모델 방식과 Pub/Sub 방식을 모두 적용되어 있다. 이 메시지 큐와 Pub/Sub 모델의 개념이 어떻게 적용되고 사용되는지 공부하는 데 도움이 되었으면 한다.
+### 제안
+위에서 설명한 개념들을 코드로 구현해보고 싶은 독자들은, [RabbitMq Tutorial](https://www.rabbitmq.com/getstarted.html)를 도전해 보기 바란다.
 
-추가적으로 [RabbitMq Tutorial](https://www.rabbitmq.com/getstarted.html)를 도전해 보기 바란다.
+다양한 언어로 제공하고 있어, 각자 자신 있는 언어를 사용할 수 있다.
+
+튜토리얼 중 2.Work queues, 3.Publish/Subscribe 는 각각 메시지 큐 모델 Pub/Sub 모델이며 이를 실제로 구현해 보기를 바란다.
+
+---
+
+### 정리
+지금까지 Message Oriented Middleware에 대해 알아봤다. 많은 메시지 전달 기술들은 그 기반 기술이 다르더라도, 메시지 큐 모델 방식과 Pub/Sub 방식을 모두 사용할 수 있다. 이 메시지 큐와 Pub/Sub 모델의 개념이 어떻게 적용되고 사용되는지 공부하는 데 도움이 되었으면 한다.
+
 
 ### 참고 자료
 - [What is message queuing?](https://www.cloudamqp.com/blog/what-is-message-queuing.html)
