@@ -28,11 +28,8 @@ public ResponseEntity<String> createComment(@RequestBody CommentDto commentDto)
 
 > Annotation indicating a method parameter should be bound to the body of the web request. The body of the request is passed through an HttpMessageConverter to resolve the method argument depending on the content type of the request.<br><br>
 POST HTTP1.1 /requestbody<br>
-Body:
-{
-    "password": "1234",
-    "email": "kevin@naver.com"
-}
+Body:<br>
+{ "password": "1234", "email": "kevin@naver.com" }
 
 @RequestBody 애너테이션의 역할은 클라이언트가 보내는 HTTP 요청 본문(JSON 및 XML 등)을 Java 오브젝트로 **변환**하는 것입니다. HTTP 요청 본문 데이터는 Spring에서 제공하는 HttpMessageConverter를 통해 타입에 맞는 객체로 변환됩니다.
 
@@ -54,6 +51,9 @@ public class RequestBodyDto {
     private long age;
     private String password;
     private String email;
+
+    public RequestBodyDto() {
+    }
 
     public RequestBodyDto(String name, long age, String password, String email) {
         this.name = name;
