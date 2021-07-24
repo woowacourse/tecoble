@@ -6,6 +6,7 @@ tags: ['design-pattern']
 date: '2021-04-26T12:00:00.000Z'
 draft: false
 image: ../teaser/emotion.png
+source: https://view.genial.ly/5eb18d77e4d83e0d37f2aa38/presentation-emociones-en-adolescentes
 ---
 
 ## 🥰 😁 😐 😩 🤬 😴

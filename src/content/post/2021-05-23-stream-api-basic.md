@@ -6,6 +6,7 @@ tags: ['stream']
 date: '2021-05-23T12:00:00.000Z'
 draft: false
 image: ../teaser/stream-api.png
+source: https://morioh.com/p/6b859b7a83e6
 ---
 
 Java 의 Stream API 사용 방법을 알아보자. 우아한테크코스 프리코스 과정에서 Stream API 를 사용해서 코드를 맛깔나게 구현하는 분들을 보면 괜스레 해야 할 것 같고, 유용해 보여서 흥미가 생긴다. 처음 보는 Stream API 를 어디에 사용할 수 있는지, 어떻게 사용할 수 있는지에 대해 살펴보자.

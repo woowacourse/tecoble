@@ -6,6 +6,7 @@ tags: ['java', 'stack', 'deque']
 date: '2021-05-10T12:00:00.000Z'
 draft: false
 image: ../teaser/stack_vs_deque.jpg
+source: https://www.campingdelaplagebenodet.com/237-actualites/3019-fred-magic-spectacle-magie-loctudy.html
 ---
 
 ## 🤹‍♀️
