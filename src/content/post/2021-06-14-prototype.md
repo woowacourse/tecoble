@@ -2,7 +2,7 @@
 layout: post
 title: 'Prototype, 그리고 Class'
 author: [3기_카일]
-tags: ['prototype', 'OOP', 'class']
+tags: ['prototype', 'oop', 'class']
 date: '2021-06-14T12:00:00.000Z'
 draft: false
 image: ../teaser/prototype.png

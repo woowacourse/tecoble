@@ -1,9 +1,9 @@
 ---
-layout: post  
+layout: post
 title: DispatcherServlet - Part 1
 author: [3기_다니]
-tags: ['spring', 'spring mvc', 'dispatcherservlet']
-date: "2021-06-25T12:00:00.000Z"
+tags: ['spring', 'spring-mvc', 'dispatcherservlet']
+date: '2021-06-25T12:00:00.000Z'
 draft: false
 image: ../teaser/dispatcherservlet.png
 ---
@@ -18,7 +18,7 @@ DispatcherServlet은 표현 계층(Presentation layer) 전면에서 HTTP 프로�
 
 DispatcherServlet은 Spring MVC의 핵심 요소이다. 클라이언트로부터 어떤 요청이 들어오면 서블릿 컨테이너(ex. 톰캣)이 요청을 받는다. 이때 공통 작업은 DispatcherServlet에서 처리하고, 이외 작업은 적절한 세부 컨트롤러로 위임한다.<br/>
 
-DispatcherServlet도 <sup>*</sup>Servlet이다. DispatcherServlet 클래스 코드를 살펴보면 `HttpServlet`을 상속하고 있다. (정확히는 DispatcherServlet -> FrameworkServlet -> HttpServletBean -> HttpServlet 상속 구조를 갖고 있다.)<br/>
+DispatcherServlet도 <sup>\*</sup>Servlet이다. DispatcherServlet 클래스 코드를 살펴보면 `HttpServlet`을 상속하고 있다. (정확히는 DispatcherServlet -> FrameworkServlet -> HttpServletBean -> HttpServlet 상속 구조를 갖고 있다.)<br/>
 
 ```java
 public class DispatcherServlet extends FrameworkServlet {
@@ -30,9 +30,10 @@ public abstract class FrameworkServlet extends HttpServletBean {
 public abstract class HttpServletBean extends HttpServlet {
 }
 ```
+
 <br/>
 
-<sup>*</sup>Servlet이 무엇인지 궁금하다면, 테코블에 있는 아래 글을 참고해보자.<br/>
+<sup>\*</sup>Servlet이 무엇인지 궁금하다면, 테코블에 있는 아래 글을 참고해보자.<br/>
 
 > [Servlet 과 ServletContainer](https://woowacourse.github.io/tecoble/post/2021-05-23-servlet-servletcontainer/)<br/>
 
@@ -58,6 +59,7 @@ DispatcherServlet을 직접 구현하는 방법에는 2가지가 있다. 첫번�
 
 </web-app>
 ```
+
 <br/>
 
 두번째는 `DispatcherServlet`을 상속하는 것이다. 이때는 `@WebServlet` 어노테이션에 urlPatterns를 지정할 수 있다. @WebServlet 어노테이션을 사용하려면 무조건 `HttpServlet`을 상속해야 한다. 앞에서 말했듯이 DispatcherServlet은 HttpServlet을 상속하기 때문에 서블릿 클래스에서 DispatcherServlet을 상속해도 문제가 없다.<br/>
@@ -67,6 +69,7 @@ DispatcherServlet을 직접 구현하는 방법에는 2가지가 있다. 첫번�
 public class HelloServlet extends DispatcherServlet {
 }
 ```
+
 <br/>
 
 <br/>
@@ -108,6 +111,7 @@ public class HelloServlet extends DispatcherServlet {
 <br/>
 
 ## References
+
 - [[Spring]Dispatcher-Servlet이란?](https://mangkyu.tistory.com/18)
 - [15.2 The DispatcherServlet](https://docs.spring.io/spring-framework/docs/3.0.0.RC2/spring-framework-reference/html/ch15s02.html)
 - [Spring MVC 처리 과정](https://github.com/binghe819/TIL/blob/master/Spring/MVC/Spring%20MVC%20flow.md)

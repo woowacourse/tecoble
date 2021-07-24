@@ -1,9 +1,9 @@
 ---
-layout: post  
+layout: post
 title: DTO의 사용 범위에 대하여
 author: [3기_케빈]
-tags: ['java', 'dto', 'spring', 'mvc', 'layered architecture']
-date: "2021-04-25T12:00:00.000Z"
+tags: ['java', 'dto', 'spring', 'mvc', 'layered-architecture']
+date: '2021-04-25T12:00:00.000Z'
 draft: false
 image: ../teaser/dto-layered.png
 ---
@@ -51,12 +51,12 @@ public ResponseEntity<User> showArticle(@PathVariable long id) {
 
 이처럼 Controller가 클라이언트의 요청에 대한 응답으로 도메인 Model인 User를 넘겨주면 어떤 문제점이 있을까요?
 
-* 도메인 Model의 모든 속성이 외부에 노출됩니다.
-  * UI 화면마다 사용하는 Model의 정보는 상이하지만, Model 객체는 UI에서 사용하지 않을 불필요한 데이터까지 보유하고 있습니다.
-  * 비즈니스 로직 등 User의 민감한 정보가 외부에 노출되는 보안 문제와도 직결됩니다.
-* UI 계층에서 Model의 메서드를 호출하거나 상태를 변경시킬 위험이 존재합니다.
-* Model과 View가 강하게 결합되어, View의 요구사항 변화가 Model에 영향을 끼치기 쉽습니다.
-  * 또한 User Entity의 속성이 변경되면, View가 전달받을 JSON 및 프론트엔드 Js 코드에도 변경을 유발하기 때문에 상호간 강하게 결합됩니다.
+- 도메인 Model의 모든 속성이 외부에 노출됩니다.
+  - UI 화면마다 사용하는 Model의 정보는 상이하지만, Model 객체는 UI에서 사용하지 않을 불필요한 데이터까지 보유하고 있습니다.
+  - 비즈니스 로직 등 User의 민감한 정보가 외부에 노출되는 보안 문제와도 직결됩니다.
+- UI 계층에서 Model의 메서드를 호출하거나 상태를 변경시킬 위험이 존재합니다.
+- Model과 View가 강하게 결합되어, View의 요구사항 변화가 Model에 영향을 끼치기 쉽습니다.
+  - 또한 User Entity의 속성이 변경되면, View가 전달받을 JSON 및 프론트엔드 Js 코드에도 변경을 유발하기 때문에 상호간 강하게 결합됩니다.
 
 > UserDto.java
 
@@ -95,8 +95,8 @@ public ResponseEntity<UserDto> showArticle(@PathVariable long id) {
 
 Spring Framework로 웹 어플리케이션을 제작하는 도중, DTO의 사용 범위에 대해 의문이 생겼습니다.
 
-* Model 계층과 View 계층 사이에서의 DTO 사용은 알겠는데... 😔
-* Layered Architecture 상의 계층들에서는 DTO를 어떻게 사용해야 하지? 😳
+- Model 계층과 View 계층 사이에서의 DTO 사용은 알겠는데... 😔
+- Layered Architecture 상의 계층들에서는 DTO를 어떻게 사용해야 하지? 😳
 
 ### 2.1. Layered Architecture
 
@@ -134,8 +134,8 @@ public Article createArticle(Article article) {
 
 위 코드는 다음과 같은 로직을 가지고 있습니다.
 
-* View로부터 받아온 DTO를 Controller에서 Domain(Entity)으로 변환하고 Service 레이어에게 이를 전달하여 작업을 수행합니다.
-* Service 레이어는 Controller에게 Domain으 반환하고, Controller는 Domain을 DTO로 변환해 View에게 응답을 보냅니다.
+- View로부터 받아온 DTO를 Controller에서 Domain(Entity)으로 변환하고 Service 레이어에게 이를 전달하여 작업을 수행합니다.
+- Service 레이어는 Controller에게 Domain으 반환하고, Controller는 Domain을 DTO로 변환해 View에게 응답을 보냅니다.
 
 그런데 DTO를 학습하면서, **"꼭 DTO와 Domain간의 변환 위치가 Controller(표현 계층)여야 하는가?"** 라는 궁금증이 들었습니다.
 
@@ -184,9 +184,9 @@ ArticleResponseDto articleResponseDto = ArticleResponseDto.from(savedArticle);
 
 Service 레이어가 도메인 Model을 Controller로 반환하고, Controller가 Entity를 DTO로 변환하는 경우를 생각해봅시다. 이 때 예상되는 문제점은 무엇이 있을까요?
 
-* View에 반환할 필요가 없는 데이터까지 Domain 객체에 포함되어 Controller(표현 계층)까지 넘어옵니다.
-* Controller가 여러 Domain 객체들의 정보를 조합해서 DTO를 생성해야 하는 경우, 결국 Service(응용 계층) 로직이 Controller에 포함되게 됩니다.
-* 여러 Domain 객체들을 조회해야 하기 때문에 하나의 Controller가 의존하는 Service의 개수가 비대해집니다.
+- View에 반환할 필요가 없는 데이터까지 Domain 객체에 포함되어 Controller(표현 계층)까지 넘어옵니다.
+- Controller가 여러 Domain 객체들의 정보를 조합해서 DTO를 생성해야 하는 경우, 결국 Service(응용 계층) 로직이 Controller에 포함되게 됩니다.
+- 여러 Domain 객체들을 조회해야 하기 때문에 하나의 Controller가 의존하는 Service의 개수가 비대해집니다.
 
 하지만 Service 레이어가 DTO를 반환한다면 이러한 단점을 쉽게 상쇄할 수 있습니다.
 
@@ -233,13 +233,13 @@ Entity를 어느 계층까지 노출해야 하는가는 프로젝트의 규모�
 
 ## Reference
 
-* [A Better Way to Project Domain Entities into DTOs](https://buildplease.com/pages/repositories-dto/)
-* [Spring Entities should convert to Dto in service?](https://stackoverflow.com/questions/34084203/spring-entities-should-convert-to-dto-in-service)
-* [DTO, Domain Object, Converter](https://github.com/HomoEfficio/dev-tips/blob/master/DTO-DomainObject-Converter.md)
-* [Entity To DTO Conversion for a Spring REST API](https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application)
-* [DTO는 어느 레이어까지 사용하는 것이 맞을까?](https://www.slipp.net/questions/93)
-* [Should services always return DTOs, or can they also return domain models?](https://stackoverflow.com/questions/21554977/should-services-always-return-dtos-or-can-they-also-return-domain-models)
-* [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html)
-* [Popular 3 Layer Architecture every developer must know](https://techdora.com/3-layer-architecture-every-developer-must-know/)
-* [모델-뷰-컨트롤러](https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%8D%B8-%EB%B7%B0-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC)
-* [Spring Layered Architecture](https://yoonho-devlog.tistory.com/25)
+- [A Better Way to Project Domain Entities into DTOs](https://buildplease.com/pages/repositories-dto/)
+- [Spring Entities should convert to Dto in service?](https://stackoverflow.com/questions/34084203/spring-entities-should-convert-to-dto-in-service)
+- [DTO, Domain Object, Converter](https://github.com/HomoEfficio/dev-tips/blob/master/DTO-DomainObject-Converter.md)
+- [Entity To DTO Conversion for a Spring REST API](https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application)
+- [DTO는 어느 레이어까지 사용하는 것이 맞을까?](https://www.slipp.net/questions/93)
+- [Should services always return DTOs, or can they also return domain models?](https://stackoverflow.com/questions/21554977/should-services-always-return-dtos-or-can-they-also-return-domain-models)
+- [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html)
+- [Popular 3 Layer Architecture every developer must know](https://techdora.com/3-layer-architecture-every-developer-must-know/)
+- [모델-뷰-컨트롤러](https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%8D%B8-%EB%B7%B0-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC)
+- [Spring Layered Architecture](https://yoonho-devlog.tistory.com/25)

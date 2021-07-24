@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "JPA 사용시 테스트 코드에서 @Transactional 주의하기"
+title: 'JPA 사용시 테스트 코드에서 @Transactional 주의하기'
 author: [2기_비밥]
-tags: ["JPA", "transaction", "test"]
-date: "2020-08-31T12:00:00.000Z"
+tags: ['jpa', 'transaction', 'test']
+date: '2020-08-31T12:00:00.000Z'
 draft: false
 image: ../teaser/jpa.png
 ---
@@ -188,7 +188,7 @@ Lazy loading 하도록 Entity를 가져오던 쿼리를 fetch join으로 바꿔�
 
 지금까지 서비스 레이어에 대한 테스트 코드에서 `@Transactional` 을 사용하지 말라는 식으로 이야기를 했는데 스프링에서 제공하는 `@DataJpaTest` 애너테이션은 `@Transactional` 을 제공하고 있는 모습을 보인다.
 
-`@DataJpaTest` 애너테이션은 서비스 레이어를 위한 테스트 애너테이션이 아니다. 단순히 JPA 구성요소들을 위한 테스트이다.  
+`@DataJpaTest` 애너테이션은 서비스 레이어를 위한 테스트 애너테이션이 아니다. 단순히 JPA 구성요소들을 위한 테스트이다.
 
 > [Spring @DataJpaTest docs](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/orm/jpa/DataJpaTest.html)
 >

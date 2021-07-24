@@ -1,9 +1,9 @@
 ---
-layout: post  
-title: "상속보다는 조합(Composition)을 사용하자."  
+layout: post
+title: '상속보다는 조합(Composition)을 사용하자.'
 author: [2기_둔덩]
-tags: ["OOP", "composition", "inheritance", "clean-code"]
-date: "2020-05-18T12:00:00.000Z"
+tags: ['oop', 'composition', 'inheritance', 'clean-code']
+date: '2020-05-18T12:00:00.000Z'
 draft: false
 image: ../teaser/composition.png
 ---
@@ -49,12 +49,12 @@ public class Lotto {
 `Lotto`클래스는 로또 번호를 `List<Integer>`로 가지고있다.
 
 다음으로 `Lotto` 클래스를 상속하는 `WinningLotto` 클래스를 보자.  
-`WinningLotto` 클래스는 당첨 로또번호를 가지고 있는 클래스이다.  
+`WinningLotto` 클래스는 당첨 로또번호를 가지고 있는 클래스이다.
 
 ```java
 public class WinningLotto extends Lotto {
     private final BonusBall bonusBall;
-    
+
     public WinningLotto(List<Integer> lottoNumbers, BonusBall bonusBall) {
         super(lottoNumbers);
         this.bonusBall = bonusBall;
@@ -101,7 +101,7 @@ public class WinningLotto extends Lotto {
         super(lottoNumbers);
         this.bonusBall = bonusBall;
     }
-	
+
     // 오류가 발생한다.
     public long compare(Lotto lotto) {
         return lottoNumbers.stream()
@@ -116,7 +116,7 @@ public class WinningLotto extends Lotto {
 
 또, 상위 클래스 메서드 이름과 매개변수의 변화는 하위 클래스 전체의 변경을 야기하기도한다.
 
-이처럼 상속은 하위 클래스가 상위 클래스에 강하게 의존, 결합하기 때문에 변화에 유연하게 대처하기 어려워진다.  
+이처럼 상속은 하위 클래스가 상위 클래스에 강하게 의존, 결합하기 때문에 변화에 유연하게 대처하기 어려워진다.
 
 상속구조가 깊으면 깊을수록 그 문제점은 더욱 심화한다.
 
@@ -202,4 +202,4 @@ public class 포유류 extends 동물 {
 
 ### 참고자료
 
--   [Effective Java 3/e](http://www.yes24.com/Product/Goods/65551284) item 18 - 상속보다는 컴포지션을 사용하라.
+- [Effective Java 3/e](http://www.yes24.com/Product/Goods/65551284) item 18 - 상속보다는 컴포지션을 사용하라.

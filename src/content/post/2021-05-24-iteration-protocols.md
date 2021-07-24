@@ -2,7 +2,7 @@
 layout: post
 title: 'Iteration Protocol'
 author: [3기_카일]
-tags: ['iteration protocols', 'iterable', 'iterator']
+tags: ['iteration-protocols', 'iterable', 'iterator']
 date: '2021-05-24T12:00:00.000Z'
 draft: false
 image: ../teaser/iteration.jpeg

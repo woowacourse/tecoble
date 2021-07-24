@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "사용성을 고려해 객체를 설계하자"
+title: '사용성을 고려해 객체를 설계하자'
 author: [2기_스티치, 2기_라테]
-tags: ["OOP", "interface", "functional-programming", "enum"]
-date: "2020-08-18T12:00:00.000Z"
+tags: ['oop', 'interface', 'functional-programming', 'enum']
+date: '2020-08-18T12:00:00.000Z'
 draft: false
 image: ../teaser/oop.jpeg
 ---
@@ -128,7 +128,7 @@ public enum EdgeWeightType implements EdgeWeightStrategy {
 
 1.  사용자가 interface를 사용할 수 있도록 유지하면서 enum이 전략의 구현체가 된다면, 사용자 입장에서 EdgeWeightType 내부 구현은 신경쓰지 않아도 된다. 또한 기존 EdgeWeightType은 enum으로서 구현한 전략 객체의 유일성을 보장할 수 있게 된다.
 
-2. EdgeWeightType과 함께 EdgeWeightStrategy를 구현한 새로운 class, enum을 이용할 수 있어 코드의 유연성을 확보할 수 있다. 이는 테스트 시에도 EdgeWeightType과는 무관하게 테스트를 위한 구현체를 만들어 원할히 테스트를 할 수 있다는 점과도 연결이 된다.
+2.  EdgeWeightType과 함께 EdgeWeightStrategy를 구현한 새로운 class, enum을 이용할 수 있어 코드의 유연성을 확보할 수 있다. 이는 테스트 시에도 EdgeWeightType과는 무관하게 테스트를 위한 구현체를 만들어 원할히 테스트를 할 수 있다는 점과도 연결이 된다.
 
 ## 위임을 통한 응집력 높히기
 
