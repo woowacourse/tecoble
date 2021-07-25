@@ -16,11 +16,11 @@ interface AuthorListItemProps {
   author: Author;
 }
 
-export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
+export const AuthorListItem = ({ tooltip, author }: AuthorListItemProps) => {
   const [hovered, setHover] = useState(false);
   let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
-    if (props.tooltip !== 'large') {
+    if (tooltip !== 'large') {
       return;
     }
 
@@ -39,41 +39,36 @@ export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
       onMouseEnter={() => handleMouseEnter()}
       onMouseLeave={() => handleMouseLeave()}
     >
-      {props.tooltip === 'small' && (
-        <AuthorNameTooltip className="author-name-tooltip">{props.author.id}</AuthorNameTooltip>
+      {tooltip === 'small' && (
+        <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
       )}
-      {props.tooltip === 'large' && (
+      {tooltip === 'large' && (
         <div css={[AuthorCardStyles, hovered && Hovered]} className="author-card">
-          {props.author.avatar.children.length && (
+          {author.avatar.children.length && (
             <Img
               css={AuthorProfileImage}
               className="author-profile-image"
-              fluid={props.author.avatar.children[0].fluid}
+              fluid={author.avatar.children[0].fluid}
               fadeIn={false}
             />
           )}
           <div className="author-info">
             <div className="bio">
-              <h2>{props.author.id}</h2>
-              <p>{props.author.bio}</p>
+              <h2>{author.id}</h2>
+              <p>{author.bio}</p>
               <p>
-                <Link to={`/author/${_.kebabCase(props.author.id)}/`}>More posts</Link> by{' '}
-                {props.author.id}.
+                <Link to={`/author/${_.kebabCase(author.id)}/`}>More posts</Link> by {author.id}.
               </p>
             </div>
           </div>
         </div>
       )}
-      <Link
-        css={AuthorAvatar}
-        className="author-avatar"
-        to={`/author/${_.kebabCase(props.author.id)}/`}
-      >
+      <Link css={AuthorAvatar} className="author-avatar" to={`/author/${_.kebabCase(author.id)}/`}>
         <Img
           css={AuthorProfileImage}
           className="author-profile-image"
-          fluid={props.author.avatar.children[0].fluid}
-          alt={props.author.id}
+          fluid={author.avatar.children[0].fluid}
+          alt={author.id}
           fadeIn={false}
         />
       </Link>

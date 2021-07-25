@@ -6,7 +6,7 @@ export interface IUtterancesProps {
   repo: string;
 }
 
-const Utterances: React.FC<IUtterancesProps> = React.memo(({ repo }) => {
+const Utterances = React.memo(({ repo }: IUtterancesProps) => {
   const containerRef = createRef<HTMLDivElement>();
 
   useLayoutEffect(() => {
@@ -27,7 +27,7 @@ const Utterances: React.FC<IUtterancesProps> = React.memo(({ repo }) => {
 
     // @ts-expect-error
     containerRef.current.appendChild(utterances);
-  }, [repo]);
+  }, [repo, containerRef]);
 
   return <div ref={containerRef} />;
 });

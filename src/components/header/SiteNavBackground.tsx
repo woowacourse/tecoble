@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { FixedObject } from 'gatsby-image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { outer, SiteHeader, SiteHeaderStyles } from '../../styles/shared';
 
 interface SiteNavBackgroundProps {
-  children: ReactNode;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 interface SiteNavBackgroundQuery {
@@ -20,7 +20,7 @@ interface SiteNavBackgroundQuery {
   };
 }
 
-const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
+const SiteNavBackground = ({ children }: SiteNavBackgroundProps) => {
   const IMAGE_REMAINING_DURATION = 4000;
   const {
     allImage: { edges },

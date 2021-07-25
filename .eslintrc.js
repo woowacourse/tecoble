@@ -6,6 +6,11 @@ module.exports = {
     browser: true,
   },
   extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript'],
+  parserOptions: {
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+  },
   rules: {
     'object-curly-spacing': ['error', 'always'],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
@@ -15,7 +20,7 @@ module.exports = {
     'react/jsx-tag-spacing': 'off',
     'react/prop-types': 'off',
     'no-warning-comments': 'off',
-    'complexity': 'off',
+    complexity: 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',

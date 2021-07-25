@@ -21,6 +21,7 @@ import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 import { AuthorList } from '../components/AuthorList';
 import Utterances from './Utterances';
+import defaultImage from '../content/img/tecoble-background.png';
 
 export interface Author {
   id: string;
@@ -117,8 +118,6 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
-  const defaultImage = require('../content/img/tecoble-background.png');
-
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -134,7 +133,9 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         {post.frontmatter.image?.childImageSharp && (
           <meta
             property="og:image"
-            content={config.siteUrl.split('/tecoble')[0] + post.frontmatter.image.childImageSharp.fluid.src}
+            content={`${config.siteUrl.split('/tecoble')[0]}${
+              post.frontmatter.image.childImageSharp.fluid.src
+            }`}
           />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
@@ -149,7 +150,10 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl.split('/tecoble')[0] + location.pathname} />
+        <meta
+          name="twitter:url"
+          content={config.siteUrl.split('/tecoble')[0] + location.pathname}
+        />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             name="twitter:image"
@@ -190,9 +194,9 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags.map((tag, index) => (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      {index !== 0 ? ', ' : ''}
-                      {'#'+tag}
+                    <Link key={tag} to={`/tags/${_.kebabCase(tag)}/`}>
+                      {index === 0 ? '' : ', '}
+                      {'#' + tag}
                     </Link>
                   ))}
                 </PostFullTags>
@@ -207,7 +211,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                       <h4 className="author-name">
                         {post.frontmatter.author.map((author, index) => (
                           <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
-                            {index !== 0 ? ', ' : ''}
+                            {index === 0 ? '' : ', '}
                             {author.id}
                           </Link>
                         ))}
@@ -249,7 +253,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
-          <Utterances repo={'woowacourse/tecoble-comments'} />
+          <Utterances repo="woowacourse/tecoble-comments" />
         </main>
 
         <ReadNext
@@ -320,7 +324,7 @@ export const PostFullHeader = styled.header`
 const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};

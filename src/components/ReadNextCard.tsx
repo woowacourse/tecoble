@@ -27,21 +27,22 @@ export interface ReadNextProps {
   };
 }
 
-export const ReadNextCard: React.FC<ReadNextProps> = props => {
+export const ReadNextCard = ({ tags, currentPageSlug, relatedPosts }: ReadNextProps) => {
   // filter out current post and limit to 3 related posts
-  const relatedPosts = props.relatedPosts.edges.filter(post => post.node.fields.slug !== props.currentPageSlug).slice(0, 3);
+  const edges = relatedPosts.edges
+    .filter(post => post.node.fields.slug !== currentPageSlug)
+    .slice(0, 3);
 
   return (
     <ReadNextCardArticle className="read-next-card">
       <header className="read-next-card-header">
         <ReadNextCardHeaderTitle>
-          <span>More in</span>{' '}
-          <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>{props.tags[0]}</Link>
+          <span>More in</span> <Link to={`/tags/${_.kebabCase(tags[0])}/`}>{tags[0]}</Link>
         </ReadNextCardHeaderTitle>
       </header>
       <ReadNextCardContent className="read-next-card-content">
         <ul>
-          {relatedPosts.map(n => {
+          {edges.map(n => {
             const date = new Date(n.node.frontmatter.date);
             // 2018-08-20
             const datetime = format(date, 'yyyy-MM-dd');
@@ -64,10 +65,10 @@ export const ReadNextCard: React.FC<ReadNextProps> = props => {
         </ul>
       </ReadNextCardContent>
       <ReadNextCardFooter className="read-next-card-footer">
-        <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>
-          {props.relatedPosts.totalCount > 1 && `See all ${props.relatedPosts.totalCount} posts`}
-          {props.relatedPosts.totalCount === 1 && '1 post'}
-          {props.relatedPosts.totalCount === 0 && 'No posts'} →
+        <Link to={`/tags/${_.kebabCase(tags[0])}/`}>
+          {relatedPosts.totalCount > 1 && `See all ${relatedPosts.totalCount} posts`}
+          {relatedPosts.totalCount === 1 && '1 post'}
+          {relatedPosts.totalCount === 0 && 'No posts'} →
         </Link>
       </ReadNextCardFooter>
     </ReadNextCardArticle>

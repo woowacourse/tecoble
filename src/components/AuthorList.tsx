@@ -10,10 +10,10 @@ interface AuthorListProps {
   authors: Author[];
 }
 
-export const AuthorList: React.FC<AuthorListProps> = props => (
+export const AuthorList = ({ authors, tooltip }: AuthorListProps) => (
   <AuthorListUl className="author-list">
-    {props.authors.map(author => (
-      <AuthorListItem key={author.id} author={author} tooltip={props.tooltip} />
+    {authors.map(author => (
+      <AuthorListItem key={author.id} author={author} tooltip={tooltip} />
     ))}
   </AuthorListUl>
 );

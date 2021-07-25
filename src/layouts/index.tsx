@@ -10,11 +10,12 @@ import { colors } from '../styles/colors';
 
 interface IndexProps {
   className?: string;
+  children: React.ReactElement | React.ReactElement[];
 }
 
-const IndexLayout: React.FC<IndexProps> = props => {
+const IndexLayout = ({ className, children }: IndexProps) => {
   return (
-    <div className={props.className}>
+    <div className={className}>
       <Helmet>
         <link rel="icon" href={favicon} type="image/x-icon" />
       </Helmet>
@@ -494,7 +495,7 @@ const IndexLayout: React.FC<IndexProps> = props => {
           }
         `}
       />
-      {props.children}
+      {children}
     </div>
   );
 };

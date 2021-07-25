@@ -7,7 +7,7 @@ module.exports = {
     description: 'woowacourse code review & devlog',
     siteUrl: 'https://woowacourse.github.io/tecoble/', // full path to blog - no ending slash
   },
-  pathPrefix: "/tecoble",
+  pathPrefix: '/tecoble',
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
@@ -30,7 +30,7 @@ module.exports = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        "excerpt_separator": `<!-- end -->`,
+        excerpt_separator: '<!-- end -->',
         plugins: [
           {
             resolve: 'gatsby-remark-responsive-iframe',
