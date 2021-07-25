@@ -67,7 +67,7 @@ public class RestTemplateTestClass {
 
 RestTemplate을 사용하기 위해서는 `restTemplate.메소드명()` 을 사용하면 된다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4839ee0a-b966-4d0b-acf5-cf13d9cba95f/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4839ee0a-b966-4d0b-acf5-cf13d9cba95f/Untitled.png)
+![image](https://user-images.githubusercontent.com/63634505/126900492-9e508e47-6872-4de1-a463-25cbbd95dc46.png)
 
 ## WebClient
 
