@@ -85,7 +85,7 @@ WebClient를 사용하기 위해서는 RestTemplate와 달리 의존성을 추�
 
 ```java
 // webflux
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+implementation 'org.springframework.boot:spring-boot-starter-webflux'
 ```
 
 ### WebClient 생성
@@ -142,8 +142,10 @@ RestTemplate과 WebClient의 가장 큰 차이점은 Non-Blocking과 비동기�
 
 ![image](https://user-images.githubusercontent.com/63634505/126900349-905377fe-27ac-4d7a-8b9a-371fb22aee74.png)
 
-> Non-Blocking ?
-시스템을 호출한 직후에 프로그램으로 제어가 다시 돌아와서 시스템 호출의 종료를 기다리지 않고 다음 동작을 진행한다. 호출한 시스템의 동작을 기다리지 않고 동시에 다른 작업을 진행할 수 있어서 작업의 속도가 빨라진다는 장점이 있다.
+> Non-Blocking?
+>
+>  시스템을 호출한 직후에 프로그램으로 제어가 다시 돌아와서 시스템 호출의 종료를 기다리지 않고 다음 동작을 진행한다. 호출한 시스템의 동작을 기다리지 않고 동시에 다른 작업을 진행할 수 있어서 작업의 속도가 빨라진다는 장점이 있다.
+
 
 ### 성능비교
 
