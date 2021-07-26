@@ -5,7 +5,7 @@ author: [3기_와이비]
 tags: ['jvm']  
 date: "2021-07-26T12:00:00.000Z"  
 draft: false  
-image: ../teaser/jvm-classloader.jpg  
+image: ../teaser/jvm-classloader.png
 ---
 
 _Java_ 로 작성한 코드는 어떻게 돌아가는 걸까? 해당 물음에 답을 찾기 위한 _JVM_ 시리즈 2편, _JVM_ 의 구성 요소 중 _Class Loader_ 에 관한 글입니다. 
@@ -20,7 +20,7 @@ _Java Compiler_ 를 통해서 _.class_ 확장자를 가진 클래스 파일은 �
 또한, 기본적인 라이브러리의 클래스 파일들은 _$JAVA_HOME_ 내부 경로에 존재합니다. 각각의 클래스 파일들을 찾아서 _JVM_ 의 메모리에 탑재해주는 역할을 하는 것이 바로 _Class Loader_ 의 역할입니다.
 
 ## _Class Loader_ 의 전체적인 역할
-앞서 보았듯이 _Class Loader_ 는 클래스 파일을 찾아서 탑재하는 것뿐만이 아니라 다른 일들도 같이하게 됩니다. _Class Loader_는 크게 _Loading_, _Linking_, 그리고 _Initialization_ 3가지 역할을 맡게 됩니다.
+앞서 보았듯이 _Class Loader_ 는 클래스 파일을 찾아서 탑재하는 것뿐만이 아니라 다른 일들도 같이하게 됩니다. _Class Loader_ 는 크게 _Loading_, _Linking_, 그리고 _Initialization_ 3가지 역할을 맡게 됩니다.
 
 ### _Loading_
 
@@ -61,7 +61,7 @@ java -verbose:class Main
 ```
 
 ### _Bootstrap Class Loader_
-_Bootstrap Class Loader_ 는 다른 모든 _Class Loader_ 의 부모가 되는 _Class Loader_ 입니다. _rt.jar_ 를 포함하여, _JVM_ 을 구동시키기 위한 가장 필수적인 라이브러리의 클래스들을 _JVM_에 탑재하게 됩니다.
+_Bootstrap Class Loader_ 는 다른 모든 _Class Loader_ 의 부모가 되는 _Class Loader_ 입니다. _rt.jar_ 를 포함하여, _JVM_ 을 구동시키기 위한 가장 필수적인 라이브러리의 클래스들을 _JVM_ 에 탑재하게 됩니다.
 가장 상위의 _Class Loader_ 이므로 다른 _Class Loader_ 와는 다르게 탑재되는 운영체제에 맞게 네이티브 코드로 쓰여있습니다.  
 다음은 담당 클래스 파일들을 탑재하는 내용입니다. _Java_ 실행 초기에 작동이 됩니다.
 ```bash
@@ -155,7 +155,7 @@ _Linking_ 은 로드된 클래스 파일들을 검증하고, 사용할 수 있�
 이 때문에 _JVM_ 에 탑재된 클래스 파일의 코드를 작동시키지는 않습니다.
 
 #### _Resolution_
-_Symbolic Reference_ 값을 _JVM_의 메모리 구성 요소인 _Method Area_의 런타임 환경 풀을 통하여 _Direct Refernece_ 라는 메모리 주소 값으로 바꾸어줍니다. 
+_Symbolic Reference_ 값을 _JVM_ 의 메모리 구성 요소인 _Method Area_ 의 런타임 환경 풀을 통하여 _Direct Refernece_ 라는 메모리 주소 값으로 바꾸어줍니다. 
 해당 단계의 영향을 받는 _JVM Instruction_ 요소는 _new_ 및 _instanceof_ 가 있습니다.
 
 ### _Initialization_
@@ -178,8 +178,8 @@ _Class Loader_ 를 통한 클래스 탑재 과정이 끝나면 본격적으로 _
 
 ## Reference
 
-[GeekforGeek ClassLoader in Java](https://www.geeksforgeeks.org/classloader-in-java/)
-[baeldung Java Class Loader](https://www.baeldung.com/java-classloaders)
-[Oracle Java docs URLClassLoader](https://docs.oracle.com/javase/8/docs/api/java/net/URLClassLoader.html)
-[Java Community Process JVM ClassLoader](https://jcp.org)
+[GeekforGeek ClassLoader in Java](https://www.geeksforgeeks.org/classloader-in-java/)  
+[baeldung Java Class Loader](https://www.baeldung.com/java-classloaders)  
+[Oracle Java docs URLClassLoader](https://docs.oracle.com/javase/8/docs/api/java/net/URLClassLoader.html)  
+[Java Community Process JVM ClassLoader](https://jcp.org)  
 [sun/misc/Launcher source code](http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/misc/Launcher.java)
