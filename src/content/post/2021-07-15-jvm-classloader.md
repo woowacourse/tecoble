@@ -60,7 +60,7 @@ public class UserClass {
 java -verbose:class Main
 ```
 
-### _Bootstrap Class Loader_
+#### _Bootstrap Class Loader_
 _Bootstrap Class Loader_ 는 다른 모든 _Class Loader_ 의 부모가 되는 _Class Loader_ 입니다. _rt.jar_ 를 포함하여, _JVM_ 을 구동시키기 위한 가장 필수적인 라이브러리의 클래스들을 _JVM_ 에 탑재하게 됩니다.
 가장 상위의 _Class Loader_ 이므로 다른 _Class Loader_ 와는 다르게 탑재되는 운영체제에 맞게 네이티브 코드로 쓰여있습니다.  
 다음은 담당 클래스 파일들을 탑재하는 내용입니다. _Java_ 실행 초기에 작동이 됩니다.
@@ -75,7 +75,7 @@ _Bootstrap Class Loader_ 는 다른 모든 _Class Loader_ 의 부모가 되는 _
 _BootStrap Class Loader_ 다음으로 우선순위를 가지는 _Class Loader_ 입니다. _localedata_, _zipfs_ 등 다른 표준 핵심 _Java Class_ 의 라이브러리들을 _JVM_ 에 탑재하는 역할을 하고 있습니다. 
 이들은 _$JAVA_HOME/jre/lib/ext_ 에 있습니다.
 
-#### Application Class Loader
+#### _Application Class Loader_
 _System Class Loader_ 라고도 합니다. _Classpath_ 에 있는 클래스들을 탑재합니다. 개발자들이 자바 코드로 짠 클래스 파일들을 _JVM_ 에 탑재하는 역할을 하고 있습니다.
 만약 개발자가 _Class Loader_ 를 구현하여 사용하게 되면, 기본적으로 위의 _Application Class Loader_ 의 자식 형태로 사용자 정의된 _Class Loader_ 를 구성하게 됩니다.
 다음은 담당 클래스 파일들을 탑재하는 내용입니다.
