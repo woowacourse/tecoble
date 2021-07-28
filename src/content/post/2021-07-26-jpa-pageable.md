@@ -310,9 +310,10 @@ Fetch Join 없이 Pagination API를 사용해보았습니다. 페이징(LIMIT)�
 
 @BatchSize 혹은 ``spring.jpa.properties.hibernate.default_batch_fetch_size`` 옵션을 적용하면
 
-1. X 타입의 엔티티가 ToMany 관계의 지연 로딩 컬렉션을 조회할 때
+1. X 타입 엔티티가 지연 로딩된 ToMany 관계의 Y 타입 컬렉션을 최초 조회할 때
 2. 이미 조회한 X 타입 엔티티(즉, 영속성 컨텍스트에서 관리되고 있는 엔티티)들의 ID들을 모아서
-3. SQL IN 구문의 조회 쿼리를 날립니다.
+3. ``WHERE Y.X_ID IN (?, ?, ?...)`` 와 같은 SQL IN 구문에 담아 Y 타입 데이터 조회 쿼리를 날립니다.
+4. X 타입 엔티티들이 필요로 하는 모든 Y 타입 데이터를 한 번에 조회합니다.
 
 여기서 Batch Size 옵션에 할당되는 숫자는 **IN 구문에 넣을 부모 엔티티 Key(ID)의 최대 개수**를 의미합니다.
 
