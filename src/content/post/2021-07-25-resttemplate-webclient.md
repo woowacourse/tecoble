@@ -9,13 +9,13 @@ image: ../teaser/resttemplate.png
 ---
 이 글은 자바에서 HTTP 요청을 써봤거나 써보려고 하는 독자를 대상을 작성하였습니다.
 
-스프링 어플리케이션에서 HTTP 요청할 때 사용하는 방법으로 RestTemplate과 WebClient가 있다. 스프링 5.0 이전까지는 클라이언트에서 HTTP 접근을 위해 사용한 것은 RestTemplate 이었다. 스프링 5.0 에서 WebClinet가 나왔고 현재는 WebClient를 사용하기를 권고하고있다. 이번 팀 프로젝트를 진행하면서 RestTemplate을 도입하였었다. 하지만 RestTemplate이 deprecated 될 가능성이 있다는 얘기를 들었고 새로 시작하는 프로젝트에서는 WebClient를 쓰는 것이 좋겠다는 의견이 있어 WebClient를 적용해보게 되었다. 그럼 RestTemplate과 WebClient는 어떤 특징이 있으며 왜 WebClient를 사용하길 권고 하는지 알아보도록 하자.
+스프링 어플리케이션에서 HTTP 요청할 때 사용하는 방법으로 RestTemplate과 WebClient가 있다. 스프링 5.0 이전까지는 클라이언트에서 HTTP 접근을 위해 사용한 것은 RestTemplate 이었다. 스프링 5.0 에서 WebClient가 나왔고 현재는 WebClient를 사용하기를 권고하고 있다. 이번 팀 프로젝트를 진행하면서 RestTemplate을 도입하였었다. 하지만 RestTemplate이 deprecated 될 가능성이 있다는 얘기를 들었고 새로 시작하는 프로젝트에서는 WebClient를 쓰는 것이 좋겠다는 의견이 있어 WebClient를 적용해보게 되었다. 그럼 RestTemplate과 WebClient는 어떤 특징이 있으며 왜 WebClient를 사용하길 권고하는지 알아보도록 하자.
 
 ## RestTemplate
 
 ### RestTemplate 이란?
 
-RestTemplate은 스프링에서 제공하는 템플릿이다. 스프링 3.0에서부터 지원하는 RestTemplate은 HTTP 통신에 유용하게 쓸 수 있다. REST 서비스를 호출하도록 설계되어 HTTP 프로토콜의 메서드 (GET, POST, DELETE, PUT)에 맞게 여러 메서드를 제공한다. RestTemplate은 다음과 같은 특징이 있다
+스프링 3.0에서부터 지원하는 RestTemplate은 HTTP 통신에 유용하게 쓸 수 있는 템플릿이다. REST 서비스를 호출하도록 설계되어 HTTP 프로토콜의 메서드 (GET, POST, DELETE, PUT)에 맞게 여러 메서드를 제공한다. RestTemplate은 다음과 같은 특징이 있다
 
 **RestTemplate 특징**
 
@@ -73,7 +73,7 @@ RestTemplate을 사용하기 위해서는 `restTemplate.메소드명()` 을 사�
 
 ### WebClient 란?
 
-WebCleint는 스프링 5에서 추가된 인터페이스다. 스프링 5 이전에는 비동기 클라이언트로 AsyncRestTemplate을 사용했었다. 하지만 스프링 5 이후 부터는 WebClient를 사용하는 것을 권장한다. WebClient는 다음과 같은 특징이 있다.
+WebCleint는 스프링 5.0에서 추가된 인터페이스다. 스프링 5.0 이전에는 비동기 클라이언트로 AsyncRestTemplate을 사용했었다. 하지만 스프링 5.0 이후부터는 WebClient를 사용할 것을 권장한다. WebClient는 다음과 같은 특징이 있다.
 
 - 싱글 스레드 방식을 사용
 - Non-Blocking 방식을 사용
