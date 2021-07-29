@@ -14,7 +14,7 @@ image: ../teaser/nplusone.jpeg
 
 ![image](https://user-images.githubusercontent.com/56240505/126959267-f01b6829-19bf-4662-829b-651049cc55c2.png)
 
-반면 위 사진처럼 한 페이지에서는 N개의 데이터만 보여주고, 다음 페이지로 이동하라는 클라이언트의 추가 요청이 있을 때 마다 다음 순번의 N개의 데이터를 보여준다면 UX 및 리소스 측면의 단점을 상쇄할 수 있습니다.
+반면 위 사진처럼 한 페이지에서는 N개의 데이터만 보여주고, 다음 페이지로 이동하라는 클라이언트의 추가 요청이 있을 때 마다 다음 순번의 N개의 데이터를 보여준다면 UX 및 리소스 측면의 단점을 보완할 수 있습니다.
 
 이 처럼 한 화면에 보여주는 데이터의 범위를 결정하는 일련의 방식을 페이지네이션 혹은 페이징이라고 합니다.
 
@@ -93,6 +93,8 @@ Hibernate:
 <br>
 
 ## 3. N + 1과 Fetch Join
+
+N + 1 문제란 쿼리 1번으로 N건의 엔티티를 가져왔는데, 글로벌 지연 로딩 전략으로 인해 관련 컬럼을 얻기 위해 쿼리를 N번 추가로 수행하는 현상을 의미합니다. 페이징으로 조회한 N개의 Post 엔티티를 순회하며 Comment를 조회해봅시다.
 
 > Post.java
 
@@ -259,7 +261,7 @@ Hibernate:
 
 ## 4. 해결 방안
 
-Pagination API를 사용할 때 ToOne 관계의 엔티티는 Fetch Join해도 괜찮지만, ToMany 관계의 엔티티에 대해서는 다른 접근이 필요합니다.
+Pagination API를 사용할 때 ``~ToOne`` 관계의 엔티티는 Fetch Join해도 괜찮지만, ``~ToMany`` 관계의 엔티티에 대해서는 다른 접근이 필요합니다.
 
 > application.properties
 
@@ -310,7 +312,7 @@ Fetch Join 없이 Pagination API를 사용해보았습니다. 페이징(LIMIT)�
 
 @BatchSize 혹은 ``spring.jpa.properties.hibernate.default_batch_fetch_size`` 옵션을 적용하면
 
-1. X 타입 엔티티가 지연 로딩된 ToMany 관계의 Y 타입 컬렉션을 최초 조회할 때
+1. X 타입 엔티티가 지연 로딩된 ``~ToMany`` 관계의 Y 타입 컬렉션을 최초 조회할 때
 2. 이미 조회한 X 타입 엔티티(즉, 영속성 컨텍스트에서 관리되고 있는 엔티티)들의 ID들을 모아서
 3. ``WHERE Y.X_ID IN (?, ?, ?...)`` 와 같은 SQL IN 구문에 담아 Y 타입 데이터 조회 쿼리를 날립니다.
 4. X 타입 엔티티들이 필요로 하는 모든 Y 타입 데이터를 한 번에 조회합니다.
@@ -347,5 +349,6 @@ Batch Size 옵션은 상술한 ``Pagination + Fetch Join 문제``뿐만 아니�
 * [MultipleBagFetchException 발생시 해결 방법](https://jojoldu.tistory.com/457)
 * [fetch join 시 paging 문제](https://www.inflearn.com/questions/14663)
 * [fetch join 과 pagination 을 같이 쓸 때 [HHH000104: firstResult/maxResults specified with collection fetch; applying in memory]](https://javabom.tistory.com/104)
+* [N+1 쿼리 문제](https://zetawiki.com/wiki/N%2B1_%EC%BF%BC%EB%A6%AC_%EB%AC%B8%EC%A0%9C)
 * [이미지 출처](https://www.infragistics.com/help/aspnet/webdatagrid-paging)
 * [티저 출처](https://medium.com/the-marcy-lab-school/what-is-the-n-1-problem-in-graphql-dd4921cb3c1a)
