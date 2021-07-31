@@ -7,11 +7,20 @@ module.exports = {
     description: 'woowacourse code review & devlog',
     siteUrl: 'https://woowacourse.github.io/tecoble/', // full path to blog - no ending slash
   },
-  pathPrefix: "/tecoble",
+  pathPrefix: '/tecoble',
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-google-gtag',
+      options: {
+        trackingIds: [
+          'G-7YLT36LV0M',
+        ],
+      },
+    },
+
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-sharp',
@@ -68,24 +77,6 @@ module.exports = {
       resolve: 'gatsby-plugin-postcss',
       options: {
         postCssPlugins: [require('postcss-color-function'), require('cssnano')()],
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: 'UA-XXXX-Y',
-        // Puts tracking script in the head instead of the body
-        head: true,
-        // IP anonymization for GDPR compliance
-        anonymize: true,
-        // Disable analytics for users with `Do Not Track` enabled
-        respectDNT: true,
-        // Avoids sending pageview hits from custom paths
-        exclude: ['/preview/**'],
-        // Specifies what percentage of users should be tracked
-        sampleRate: 100,
-        // Determines how often site speed tracking beacons will be sent
-        siteSpeedSampleRate: 10,
       },
     },
   ],
