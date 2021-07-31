@@ -31,7 +31,7 @@ source: https://unsplash.com/@aleskrivec
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-위의 예제에서 아무 값이나 입력해보자. 예제에서는 사용자의 입력이 들어올 때마다 5000개의 dom element가 생성된다. 정상적으로 값을 입력하지 못할 정도로 버벅일 것이다. 실제로는 5000개의 dom element를 생성할 일은 거의 없지만, 렌더링 도중에 다른 모든 작업을 차단하는 모습을 직접 눈으로 보는 데에는 이만한 예제가 없다.
+위의 예제에서 아무 값이나 입력해보자. 예제에서는 사용자의 입력이 들어올 때마다 5000개의 DOM element가 생성된다. 정상적으로 값을 입력하지 못할 정도로 버벅일 것이다. 실제로는 5000개의 DOM element를 생성할 일은 거의 없지만, 렌더링 도중에 다른 모든 작업을 차단하는 모습을 직접 눈으로 보는 데에는 이만한 예제가 없다.
 
 그렇다면 이런 의문이 들 것이다. 자바스크립트 자체가 싱글 쓰레드라면, 리액트에서 동시에 작업을 처리하는 것은 불가능한 것 아닌가?
 하지만 리액트 개발자들은 방법을 찾아냈다. 바로 `동시성`이다.
@@ -54,7 +54,8 @@ concurrent mode는 사용자 경험과 굉장히 밀접한 관계가 있다.
 ### 1. 기존 디바운스와 쓰로틀의 한계
 
 사용자가 input을 입력할 때마다 `무거운 작업`을 수행하는 경우 버벅거림을 경험해본 적이 있을 것이다.
-이 문제를 해결하기 위해서 필자는 `디바운스와 쓰로틀`을 사용해 해결한 적이 많았다.
+예를 들어 응답을 받는데 시간이 걸리는 네트워크 요청이라던지, 많은 DOM element를 생성한다던지 하는 작업들이 있다.
+필자는 이 문제를 해결하기 위해서 `디바운스와 쓰로틀`을 사용해 해결한 적이 많았다.
 확실히 이를 사용하면 무거운 작업의 수행 빈도수를 줄여주어 버벅거림은 줄어든다.
 하지만 분명한 한계점들이 있다.
 
@@ -111,7 +112,7 @@ suspense로만 구현된 로딩은 이전 페이지를 유저로부터 `차단(b
 Transition, Loading, Done 총 3개의 렌더링 단계가 있다.
 일반적으로 UI 업데이트는 state의 변경에 의해 발생하므로
 각 단계는 특정 state 변경의 관점에서 보는 렌더링 단계이다.
-오른쪽으로 진행할수록 더 나은 렌더링 단계이다. 각 단계에 대해서 조금 더 알아보자.
+오른쪽으로 진행할수록 더 최신 렌더링 단계이다. 각 단계에 대해서 조금 더 알아보자.
 
 1. Transition 단계
    Transition은 state 변경 직후에 일어날 수 있는 UI 렌더링 단계이다.
@@ -153,7 +154,7 @@ Transition, Loading, Done 총 3개의 렌더링 단계가 있다.
 하지만 concurrent mode의 원리 중 하나인 `현재 UI를 유지한다`에 암시되어 있는 의미와 필자가 실험해본 결과를 조합해보았을 때,
 `특정 조건`이란 다음과 같다고 볼 수 있다. (혹시 잘못된 점이 있다면 알려주세요)
 
-> 특정 state 변경에 대한 현 화면의 UI 렌더링 단계보다 `더 나은 단계`로 진행하여야 실제 DOM에 반영한다.
+> 특정 state 변경에 대한 현 화면의 UI 렌더링 단계보다 더 `최신 단계`로 진행하여야 실제 DOM에 반영한다.
 
 이해를 돕기 위한 다음의 예제를 보자
 
@@ -170,7 +171,7 @@ Transition, Loading, Done 총 3개의 렌더링 단계가 있다.
 이때 백그라운드에서는 state에 대한 다음 페이지를 준비하는 Receded 상태에 머물러 있을 것이다.
 
 잠시 뒤 다음 페이지의 Receded 상태가 끝나고 Skeleton 상태에 진입하면 그때서야 실제 DOM에 적용한다.
-Skeleton 상태는 현 UI 상태인 Pending 상태보다 더 나은 단계이기 때문이다.
+Skeleton 상태는 현 UI 상태인 Pending 상태보다 더 최신 단계이기 때문이다.
 
 이제 조금 헷갈릴 수 있는 상황이 등장한다.
 테코블 크루의 닉네임과 설명이 모두 렌더링되어 Complete 상태로 넘어가고 다른 크루의 버튼을 눌러보자.
@@ -180,9 +181,9 @@ Skeleton은 등장하지 않고 바로 다른 크루에 대한 정보가 렌더�
 여기서 간과하는 사실이 있다. 렌더링 상태는 렌더링을 유발하는 state 관점이라는 것이다.
 `페이지 방문하기` 버튼을 누르던, `크루의 버튼`을 누르던 resource라는 같은 state의 변경이 일어나고 있다.
 다시 한번 화면을 확인해보자. 크루의 버튼을 누르기 전에 resource state의 관점으로 봤을 때, Pending 상태가 아니라 모든 화면에 정보가 완전하게 보이는 complete 상태다.
-여기서 크루의 버튼을 누르면 Pending 상태나 Skeleton 상태로 전환되지 않는다. 현 UI는 Complete 상태로, Pending이나 Skeleton 상태보다 더 나은 상태이기 때문이다.
+여기서 크루의 버튼을 누르면 Pending 상태나 Skeleton 상태로 전환되지 않는다. 현 UI는 Complete 상태로, Pending이나 Skeleton 상태보다 더 최신 상태이기 때문이다.
 그리고 백그라운드에서 새로운 resource state에 대한 렌더링이 Complete 상태로 넘어갔을 때, 그제서야 실제 DOM에 적용한다.
-이전 state에 대한 Complete 상태보다 새로운 state에 대한 Complete 상태가 `더 나은 상태`이기 때문이다.
+이전 state에 대한 Complete 상태보다 새로운 state에 대한 Complete 상태가 더 `최신 상태`이기 때문이다.
 
 ## 🔥 실제로 도입하기
 
@@ -205,7 +206,7 @@ react는 이를 위해 `useTransition`이라는 훅을 제공한다. useTransiti
 우선 concurrent mode는 experimental 버전에서만 동작한다. experimental 버전을 설치해주자.
 
 ```
-npm install react@experimental react-dom@experimental
+npm install react@experimental react-DOM@experimental
 ```
 
 ### 2. concurrent 모드 활성화
@@ -213,7 +214,7 @@ npm install react@experimental react-dom@experimental
 ```js
 //index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-DOM';
 import App from './App';
 
 const rootElement = document.getElementById('root');
@@ -251,7 +252,7 @@ handleChange 내부의 로직을 유심히 보자. setInput은 startTransition �
 이 차이는 state의 우선 순위를 결정한다. setArray를 startTransition으로 감싸주는 의미는 'array state 변화는 지연시켜도 돼'라고 리액트에게 알려주는 것이기 때문이다.
 따라서 input state는 array state보다 높은 우선순위로 결정된다.
 
-이렇게 해주는 이유는 사용자의 입력이 5000개의 dom element를 렌더링하는 것보다 우선시 되어야 사용자가 입력을 할 때의 버벅임을 줄일 수 있기 때문이다.
+이렇게 해주는 이유는 사용자의 입력이 5000개의 DOM element를 렌더링하는 것보다 우선시 되어야 사용자가 입력을 할 때의 버벅임을 줄일 수 있기 때문이다.
 결과를 확인해보자. 이전 blocking mode로 구현했던 예제보다 훨씬 버벅임이 줄어들었을 것이다.
 
 ## ✨ 마무리
@@ -269,5 +270,5 @@ handleChange 내부의 로직을 유심히 보자. setInput은 startTransition �
 
 ## 참고
 
-[What is React Concurrent Mode?](https://velog.io/@cadenzah/react-concurrent-mode)
-[concurrent mode UI 패턴](https://ko.reactjs.org/docs/concurrent-mode-patterns.html)
+- [What is React Concurrent Mode?](https://velog.io/@cadenzah/react-concurrent-mode)
+- [concurrent mode UI 패턴](https://ko.reactjs.org/docs/concurrent-mode-patterns.html)
