@@ -21,10 +21,14 @@ _Java Compiler_ 를 통해서 _.class_ 확장자를 가진 클래스 파일은 �
 
 ## _Class Loader_ 의 전체적인 역할
 앞서 보았듯이 _Class Loader_ 는 클래스 파일을 찾아서 탑재하는 것뿐만이 아니라 다른 일들도 같이하게 됩니다. _Class Loader_ 는 크게 _Loading_, _Linking_, 그리고 _Initialization_ 3가지 역할을 맡게 됩니다.
+_Loading_ 은 클래스 파일을 탑재하는 과정, _Linking_ 은 클래스 파일을 사용하기 위해 검증하고, 기본 값으로 초기화하는 과정입니다.
+_Initialization_ 은 _static field_ 의 값들을 정의한 값으로 초기화를 하는 과정입니다.  
+각각의 과정을 순서대로 살펴보도록 하겠습니다. 
 
 ### _Loading_
 
-_Class Loader_ 는 탑재하는 클래스에 따라서 세 가지로 나누어지게 되며, 필요한 클래스 파일들을 찾게 됩니다.
+_Class Loader_ 필요한 클래스 파일들을 찾아 탑재하게 됩니다.
+각각의 클래스 파일들이 기본으로 제공받는 클래스 파일인지 혹은 개발자가 정의한 클래스 파일인지와 같은 기준에 의해서 _Class Loader_ 의 수준도 세 가지로 나뉘게 됩니다. 
 
 ![classloader-process-order](../images/2021-07-26-classloader-process.png)
 
@@ -113,6 +117,8 @@ public class Main {
    }
 }
 ```
+이 때, _getParent()_ 메소드는 부모 클래스를 찾는 메소드가 아닌 상위 파일을 찾는 메소드입니다.
+
 ```bash
 sun.misc.Launcher$AppClassLoader@75b84c92
 sun.misc.Launcher$ExtClassLoader@4aa298b7
