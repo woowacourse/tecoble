@@ -8,20 +8,23 @@ draft: false
 image: ../teaser/git-submodule.png
 ---
 
-레벨 3 팀 프로젝트를 진행하며 중요한 정보(e.g. secret key)를 외부에 노출되지 않게 관리할 일이 생겼다.
-Jasypt으로 암호화하는 방법, submodule로 관리하는 방법 등 여러 방식을 두고 고민하게 됐다.
+git submodule은 메인(부모) 레포지토리에 하위(자식) 레포지토리를 두고 관리하기 위한 도구이다.
+하나의 프로젝트에서 다른 프로젝트를 함께 사용해야 하는 경우 주로 활용한다.<br/>
+
+필자는 이번에 이를 프로젝트 비밀 정보를 숨기기 위한 용도로 이용했다.
+어떻게 적용하게 됐는지, 어떻게 적용했는지를 글을 통해 알아보자.<br/>
 
 <!-- end -->
 
-전자의 경우에는 프로덕션 코드에 암호화를 위한 코드를 추가해야 한다는 부담 때문에 제외했다. 대신에 git submodule을 사용하여 관리하기로 결정했다.
-git submodule을 중요한 정보를 숨기기 위한 목적으로 활용한 건 처음이었다. 복습 겸 이번에 적용했던 과정을 한번 정리하려 한다.<br/>
-
 <br/>
 
-## git submodule?
+## 사용 계기
 
-git submodule은 메인 레포지토리에 하위 레포지토리를 두고 관리를 하기 위한 도구이다.
-여기서 메인 레포지토리를 부모 레포지토리, 하위 레포지토리를 자식 레포지토리라고 부른다.<br/>
+레벨 3 팀 프로젝트를 진행하며 중요한 정보(e.g. secret key)를 외부에 노출되지 않게 관리할 일이 생겼다.
+Jasypt으로 암호화하는 방법, submodule로 관리하는 방법 등 여러 방식을 두고 고민하게 됐다.<br/>
+
+전자의 경우에는 프로덕션 코드에 암호화를 위한 코드를 추가해야 한다는 부담 때문에 제외했다.
+대신에 git submodule을 사용하여 관리하기로 결정했다.<br/>
 
 <br/>
 
@@ -31,8 +34,8 @@ git submodule은 메인 레포지토리에 하위 레포지토리를 두고 관�
 예를 들면, 필자는 팀 organization 내부에 private 레포지토리를 만들었다.<br/>
 
 ```
-2021-pick-git
-        ⌙ security
+2021-pick-git           // 팀 organization
+        ⌙ security      // private 레포지토리
 ```
 
 <br/>
@@ -169,13 +172,10 @@ submodule에 변경사항이 생겼다면, 메인 프로젝트보다 먼저 push
 만약 메인 프로젝트를 push/pull하고 submodule을 push/pull하면 예상치 못한 오류가 발생할 수도 있다.
 메인 프로젝트는 submodule을 그대로 가지지 않고 path, url, commit 정보만 저장하기 때문이다.<br/>
 
-독자들이 git submodule을 활용해서 비밀 정보를 잘 관리하길 바란다.
-단, 하나만 주의해서 submodule을 안전하게 사용하도록 하자.<br/>
-
 <br/>
 
 ## References
 
-- [Git: 서브모듈 이해하기 (git submodule)](https://ohgyun.com/711)
 - [[git] git submodule 적용하기](https://jujeol-jujeol.github.io/2021/07/12/git-submodule-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0/)
+- [7.11 Git Tools - Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 - [Git submodule 사용하기](https://pinedance.github.io/blog/2019/05/28/Git-Submodule)
