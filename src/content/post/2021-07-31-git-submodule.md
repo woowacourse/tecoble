@@ -126,9 +126,11 @@ pick-git/security (새 커밋)
 다음으로 submodule을 초기화하고 업데이트한다. 이 부분은 가장 처음 딱 1번만 수행하면 된다.<br/>
 
 ```
+// submodule 초기화
 % git submodule init
+
+// 메인 레포지토리가 기억하는 submodule의 특정 커밋 시점으로 업데이트
 % git submodule update
-% git submodule foreach git checkout {branch_name}
 ```
 
 <br/>
@@ -147,6 +149,12 @@ pick-git/security (새 커밋)
 
 ```
 % git submodule update --remote --merge
+
+// .gitmodules 파일에 정의되어 있는 브랜치(default는 main 또는 master)의 최신 버전으로 업데이트
+// % git submodule update --remote
+
+// 로컬에서 작업 중인 부분과 원격에 작업된 부분이 다른 경우 머지까지 진행
+// % git submodule update --remote --merge
 ```
 
 <br/>
