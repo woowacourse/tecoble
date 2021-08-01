@@ -113,13 +113,14 @@ public class Member {
 }
 
 @Entity
-public class Member {
+public class Product {
   @ManyToMany(mappedBy = "products")
   private List<Member> members;
 }
 ```
 
-하지만 이렇게 단순 외래키만 존재하는 것이 아니라 데이터가 연결 테이블에 있기를 원할 수 있는데 이는 이 상황에서 해결할 수 없다.  
+하지만 중간 테이블에 외래키와 더불어서 여러 비즈니스 로직을 담은 데이터를 담기를 원할 수가 있다.  
+그러나 @ManyToMany를 사용하는 경우 중간 테이블에 외래키를 제외한 다른 데이터를 담을 수 없다.   
 따라서 다대다 매핑은 보통 일대다와 다대일 연관관계를 구성해 구현하도록 하는 것이 통상적이다.  
 
 - 일대일 관계 매핑  
