@@ -29,7 +29,7 @@ Docker는 태초에 LXC라는 컨테이너 기술을 기반으로 만들어진 �
 
 이전에는 'application 수준의 가상화' 기술이 존재했습니다. 이 기술은 기존의 OS(Host OS) 위에 Hypervisor라는 논리적 플랫폼이 필요합니다. 이 플랫폼 위에서 가상의 OS(Guset OS)를 만들어 구동 할 수 있습니다. Hypervisor가 Host OS가 Guest OS의 커널 동작을 해석해서 Host OS가 이해할 수 있는 동작으로 변환해주는 것입니다.
 
-OS수준의 가상화의 가상화가 application 수준의 가상화와 주요하게 다른 점은 컨테이너는 Host OS와 커널을 공유한다는 것입니다. 그래서 OS수준의 가상화는 Hypervisor 없이 바로 독자적인 시스템환경을 구축할 수 있습니다.
+OS수준의 가상화가 application 수준의 가상화와 주요하게 다른 점은 컨테이너는 Host OS와 커널을 공유한다는 것입니다. 그래서 OS수준의 가상화는 Hypervisor 없이 바로 독자적인 시스템환경을 구축할 수 있습니다.
 
 다른 말로 컨테이너로 가상화된 프로세스들은 모두 Host OS를 호환해야 합니다.
 
