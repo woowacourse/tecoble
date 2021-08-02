@@ -129,11 +129,11 @@ describe('Before Login Test', () => {
 
 먼저 HTTP 요청의 행동을 제어하기 위해서 `cy.intercept()` 문법이 사용되었다. `intercept()` 함수는 실제 api를 호출하는 spying, 미리 만들어놓은 데이터로 응답을 반환하는 stubbing, 요청이나 응답을 변경하여 수행할 수 있는 modification을 제공한다. intercept와 관련된 자세한 내용은 [공식 문서](https://docs.cypress.io/api/commands/intercept)에서 확인할 수 있다.
 
-돌아가서 위 코드의 `Line 4`에서는 spying과 stubbing을 진행하고 있는데, 여기서 `fixture`라는 것을 볼 수 있다. `fixture`는 쉽게 말해서 미리 만들어놓은 dataset이다. `fixture`은 테스트 환경과 api 요청에 따라 일정한 데이터를 응답할 수 있도록 제어하는 역할을 하는데, 데이터는 `json` 뿐만 아니라 다른 형식들도 가능하다([참조](https://docs.cypress.io/api/commands/fixture#JSON)). 기본적으로 `cypress/features` 폴더 안에 dataset 파일을 넣으면 되고, 파일의 이름을 코드에 적어주면 된다. 부가적으로 뒤에 `as`는 `fixture` 파일의 별칭이다.
+돌아가서 위 코드의 `Line 3`에서는 spying과 stubbing을 진행하고 있는데, 여기서 `fixture`라는 것을 볼 수 있다. `fixture`은 미리 만들어놓은 dataset을 가져오기 위한 cypress 내장 메서드이다. `fixture`은 테스트 환경과 api 요청에 따라 일정한 데이터를 응답할 수 있도록 제어하는 역할을 하는데, 데이터는 `json` 뿐만 아니라 다른 형식들도 가능하다([참조](https://docs.cypress.io/api/commands/fixture#JSON)). 기본적으로 'fixture 폴더 내 users 폴더에서 admin.json 파일을 불러온다'라는 의미로 `cy.fixture('users/admin.json')` 와 같이 활용되는데, `intercept()` 메서드 내부에서 `{fixture: 'dataset의 path'}`와 같은 형태로 축약해 사용될 수 있다. 여기서 `dataset의 path`란 기본적으로 `cypress/fixtures` 안이 기준이다. 예를 들어, dataset이 `fixtures` 폴더 바로 하위에 있다면 `{fixture: 'dataset 파일명'}`과 같이 쓰면 된다. 즉, 위의 코드를 풀어서 설명해보면, '데이터는 `cypress/fixtures` 폴더 내 `reviewList`라는 파일을 참조' 라고 말할 수 있다. 여기서 파일명의 확장자는 cypress가 파일을 확인한 후 스스로 해석하므로 생략할 수 있다. 부가적으로 뒤에 `as`는 `fixture` 파일의 별칭이다.
 
 `fixture` 파일까지 준비되었다면, 바로 코드를 확인해보자. 필자는 테스트 케이스가 실행되기 전에 `before()` 함수 안에 몇 가지 코드를 적어놓았는데, 이는 테스트 케이스를 나타내는 `it()` 안에 넣어도 전혀 문제없다. 코드를 살펴보면 먼저 `intercept()` 메서드를 호출하는 함수를 호출했다. 이후 `wait()`이라는 메서드를 볼 수 있는데, 이는 응답을 stubbing 하는 것과 상관없이, cypress 내에서 요청과 응답을 기다리기 위해서 선언적으로 쓰인다. 현재 코드에서 `cy.wait('@requestReviewData')`로 쓰여 있는데, 이 의미는 `requestReviewData`의 요청에 대한 응답이 오기 전까지 기다리는 것을 의미한다.
 
-이제 `it` 테스트 케이스를 확인해보면, `cy.waitForReact()`라는 메서드를 볼 수 있다. 이 메서드는 이전에 추가했던 `cypress-react-selector` 라이브러리와 관계있는데, 리액트 컴포넌트가 로드되기 전까지 기다리는 메서드이다. 위에서 보았던 `cy.wait('@requestReviewData')`와 비슷한 역할을 한다고 보면 된다. 이후 컴포넌트를 불러와 확인하고자 하는 작업을 진행하면 된다. `cypress-react-selector` 메서드와 관련된 자세한 내용은 깃허브에서 확인할 수 있다.
+이제 `it` 테스트 케이스를 확인해보면, `cy.waitForReact()`라는 메서드를 볼 수 있다. 이 메서드는 이전에 추가했던 `cypress-react-selector` 라이브러리와 관계있는데, 리액트 컴포넌트가 로드되기 전까지 기다리는 메서드이다. 위에서 보았던 `cy.wait('@requestReviewData')`와 비슷한 역할을 한다고 보면 된다. 이후 컴포넌트를 불러와 확인하고자 하는 작업을 진행하면 된다. `cypress-react-selector` 메서드와 관련된 자세한 내용은 [깃허브](https://github.com/abhinaba-ghosh/cypress-react-selector)에서 확인할 수 있다.
 
 ## 참고
 
