@@ -147,3 +147,4 @@ console.log(kyle.__proto__);
 
 - [프로토타입 이해하기](https://medium.com/@bluesh55/javascript-prototype-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-f8e67c286b67)
 - [You Don't Know JS: this & Object Prototypes](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20%26%20object%20prototypes/ch5.md)
+- [JavaScript - The prototype chain in depth](https://www.debuggr.io/js-prototype-in-depth/)
