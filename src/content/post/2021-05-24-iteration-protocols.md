@@ -118,3 +118,7 @@ Iterator Protocol은 <mark>값의 순서를 제공하는 방법에 대한 정의
 ### 정리
 
 Iteration Protocol은 객체 내부의 반복 동작을 수행하기 위해 정립된 규칙이다. 그 때문에 JS에서 존재하는 대부분의 자료 구조 내부에서 연속적인 값을 얻거나 특정 행동을 실행시키기 위해서는 반드시 이 규칙을 따라야 한다.
+
+### Reference
+
+[A Simple Guide to ES6 Iterators in JavaScript with Examples](https://codeburst.io/a-simple-guide-to-es6-iterators-in-javascript-with-examples-189d052c3d8e)
