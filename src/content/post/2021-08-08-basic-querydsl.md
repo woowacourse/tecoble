@@ -339,3 +339,4 @@ public class QueryRepository {
 * [간단한 QueryDSL 초기 설정 in Gradle 6](https://javachoi.tistory.com/397)
 * [[gradle] 그레이들 Annotation processor 와 Querydsl](http://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html)
 * [Spring Boot Data Jpa 프로젝트에 Querydsl 적용하기](https://jojoldu.tistory.com/372%E3%85%8C)
+* [이미지 출처](https://medium.com/tech2flew/spring-data-jpa-querydsl-integration-part-1-1aaebe6208c8)
