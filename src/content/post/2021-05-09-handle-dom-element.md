@@ -8,9 +8,13 @@ draft: false
 image: ../teaser/sample2.png
 ---
 
-지난 글에서는 웹사이트에 악성 스크립트를 삽입할 수 있는 취약점, **XSS**에 대한 내용과 함께 innerHTML을 사용하는 것은 **XSS**에 취약하다는 이야기를 하였다. (\*[innerHTML의 위험성, XSS에 대해 알아보자](https://woowacourse.github.io/tecoble/post/2021-04-26-cross-site-scripting/))
+웹 개발을 할 때 웹 콘텐츠의 내용과 구조를 변경하기 위해서 자연스럽게 DOM element 를 다루게 된다. 이때 가장 편하고 쉬운 방법은 innerHTML을 사용하는 것이었다.
+
+하지만 지난 글에서는 XSS\*에 대한 내용과 함께 innerHTML을 사용하는 것은 XSS에 취약하다는 이야기를 하였다.
 
 그래서 이번 글에서는 Vanilla JavaScript에서 innerHTML을 사용하지 않고, DOM에 element 를 추가하고, 다루는 방법에 대해 예시를 통해 알아보려고 한다.
+
+\*XSS란 웹사이트에 악성 스크립트를 삽입할 수 있는 취약점이다. ( [innerHTML의 위험성, XSS에 대해 알아보자](https://woowacourse.github.io/tecoble/post/2021-04-26-cross-site-scripting/) )
 
 ## 0. DOM element 관계
 
