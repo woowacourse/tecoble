@@ -106,12 +106,13 @@ test {
 * ``$projectDir/build/generated`` 디렉토리 하위에 Entity로 등록한 클래스들이 Q라는 접두사가 붙은 형태로 생성되었습니다.
 * 이러한 클래스들을 Q 클래스 혹은 Q(쿼리) 타입이라고 합니다.
   * QueryDSL로 쿼리를 작성할 때, Q 클래스를 사용함으로써 쿼리를 Type-Safe하게 작성할 수 있습니다.
+* Gradle 설정을 통해 ``$projectDir/src/main/java``의 프로덕션 코드에서 Q 클래스를 import해 사용할 수 있습니다.
 
 <br>
 
 ## 3. QueryDSL 간단 예제
 
-hi라는 내용을 포함하며 댓글이 1개 이상인 Post를 ID 내림차순으로 조회하는 로직이 존재한다고 가정해봅시다. 정적 쿼리가 아닌 EntityManager를 통해 JPQL을 작성하는 경우 코드는 다음과 같습니다. JPQL을 사용해본 독자님이라면 코드가 상당히 직관적임을 느끼실겁니다.
+hi라는 내용을 포함하며 댓글이 1개 이상인 Post를 ID 내림차순으로 조회하는 로직이 존재한다고 가정해봅시다. 정적 쿼리가 아닌 EntityManager를 통해 JPQL을 작성하는 경우 코드는 다음과 같습니다.
 
 > PostRepositoryTest.java
 
@@ -153,6 +154,7 @@ void queryDsl_findPostsByMyCriteria_Three() {
 ```
 
 * 반면 QueryDSL은 각종 풍부한 체이닝 메서드와 유틸리티 메서드 및 정적 타입(Q 클래스)을 기반으로 직관적으로 쿼리를 작성합니다.
+* JPQL을 사용해본 독자님이라면 코드가 상당히 직관적임을 느끼실겁니다.
 
 > PostRepositoryTest.java
 
