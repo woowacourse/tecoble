@@ -140,13 +140,21 @@ image: ../teaser/sample2.png
 
 5. **`<button>`의 type**
 
-   `<form>` 태그의 `<button>` 태그는 기본 타입이 `'submit'`이다. 하지만 아이디 중복 검사와 같이 입력 양식 제출이 목적이 아닌 `<button>` 이 있을 수 있다.
+   `<form>` 태그의 `<button>` 태그는 `'submit'`, `'reset'`, `'button'` 세가지 타입을 지원한다.
 
    ```HTML
+   <button type="submit"></button>
+
+   <button type="reset"> </button>
+
    <button type="button"> </button>
    ```
 
-   이 경우에는 `<button>` 의 타입을 `'button'` 으로 지정해주면, 해당 버튼에 `'submit'` 대신 원하는 기능을 바인딩 해줄 수 있다.
+   `'submit'` 은 사용자 입력 양식을 제출하는 역할을 하고, `'reset'` 은 사용자 입력 양식을 초기화하는 역할을 하며, `'button'` 은 그 외에 기능을 바인딩 하여 사용할 수 있다.
+
+   `<form>` 태그의 `<button>` 태그는 기본 타입이 `'submit'`이지만, 접근성 측면에서 타입을 명시적으로 써주는 게 좋다. 또한 `'submit'` 버튼은 `<form>` 태그 내에 하나만 존재하는 것을 권장한다.
+
+   이 세가지 타입은 `<input>` 태그에도 똑같이 존재하며 작동하는 기능도 일치한다. 차이가 있다면 `<button>` 태그는 `<input>` 태그와 달리 다른 태그들을 삽입할 수도 있으며, 더 자유롭게 스타일링이 가능하다.
 
 ## 3. 마무리
 
