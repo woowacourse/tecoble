@@ -243,7 +243,8 @@ public class JobEventListener {
 ---
 
 ### 참고 자료
-
-- Java Doc
+- [Java Doc - EnableAsync](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/EnableAsync.html)
+- [Java Doc - Async](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Async.html)
+- [Java Doc - ApplicationEventPublisher](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisher.html)
 - [06. 스프링 부트 (Spring Boot) - 자바 메일 센더 (Java Mail Sender)](https://theheydaze.tistory.com/255)
 - [Spring Event + Async + AOP 적용해보기](https://supawer0728.github.io/2018/03/24/spring-event)
