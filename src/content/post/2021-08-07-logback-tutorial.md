@@ -209,7 +209,7 @@ logback-spring.xml 은 콘솔, 파일, DB 등 로그를 출력하는 방법을 �
 
    
 
-5. 콘솔에 찍힌 특정 단어를 파일에 기록한다.
+5. 로거가 발생될 때, 설정해둔 대상을 파일에 기록한다.
 
    ```xml
      <logger name="LogController" additivity="false"> <!-- 콘솔에 출력된 LogController 에 대해서 아래 작업을 실행한다.-->
@@ -219,7 +219,7 @@ logback-spring.xml 은 콘솔, 파일, DB 등 로그를 출력하는 방법을 �
      </logger>
    ```
 
-콘솔에 출력된 메세지가 <b>LogController 라는 단어가 포함되면 아래 조건을 실행</b>한다. Debug 이상의 레벨에 대해서 각각 `<appender-ref ref="INFO_LOG" />` 와 `<appender-ref ref="WARN_LOG" />` 의 변수에 할당해둔 명령이 실행된다.
+<b>LogController 라는 이름의 로거가 발생할 때 아래 조건을 실행</b>한다. Debug 이상의 레벨에 대해서 각각 `<appender-ref ref="INFO_LOG" />` 와 `<appender-ref ref="WARN_LOG" />` 의 변수에 할당해둔 명령이 실행된다.
 
 
 
@@ -305,7 +305,7 @@ logback-spring.xml 은 콘솔, 파일, DB 등 로그를 출력하는 방법을 �
   
   <logger name="org.hibernate.SQL" additivity="false">
     <level value = "DEBUG" />
-    <appender-ref ref="DEBUG_LOG" />
+    <appender-ref ref="INFO_LOG" />
   </logger>
 
 </configuration>
