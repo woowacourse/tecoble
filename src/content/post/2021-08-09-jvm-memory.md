@@ -61,7 +61,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
         at Heap.main(Heap.java:16)
 ```
 
-_Heap_에서는 참조되지 않는 인스턴스와 배열에 대한 정보 또한 얻을 수 있기 때문에 _GC_ 의 주 대상이기도 합니다.
+_Heap_ 에서는 참조되지 않는 인스턴스와 배열에 대한 정보 또한 얻을 수 있기 때문에 _GC_ 의 주 대상이기도 합니다.
 이때, 인스턴스의 생성된 후 시간에 따라서 다음과 같이 5가지 부분으로 나눌 수가 있습니다. 
 
 ![JVM Heap Structure 구조](../images/2021-08-09-jvm-heap-structure.png)
@@ -69,7 +69,7 @@ _Heap_에서는 참조되지 않는 인스턴스와 배열에 대한 정보 또�
 _Eden_, _Survivor1_, _Survivor2_, _Old_ , _Perm_ 으로 나누어지게 됩니다.
 _Young Gen_ 이라고 불리는 비교적 신생 데이터 부분은 _Eden_ , _Survivor0_ , _Survivor1_ 입니다.
 _Eden_ 에는 _new_ 를 통해 새롭게 생성된 인스턴스, 이후에는 _Survivor_ 로 이동하게 됩니다. 
-이곳에서도 참조되지 않는 인스턴스와 배열 대상으로 _Minor GC_ 가 일어나긴 하지만 가장 주요하게 _GC가 일어나는 부분은 그 이후의 부분인 _Old_ 부분입니다.
+이곳에서도 참조되지 않는 인스턴스와 배열 대상으로 _Minor GC_ 가 일어나긴 하지만 가장 주요하게 _GC_ 가 일어나는 부분은 그 이후의 부분인 _Old_ 부분입니다.
 _Perm_ 의 경우에는 클래스의 메타 정보 및 _static_ 변수를 저장하고 있었습니다.
 _Java 8_ 버전 이후로 _Native_ 영역에 존재하는 _Metaspace_ 라는 영역으로 대체되었습니다.
 정확한 내용은 후에 _GC_ 파트에서 다루도록 하겠습니다.
