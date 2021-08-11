@@ -1,0 +1,84 @@
+---
+layout: post  
+title: JVM에 관하여 - Part 3, Run-Time Data Area
+author: [3기_와이비]  
+tags: ['jvm']  
+date: "2021-08-09T12:00:00.000Z"  
+draft: false  
+image: ../teaser/jvm-runtime-data-area.png
+---
+
+_Java_ 로 작성된 코드는 어떻게 돌아가는 걸까? 해당 물음에 답을 찾기 위한 _JVM_ 시리즈 3편, _JVM_ 의 구성요소 중 _Run-Time Data Area_ 에 관한 글입니다.
+이번 글에서는 JVM의 메모리 영역에서는 어떤일이 일어나는지에 대해서 알아봅시다.
+
+## 클래스 파일이 _JVM_ 에 탑재된 이후
+지난 글에서는 클래스 파일들을 어떻게 _JVM_ 에 탑재하고 초기화가 되는지에 대해서 알아보았습니다. 
+이렇게 탑재된 클래스 파일들은 _JVM_ 에서는 어떤 영역을 차지하고 있는 것일까요? 
+_JVM_ 의 _Run-Time Data Area_ 에는 크게 _Method Area_ , _Heap_ , _Java Stacks_ , _PC registers_ 그리고 _Native Method Stacks_ 가 존재합니다. 
+각각의 영역이 어떤 역할을 하는지에 대해서 알아봅시다.
+
+![JVM Run-Time Data Area 구조](../images/2021-08-09-jvm-runtime-data-area-structure.png)
+
+## _Method Area_
+_Method Area_ 에서는 _Runtime Constant Pool_ , 필드, 메소드 데이터 등이 저장됩니다.
+_Instance_ 생성에 필요한 정보도 존재하기 때문에 _JVM_ 의 모든 _Thread_ 들이 영역을 공유하게 됩니다.
+_JVM_ 의 메모리 다른 영역에서 해당 정보에 대한 요청이 오면, 실제 물리 메모리 주소로 변환해서 전달해줍니다.
+기초가 되는 역할이 많기 때문에 _JVM_ 구동 시작시에 생성이 되며, 종료시까지 유지되는 공통 영역입니다.
+
+### _Runtime Constant Pool_
+_Runtime_ 중 필요한 상수들을 모아두었습니다.
+클래스, 인터페이스, 메소드, 필드 등 실제 메모리 상의 주소를 찾아 참조해주는 역할을 합니다.
+클래스와 인터페이스당 각각의 _RunTime Constant Pool_ 이 존재합니다.
+_JVM_ 이 클래스나 인터페이스를 생성할 때, 해당 _Runtime Constant Pool_ 또한 생성이 됩니다.
+
+## _Heap_
+_Heap_ 영역은 코드 실행을 위한 _Java_ 로 구성된 객체 및 _JRE_ 클래스들이 탑재가 됩니다.
+이는 만들어진 실제 데이터를 가진 인스턴스, 배열 등은 이곳에 저장이 된다는 점입니다.
+이곳에서 저장된 인스턴스와 배열은 _Java Stack_ 영역에서 참조하여, 모든 _Thread_ 들이 공유하게 됩니다. 
+공유하는 특성 때문에 데이터를 가진 인스턴스에 대해서 동시성 문제가 발생하곤 합니다.
+참조되지 않는 인스턴스와 배열에 대한 정보를 얻을 수 있기 때문에 _GC_ 의 주 대상이기도 합니다.
+이 때, 인스턴스의 생성된 후 시간에 따라서 다음과 같이 5가지 부분으로 나눌 수가 있습니다. 
+
+![JVM Heap Structure 구조](../images/2021-08-09-jvm-heap-structure.png)
+
+_Eden_, _Survivor1_, _Survivor2_, _Old_ , _Perm_ 으로 나뉘어지게 됩니다.
+_Young Gen_ 이라고 불리는 비교적 신생 데이터 부분은 _Eden_ , _Survivor0_ , _Survivor1_ 입니다.
+_Eden_ 에는 _new_ 를 통해 새롭게 생성된 인스턴스, 이후에는 _Survivor_ 로 이동하게 됩니다. 
+이곳에서도 참조되지 않는 인스턴스와 배열 대상으로 _Minor GC_ 가 일어나긴 하지만 가장 주요하게 _GC가 일어나는 부분은 그 이후의 부분인 _Old_ 부분입니다.
+_Perm_ 의 경우에는 클래스의 메타 정보 및 _static_ 변수를 저장하고 있었습니다.
+_Java 8_ 버전 이후로 _Native_ 영역에 존재하는 _Metaspace_ 라는 영역으로 대체되었습니다.
+정확한 내용은 후에 _GC_ 파트에서 다루도록 하겠습니다.  
+
+_Heap_ 영역이 가득차게 되면 _OutOfMemoryError_ 를 발생시키게 됩니다. 
+또한, 각 _Thread_ 별로 메모리를 할당 받는 _JVM Stack_ 영역과 달리 조금은 속도가 느린점이 있습니다.
+그리고 모든 _Thread_ 들이 해당 영역을 공유한다는 점에서 _Java_ 의 동시성 문제가 발생하게 됩니다.
+각각의 _Thread_ 메모리가 따로 관리되는 것과 달리 이 부분은 _Thread_ 에 의해서 공유가 되어지기 때문에 _Thread Safe_ 하지 않습니다. 
+이는 _synchronized_ 블록을 사용하는 방법 등을 비롯하여 동시성을 지켜주어야하는 점이 생깁니다.
+
+## _JVM Stacks_
+각 _Thread_ 별로 따로 할당되는 영역입니다. _Heap_ 메모리 영역에 비해서 비교적 빠르다는 장점이 있습니다. 
+또한, 각각의 _Thread_ 별로 메모리를 따로 할당하기 때문에 동시성 문제에서 자유롭다는 점도 있습니다. 
+각 _Thread_ 들은 메소드를 호출할 때마다 _Frame_ 이라는 단위를 추가(_push_) 하게 됩니다.
+메소드가 마무리되며 결과를 반환하면 해당 _Frame_ 은 _Stack_ 으로부터 제거(_pop_)이 됩니다.
+
+## _Native Method Stacks_
+_Java_ 로 작성된 프로그램을 실행하면서, 순수하게 _Java_ 구성 및 코드로만은 사용할 수 없는 시스템의 자원이나 _API_ 가 존재합니다.
+다른 프로그래밍 언어로 작성된 메소드들을 _Native Method_ 라고 합니다.
+_Native Method Stacks_ 는 _Java_ 로 작성되지 않은 메소드를 다루는 영역입니다. _C Stacks_ 라고 불리기도 합니다.
+앞의 _Java Stacks_ 영역과 비슷하게 _Native Method_ 가 실행될 경우 _Stack_ 이 쌓이게 됩니다.
+각각의 _Thread_ 들이 생성이 되면 _Native Method Stacks_ 도 동일하게 생성이 됩니다.
+
+## _PC(Program Counter) Registers_
+_Java_ 에서 _Thread_ 는 각자의 메소드를 실행하게 됩니다. 
+이 때, _Thread_ 별로 동시에 실행하는 환경이 보장되어야 하기 때문에 최근에 실행 중인 _JVM_ 에서의 명령어 주소값을 저장할 공간이 필요합니다.
+이 부분을 _PC Registers_ 영역이 관리해주게 됩니다.  _Thread_ 들은 각각 자신만의 _PC Registers_ 를 가지고 있습니다. 
+만약 실행했던 메소드가 네이티브하다면 _undefined_ 가 기록이 됩니다. 
+실행했던 메소드가 네이티브하지 않다면, _PC Registers_ 는 _JVM_ 에서 사용된 명령의 주소 값을 저장하게 됩니다.
+
+## Reference
+
+- [java-stack-heap Baeldung](https://www.baeldung.com/java-stack-heap)
+- [Java Memory Management](https://www.geeksforgeeks.org/java-memory-management/)
+- [Native Methods and the Java Native Interface, IBM](https://www.ibm.com/docs/en/i/7.2?topic=languages-native-methods-java-native-interface)
+- [Getting started with Java native methods](https://www.ibm.com/docs/en/i/7.2?topic=interface-getting-started-java-native-methods)  
+- [Java SE 8 document, Oracle](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html)
