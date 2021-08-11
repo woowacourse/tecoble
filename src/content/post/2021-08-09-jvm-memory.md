@@ -91,7 +91,32 @@ _Constant Pool Reference_ 는 _Constant Pool_ 참조를 위한 공간입니다.
 
 이렇게 구성된 _Java Stack_ 은 메소드가 호출될 때마다 _Frame_ 이 쌓이게 됩니다.
 
-다음은 _Frame_ 가 쌓인 구조 및 _Heap_ 영역과의 참조를 보여주는 그림입니다. 
+다음은 _Frame_ 가 쌓인 구조 및 _Heap_ 영역과의 참조를 보여주는 코드 및 그림입니다.
+
+```java
+class Person {
+    private int id;
+    private String name;
+
+    public Person(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int id = 1;
+        String name = "whybe";
+        Person person = null;
+        person = buildPerson(id, name);
+    }
+
+    private static Person buildPerson(int id, String name) {
+        return new Person(id, name);
+    }
+}
+```
 
 ![JVM Reference Structure 구조](../images/2021-08-09-jvm-reference-structure.png)
 
