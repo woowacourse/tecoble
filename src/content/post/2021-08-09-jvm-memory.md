@@ -9,7 +9,7 @@ image: ../teaser/jvm-runtime-data-area.png
 ---
 
 _Java_ 로 작성된 코드는 어떻게 돌아가는 걸까? 해당 물음에 답을 찾기 위한 _JVM_ 시리즈 3편, _JVM_ 의 구성요소 중 _Run-Time Data Area_ 에 관한 글입니다.
-이번 글에서는 JVM의 메모리 영역에서는 어떤일이 일어나는지에 대해서 알아봅시다.
+이번 글에서는 _JVM_ 의 메모리 영역에서는 어떤일이 일어나는지에 대해서 알아봅시다.
 
 ## 클래스 파일이 _JVM_ 에 탑재된 이후
 지난 글에서는 클래스 파일들을 어떻게 _JVM_ 에 탑재하고 초기화가 되는지에 대해서 알아보았습니다. 
@@ -50,16 +50,72 @@ _Java 8_ 버전 이후로 _Native_ 영역에 존재하는 _Metaspace_ 라는 영
 정확한 내용은 후에 _GC_ 파트에서 다루도록 하겠습니다.  
 
 _Heap_ 영역이 가득차게 되면 _OutOfMemoryError_ 를 발생시키게 됩니다. 
+다음은 인스턴스의 영역을 가득 차게 만들어서 해당 _Heap_ 영역에서의 _Error_ 를 일으키겠습니다.
+
+```java
+public class Heap {
+    public static void main(String[] args) {
+        System.out.println("Heap 메모리 오류");
+        int num = 1;
+        List<Integer> nums = new LinkedList<>();
+        try{
+            while(true) {
+                nums.add(num);
+                num = num + 1;
+                if (num <1) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+```
+
+```bash
+Heap 메모리 오류
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at Heap.main(Heap.java:16)
+```
+
 또한, 각 _Thread_ 별로 메모리를 할당 받는 _JVM Stack_ 영역과 달리 조금은 속도가 느린점이 있습니다.
 그리고 모든 _Thread_ 들이 해당 영역을 공유한다는 점에서 _Java_ 의 동시성 문제가 발생하게 됩니다.
 각각의 _Thread_ 메모리가 따로 관리되는 것과 달리 이 부분은 _Thread_ 에 의해서 공유가 되어지기 때문에 _Thread Safe_ 하지 않습니다. 
-이는 _synchronized_ 블록을 사용하는 방법 등을 비롯하여 동시성을 지켜주어야하는 점이 생깁니다.
+이 때문에 해당 영역에 있는 객체나 인스턴스를 사용하게 되면, _synchronized_ 블록을 사용하는 방법 등을 비롯하여 동시성을 지켜주는 방법을 사용해야 합니다.
 
 ## _JVM Stacks_
 각 _Thread_ 별로 따로 할당되는 영역입니다. _Heap_ 메모리 영역에 비해서 비교적 빠르다는 장점이 있습니다. 
 또한, 각각의 _Thread_ 별로 메모리를 따로 할당하기 때문에 동시성 문제에서 자유롭다는 점도 있습니다. 
 각 _Thread_ 들은 메소드를 호출할 때마다 _Frame_ 이라는 단위를 추가(_push_) 하게 됩니다.
 메소드가 마무리되며 결과를 반환하면 해당 _Frame_ 은 _Stack_ 으로부터 제거(_pop_)이 됩니다.
+
+_Java Stack_ 영역이 가득차게 되면 _StackOverflowError_ 를 발생시키게 됩니다.
+다음은 재귀함수를 무한으로 호출시켜 _Stack_ 영역에서의 _Error_ 를 일으키겠습니다.
+
+```java
+public class Stack {
+    
+    public static void main(String[] args) {
+        System.out.println("Stack 메모리 오류");
+        try{
+            int num = func(0);
+        } catch (Error e) {
+            System.out.println(e);
+        }
+    }
+
+    private static int func(int num) {
+        num = num+1;
+        return func(num);
+    }
+}
+```
+
+```bash
+Stack 메모리 오류
+java.lang.StackOverflowError
+```
 
 ## _Native Method Stacks_
 _Java_ 로 작성된 프로그램을 실행하면서, 순수하게 _Java_ 구성 및 코드로만은 사용할 수 없는 시스템의 자원이나 _API_ 가 존재합니다.
