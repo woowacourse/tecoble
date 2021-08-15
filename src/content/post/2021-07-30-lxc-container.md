@@ -5,7 +5,7 @@ author: [3기_파노]
 tags: ['lxc']
 date: "2021-07-30T12:00:00.000Z"
 draft: false
-image: ../teaser/dot-git.jpg
+image: ../teaser/linux-container.png
 ---
 
 
