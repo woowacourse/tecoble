@@ -75,6 +75,7 @@ dependencies {
             "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 }
 
+// QueryDSL
 sourceSets {
     main {
         java {
@@ -177,7 +178,7 @@ void queryDsl_FetchJoinComments_Success() {
 }
 ```
 
-* 이처럼 간단하게 Fetch Join을 적용할 수 있습니다.
+* 또한 ``fetchJoin()`` 등 직관적인 체이닝 메서드를 통해 간단하게 Fetch Join을 적용할 수 있습니다.
 
 <br>
 
@@ -340,5 +341,5 @@ public class QueryRepository {
 * [Incremental Compilation, the Java Library Plugin, and other performance features in Gradle 3.4](https://blog.gradle.org/incremental-compiler-avoidance#about-annotation-processors)
 * [간단한 QueryDSL 초기 설정 in Gradle 6](https://javachoi.tistory.com/397)
 * [[gradle] 그레이들 Annotation processor 와 Querydsl](http://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html)
-* [Spring Boot Data Jpa 프로젝트에 Querydsl 적용하기](https://jojoldu.tistory.com/372%E3%85%8C)
+* [Spring Boot Data Jpa 프로젝트에 Querydsl 적용하기](https://jojoldu.tistory.com/372)
 * [이미지 출처](https://medium.com/tech2flew/spring-data-jpa-querydsl-integration-part-1-1aaebe6208c8)
