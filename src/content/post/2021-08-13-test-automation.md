@@ -2,7 +2,7 @@
 layout: post
 title: 프론트엔드 테스트 자동화 해보기.
 author: [3기_파노]
-tags: ['lxc']
+tags: ['test-automation']
 date: "2021-08-13T12:00:00.000Z"
 draft: false
 image: ../teaser/frontend-test-automation.png
