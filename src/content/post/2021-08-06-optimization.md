@@ -62,7 +62,7 @@ image: '../teaser/optimization.jpeg'
 2. 시간 기반 지표: [유저가 렌더링을 인지하는 데 드는 시간을 세분화](https://dev.to/codesensei/user-centric-performance-metrics-what-are-they-55dm)하여 비교
 3. 규칙 기반 지표: [PageSpeed](https://developers.google.com/speed/pagespeed/insights/), [Lighthouse](https://developers.google.com/web/tools/lighthouse) 등 신뢰성 높은 도구의 측정 시간
 
-자, 이제 도구를 어느 정도 살펴보았으니 각 요소의 한곗값을 설정해보자. 한곗값은 할 수만 있다면 테스트 후에 자체적인 기준을 세우는 게 좋지만, 여건상 쉽지 않을 때가 더러 있다. 그럴 경우를 대비해 우리는 다음과 같은 비교 대상을 빠르게 설정할 수 있다.
+자, 이제 도구를 어느 정도 살펴보았으니 각 요소의 한계값을 설정해보자. 한계값은 할 수만 있다면 테스트 후에 자체적인 기준을 세우는 게 좋지만, 여건상 쉽지 않을 때가 더러 있다. 그럴 경우를 대비해 우리는 다음과 같은 비교 대상을 빠르게 설정할 수 있다.
 
 - 비슷한 서비스를 운영 중인 타 사이트의 성능
 - [실제 조사를 바탕으로 보편화한 기준](https://web.dev/your-first-performance-budget/#budget-for-quantity-based-metrics)
