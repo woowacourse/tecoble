@@ -1,8 +1,8 @@
 ---
 layout: post  
-title: JPA REMOVE vs orphanRemoval
+title: JPA CascadeType.REMOVE vs orphanRemoval = true
 author: [3기_다니]
-tags: ['jpa', 'remove', 'orphanremoval']
+tags: ['jpa']
 date: "2021-08-15T12:00:00.000Z"
 draft: false
 image: ../teaser/jpa.png
@@ -381,7 +381,8 @@ Hibernate:
 
 <br/>
 
-학습 테스트로 부모 엔티티를 삭제할 때는 REMOVE와 orphanRemoval이 동일하게 동작하는 것을 이해했다.
+학습 테스트로 부모 엔티티를 삭제할 때는 `CascadeType.REMOVE`와 `orphanRemoval = true`가 동일하게 동작하는 것을 이해했다.<br/>
+
 그렇다면, 부모 엔티티에서 자식 엔티티를 제거할 때는 어떤 결과를 나타낼까?<br/>
 
 ```java
@@ -470,10 +471,10 @@ Hibernate:
 
 두 케이스 모두 자식 엔티티에 딱 하나의 부모 엔티티가 연관되어 있는 경우에만 사용해야 한다.<br/>
 
-예를 들어 Member(자식)을 Team(부모)도 알고 Parent(부모)도 알고 있다면, `CascadeType.REMOVE` 또는 `orphanRemoval = true`를 주의할 필요가 있다.
-왜냐하면 자식 엔티티를 삭제할 상황이 아닌데 부모 엔티티를 삭제했다고 혹은 부모 엔티티에서 제거했다고 자식이 삭제되는 불상사가 일어날 수 있기 때문이다.<br/>
+예를 들어 Member(자식)을 Team(부모)도 알고 Parent(부모)도 알고 있다면, `CascadeType.REMOVE` 또는 `orphanRemoval = true`를 조심할 필요가 있다.
+자식 엔티티를 삭제할 상황이 아닌데도 어느 한쪽의 부모 엔티티를 삭제했거나 부모 엔티티로부터 제거됐다고 자식이 삭제되는 불상사가 일어날 수 있기 때문이다.<br/>
 
-그러므로 `@OneToOne`이나 `@OneToMany`에서 활용하고 @ManyToMany에서는 활용을 지양하자.<br/>
+그러므로 `@OneToMany`에서 활용할 때 주의를 기울이고, @ManyToMany에서는 활용을 지양하자.<br/>
 
 <br/>
 
