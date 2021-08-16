@@ -5,7 +5,10 @@ author: [3기_파피]
 tags: ['websocket']
 date: "2021-08-14T12:00:00.000Z"
 draft: false
+image: ../teaser/socket.png
 ---
+
+<p style="font-family: sans-serif; text-align: center; color: #aaa; margin-bottom: 3em; font-size: 85%">image origin: <a href="https://unsplash.com/photos/vT9zeLCOpps">unsplash.com</a></p>
 
 ## 웹 소켓에 대해 알아보자! - 이론 편
 
