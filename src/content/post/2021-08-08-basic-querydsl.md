@@ -89,7 +89,7 @@ test {
 }
 ```
 
-* 기본적으로 QueryDSL은 프로젝트 내의 @Entity 어노테이션을 선언한 클래스를 탐색하고, ``JPAAnnotiationProcessor``를 사용해 Q 클래스를 생성합니다.
+* 기본적으로 QueryDSL은 프로젝트 내의 @Entity 어노테이션을 선언한 클래스를 탐색하고, ``JPAAnnotationProcessor``를 사용해 Q 클래스를 생성합니다.
   * Q 클래스는 후술합니다.
 * ``querydsl-apt``가 @Entity 및 @Id 등의 애너테이션을 알 수 있도록, ``javax.persistence``과 ``javax.annotation``을 annotationProcessor에 함께 추가합니다.
   * ``annotationProcessor``는 Java 컴파일러 플러그인으로서, 컴파일 단계에서 어노테이션을 분석 및 처리함으로써 추가적인 파일을 생성할 수 있습니다.
@@ -155,7 +155,7 @@ void queryDsl_findPostsByMyCriteria_Three() {
 ```
 
 * 반면 QueryDSL은 각종 풍부한 체이닝 메서드와 유틸리티 메서드 및 정적 타입(Q 클래스)을 기반으로 직관적으로 쿼리를 작성합니다.
-* JPQL을 사용해본 독자님이라면 코드가 상당히 직관적임을 느끼실겁니다.
+* JPQL을 사용해본 독자님이라면 코드가 상당히 직관적임을 느끼실 겁니다.
 
 > PostRepositoryTest.java
 
@@ -328,7 +328,7 @@ public class QueryRepository {
 }
 ```
 
-* 원한다면 특정 엔티티 타입에 구애받지 않는 자신만의 QueryDSL 관련 Repository만을 정의해 사용할 수 있습니다.
+* 원한다면 특정 엔티티 타입에 구애받지 않는 자신만의 QueryDSL 관련 Repository를 정의해 사용할 수도 있습니다.
 
 <br>
 
