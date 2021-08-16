@@ -31,7 +31,7 @@ Git을 활용해 진행하는 프로그래밍 루틴에 테스트를 녹이는 �
 
 ![image](https://user-images.githubusercontent.com/44419181/129477970-72ac1437-3e99-4e0e-9917-d3ead07d50c0.png)
 
-프로젝트를 정식으로 배포하기 전, 빠른 테스트를 위해서 netlify를 이용해 간이로 배포를 진행했습니다.  netlify에서는 netlify site를  Github Repository와 연결하면 강력한 기능을 제공합니다. 레포지토리의 웹어플리케이션에 대한 CI/CD를 클릭 몇 번만에 셋업해주는데요. 감시하고 있는 브랜치에 커밋이 올라오면 새롭게 netlify가 배포를 하게 됩니다. 이와 관련해서 Deploy Preview라는 기능도 제공하는데, repository에 PR이 등록되면 해당 PR에 대해 네틀리파이 자체적으로 배포 + 테스트를 진행합니다.
+프로젝트를 정식으로 배포하기 전, 빠른 테스트를 위해서 netlify를 이용해 간이로 배포를 진행했습니다.  netlify에서는 netlify site를  Github Repository와 연결하면 강력한 기능을 제공합니다. 레포지토리의 웹어플리케이션에 대한 CI/CD를 클릭 몇 번만에 셋업해주는데요. 감시하고 있는 브랜치에 커밋이 올라오면 새롭게 netlify가 배포를 하게 됩니다. 이와 관련해서 Deploy Preview라는 기능도 제공하는데, repository에 PR이 등록되면 해당 PR에 대해 netlify 자체적으로 배포 + 테스트를 진행합니다.
 
 ![image](https://user-images.githubusercontent.com/44419181/129478241-f572fb42-f64a-412b-a4a2-cff710008c87.png)
 
