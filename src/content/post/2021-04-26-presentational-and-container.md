@@ -5,7 +5,8 @@ author: [3기_미키]
 tags: ['refactoring']
 date: '2021-04-25T12:00:00.000Z'
 draft: false
-image: ../teaser/presentational.png
+image: ../teaser/presentational.jpg
+source: https://unsplash.com/@frankiefoto
 ---
 
 ❗ 본 글은 Hook 개념이 없는 과거 리액트를 기준으로 쓰여진 글입니다.

@@ -5,7 +5,8 @@ author: [3기_미키]
 tags: ['refactoring', 'design-pattern']
 date: '2021-05-14T12:00:00.000Z'
 draft: false
-image: ../teaser/inversion-of-control.png
+image: ../teaser/inversion-of-control.jpg
+source: https://unsplash.com/@ravipalwe
 ---
 
 ## 🎁 Inversion of Control 이란?
@@ -17,7 +18,7 @@ image: ../teaser/inversion-of-control.png
 그리고 그 흐름이 어떻게 역전되는 것인지 감이 오지 않을 것이다.
 IoC를 이해하기 위해 택시를 타는 상황을 예로 들어 함께 알아보자.
 
-![image](https://user-images.githubusercontent.com/48755175/118286801-cf2d8000-b50d-11eb-806e-95a5e85bd01c.png)
+![image](https://images.unsplash.com/photo-1536846511313-4b07b637bff9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)
 
 만약 택시를 탔는데 택시 기사에게 자동차 속도를 몇 km로 유지할 지,
 목적지까지 어떤 길로 갈지, 사소한 것 하나하나 모두 지시해야한다면 어떨까?
