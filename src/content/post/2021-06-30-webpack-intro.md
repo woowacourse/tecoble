@@ -82,7 +82,7 @@ image: ../teaser/webpack.png
 
   <br>
 
-  이러한 흐름에 맞춰 ECMAScript6부터는 javascript의 표준 공식 기능으로 모듈화(import, export)를 기본 지원하게 되었다.
+  이러한 흐름에 맞춰 ES2015+부터는 javascript의 표준 공식 기능으로 모듈화(import, export)를 기본 지원하게 되었다.
 
   <br>
 
