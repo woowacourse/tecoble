@@ -14,7 +14,7 @@ image: ../teaser/webpack.png
 
 구글에 '프론트엔드 개발 환경 설정'과 같은 키워드를 검색하면, 웹팩에 대한 글을 많이 볼 수 있다. 그래서 이번 글에서는 많이 들어본 것 같지만 아직도 잘 모르겠는 웹팩에 대해 알아보려고 한다.
 
-\* 특정 환경의 개발을 바로 진행할 수 있도록 만든 기초 환경을 통틀어 보일러 플레이트(boiler plate)라고 부르기도 하는데, CRA도 이러한 보일러 플레이트의 일종이라고 할 수 있다.
+CRA\* - 특정 환경의 개발을 바로 진행할 수 있도록 만든 기초 환경을 통틀어 보일러 플레이트(boiler plate)라고 부르기도 하는데, CRA도 이러한 보일러 플레이트의 일종이라고 할 수 있다.
 
 ## 웹팩이란?
 
@@ -78,13 +78,23 @@ image: ../teaser/webpack.png
 
   <br>
 
-  이에 따라 필요한 모듈을 언제든지 불러올 수 있게 해 주거나, 코드를 모듈 단위로 구성해 주는 방법 등 다양한 라이브러리를 만들어졌고, 'CommonJS'와 'AMD', 'UMD'와 같은 모듈 시스템이 생겨나게 되었다.
+  이에 따라 필요한 모듈을 언제든지 불러올 수 있게 해 주거나, 코드를 모듈 단위로 구성해 주는 방법 등 다양한 라이브러리를 만들어졌고, CommonJS\*와 AMD\*, UMD\* 같은 모듈 시스템이 생겨나게 되었다.
 
   <br>
 
   이러한 흐름에 맞춰 ES2015+부터는 javascript의 표준 공식 기능으로 모듈화(import, export)를 기본 지원하게 되었다.
 
   <br>
+
+  CommonJS\* - javascript를 브라우저에서뿐만 아니라, 서버사이드 애플리케이션이나 데스크톱 애플리케이션에서도 사용하고자 하는 움직임이 있었고, 이를 위해서는 모듈화가 필요하였다. 이를 위해 모듈 방식을 정의하게 되었는데, 그것이 CommonJS 이다.
+
+  <br>
+
+  AMD(Asynchronous Module Definition)\* - 필요한 모듈을 네트워크를 이용해 내려받아야 하는 브라우저 환경(비동기 상황)에서도 javascript 모듈을 사용하고자 하였다. 이를 위해 브라우저 내에서의 실행에 중점을 둔 모듈 방식을 정의하게 되었는데, 그것이 AMD 이다.
+
+  <br>
+
+  UMD(Universal Module Definition)\* - UMD는 이름에서 알 수 있듯이, CommonJS와 AMD를 통합한 모듈 방식이다. 모듈 구현방식이 CommonJS 와 AMD로 나뉘기 때문에 서로 간의 호환성 문제가 있었고 이를 해결하기 패턴으로 등장하였다.
 
 - **빠른 로딩 속도와 높은 성능**
 
@@ -117,3 +127,5 @@ image: ../teaser/webpack.png
 - [웹팩 핸디북](https://joshua1988.github.io/webpack-guide/)
 
 - [김정환블로그 - 프론트엔드 개발환경의 이해: 웹팩(기본)](https://jeonghwan-kim.github.io/series/2019/12/10/frontend-dev-env-webpack-basic.html)
+
+- [JavaScript 표준을 위한 움직임: CommonJS와 AMD](https://baeharam.netlify.app/posts/javascript/module)
