@@ -140,7 +140,7 @@ try/catch를 통해 발생한 예외를 붙잡아 새로 만든 예외를 던져
 
 ### 4. 예외 발생 후처리가 용이하다.
 
-Spring에서는 ControllerAdvice를 통해서 전역적인 예외 처리가 가능하다. *[방법이 궁금하다면?](https://woowacourse.github.io/tecoble/post/2020-07-28-global-exception-handler)*
+Spring에서는 ControllerAdvice를 통해서 전역적인 예외 처리가 가능하다. *[방법이 궁금하다면?](https://tecoble.techcourse.co.kr/post/2020-07-28-global-exception-handler)*
 
 예외는 상속 관계에 있기 때문에, `Exception`이나 `RuntimeException`을 잡아두면 프로그램 내에서 발생하는 거의 모든 예외에 대해 처리가 가능하다.
 하지만 이는 프로그래머가 의도하지 않은 예외까지 모두 잡아내 혼란을 야기할 수 있다.

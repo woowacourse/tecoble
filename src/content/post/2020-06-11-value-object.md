@@ -187,6 +187,6 @@ public static void main(String[] args) {
 
 그뿐만 아니라, Entity의 원시 값들을 VO로 포장하면 Entity가 지나치게 거대해지는 것을 막을 수 있어서, 테이블 관점이 아닌 객체 지향적인 관점으로 프로그래밍할 수 있다.
 
-> 컬렉션도 VO의 역할을 한다면, 일급 컬렉션과 같은 불변객체로 만들어서 사용할 수 있다. Javable의 [불변객체를 만드는 방법](https://woowacourse.github.io/tecobe/2020-05-18-immutable-object)이나 [일급 컬렉션을 사용하는 이유](https://woowacourse.github.io/tecoble/post/2020-05-08-First-Class-Collection)에 불변하는 컬렉션을 만드는 방법이 소개되어 있으니 참고하길 바란다.
+> 컬렉션도 VO의 역할을 한다면, 일급 컬렉션과 같은 불변객체로 만들어서 사용할 수 있다. Javable의 [불변객체를 만드는 방법](https://woowacourse.github.io/tecobe/2020-05-18-immutable-object)이나 [일급 컬렉션을 사용하는 이유](https://tecoble.techcourse.co.kr/post/2020-05-08-First-Class-Collection)에 불변하는 컬렉션을 만드는 방법이 소개되어 있으니 참고하길 바란다.
 
 이 글을 통해 VO란 무엇이고, 어떤 특징이 있는지 감을 잡았기를 바란다. VO와 Entity의 역할을 잘 나누고 더 객체 지향적으로 설계하는 방법을 알고 싶다면, 도메인 주도 설계를 공부해보는 것도 도움이 될 것이다.

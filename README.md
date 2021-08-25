@@ -1,4 +1,4 @@
-# [Tecoble [테코:블]](https://woowacourse.github.io/tecoble/)
+# [Tecoble [테코:블]](https://tecoble.techcourse.co.kr/)
 
 📒 우아한테크코스 Devlog.  
 크루들이 모여 학습한 내용을 함께 정리, 공유하는 공간입니다.
