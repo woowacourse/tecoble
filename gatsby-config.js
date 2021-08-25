@@ -5,9 +5,8 @@ module.exports = {
   siteMetadata: {
     title: 'Tecoble',
     description: 'woowacourse code review & devlog',
-    siteUrl: 'https://woowacourse.github.io/tecoble/', // full path to blog - no ending slash
+    siteUrl: 'https://tecoble.techcourse.co.kr/', // full path to blog - no ending slash
   },
-  pathPrefix: '/tecoble',
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
@@ -65,7 +64,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://woowacourse.github.io/tecoble/',
+        siteUrl: 'https://tecoble.techcourse.co.kr/',
       },
     },
     'gatsby-plugin-typescript',
