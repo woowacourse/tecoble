@@ -96,7 +96,7 @@ public ResponseEntity<UserDto> showArticle(@PathVariable long id) {
 Spring Framework로 웹 어플리케이션을 제작하는 도중, DTO의 사용 범위에 대해 의문이 생겼습니다.
 
 - Model 계층과 View 계층 사이에서의 DTO 사용은 알겠는데... 😔
-- Layered Architecture 상의 계층들에서는 DTO를 어떻게 사용해야 하지? 😳
+- Layered Architecture 상의 계층들에서는 DTO를 어떻게 사용해야 하지? 😳
 
 ### 2.1. Layered Architecture
 
