@@ -12,7 +12,7 @@ image: ../teaser/cycle.png
 
 ## 1편에서는...
 
-[1편 링크](https://woowacourse.github.io/tecoble/post/2020-08-31-entity-lifecycle-1)
+[1편 링크](https://tecoble.techcourse.co.kr/post/2020-08-31-entity-lifecycle-1)
 LazyInitializationException이 예기치 않게 발생하는 상황 속에서 하는 이유와 그 원인에 대한 해결책을 찾아보았다.
 요약하자면 참조하려는 Entity의 연관 Entity를 조회할 때, 영속성 컨텍스트가 존재하지 않는 상황에서 LazyInitializationException가 발생했으며,
 이를 해결하기 위해서는 영속성 컨텍스트가 존재하는 상황 속에서 미리 필요한 연관 Entity를 불러오던가, 준영속화 된 Entity를 다시 영속화시키는 방법으로 해결했다.
@@ -28,7 +28,7 @@ LazyInitializationException이 예기치 않게 발생하는 상황 속에서 �
 
 ## Open Session In View 어디서 구현될까?
 
-계속해서 이야기했지만 Spring Boot에서는 [OSIV](https://woowacourse.github.io/tecoble/post/2020-09-11-osiv)가 기본적으로 설정되어 있다.
+계속해서 이야기했지만 Spring Boot에서는 [OSIV](https://tecoble.techcourse.co.kr/post/2020-09-11-osiv)가 기본적으로 설정되어 있다.
 어떤 방식으로 OSIV가 설정되어 있고 어떻게 동작하는지 자세히 살펴보도록 하자.
 
 ```java

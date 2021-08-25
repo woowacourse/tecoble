@@ -35,7 +35,7 @@ public abstract class HttpServletBean extends HttpServlet {
 
 <sup>\*</sup>Servlet이 무엇인지 궁금하다면, 테코블에 있는 아래 글을 참고해보자.<br/>
 
-> [Servlet 과 ServletContainer](https://woowacourse.github.io/tecoble/post/2021-05-23-servlet-servletcontainer/)<br/>
+> [Servlet 과 ServletContainer](https://tecoble.techcourse.co.kr/post/2021-05-23-servlet-servletcontainer/)<br/>
 
 <br/>
 

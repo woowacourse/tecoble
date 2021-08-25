@@ -75,7 +75,7 @@ x00번이 해당 그룹의 대표로 쓰이며 뒤의 숫자마다 각기 다른
 프로그래머의 실수로 잘못된 문법의 코드가 진행되거나 외부 API에 대한 이해 없이 사용한 경우가 될 수 있다.  
 서버 측의 잘못이라는 이야기다.
 
-Spring에서는 아래처럼 [ControllerAdvice](https://woowacourse.github.io/tecoble/post/2020-07-28-global-exception-handler)과 커스텀 예외를 통해 이 두 가지를 구분할 수 있다.
+Spring에서는 아래처럼 [ControllerAdvice](https://tecoble.techcourse.co.kr/post/2020-07-28-global-exception-handler)과 커스텀 예외를 통해 이 두 가지를 구분할 수 있다.
 ```java
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(RuntimeException e) {

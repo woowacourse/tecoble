@@ -42,7 +42,7 @@ public class MailConfiguration {
 }
 ```
 
-> email, password를 github 저장소에 올리기 부담될 때에는 [__private-submodule__](https://woowacourse.github.io/tecoble/post/2021-07-31-git-submodule/)을 사용해 보기를 추천한다.
+> email, password를 github 저장소에 올리기 부담될 때에는 [__private-submodule__](https://tecoble.techcourse.co.kr/post/2021-07-31-git-submodule/)을 사용해 보기를 추천한다.
 
 `implementation'org.springframework.boot:spring-boot-starter-thymeleaf'` 의존성 추가
 

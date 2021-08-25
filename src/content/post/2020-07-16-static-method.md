@@ -130,7 +130,7 @@ static으로 할당된 영역이 크다면 GC의 효율이 떨어지기 마련�
 
 static을 아예 쓰지 말라는 말처럼 들릴 수 있다.
 그러나 앞서 밝혔던 장점도 있을뿐더러,
-[정적 팩터리 메서드](https://woowacourse.github.io/tecoble/post/2020-05-26-static-factory-method)를 활용하면 정적 메소드를 효율적으로 사용할 수도 있다.
+[정적 팩터리 메서드](https://tecoble.techcourse.co.kr/post/2020-05-26-static-factory-method)를 활용하면 정적 메소드를 효율적으로 사용할 수도 있다.
 
 결론적으로, 필자는 정적 메소드를 쓰라고 하지도 않을 거고, 사용하지 말라고 하지도 않을 것이다.
 당연한 이야기이지만 속한 집단에서 사용하는 방식을 따르는 게 가장 바람직하다.

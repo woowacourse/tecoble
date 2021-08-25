@@ -10,7 +10,7 @@ image: ../teaser/ts-minimal-start.png
 
 ## 0.Intro
 
-[1편](https://woowacourse.github.io/tecoble/)에서 타입스크립트의 기본적인 문법에 대해 알아보았습니다.
+[1편](https://tecoble.techcourse.co.kr/)에서 타입스크립트의 기본적인 문법에 대해 알아보았습니다.
 이번 포스팅에서는 타입스크립트에서 조금 더 심화된 내용을 다뤄봅니다.
 시리즈의 컨셉을 따라 개념적 맥락을 파악할 수 있는 수준에서 최소한의 내용을 다룹니다.
 
