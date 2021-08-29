@@ -59,11 +59,11 @@ module.exports = () => {
 module.exports = () => {
     entry: "./src/index.js",
 
-    or
+    // or
 
     entry: ['./src/index.js'],
 
-    or
+    // or
 
     entry: {
       bundle: './src/index.js'
@@ -85,7 +85,7 @@ module.exports = () => {
     path: "./dist",
     filename: "bundle.js",
 
-    or
+    // or
 
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
