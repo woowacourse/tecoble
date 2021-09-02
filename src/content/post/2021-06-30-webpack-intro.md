@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 웹팩
+title: 웹팩 이해하기 - 1
 author: [3기_심바]
 tags: ['webpack']
 date: '2021-06-30T12:00:00.000Z'
