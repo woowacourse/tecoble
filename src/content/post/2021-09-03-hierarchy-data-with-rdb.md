@@ -267,10 +267,10 @@ public List<Comment> findCommentsOrderByHierarchy(Pageable pageable, Post post) 
 
 ```sql
 SELECT * FROM COMMENT
-WHERE ROOT_COMMENT = ? AND LFT BETWEEN ${부모 Comment lft AND ${부모 Comment rgt};
+WHERE ROOT_COMMENT = ? AND LFT BETWEEN ${부모 Comment lft} AND ${부모 Comment rgt};
 
 UPDATE COMMENT SET IS_DELETED TRUE
-WHERE ROOT_COMMENT = ? AND LFT BETWEEN ${부모 Comment lft AND ${부모 Comment rgt};
+WHERE ROOT_COMMENT = ? AND LFT BETWEEN ${부모 Comment lft} AND ${부모 Comment rgt};
 ```
 
 그러나 여러 한계점 또한 존재합니다. 빈번하게 새로운 대댓글 노드를 중간에 삽입 혹은 삭제할 때 성능이 탁월하지 않습니다. 삽입 혹은 삭제가 발생할 때마다 같은 그룹 내 다른 노드들의 lft 및 rgt 필드의 값들 또한 함께 수정되기 때문입니다. 아울러 데이터를 추가할 때 lft 및 rgt 범위가 무결성을 위반하지 않도록 신경을 써야 합니다.
