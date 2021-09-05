@@ -20,7 +20,6 @@ image: ../teaser/rdb-hierarchy.png
 
 ## 2. JPA 스켈레톤 코드
 
-
 ![image](https://user-images.githubusercontent.com/56240505/132110264-5af23016-38d9-4d43-94a5-931c3ed4cdd8.png)
 
 계층형 댓글은 다소 특별한 노출 기준을 가지고 있습니다.
