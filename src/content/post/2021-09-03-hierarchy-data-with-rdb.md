@@ -184,10 +184,10 @@ public class Comment {
     private Comment parentComment;
 
     @Column(nullable = false)
-    private Long leftNode;
+    private Long leftNode = 1L;
 
     @Column(nullable = false)
-    private Long rightNode;
+    private Long rightNode = 2L;
 
     @Column(nullable = false)
     private Long depth = 1L;
