@@ -228,8 +228,8 @@ public void adjustHierarchyOrders(Comment newComment) {
         .execute();
 
     jpaQueryFactory.update(QCOMMENT)
-        .set(QCOMMENT.hierarchy.rightNode, QCOMMENT.hierarchy.rightNode.add(2))
-        .where(QCOMMENT.hierarchy.rightNode.goe(newComment.getLeftNode())
+        .set(QCOMMENT.rightNode, QCOMMENT.rightNode.add(2))
+        .where(QCOMMENT.rightNode.goe(newComment.getLeftNode())
             .and(QCOMMENT.rootComment.eq(newComment.getRootComment())))
         .execute();
 }
