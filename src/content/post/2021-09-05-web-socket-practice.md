@@ -28,10 +28,10 @@ STOMP의 형식은 HTTP와 닮았다.
 
 ```java
 COMMAND
-  header1:value1
-  header2:value2
+header1:value1
+header2:value2
 
-  Body^@
+Body^@
 ```
 
 클라이언트는 메시지를 전송하기 위해 COMMAND로 SEND 또는 SUBSCRIBE 명령을 사용하며, header와 value로 메시지의 수신 대상과 메시지에 대한 정보를 설명할 수 있다. 기존의 WebSocket만으로는 표현할 수 없는 형식이다.
@@ -50,17 +50,17 @@ COMMAND
 
 ```java
 SUBSCRIBE
-  destination:/subscribe/chat/room/5
+destination:/subscribe/chat/room/5
 ```
 
 다음과 같이 어떤 유저가 메시지를 보내면, 메시지 브로커는 SUBSCRIBE 중인 다른 유저들에게 메시지를 전달한다.
 
 ```java
 SEND
-  content-type:application/json
-  destination:/publish/chat
+content-type:application/json
+destination:/publish/chat
 
-  {"chatRoomId":5,"type":"MESSAGE","writer":"clientB"}
+{"chatRoomId":5,"type":"MESSAGE","writer":"clientB"}
 ```
 
 ### STOMP 기반 구현
@@ -89,16 +89,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 ```
 
 - `@EnableWebSocketMessageBroker`
-  메시지 브로커가 지원하는 'WebSocket 메시지 처리'를 활성화한다. 
+  
+메시지 브로커가 지원하는 'WebSocket 메시지 처리'를 활성화한다. 
   
 - `configureMessageBroker()`
-  메모리 기반의 Simple Message Broker를 활성화한다. 메시지 브로커는 `"/subscribe"`으로 시작하는 주소의 Subscriber들에게 메시지를 전달하는 역할을 한다.
-  이때, 클라이언트가 서버로 메시지 보낼 때 붙여야 하는 prefix를 지정한다. 예제에서는 `"/publish"`로 지정하였다.
+  
+메모리 기반의 Simple Message Broker를 활성화한다. 메시지 브로커는 `"/subscribe"`으로 시작하는 주소의 Subscriber들에게 메시지를 전달하는 역할을 한다. 이때, 클라이언트가 서버로 메시지 보낼 때 붙여야 하는 prefix를 지정한다. 예제에서는 `"/publish"`로 지정하였다.
   
 - `registerStompEndpoints()`
-  기존의 WebSocket 설정과 마찬가지로 HandShake와 통신을 담당할 EndPoint를 지정한다.
-  클라이언트에서 서버로 WebSocket 연결을 하고 싶을 때, `"/ws-connection"`으로 요청을 보내도록 하였다.
   
+기존의 WebSocket 설정과 마찬가지로 HandShake와 통신을 담당할 EndPoint를 지정한다. 클라이언트에서 서버로 WebSocket 연결을 하고 싶을 때, `"/ws-connection"`으로 요청을 보내도록 하였다.
+ 
+ 
 송신자와 수신자, 채팅방 번호 그리고 메시지 내용을 담고 있는 ChatRequest DTO는 다음과 같다.
 
 ```java
@@ -162,13 +164,16 @@ public class ChattingController {
 ```
 
 - SimpleMessagingTemplate
-  `@EnableWebSocketMessageBroker`를 통해서 등록되는 `Bean`이다. Broker로 메시지를 전달한다.
+  
+`@EnableWebSocketMessageBroker`를 통해서 등록되는 `Bean`이다. Broker로 메시지를 전달한다.
   
 - @MessageMapping
-  Client가 SEND를 할 수 있는 경로이다. `WebSocketConfig`에서 등록한 `applicationDestinationPrfixes`와 `@MessageMapping`의 경로가 합쳐진다.(`/publish/messages`)
+  
+Client가 SEND를 할 수 있는 경로이다. `WebSocketConfig`에서 등록한 `applicationDestinationPrfixes`와 `@MessageMapping`의 경로가 합쳐진다.(`/publish/messages`)
 
 - chat()
-  클라이언트에서 `/publish/messages` url로 메시지를 보내면, ChatRequest의 채팅방 id를 이용하여 해당 방을 구독 중인 사용자들에게 메시지를 전달하도록 하는 메서드이다.
+  
+클라이언트에서 `/publish/messages` url로 메시지를 보내면, ChatRequest의 채팅방 id를 이용하여 해당 방을 구독 중인 사용자들에게 메시지를 전달하도록 하는 메서드이다.
 
 클라이언트에서는 다음과 같이 연결하면 된다.
 
@@ -178,7 +183,7 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function () {
         setConnected(true);
-        stompClient.subscribe('/subscribe/rooms/4', function (greeting) {
+        stompClient.subscribe('/subscribe/rooms/5', function (greeting) {
             console.log(greeting.body);
         });
     });
@@ -193,7 +198,7 @@ function sendMessage() {
         'message': $("#name").val(),
         'senderId': 7,
         'receiverId': 14,
-        'roomId': 4
+        'roomId': 5
     }));
 }
 ```
