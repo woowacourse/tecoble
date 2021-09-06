@@ -59,7 +59,7 @@ public class Comment {
     // 중략
 
     public void addChildComment(Comment childComment) {
-        if (this.depth >= 98) {
+        if (this.depth >= 99) {
             throw new IllegalArgumentException();
         }
         childComment.rootComment = this.rootComment;
@@ -108,7 +108,7 @@ public void replyComment(CommentReplyRequestDto commentReplyRequestDto) {
 
 ```java
 public void addChildComment(Comment childComment) {
-    if (this.depth >= 98) {
+    if (this.depth >= 99) {
         throw new IllegalArgumentException();
     }
     childComment.rootComment = this.rootComment;
@@ -286,7 +286,7 @@ public class Comment {
     // 중략
 
     public void updateChildComment(Comment childComment) {
-        if (this.depth >= 98) {
+        if (this.depth >= 99) {
             throw new IllegalArgumentException();
         }
         childComment.rootComment = this.rootComment;
