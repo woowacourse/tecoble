@@ -165,6 +165,97 @@ A1 댓글에 대댓글을 다는 경우를 생각해봅시다. 조회하게 될 
 
 LEFT 필드와 RIGHT 필드로 레코드가 포함하는 범위를 결정하게 됩니다. 부모는 1 부터 N까지를 포함하고 자녀들은 각자의 범위를 부모 범위 내에서 결정하게 됩니다. 중간에 노드를 삽입 혹은 삭제할 때마다 관련 노드들의 값을 적절히 수정해주면 됩니다.
 
+이해가 잘 안 되시는 독자분들을 위해 조금 더 쉽게 풀어서 설명해보겠습니다. 특정한 게시물에 A, B, C, D, E라는 대댓글이 아닌 Root 댓글이 달리는 경우를 가정해보겠습니다.
+
+```
+A
+B
+C
+D
+E
+```
+
+A, B, C, D, E는 서로 독립적인 댓글 그룹의 Root 댓글입니다. 이 때, Root 댓글의 LEFT 및 RIGHT 필드 초기값은 1과 2로 고정입니다. LEFT 및 RIGHT 필드는 특정한 댓글 그룹 내에 속한 댓글의 계층 및 순서를 알기 위해 사용할뿐, 서로 다른 그룹의 댓글간 상호 독립적입니다.
+
+
+```
+A
+B
+ㄴB1
+C
+D
+ㄴD1
+E
+```
+
+B와 D에 대댓글이 달린 경우입니다. 이 때, A, C, E의 LEFT 및 RIGHT 필드는 여전히 1과 2로 고정입니다. A, C, E가 속한 댓글 계층에는 전혀 변화가 발생하지 않았기 때문입니다. 반면 B와 D가 속한 댓글 그룹의 중첩 세트 모델은 어떻게 변할까요?
+
+```
+1 [] 4
+  ㅣ
+2 [] 3
+```
+
+B와 D의 LEFT 및 RIGHT 필드는 1과 4로 수정됩니다. 그리고 대댓글인 B1 및 D1의 LEFT 및 RIGHT 필드는 각각 2와 3이 됩니다.
+
+```
+B
+ㄴB1
+ ㄴa
+ ㄴb
+ ㄴc
+ ㄴd
+ㄴB2
+ ㄴe
+ㄴB3
+ ㄴf
+ ㄴg
+ ㄴh
+```
+
+이번에는 위와 같은 계층형 댓글을 중첩 세트 모델로 표현해보겠습니다.
+
+```
+                                   1 [] 24
+                                     ㅣ
+          2 [] 11                 12 [] 15                 16 [] 23
+            ㅣ                        ㅣ                       ㅣ
+3 [] 4 5 [] 6 7 [] 8 9 [] 10      13 [] 14        17 [] 18 19 [] 20 21 [] 22
+```
+
+첨부된 그림을 참고하면 계층적인 데이터를 중첩 세트 모델로 쉽게 변환할 수 있습니다.
+
+```
+B
+ㄴB1
+ ㄴa
+ ㄴb
+ ㄴc
+ ㄴd
+ㄴB2
+ ㄴe
+  ㄴe2
+ㄴB3
+ ㄴf
+ ㄴg
+ ㄴh
+```
+
+이번에는 B2에 달린 e라는 대댓글에 신규 대댓글이 추가되는 경우를 상정해보겠습니다. 중첩 세트 모델은 어떻게 변화할까요?
+
+
+```
+                                   1 [] 26
+                                     ㅣ
+          2 [] 11                 12 [] 17                 18 [] 25
+            ㅣ                        ㅣ                       ㅣ
+3 [] 4 5 [] 6 7 [] 8 9 [] 10      13 [] 16        19 [] 20 21 [] 22 23 [] 24
+                                     ㅣ
+                                  14 [] 15
+```
+
+신규 노드가 추가되면 후위에 있는 노드들의 LEFT 및 RIGHT 필드의 값이 함께 조정되는 것을 확인할 수 있습니다.
+
 > Comment.java
 
 ```java
@@ -194,7 +285,7 @@ public class Comment {
 
     // 중략
 
-    public void addChildComment(Comment childComment) {
+    public void updateChildComment(Comment childComment) {
         if (this.depth >= 98) {
             throw new IllegalArgumentException();
         }
@@ -203,13 +294,14 @@ public class Comment {
         childComment.depth = this.depth + 1L;
         childComment.leftNode = this.rightNode;
         childComment.rightNode = this.rightNode + 1;
-        childComments.add(childComment);
     }
 }
 ```
 
 사진을 참고하면 다음과 같은 내용을 알 수 있습니다.
 
+* 대댓글이 아닌 게시물에 달리는 Root Comment의 경우 무조건 leftNode 및 rightNode는 1과 2로 고정이다.
+  * leftNode 및 rightNode는 동일한 댓글 그룹 내에서의 순서 및 계층을 표현하는 값일뿐, 서로 다른 댓글 그룹 사이에서는 독립적이다.
 * ``rightNode - leftNode == 1``이면 하위 자식 Comment가 존재하지 않는다.
 * ``rightNode - leftNode != 1``이면 하위 자식 Comment가 존재한다.
 * leftNode 및 rightNode는 기존 JPA 스켈레톤 코드의 groupOrder와 일맥상통한다.
