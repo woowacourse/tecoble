@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: 멀티 모듈 관리하기 with Gradle
+title: 멀티 모듈 적용하기 with Gradle
 author: [3기_완태]
 tags: ['gradle', 'build']
 date: "2021-09-06T12:00:00.000Z"
