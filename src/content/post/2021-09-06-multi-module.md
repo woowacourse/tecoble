@@ -8,7 +8,7 @@ draft: false
 image: ../teaser/gradle.png
 ---
 
-프로젝트를 구성하는 데 있어 멀티 모듈 활용했을 때의 장점과 간단한 설정 방법을 알아본다.
+이번 글에서는 프로젝트를 구성하는 데 있어 멀티 모듈 활용했을 때의 장점과 간단한 설정 방법을 알아본다. 멀티 모듈의 개념을 처음 접하는 사람들이 읽어보기를 추천한다.
 
 <!-- end -->
 
@@ -41,7 +41,7 @@ image: ../teaser/gradle.png
 
 [Spring 공식문서](https://spring.io/guides/gs/multi-module/) 에서 작성된 예시를 활용하여 설명을 이어나간다. 공통된 부분을 `library` 모듈, 이를 활용하는 부분 `application` 모듈로 구성된 간단한 프로젝트의 설정은 다음의 방식으로 이루어진다.
 
-### 프로젝트 내 여러 프로젝트 생성하기
+### 프로젝트 내부에 여러 프로젝트 생성하기
 IntelliJ에서 여러 프로젝트를 생성하는 방법은 간단하다.
 
 1. Gradle 프로젝트를 생성한다.
@@ -49,11 +49,15 @@ IntelliJ에서 여러 프로젝트를 생성하는 방법은 간단하다.
 
 ![multi-module](../images/2021-09-06-multi-module.png)
 
+![multi-module-tree](../images/2021-09-06-multi-module-2.png)
+
+프로젝트를 생성하면 위와 같은 구조를 가진다.
+
 ### Root Project (setting.gradle)
 
-하위 프로젝트를 setting.gradle에서 설정을 진행해준다.
+하위 프로젝트(library, application)를 setting.gradle에서 설정을 진행해준다.
 
-```gradle
+```groovy
 rootProject.name = 'multi-module'
 
 include 'library'
@@ -62,9 +66,9 @@ include 'application'
 
 ### Library 모듈 (build.gradle)
 
-기본적으로 gradle build시 실행가능한 jar 파일을 만드는데, Library는 이 자체적으로 실행을 시키지 않기 때문에 아래의 설정을 추가해준다.
+기본적으로 gradle build시 실행 가능한 jar 파일을 만드는데, Library는 이를 자체적으로 실행을 시키지 않기 때문에 아래의 설정을 추가해준다.
 
-```gradle
+```groovy
 plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -79,7 +83,7 @@ repositories {
 	mavenCentral()
 }
 
-## 설정 부분
+// 설정 부분
 bootJar {
 	enabled = false
 }
@@ -87,7 +91,7 @@ bootJar {
 jar {
 	enabled = true
 }
-##
+//
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -97,9 +101,11 @@ dependencies {
 
 ### Application 모듈 (build.gradle)
 
-`project(:projectName)` 의 방식으로 정의한 모듈의 의존성을 추가하여 사용할 수 있다.
+`project(:projectPath)` 의 방식으로 정의한 모듈의 의존성을 추가하여 사용할 수 있다.
 
-```gradle
+gradle의 ProjectApi의 정의된 project() 메소드로 특정 경로의 있는 프로젝트의 의존성을 추가할 수 있다.
+
+```groovy
 plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -118,7 +124,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
   
-  ## 설정 부분
+  // 설정 부분
 	implementation project(':library')
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
