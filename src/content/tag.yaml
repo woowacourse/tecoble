@@ -55,4 +55,7 @@
 - id: test
   description: 테스트와 관련된 글.
   image: teaser/test-case.png
+- id: jvm
+  description: JVM과 관련된 글.
+  image: teaser/jvm.png
 
