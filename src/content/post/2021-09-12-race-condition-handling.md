@@ -103,7 +103,7 @@ $input.addEventListener('input', () => {
 사용법은 꽤 간단합니다. 우선 다음과 같이 컨트롤러를 생성해줍니다.
 
 ```js
-var controller = new AbortController();
+const controller = new AbortController();
 ```
 
 그 다음 취소될 수 있는 요청을 보낼 때 `signal` 옵션을 지정해줄 수 있습니다.
