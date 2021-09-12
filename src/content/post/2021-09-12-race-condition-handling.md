@@ -171,6 +171,6 @@ $input.addEventListener('input', () => {
 
 ### References
 
-[대표 이미지 출처](https://blog.theodo.com/2019/09/handle-race-conditions-in-nodejs-using-mutex/)
-[Fetch: Abort - Modern Javascript Tutorial](https://javascript.info/fetch-abort#:~:text=AbortController%20is%20a%20simple%20object,possible%20to%20abort%20the%20fetch%20.)
-[Handling API request race conditions in React](https://dev.to/sebastienlorber/handling-api-request-race-conditions-in-react-4j5b)
+- [대표 이미지 출처](https://blog.theodo.com/2019/09/handle-race-conditions-in-nodejs-using-mutex/)
+- [Fetch: Abort - Modern Javascript Tutorial](https://javascript.info/fetch-abort#:~:text=AbortController%20is%20a%20simple%20object,possible%20to%20abort%20the%20fetch%20.)
+- [Handling API request race conditions in React](https://dev.to/sebastienlorber/handling-api-request-race-conditions-in-react-4j5b)
