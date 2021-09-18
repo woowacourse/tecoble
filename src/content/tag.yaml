@@ -58,4 +58,7 @@
 - id: jvm
   description: JVM과 관련된 글.
   image: teaser/jvm.png
+- id: linux
+  description: Linux과 관련된 글.
+  image: teaser/linux.png
 
