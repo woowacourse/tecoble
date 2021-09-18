@@ -91,7 +91,7 @@ $input.addEventListener('input', () => {
 
 - 이전 요청은 모두 무시하고 마지막 요청에 대한 응답만 처리해준다.
 
-이와 같은 처리가 가능하도록 특정 시점의 요청 자체를 끊어버릴 수 있는 방법이 있다면 어떨까요? 그것을 가능하게 하는 API가 바로 `AbortController`입니다.
+이와 같은 처리가 가능하도록 특정 시점의 요청 자체를 끊어버릴 수 있는 방법이 있다면 어떨까요? 그것을 가능하게 하는 [Web API](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)가 바로 `AbortController`입니다.
 
 ### AbortController
 
