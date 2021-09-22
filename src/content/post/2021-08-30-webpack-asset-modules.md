@@ -69,7 +69,7 @@ img1.src = mainImage;
 img2.src = subMainImage;
 ```
 
-`.png` 파일은 `asset/resource` 모듈의 사용과 `assetModuleFilename: 'images/[name][ext]'`의 설정으로 출력 디렉터리(`dist`) 안 새로운 폴더(`images`)에 별도의 파일로 생성된다. 또한, 파일의 이름은 기존의 이름 그대로 생성된다. `.jpg` 파일은 `asset/resource` 모듈의 사용과 `Rule.generator.filename: 'static/[name][ext]`의 설정으로 출력 디렉터리(`dist`) 안 새로운 폴더(`static`)에 기존의 이름 그대로의 파일이 생성된다.
+`.png` 파일은 `asset/resource` 모듈의 사용과 `output`의 `assetModuleFilename: 'images/[name][ext]'`의 설정으로 출력 디렉터리(`dist`) 안 새로운 폴더(`images`)에 별도의 파일로 생성된다. 또한, 파일의 이름은 기존의 이름 그대로 생성된다. `.jpg` 파일은 `asset/resource` 모듈의 사용과 `Rule.generator.filename: 'static/[name][ext]`의 설정으로 출력 디렉터리(`dist`) 안 새로운 폴더(`static`)에 기존의 이름 그대로의 파일이 생성된다. 참고로, 위와 같이 `output`에서의 `assetModuleFilename` 옵션과 `module`의 `rules`에서 `Rule.generator.filename`을 동시에 사용하는 경우, `Rule.generator.filename`이 우선된다.
 
 ```shell
 // 출력 파일의 폴더 구조
@@ -120,7 +120,7 @@ block.style.background = `url(${metroMap})`; //  build 후 번들에 삽입되�
 
 ### Custom data URI generator
 
-기본적으로 data URI는 Base64 알고리즘을 사용하여 인코딩 된 파일 콘텐츠를 의미하는데, 파일 인코딩을 위한 커스텀 함수를 지정하여 [mini-svg-data-uri](https://github.com/tigt/mini-svg-data-uri)와 같은 커스텀 인코딩 알고리즘도 사용할 수 있다.
+기본적으로 webpack에서 내보낸 data URI는 Base64 알고리즘을 사용하여 인코딩 된 파일 콘텐츠를 의미하는데, 파일 인코딩을 위한 커스텀 함수를 지정하여 [mini-svg-data-uri](https://github.com/tigt/mini-svg-data-uri)와 같은 커스텀 인코딩 알고리즘도 사용할 수 있다.
 
 > Base64: 화면에 표시되는 ASCII 문자들만 사용하여 일련의 문자열로 바꾸는 인코딩 방식
 
