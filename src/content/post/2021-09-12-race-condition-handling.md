@@ -81,7 +81,7 @@ $input.addEventListener('input', () => {
 
 <br />
 
-<img src="../images/2021-09-12-race-condition1.gif" alt="경합 조건 예시 1" />
+<img width="400" src="../images/2021-09-23-race-condition1.gif" alt="경합 조건 예시 1" />
 
 마지막 응답의 결과는 매번 바뀔 수 있기에 그대로 화면에 띄워주게 되면 결국 사용자는 기대와 다른 결과를 얻게 됩니다.
 
@@ -153,7 +153,7 @@ $input.addEventListener('input', () => {
 
 <br />
 
-<img src="../images/2021-09-12-race-condition2.gif" alt="경합 조건 예시 2" />
+<img width="400" src="../images/2021-09-23-race-condition2.gif" alt="경합 조건 예시 2" />
 
 코드를 다시 정리해보면,
 
