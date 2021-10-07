@@ -62,7 +62,7 @@ print.accept("안녕하세요!");
         List<Integer> 숫자가_담긴_리스트 = Arrays.asList(7, 5, 123, 5, 42, 95, 68, 30, 42);
 
         List<Integer> 연산_결과 = 숫자가_담긴_리스트.스트림으로_변경()
-            .필터링(숫자 -> 50 이하 숫자)
+            .필터링(숫자 -> 50 미만 숫자)
             .중복제거()
             .정렬(Integer 타입의 compare 메서드 방식으로)
             .스트림_연산_결과를_합침(Collectors 의 toList 메서드로 List 결과를 반환);
