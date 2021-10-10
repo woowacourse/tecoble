@@ -267,7 +267,7 @@ public class Main {
             whybe.addLotteryCommand(번호식복권긁기커맨드);
         }
 
-        whybe.scratchAllLotery();
+        whybe.scratchAllLottery();
     }
 }
 ```
