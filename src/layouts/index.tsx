@@ -292,11 +292,6 @@ const IndexLayout: React.FC<IndexProps> = props => {
             -moz-font-feature-settings: 'liga' on;
           }
 
-          ::selection {
-            text-shadow: none;
-            background: ${lighten('0.3', colors.blue)};
-          }
-
           hr {
             position: relative;
             display: block;
