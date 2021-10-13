@@ -179,7 +179,7 @@ SELECT 문에 인덱스에 포함되어 있는 컬럼 외의 다른 컬럼 값�
 
 <br/>
 
-학습 테스트를 시작하기 앞서, 각 값이 고유한 email에 인덱스를 추가했다.<br/>
+학습 테스트를 시작하기 앞서 (email)으로 인덱스를 추가했다.<br/>
 
 ```sql
 CREATE INDEX `idx_member_email` ON `member` (email);
@@ -187,7 +187,7 @@ CREATE INDEX `idx_member_email` ON `member` (email);
 
 <br/>
 
-### SELECT
+## SELECT + WHERE
 
 먼저, 아래 쿼리의 실행 계획을 확인했다.<br/>
 
@@ -197,7 +197,7 @@ FROM member
 WHERE email = 'probitanima8@gmail.com';
 ```
 
-![select_explain1](https://user-images.githubusercontent.com/50176238/137000538-48493036-80cb-4d8d-a32a-755be7aed65f.png)
+![select_where_explain1](https://user-images.githubusercontent.com/50176238/137000538-48493036-80cb-4d8d-a32a-755be7aed65f.png)
 
 <br/>
 
@@ -209,21 +209,115 @@ FROM member
 WHERE email = 'probitanima8@gmail.com';
 ```
 
-![select_explain2](https://user-images.githubusercontent.com/50176238/137000717-c4132a2a-e0db-41de-b4e5-d20f11bb0f5e.png)
+![select_where_explain2](https://user-images.githubusercontent.com/50176238/137000717-c4132a2a-e0db-41de-b4e5-d20f11bb0f5e.png)
 
 실행 계획의 `extra`를 보면, 커버링 인덱스가 사용됐다. 즉, 이 쿼리는 인덱스에 포함되어 있는 컬럼만으로 쿼리 생성이 가능하다.<br/>
 
 <br/>
 
-### WHERE + GROUP BY
+## WHERE + GROUP BY
+
+우선, GROUP BY는 아래 조건에서 인덱스가 적용된다.<br/>
+
+- 인덱스 컬럼과 GROUP BY에 명시하는 컬럼의 순서는 동일해야 된다.
+- 인덱스 컬럼 중 뒤에 있는 컬럼은 GROUP BY에 명시하지 않아도 된다.
+- 인덱스 컬럼 중 앞에 있는 컬럼은 GROUP BY에 명시해야 된다.
+- 인덱스에 없는 컬럼을 GROUP BY에 명시하면 안된다.
+
+```sql
+--- 인덱스가 (a, b, c)인 경우
+
+GROUP BY b              --- 인덱스 적용 X
+GROUP BY b, a           --- 인덱스 적용 X
+GROUP BY a, c, b        --- 인덱스 적용 X
+
+GROUP BY a              --- 인덱스 적용 O
+GROUP BY a, b           --- 인덱스 적용 O
+GROUP BY a, b, c        --- 인덱스 적용 O
+
+GROUP BY b, c           --- 인덱스 적용 X
+
+GROUP BY a, b, c, d     --- 인덱스 적용 X
+```
 
 <br/>
 
-### WHERE + ORDER BY
+### WHERE가 동등 비교일 때
+
+WHERE + GROUP BY가 함께 사용되면, WHERE에 있는 컬럼은 GROUP BY에 없어도 된다.<br/>
+
+```sql
+--- 인덱스가 (a, b, c)인 경우
+
+WHERE a = 1
+GROUP BY b, c           --- 인덱스 적용 O
+
+WHERE a = 1 and b = 'dani'
+GROUP BY c              --- 인덱스 적용 O
+```
 
 <br/>
 
-### WHERE + GROUP BY + ORDER BY
+### WHERE가 동등 비교가 아닐 때
+
+학습 테스트를 하기 앞서 (email, id, age)로 인덱스를 추가했다.<br/>
+
+```sql
+CREATE INDEX `idx_member_email_id_age` ON `member` (email, id, age);
+```
+<br/>
+
+그리고 아래 쿼리의 실행 계획과 수행 시간을 확인했다.<br/>
+
+```sql
+SELECT *
+FROM member
+WHERE email LIKE 'probitanima1%'
+GROUP BY id, age;
+```
+
+<br/>
+
+실행 계획의 `extra`에 `Using where`가 나타났다. 이는 WHERE로 필터링한 것으로 해석할 수 있다.
+수행 시간은 `0.250sec`이 소요됐다.<br/>
+
+해당 시간이 긴 건지 짧은 건지 판단하기 어려웠다. 그래서 커버링 인덱스를 사용하는 테스트를 이어 진행했다.<br/>
+
+![where_group_by_explain1](https://user-images.githubusercontent.com/50176238/137096460-d8427f15-0096-4d15-8139-4cb33ac3951e.png)
+![where_group_by_time1](https://user-images.githubusercontent.com/50176238/137097814-8c5b6141-fce0-470f-81eb-3c39ebe3fab9.png)
+
+<br/>
+
+이번에는 아래 쿼리의 실행 계획과 수행 시간을 확인했다.<br/>
+
+```sql
+SELECT email, id, age
+FROM member
+WHERE email LIKE 'probitanima1%'
+GROUP BY id, age;
+```
+
+<br/>
+
+실행 계획의 `extra`에 `Using index`가 나타났다. 이는 커버링 인덱스를 이용한 것으로 해석할 수 있다.
+수행 시간은 `0.70sec`이 소요됐다.<br/>
+
+이전 테스트와 비교하여 수행 시간이 약 3.5배 정도 단축됐다.
+커버링 인덱스를 적용하니 결과를 상대적으로 빠르게 얻을 수 있었다.<br/>
+
+![where_group_by_explain2](https://user-images.githubusercontent.com/50176238/137096924-3bb21258-af08-41d7-8da6-497f11cf6539.png)
+![where_group_by_time2](https://user-images.githubusercontent.com/50176238/137097925-52a771bd-7f8d-48e0-812e-a1b079779a2c.png)
+
+<br/>
+
+# 결론
+
+조회 쿼리를 작성할 때, `커버링 인덱스`를 적절하게 활용하면 성능 개선에 도움을 줄 수 있다.
+다만, 인덱스 적용 조건을 잘 숙지해야 한다.<br/>
+
+이번 글에서 실험한 상황 외에도 다양한 곳에서 커버링 인덱스를 사용할 수 있다.
+WHERE + ORDER BY와 같은 케이스에 대한 내용은 바로 아래 레퍼런스에 첨부했다.
+관심이 있는 사람은 참고해서 추가로 학습하면 좋을 것 같다.<br/>
 
 <br/>
 
