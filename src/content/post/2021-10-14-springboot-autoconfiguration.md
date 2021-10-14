@@ -168,7 +168,7 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 
 ---
 
-### 위의 구현에서 의문점이 드는 점
+### 위의 구현에서 의문이 드는 점
 
 1. @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 
@@ -222,8 +222,8 @@ Migration을 담당하는 Flyway는 여러 DB 중 어떤 DB를 스스로 선택�
 보면 `@FlywayDataSource`라는 어노테이션을 활용해서 Flyway가 관리하는 DataSource를 지정해줄 수 있다. 설정하지 않으면 여러 DataSource일
 때는 `@Primary` 가 붙은 DataSource를, 하나일 때는 해당 DataSource가 관리된다.
 
-현재 시점에서는 [Spring Boot](https://github.com/spring-projects/spring-boot/issues/15732) 에서는 여러
-DataSource에 대한 정리된 Solution이 없는 것으로 보인다.
+현재 시점에서는 [Spring Boot 이슈](https://github.com/spring-projects/spring-boot/issues/15732) 에서 확인 할 수 있듯이 여러
+DataSource에 대한 별도의 Solution이 없는 것으로 보인다.
 
 ---
 
