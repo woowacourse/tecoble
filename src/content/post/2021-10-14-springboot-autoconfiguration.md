@@ -84,9 +84,12 @@ Proxy는 그 내부의 Bean이 한 번만 생성되도록 관리한다. 즉, 기
 
 2. `@Conditional-#`
 
-Conditional로 시작하는 어노테이션들은 직관적이다. @ConditionalOnClass의 경우 해당 Class가 classpath에 존재할 때만 동작하게 되어 있다. 여러
-Conditional의 설정들이 있지만 직관적이기에 설명은 생략한다. 위의 경우 Flyway에 대한 dependency를 추가해주지 않았기 때문에, 빨간색으로 표시가 되었고,
-FlywayAutoConfiguration이 동작하지 않게 된다.
+Spring4부터 제공하는 Conditional 어노테이션은, AutoConfiguration의 구성에 자주 사용된다. 조건에 따라 해당 자동 설정이
+적용 여부를 결정한다. 대표적으로 몇 가지를 적으면 다음과 같다.
+- @ConditionalOnClass: 해당 Class가 classpath에 존재할 때 조건을 만족한다. 위의 경우 Flyway에 대한 dependency를 추가해주지 않았기 때문에, 빨간색으로 표시가 되었고, FlywayAutoConfiguration이 동작하지 않게
+된다.
+- @ConditionalOnMissingBean: 특정 Bean이 사전에 정의되지 않을 때 조건을 만족한다.
+- @ConditionalOnProperty: 특정 property를 명시해주고 일치할 때 조건을 만족한다.
 
 3. `@AutoConfigurationBefore` / `@AutoConfigurationAfter`
 
@@ -179,7 +182,7 @@ DataSource를 커스터마이징한다고 하면, 무조건 DataSourceAutoConfig
 
 > Auto-configuration is non-invasive
 
-SpringBoot 공식문서에서는 위와 같이 설명한다. AutoConfiguration은 침투적이지 않다, 즉 `@ConditionalOnMissingBean`의 어노테이션을
+SpringBoot 공식문서에서는 위와 같이 설명한다. AutoConfiguration은 침투적이지 않다, 즉 `@Conditional-*`의 어노테이션을
 사용해서 충분히 AutoConfiguration을 exclude하지 않아도 된다.
 
 ```java
