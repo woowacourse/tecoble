@@ -43,7 +43,9 @@ MySQL의 경우 인덱스 안에 있는 데이터를 사용할 수 있다.
 아래 쿼리를 이용해서 어떤 방법인지 알아보자.<br/>
 
 ```sql
-SELECT * FROM programmer WHERE member_id < 10;
+SELECT *
+FROM programmer
+WHERE member_id < 10;
 ```
 
 <br/>
@@ -70,7 +72,10 @@ MySQL Workbench를 사용하면, 쿼리문을 작성하는 화면 상단에서 �
 이는 SQL 쿼리로 보는 방식이다.<br/>
 
 ```sql
-EXPLAIN SELECT * FROM programmer WHERE member_id < 10;
+EXPLAIN
+SELECT *
+FROM programmer
+WHERE member_id < 10;
 ```
 
 <br/>
@@ -85,7 +90,7 @@ SQL 쿼리로 확인하면, 아래처럼 실행 계획이 나타난다.
 <b>id</b>
 
 SQL문이 실행되는 순서를 의미한다.
-2개 행의 id가 같다면, 조인이 된 것이다.<br/>
+2개 행의 id가 같다면, 이는 조인된 것이다.<br/>
 
 <br/>
 
@@ -95,8 +100,8 @@ SELECT문의 유형을 의미한다.<br/>
 
 - SIMPLE: 단순한 SELECT문
 - PRIMARY: 외부쿼리 또는 UNION이 포함되는 경우 1번째 SELECT문
-- SUBQUERY: SELECT / WHERE에 작성되어 있는 서브쿼리
-- DERIVED: FROM에 작성되어 있는 서브쿼리
+- SUBQUERY: SELECT / WHERE에 작성된 서브쿼리
+- DERIVED: FROM에 작성된 서브쿼리
 - UNION: UNION 또는 UNION ALL로 합쳐진 SELECT문
 
 <br/>
