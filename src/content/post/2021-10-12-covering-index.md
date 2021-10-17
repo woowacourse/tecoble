@@ -8,7 +8,7 @@ draft: false
 image: ../teaser/covering-index.png
 ---
 
-조회 성능 개선 미션을 진행하며 `커버링 인덱스`를 알게됐다.
+조회 성능 개선 미션을 진행하며 `커버링 인덱스`를 알게 됐다.
 처음 보는 단어여서 이게 어떤 인덱스일까 궁금했고, 바로 찾아보고 이해했다.
 그러면서 한번 내용을 글로 정리하면 좋을 것 같다는 생각을 했다.
 그래서 이번 기회에 학습 테스트를 하며 해당 개념을 잡고가려 한다.<br/>
@@ -19,7 +19,7 @@ image: ../teaser/covering-index.png
 
 # 커버링 인덱스?
 
-인덱스는 데이터를 효율적으로 찾는 방법이다.
+<sup>*</sup>인덱스는 데이터를 효율적으로 탐색하는 방법이다.
 MySQL의 경우 인덱스 안에 있는 데이터를 사용할 수 있다.
 이를 잘 이용하면 실 데이터까지 접근할 필요가 없다.
 즉, 테이블에 액세스하지 않아도 된다.<br/>
@@ -112,9 +112,13 @@ SELECT문의 유형을 의미한다.<br/>
 - const: 단 1개의 데이터만 조회하는 경우
 - eq_ref: 조인이 될 때, 드리븐 테이블의 PK 또는 고유 인덱스로 단 1개의 데이터만 조회하는 경우
 - ref: eq_ref와 같지만, 2개 이상의 데이터를 조회하는 경우
-- index: Index Full Scan
-- range: Index Range Scan
-- all: Table Full Scan
+- index: <sup>*</sup>Index Full Scan
+- range: <sup>*</sup>Index Range Scan
+- all: <sup>*</sup>Table Full Scan
+
+<sup>*</sup>Index Full Scan, Index Range Scan, Table Full Scan이 무엇인지 잘 모르겠다면, 아래 글을 참고해보자.<br/>
+
+> [[SQL 튜닝] Table Full Scan VS Index Range Scan VS Index Full Scan](https://imnkj.tistory.com/49)
 
 <br/>
 
