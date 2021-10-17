@@ -1,15 +1,13 @@
 ---
 layout: post  
-title: SpringBoot AutoConfiguration을 대하는 자세 
-author: [3기_완태]
+title: SpringBoot AutoConfiguration을 대하는 자세 author: [3기_완태]
 tags: ['springboot']
 date: "2021-10-14T12:00:00.000Z"
-draft: false 
-image: ../teaser/spring-boot.png
+draft: false image: ../teaser/spring-boot.png
 ---
 
-SpringBoot의 AutoConfiguration은 정말 편리하게 의존성만 추가해주면 관련된 기능들이 모두 설정된다. 편리한 만큼 이를 커스터마이징하는 데는 주의가 필요하다. 이
-글에서는 Spring AutoConfiguration의 간단한 원리를 알아보고 어떤 관점으로 바라봐야 하는지 제시한다.
+SpringBoot의 AutoConfiguration은 정말 편리하게 의존성만 추가해주면 관련된 기능들이 모두 설정된다. 편리한 만큼 이를 커스터마이징하는 데는 주의가 필요하다.
+이 글에서는 Spring AutoConfiguration의 간단한 원리를 알아보고 어떤 관점으로 바라봐야 하는지 제시한다.
 
 <!-- end -->
 
@@ -21,7 +19,8 @@ SpringBoot의 AutoConfiguration은 정말 편리하게 의존성만 추가해주
 @EnableAutoConfiguration
 @ComponentScan(excludeFilters = {
   @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
-  @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class)})
+  @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class)
+})
 public @interface SpringBootApplication {
 }
 ```
@@ -29,9 +28,10 @@ public @interface SpringBootApplication {
 `@SpringBootApplication` 은 위의 3가지 어노테이션을 합친 것이다.
 
 - @SpringBootConfiguration : @Configuration과 같은 기능을 한다.
-- @EnableAutoConfiguration : classpath에 있는 `/resource/META-INF/spring.factories` 내부에 정의된
-  EnableAutoConfiguration에 정의된 Configuration들을 자동으로 등록한다. 이때, Auto Configuration의 등록 조건을 만족하는 경우에만
-  등록된다. `--debug` 옵션을 가지고 jar파일을 실행시키면 조건 만족 여부와 함께, 어떤 Bean들이 등록되는지 확인해 볼 수 있다.
+- @EnableAutoConfiguration : classpath에 있는 `/resource/META-INF/spring.factories` 중
+  EnableAutoConfiguration 부분에 정의된 Configuration들을 자동으로 등록한다. 이때, 모든 경우가 적용되는 것이 아니라,
+  AutoConfiguration의 등록 조건을 만족하는 경우에만 등록된다. `--debug` 옵션을 가지고 jar파일을 실행시키면 조건 만족 여부와 함께, 어떤 Bean들이
+  등록되는지 확인해 볼 수 있다.
 - @ComponentScan : base-package가 정의되지 않으면 해당 어노테이션이 붙은 classpath 하위의 `@Component` 어노테이션을 스캔해서,
   Bean으로 등록한다.
 
@@ -76,15 +76,16 @@ public class Config {
 }
 ```
 
-`@Configuration`에서는 메소드 호출로 내부에서 정의한 Bean을 바로 사용할 수 있다. 기본 설정을 사용하면 SomeBean은 한 번만
-생성되지만, `proxyBeanMethod = false`를 사용하면, NothingBean을 생성하는 시점에서 또 다른 SomeBean이 생성되어 총 두 번 생성이 된다. 하지만,
-이런 방식은 모든 Configuration에서는 필수적이지 않으며, proxy를 생성하는 부분에서 성능적인 이슈가 있다고 한다. 자세한 부분은 다음
-SpringBoot의 [이슈](https://github.com/spring-projects/spring-boot/issues/9068) 를 참고하길 바란다.
+`@Configuration`에서는 메소드 호출로 내부에서 정의한 Bean을 바로 사용할 수 있다. 기본 설정을 사용하면 Configuration의 Proxy가 생성되고,
+Proxy는 그 내부의 Bean이 한 번만 생성되도록 관리한다. 즉, 기본 설정에서는 SomeBean은 한 번만 생성되고, `proxyBeanMethod = false`를
+사용하면, NothingBean을 생성하는 시점에서 또 다른 SomeBean이 생성되어 총 두 번 생성이 된다. 하지만, 이런 방식은 모든 Configuration에서는 필수적이지
+않으며, proxy를 생성하는 부분에서 성능적인 이슈가 있다고 한다. 자세한 부분은 다음
+[SpringBoot 이슈](https://github.com/spring-projects/spring-boot/issues/9068) 를 참고하길 바란다.
 
 2. `@Conditional-#`
 
-Conditional로 시작하는 어노테이션들은 직관적이다. @ConditionalOnClass의 경우 해당 Class가 classpath에 존재할 때만 동작하게 되어 있다.
-여러 Conditional의 설정들이 있지만 직관적이기에 설명은 생략한다. 위의 경우 Flyway에 대한 dependency를 추가해주지 않았기 때문에, 빨간색으로 표시가 되었고,
+Conditional로 시작하는 어노테이션들은 직관적이다. @ConditionalOnClass의 경우 해당 Class가 classpath에 존재할 때만 동작하게 되어 있다. 여러
+Conditional의 설정들이 있지만 직관적이기에 설명은 생략한다. 위의 경우 Flyway에 대한 dependency를 추가해주지 않았기 때문에, 빨간색으로 표시가 되었고,
 FlywayAutoConfiguration이 동작하지 않게 된다.
 
 3. `@AutoConfigurationBefore` / `@AutoConfigurationAfter`
@@ -103,6 +104,7 @@ JdbcTemplateAutoConfiguraion, HibernateJpaAutoConfiguration 이후에 설정이 
 SpringBoot에서 DB Replication 설정을 위해 구글링을 해보면 다음과 비슷한 형태의 코드들을 많이 발견할 수 있다.
 
 ```java
+
 @Configuration
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableTransactionManagement
@@ -156,7 +158,7 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 }
 ```
 
-위 코드의 간단히 설명하면 다음과 같다.
+위 코드를 간단히 설명하면 다음과 같다.
 
 - DB Replication는 Read를 Slave DB로, CUD(Create, Update, Delete)의 작업은 Master DB에 접근해야 한다. DB
   Replication의 개념이 궁금한
@@ -164,7 +166,7 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 - master/slave DataSource를 설정한다.
 - ReplicationRoutingDataSource에서 `@Transactional`의 readOnly 여부에 따라 연결하는 DataSource를 결정한다.
 - 기존의 DataSource는 Transaction이 시작되는 시점에서 DataSource를 결정하지만 `LazyConnectionDataSourceProxy`를 사용하여 그
-  DataSource 결정을 뒤로 늦춘다.
+  DataSource 결정을 실제 Statement가 요청되었을 때로 늦춘다.
 
 ---
 
@@ -194,8 +196,8 @@ DataSourceAutoConfiguration 에서는 @ConditionalOnMissingBean({ DataSource.cla
 설정을 통해, DataSource클래스의 Bean이 이미 존재한다면, 새로운 DataSource Bean을 생성하지 않는다.
 
 추가적으로 DataSourceAutoConfiguration의 코드를 보게 되면, `DataSourceInitializationConfiguration` 이
-deprecated(`SqlInitializationAutoConfiguration` 로 이전한 것으로 보임)되서 별도의 설정이 진행되지 않지만, 다른
-AutoConfiguration에서는 별도의 설정이 진행될 가능성이 있다. AutoConfigration은 직접 들어가서 확인해보기 전까지에는 그 작업을 예단하면 안 된다.
+deprecated(`SqlInitializationAutoConfiguration` 로 이전한 것으로 보임)돼서 별도의 설정이 진행되지 않지만, 다른
+AutoConfiguration에서는 별도의 설정이 진행될 가능성이 있다. AutoConfigration은 직접 들어가서 확인해보기 전까지는 그 작업을 예단하면 안 된다.
 
 2. @EnableTransactionalManager, @EnableJpaRepositories
 
@@ -204,15 +206,16 @@ AutoConfiguration에서는 별도의 설정이 진행될 가능성이 있다. Au
 
 3. 실제로 잘 동작하는가?
 
-해당하는 설정을 진행했을 때, 특이한 상황을 발견했다. 여러 개의 트랜잭션으로 구성된 api콜의 경우 맨 처음 트랜잭션의 readOnly 여부에 따라
-master/slave DB가 결정된다. 예를 들어 `@Transactional(readOnly=true)`의 트랜잭션을 DB에 쓰이는 것을 확인할 수 있었다. 각각의
-트랜잭션별로 readOnly 검증하고 있다고 생각했는데, 실제로는 그렇게 동작하지 않았다. 그 이유는 `HibernateJpaAutoConfiguration` 설정에서
-자체적으로 OSIV(Open Session In View)설정이 true로 설정되어 있기 때문이다. OSIV의 자세한 내용이 궁금한
+해당하는 설정을 진행했을 때, 특이한 상황을 발견했다. 여러 개의 트랜잭션으로 구성된 api콜의 경우 맨 처음 트랜잭션의 readOnly 여부에 따라 master/slave DB가
+결정된다. 예를 들어 `@Transactional(readOnly=true)`의 트랜잭션을 DB에 쓰이는 것을 확인할 수 있었다. 각각의 트랜잭션별로 readOnly 검증하고
+있다고 생각했는데, 실제로는 그렇게 동작하지 않았다. 그 이유는 `HibernateJpaAutoConfiguration` 설정에서 자체적으로 OSIV(Open Session In
+View)설정이 true로 설정되어 있기 때문이다. OSIV의 자세한 내용이 궁금한
 분은 [조영호님 OSIV 정리 글](http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf) 을
-참고하기를 바란다. 트랜잭션별로 DataSource를 설정해주기 위해서는 `jpa.open-in-view=false`설정을 application.properties에 추가해줘야 한다.
+참고하기를 바란다. 트랜잭션별로 DataSource를 설정해주기 위해서는 `jpa.open-in-view=false`설정을 application.properties에 추가해줘야
+한다.
 
 > 주의 사항
-> 
+>
 > Spring의 많은 AutoConfiguration Setting들은 한 개의 DataSource의 사용을 가정하는 것으로 보인다. `HibernateJpaAutoConfiguration`, `JdbcTemplateAutoConfiguration` , `SqlInitializationAutoConfiguration` 에서 모두 `@ConditionalOnSingleCandidate(DataSource.class)` 의 설정이 요구된다. 여러 개의 DataSource를 사용하게 되었을 때에는 `@Primary` 어노테이션을 붙여주어야 한다. 그렇지 않게 되면, 실행된 것으로 예상된 동작들이 작동하지 않는 것을 확인할 수 있다.
 
 4. Flyway의 의존성을 추가해줬을 때 FlywayAutoConfigration으로 인한 순환 참조의 문제 발생
@@ -222,16 +225,17 @@ Migration을 담당하는 Flyway는 여러 DB 중 어떤 DB를 스스로 선택�
 보면 `@FlywayDataSource`라는 어노테이션을 활용해서 Flyway가 관리하는 DataSource를 지정해줄 수 있다. 설정하지 않으면 여러 DataSource일
 때는 `@Primary` 가 붙은 DataSource를, 하나일 때는 해당 DataSource가 관리된다.
 
-현재 시점에서는 [Spring Boot 이슈](https://github.com/spring-projects/spring-boot/issues/15732) 에서 확인 할 수 있듯이 여러
-DataSource에 대한 별도의 Solution이 없는 것으로 보인다.
+현재 시점에서는 [Spring Boot 이슈](https://github.com/spring-projects/spring-boot/issues/15732) 에서 확인 할 수 있듯이
+여러 DataSource에 대한 별도의 Solution이 없는 것으로 보인다.
 
 ---
 
-### 수정후 코드
+### 수정 후 코드
 
 위의 고려 사항을 반영한 코드는 다음과 같다. `jpa.open-in-view=false` 옵션도 추가해야 한다.
 
 ```java
+
 @Configuration(proxyBeanMethods = false)
 public class DataSourceConfig {
 
@@ -277,5 +281,5 @@ public class DataSourceConfig {
 
 ## 정리
 
-SpringBoot의 AutoConfiguration은 편리하지만, 예측하지 못하는 경우가 발생하기도 하고, 이는 바로 확인하기가 쉽지 않다. AutoConfiguration의
-작동방식을 잘 이해했을 때, 코드는 더 간결해지고 SpringBoot를 SpringBoot답게 쓸 수 있다고 생각한다.
+SpringBoot의 AutoConfiguration은 편리하다. 하지만, 예측하지 못하는 경우가 발생하기도 하고, 이는 바로 확인하기가 쉽지 않다.
+AutoConfiguration의 작동 방식을 잘 이해했을 때, 코드는 더 간결해지고 SpringBoot를 SpringBoot답게 쓸 수 있다고 생각한다.
