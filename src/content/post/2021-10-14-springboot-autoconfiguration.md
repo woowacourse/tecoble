@@ -1,9 +1,11 @@
 ---
 layout: post  
-title: SpringBoot AutoConfiguration을 대하는 자세 author: [3기_완태]
+title: SpringBoot AutoConfiguration을 대하는 자세 
+author: [3기_완태]
 tags: ['springboot']
 date: "2021-10-14T12:00:00.000Z"
-draft: false image: ../teaser/spring-boot.png
+draft: false 
+image: ../teaser/spring-boot.png
 ---
 
 SpringBoot의 AutoConfiguration은 정말 편리하게 의존성만 추가해주면 관련된 기능들이 모두 설정된다. 편리한 만큼 이를 커스터마이징하는 데는 주의가 필요하다.
@@ -91,6 +93,7 @@ Spring4부터 제공하는 Conditional 어노테이션은, AutoConfiguration의 
 - @ConditionalOnMissingBean: 특정 Bean이 사전에 정의되지 않을 때 조건을 만족한다.
 - @ConditionalOnProperty: 특정 property를 명시해주고 일치할 때 조건을 만족한다.
 
+
 3. `@AutoConfigurationBefore` / `@AutoConfigurationAfter`
 
 AutoConfiguration의 등록 순서를 결정한다. FlywayAutoConfiguration 같은 경우에는 DatasourceAutoConfiguration,
@@ -104,7 +107,7 @@ JdbcTemplateAutoConfiguraion, HibernateJpaAutoConfiguration 이후에 설정이 
 
 ## AutoConfiguration을 대하는 자세 (feat.DB Replication)
 
-SpringBoot에서 DB Replication 설정을 위해 구글링을 해보면 다음과 비슷한 형태의 코드들을 많이 발견할 수 있다.
+SpringBoot에서 DB Replication 설정을 위해 구글링을 해보면 다음과 비슷한 형태의 코드들을 많이 발견할 수 있다. 이 예시를 조금 더 SpringBoot스럽게 코드 수정 작업을 진행해보고자 한다.
 
 ```java
 
