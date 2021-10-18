@@ -49,7 +49,7 @@ public @interface SpringBootApplication {
 ![spring.factories](../images/2021-10-14-springboot-autoconfiguration-1.png)
 
 Springboot의 아무 의존성이나 추가하면, spring-boot-autoconfigure가 설정이 되고, 그
-내부에 `/resource/META-INF/spring.factories` 를 확인하면 위와 같이 설정이 되어있다. 이 중 FlywayAutoConfiguration을 보며 어떤
+내부에 있는 `/resource/META-INF/spring.factories` 를 확인하면 위와 같이 설정이 되어있다. 이 중 FlywayAutoConfiguration을 보며 어떤
 방식으로 AutoConfiguration이 진행되는지 알아보자.
 
 ![FlywayAutoConfiguration](../images/2021-10-14-springboot-autoconfiguration-2.png)
@@ -79,7 +79,7 @@ public class Config {
 `@Configuration`에서는 메소드 호출로 내부에서 정의한 Bean을 바로 사용할 수 있다. 기본 설정을 사용하면 Configuration의 Proxy가 생성되고,
 Proxy는 그 내부의 Bean이 한 번만 생성되도록 관리한다. 즉, 기본 설정에서는 SomeBean은 한 번만 생성되고, `proxyBeanMethod = false`를
 사용하면, NothingBean을 생성하는 시점에서 또 다른 SomeBean이 생성되어 총 두 번 생성이 된다. 하지만, 이런 방식은 모든 Configuration에서는 필수적이지
-않으며, proxy를 생성하는 부분에서 성능적인 이슈가 있다고 한다. 자세한 부분은 다음
+않으며, Proxy를 생성하는 부분에서 성능적인 이슈가 있다고 한다. 자세한 부분은 다음
 [SpringBoot 이슈](https://github.com/spring-projects/spring-boot/issues/9068) 를 참고하길 바란다.
 
 2. `@Conditional-#`
@@ -205,7 +205,7 @@ AutoConfiguration에서는 별도의 설정이 진행될 가능성이 있다. Au
 2. @EnableTransactionalManager, @EnableJpaRepositories
 
 해당 설정은 `TransactionAutoConfiguration`에서 자동으로 설정이 된다. 그렇기에 불필요한
-설정이다. `JpaRepositoriesAutoConfiguration` 와 `@EnableJpaRepositories` 효과적으로 동일하여서 삭제해도 된다.
+설정이다. `JpaRepositoriesAutoConfiguration` 와 `@EnableJpaRepositories`는 효과가 동일하기 때문에 삭제해도 된다.
 
 3. 실제로 잘 동작하는가?
 
