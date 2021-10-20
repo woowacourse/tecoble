@@ -209,11 +209,6 @@ export const PostFullContent = styled.section`
     border-radius: 5px;
   }
 
-  pre ::selection {
-    /* color: color(var(--midgrey) l(-25%)); */
-    color: ${lighten('-0.25', colors.midgrey)};
-  }
-
   pre code {
     padding: 0;
     font-size: inherit;
@@ -543,29 +538,6 @@ export const PostFullContent = styled.section`
   /* Code blocks */
   pre[class*='language-'] {
     overflow: auto;
-  }
-
-  pre[class*='language-']::-moz-selection {
-    /* Firefox */
-    background: hsl(207, 4%, 16%);
-  }
-
-  pre[class*='language-']::selection {
-    /* Safari */
-    background: hsl(207, 4%, 16%);
-  }
-
-  /* Text Selection colour */
-  pre[class*='language-']::-moz-selection,
-  pre[class*='language-'] ::-moz-selection {
-    text-shadow: none;
-    background: hsla(0, 0%, 100%, 0.15);
-  }
-
-  pre[class*='language-']::selection,
-  pre[class*='language-'] ::selection {
-    text-shadow: none;
-    background: hsla(0, 0%, 100%, 0.15);
   }
 
   /* Inline code */
