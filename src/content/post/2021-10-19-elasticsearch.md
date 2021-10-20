@@ -62,7 +62,6 @@ RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있�
 
 ### 1.4. Architecture
 
-![image](https://user-images.githubusercontent.com/56240505/134558392-ceba3535-242a-4d7d-8e56-8ebe047ebc18.png)
 ![image](https://user-images.githubusercontent.com/56240505/134556753-5133f373-7814-4c4f-8505-6dfbe9f47ed9.png)
 
 > 하나의 클러스터 내 복수 개의 노드를 사용하는 경우, 저장된 Document는 클러스터 전역으로 분배되기 때문에 어느 노드에서든 즉시 접근이 가능합니다.
@@ -73,14 +72,6 @@ RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있�
   * 여러 대의 서버가 하나의 클러스터를 구성하거나, 하나의 서버에 여러 개의 클러스터가 존재할 수 있습니다.
 * Node
   * Elasticsearch를 구성하는 하나의 단위 프로세스를 의미합니다.
-  * [다양한 역할](https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html)로 분류할 수 있습니다.
-    * 대규모 클러스터에서 로드 밸런싱 역할을 하는 노드.
-    * 데이터 변환 등 사전 처리 파이프라인 노드.
-    * 색인된 데이터 CRUD 노드.
-    * 메타 데이터 등 전체 클러스터를 제어하는 마스터 노드.
-      * 인덱스 생성과 삭제.
-      * 데이터 입력시 샤딩 할당.
-  * 단일 노드로 Elasticsearch를 구동할 수 있지만, 트래픽이 많아진다면 노드별로 서버를 분리하거나 작업 노드에 대해 Scale-Out 및 로드 밸런싱을 함으로써 성능을 향상시킬 수 있습니다.
 * Shard
   * 데이터를 분산해서 저장하는 방법을 의미합니다.
   * Scale-Out을 위해 RDB의 Database에 해당하는 Index를 여러 Shard로 쪼갭니다.
@@ -90,16 +81,23 @@ RDB는 데이터 수정·삭제의 편의성과 속도 면에서 강점이 있�
   * 노드를 손실했을 경우, 데이터의 신뢰성을 위해 Shard를 복제하는 것입니다.
   * 따라서 Replica는 서로 다른 노드에 위치시킬 것을 권장하고 있습니다.
 
+추가적으로, Node는 [다양한 역할](https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html)로 분류할 수 있습니다.
+
+* 대규모 클러스터에서 로드 밸런싱 역할을 하는 노드.
+* 데이터 변환 등 사전 처리 파이프라인 노드.
+* 색인된 데이터 CRUD 노드.
+* 메타 데이터 등 전체 클러스터를 제어하는 마스터 노드.
+  * 인덱스 생성과 삭제.
+  * 데이터 입력시 샤딩 할당.
+
+단일 노드로 Elasticsearch를 구동할 수 있지만, 트래픽이 많아진다면 노드별로 서버를 분리하거나 작업 노드에 대해 Scale-Out 및 로드 밸런싱을 함으로써 성능을 향상시킬 수 있습니다
+
 ### 1.5. 특징
 
-1. Scale out
-  * Shard를 통해 규모가 수평적으로 늘어날 수 있습니다.
-2. 고가용성
-  * Replica를 통해 데이터의 안정성을 보장하고, 단일 장애점을 극복합니다.
-3. Schema Free
-  * Json 문서를 통해 데이터를 검색하므로, 스키마의 개념이 없습니다.
-4. Restful
-  * CRUD 작업은 Restful API를 통해 수행되며, 각각이 HTTP의 PUT / GET / POST / DELETE 메서드에 대응됩니다.
+1. Scale out : Shard를 통해 규모가 수평적으로 늘어날 수 있습니다.
+2. 고가용성 : Replica를 통해 데이터의 안정성을 보장하고, 단일 장애점을 극복합니다.
+3. Schema Free : Json 문서를 통해 데이터를 검색하므로, 스키마의 개념이 없습니다.
+4. RESTful : CRUD 작업은 RESTful API를 통해 수행되며, 각각이 HTTP의 PUT / GET / POST / DELETE 메서드에 대응됩니다.
 
 <br>
 
@@ -148,17 +146,6 @@ dependencies {
 ```
 
 현재 사용 중인 Elasticsearch 버전과 호환되게 Spring Data Elasticsearch 4.2.x 버전으로 의존성을 받습니다.
-
-> application.properties
-
-```properties
-spring.datasource.url=jdbc:h2:~/test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-spring.datasource.username=sa
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.show-sql=true
-spring.jpa.generate-ddl=true
-spring.jpa.hibernate.ddl-auto=create-drop
-```
 
 ### 4.1. Elasticsearch Clients 설정
 
@@ -216,10 +203,10 @@ ElasticsearchClient 구현체는 리액티브 지원 여부 등에 따라 종류
 
 ### 4.2. Logging
 
-> logback-spring.xml
+> application.properties
 
-```xml
-<logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace"/>
+```yml
+logging.level.org.springframework.data.elasticsearch.client.WIRE: TRACE
 ```
 
 Spring Data Elasticsearch가 제대로 동작하는지 확인하고 싶다면, 위 로거를 등록합니다.
@@ -322,7 +309,7 @@ public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
 }
 ```
 
-@EnableJpaRepositories 애너테이션을 부착해줍니다.
+@EnableElasticsearchRepositories 애너테이션을 부착해줍니다.
 
 > CustomUserSearchRepositoryImpl.java
 
@@ -410,7 +397,7 @@ public class UserService {
 }
 ```
 
-간단한 User 저장 및 검색 예제 코드를 작성했습니다.
+간단한 User 저장 및 검색 예제 코드를 작성했습니다. 자세한 코드는 글 상단에 위치한 [실습 Repository](https://github.com/xlffm3/spring-data-elasticsearch-practice) 링크에서 확인 가능합니다.
 
 ### 5.1. 트러블 슈팅
 
@@ -435,7 +422,7 @@ User 클래스를 위해 생성한 JPA용 Repository와 Elasticsearch용 Reposit
 spring.main.allow-bean-definition-overriding=true
 ```
 
-Bean을 오버라이딩할 수 있도록 상기 옵션을 추가해줍니다.
+Bean을 오버라이딩할 수 있도록 상기 옵션을 추가해줍니다. 그럼에도 불구하고 다시 실행해보면 에러가 발생하는데요.
 
 > Trouble Annotations
 
@@ -495,6 +482,8 @@ public class ElasticsearchApplication {
 
 따라서 @EnableElasticsearchRepositories 애너테이션은 Elasticsearch 관련 Repository 클래스만 스캐닝하도록 합니다. 반대로 @EnableJpaRepositories 애너테이션은 JPA 관련 Repository 클래스만 스캐닝하도록 합니다.
 
+@EnableXXX 관련 애너테이션을 잘 설정했다면 필요없는 ``spring.main.allow-bean-definition-overriding=true`` 옵션은 제거하셔도 됩니다.
+
 ### 5.2. 동작 확인
 
 어플리케이션을 실행해보고 Elasticsearch 서버로의 데이터 쓰기 및 조회가 원활하게 동작하는지 확인해봅시다.
@@ -534,6 +523,16 @@ User ID가 1보다 크거나 같은 경우 삭제하겠다는 쿼리를 요청 �
 <br>
 
 ## 6. Trade-Off
+
+행 기반으로 데이터를 저장하는 RDB에서 특정 키워드가 포함된 데이터를 조회할 때 LIKE 쿼리를 주로 사용합니다. 문제는 ``LIKE '%jinhong%'``과 같이 ``jinhong`` 키워드가 들어간 데이터를 조회할 때, ``%`` 기호를 앞에 사용하는 경우 조회 성능 향상을 위한 인덱스 사용이 불가능합니다.
+
+![image](https://user-images.githubusercontent.com/56240505/137668936-6fd70a7a-702a-4ec8-8a07-e1b245357824.png)
+
+2대의 조회 Slave DB(Replication)를 사용하는 웹 어플리케이션에서 특정 이름 키워드가 포함된 유저 정보를 조회하는 부하 테스트를 진행한 결과입니다. 평균 TPS가 38.9입니다.
+
+![image](https://user-images.githubusercontent.com/56240505/137674715-51fcf017-29dd-4f60-bf16-3004f37e1079.png)
+
+**키워드 검색 요청** 상황에서 RDB를 ES 검색 엔진으로 대체하면 성능 이점을 얻을 수 있습니다. ES를 도입한 다음 부하 테스트를 동일 환경에서 진행했습니다. ES의 경우 단 1대의 서버만으로도 평균 TPS가 82.2를 기록했습니다! 이는 2대의 서버를 사용하는 기존의 RDB 방식보다 성능이 2배 이상을 상회합니다.
 
 물론 Elasticsearch라는 별도의 DB를 사용함으로써 고려해야할 관리 포인트가 많아진다는 단점이 존재합니다.
 
