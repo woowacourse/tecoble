@@ -51,7 +51,7 @@ Elasticsearch는 **역 색인**이라고 하는 자료 구조를 사용하는데
 
 역 색인은 각 Document에 등장하는 모든 고유한 단어들을 리스트업하고, 해당 단어들이 등장하는 Document들을 식별합니다. 색인은 최적화된 Document 컬렉션이며, 각 Document는 **데이터를 포함하고 있는 Key-Value 쌍으로 이루어진 Field**의 컬렉션입니다.
 
-Elasticsearch는 모든 Field의 데이터를 인덱싱하는데, 인덱싱된 Field는 각각의 최적화된 자료구조를 사용한다. 텍스트 형식의 Field는 Inverted Index에 저장되며, 숫자 혹은 지리 관련 Field는 BKD 트리에 저장됩니다.
+Elasticsearch는 모든 Field의 데이터를 인덱싱하는데, 인덱싱된 Field는 각각의 최적화된 자료구조를 사용합니다. 텍스트 형식의 Field는 Inverted Index에 저장되며, 숫자 혹은 지리 관련 Field는 BKD 트리에 저장됩니다.
 
 ![image](https://user-images.githubusercontent.com/56240505/135963544-3a9c0ae0-89e8-464f-a4c2-ce3a9095003e.png)
 ![image](https://user-images.githubusercontent.com/56240505/135963557-e18dac48-aac9-4c43-b4c5-7ce1fd3d4d68.png)
