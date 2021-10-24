@@ -20,8 +20,8 @@ image: ../teaser/linux-file-directory-system.png
 특히 서비스가 배포된 인스턴스의 리눅스 배포판인 우분투의 패키지 관리를 해주면서 해당 경로를 찾아가 기존의 필요없는 의존성 들을 직접 제거하게 되었습니다.
 
 ```bash
-cd /etc/apt/
-sudo vim source.list
+$ cd /etc/apt/
+$ sudo vim source.list
 ```
 
 이때, 한 크루가 해당 경로가 어떤 파일을 의미하는지를 질문하게 되었고, 우분투에서 저장소에 관한 주소 및 별칭을 관리하는 곳이라고 답변하였습니다.
@@ -36,7 +36,7 @@ sudo vim source.list
 
 ```bash
 // CLI 명령
-pwd
+$ pwd
 ```
 <br>
 
@@ -57,8 +57,8 @@ Dockerfile          awslogs-agent-setup.py       log      scenario  target
 
 ```bash
 // CLI 명령
-cd /
-pwd
+$ cd /
+$ pwd
 ```
 <br>
 
@@ -105,7 +105,7 @@ bin 경로는 실행 가능한 binary 파일들을 모아둔 장소입니다.
 명령어를 관찰하면 해당 경로가 존재하는 것을 확인할 수가 있습니다.
 
 ```bash
-vim /etc/nginx/nginx.conf
+$ vim /etc/nginx/nginx.conf
 ```
 <br>
 
@@ -133,7 +133,7 @@ mnt는 mount의 약자 뜻을 가진 경로입니다.
 c d wsl
 ```
 
-np여기서 C는 Windows에서의 C 드라이브를 의미합니다.
+여기서 C는 Windows에서의 C 드라이브를 의미합니다.
 <br>
 
 ### root
@@ -173,7 +173,7 @@ log  mail  opt  run  snap  spool  tmp  www
 앞에서 설명한 nginx의 환경 설정은 /etc로 들어가서 확인하게 되지만, 로그는 /var에 저장되기 때문에 해당 명령어를 통해서 로그에 접근합니다.
 
 ```bash
-cd /var/log/nginx
+$ cd /var/log/nginx
 ```
 
 ## 마치며
