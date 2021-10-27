@@ -62,7 +62,7 @@ public class DispatcherServlet {
 위에서는 DispatcherServlet에서 try-catch 문으로 예외를 잡아주는 것을 확인했다. 그렇다면 처음 언급한 예외 처리 방식 3가지는 실제로 어떻게 동작할까? 이
 [실습 저장소](https://github.com/wannte/exceptionHandler-digging) 에서 디버깅 포인트를 찍어가면 직접 확인해 보는 것을 추천한다.
 
-HandlerExceptionResolver resolveExceptionHandler 메소드에서 어떤 handlerExceptionResolver를 택하는지 결정한다. 다음의
+HandlerExceptionResolver resolveExceptionHandler 메소드에서 어떤 ExceptionResolver를 택하는지 결정한다. 다음의
 3가지의 ExceptionResolver가 존재한다.
 
 - ExceptionHandlerExceptionResolver
