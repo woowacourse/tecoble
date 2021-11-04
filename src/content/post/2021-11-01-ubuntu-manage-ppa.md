@@ -16,7 +16,7 @@ image: ../teaser/ubuntu-ppa.png
 
 ## 공식 저장소는 만능이 아니다.
 Java, Nginx, redis 일반적으로 WAS를 구성할 때 많이 사용하는 프로그램입니다.
-동시에 Ubuntu 기본 저장소를 통하여 설치를 할 수 있는 공통점이 있습니다.
+동시에 우분투 기본 저장소를 통하여 설치를 할 수 있는 공통점이 있습니다.
 [지난번 글](https://tecoble.techcourse.co.kr/post/2021-09-13-linux-distribution/)에서는 공식 저장소를 통하여 Java를 설치하는 방법에 대해서 간단하게 정리했습니다.
 서버를 운영하기 위해서는 Java 뿐만이 아니라 다양한 프로그램들이 필요합니다.
 그렇기 때문에 의문이 드는 점이 있습니다. <br>
