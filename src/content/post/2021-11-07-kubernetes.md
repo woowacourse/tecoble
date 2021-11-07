@@ -169,4 +169,4 @@ Pod 내 컨테이너들은 하나의 veth0을 공유하며 외부에서 같은 i
 
 - [공식문서](https://kubernetes.io/)
 - [Core Kubernetes](https://blog.heptio.com/core-kubernetes-jazz-improv-over-orchestration-a7903ea92ca)
-- [Understanding kubernetes networking](
+- [Understanding kubernetes networking](https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727)
