@@ -2,7 +2,7 @@
 layout: post  
 title: 쿠버네티스 입문하기
 author: [3기_샐리]
-tags: ['springboot', 'exception']
+tags: ['infra', 'kubernetes']
 date: "2021-11-07T12:00:00.000Z"
 draft: false
 image: ../teaser/kubernetes.jpeg
