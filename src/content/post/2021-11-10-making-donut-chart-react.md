@@ -104,7 +104,7 @@ const App = () => (
           fill="none"
           stroke="green"
           strokeWidth="20"
-          strokeDasharray="423.75"
+          strokeDasharray={2 * Math.PI * 90 * 0.75}
         />
       </svg>
     </div>
@@ -116,7 +116,9 @@ export default App;
 
 <img width="40%" alt="9" src="https://user-images.githubusercontent.com/40762111/141073412-6a563d47-d5bc-457c-a101-0964bcc1b159.png">
 
-75%의 도넛 차트를 그리기 위해서 `stroke-dasharray="423.75"` 속성을 사용했습니다. 423.75의 값은 반지름의 길이가 90인 원의 전체 둘레(약 565라 565로 계산)에 0.75를 곱한 값입니다.
+설명하기 앞서, 올바른 속성은 위 코드처럼 `strokeDasharray={2 * Math.PI * 90 * 0.75}`인데, 이해를 돕기 위해서 `stroke-dasharray="2πr * 0.75"`라고 표현하겠습니다.
+
+75%의 도넛 차트를 그리기 위해서 `stroke-dasharray="2πr * 0.75"` 속성을 사용했습니다. 전체 원의 둘레 공식인 2 πr에 0.75를 곱한 값입니다.
 
 > 둘레의 길이는 `2* Math.PI * 반지름` 또는 `document.getElementById().getTotalLength()` 등으로 구할 수 있습니다.
 
@@ -124,29 +126,29 @@ export default App;
 
 먼저 현재 도넛 차트에 정의되어 있는 패턴을 확인해 보겠습니다.
 
-<img width="100%" alt="10" src="https://user-images.githubusercontent.com/40762111/141093073-552fbf90-bb26-4623-931c-e77b7136bfce.png">
+<img width="100%" alt="10" src="https://user-images.githubusercontent.com/40762111/141143067-03ad26e2-e503-4bdb-b546-20b5f2d0af56.png">
 
-패턴은 위 그림과 같이 `stroke-dasharray="423.75"`로, stroke의 길이와 stroke 사이 간격 모두 423.75로 정의되어 있고, 화면에 보이는 영역은 빨간 네모 박스 부분입니다. 하지만 최종적으로 화면에 보여야 하는 영역은 다음과 같습니다.
+패턴은 위 그림과 같이 `stroke-dasharray="2πr * 0.75"`로, stroke의 길이와 stroke 사이 간격 모두 `2πr * 0.75`로 정의되어 있고, 화면에 보이는 영역은 빨간 네모 박스 부분입니다. 하지만 최종적으로 화면에 보여야 하는 영역은 다음과 같습니다.
 
 <img width="40%" alt="11-2" src="https://user-images.githubusercontent.com/40762111/141103931-7accdbb9-858d-47e2-8a06-afcfec6c8295.png">
 
 <img width="50%" alt="11" src="https://user-images.githubusercontent.com/40762111/141106723-38c43598-2eed-4f87-8e93-f76a91319c6c.png">
 
-circle에서 stroke가 3시 방향에서 시작되므로, 12시 방향을 0°라고 했을 때, 3시 방향인 90°에서 9시 방향인 270°까지 색이 채워지고, 270°에서 360(0)°까지 공백, 0°에서 90°까지 다시 색이 채워져야 ㄴ합니다.
+circle에서 stroke가 3시 방향에서 시작되므로, 12시 방향을 0°라고 했을 때, 3시 방향인 90°에서 9시 방향인 270°까지 색이 채워지고, 270°에서 360(0)°까지 공백, 0°에서 90°까지 다시 색이 채워져야 합니다.
 
 현재 정의되어 있는 패턴으로는 `stroke-dashoffset`을 조정해도 목표로 하는 패턴을 표현할 수 없기 때문에, 패턴을 다시 정의합니다.
 
-<img width="100%" alt="12" src="https://user-images.githubusercontent.com/40762111/141093134-0ae218ae-f342-45ac-87ae-bed9f03df5cf.png">
+<img width="100%" alt="12" src="https://user-images.githubusercontent.com/40762111/141143083-b80a70a7-f02c-48bc-9245-d2af384008b2.png">
 
-stroke의 길이는 전체 둘레의 75%에 해당하는 423.75, 각 stroke 사이 공백은 전체 둘레의 25%인 141.25인 `stroke-dasharray="423.75, 141.25"`로 변경합니다.
+stroke의 길이는 전체 둘레의 75%에 해당하는 `2πr * 0.75`, 각 stroke 사이 공백은 전체 둘레의 25%에 해당하는 `2πr * 0.25`로 `stroke-dasharray="2πr * 0.75, 2πr * 0.25"`로 변경합니다.
 
-> 각 stroke 사이 공백을 141.25로 한 이유는 `stroke-dasharray`의 첫 번째 값과 두 번째 값을 합쳐 원 전체 둘레의 길이가 나오게 하기 위함입니다. 이렇게 하면 패턴이 반복되는 길이의 기준이 전체 원 둘레가 되어, 이후 `stroke-dashoffset` 속성을 적용하기 용이합니다.
+> 각 stroke 사이 공백을 `2πr * 0.25`로 한 이유는 `stroke-dasharray`의 첫 번째 값과 두 번째 값을 합쳐 원 전체 둘레의 길이가 나오게 하기 위함입니다. 이렇게 하면 패턴이 반복되는 길이의 기준이 전체 원 둘레가 되어, 이후 `stroke-dashoffset` 속성을 적용하기 용이합니다.
 
-<img width="100%" alt="13" src="https://user-images.githubusercontent.com/40762111/141093378-45c6f499-07ec-4988-a8a9-4f7e2b57e486.png">
+<img width="100%" alt="13" src="https://user-images.githubusercontent.com/40762111/141143089-6609274b-b26f-420f-a381-ca588566f2f3.png">
 
-그러고는 `stroke-dashoffset="141.25"` 속성을 적용하여, 원하는 패턴이 화면에 보이도록 조정합니다. 위 그림에서 화면에 보이는 영역인 빨간 네모 박스의 시작이 180°로 되어 있고 그 위에 있는 도형의 모양도 이전 그림과 동일한데, 이는 이전 그림에서 `stroke-dashoffset` 속성을 적용하여 화면에 보이는 영역이 이동했다는 것을 나타내기 위함입니다. 실제로는 `stroke-dashoffset`의 조정과 동시에 다음과 같이 패턴이 변경됩니다.
+그러고는 `stroke-dashoffset="2πr * 0.25"` 속성을 적용하여, 원하는 패턴이 화면에 보이도록 조정합니다. 위 그림에서 화면에 보이는 영역인 빨간 네모 박스의 시작이 180°로 되어 있고 그 위에 있는 도형의 모양도 이전 그림과 동일한데, 이는 이전 그림에서 `stroke-dashoffset` 속성을 적용하여 화면에 보이는 영역이 이동했다는 것을 나타내기 위함입니다. 실제로는 `stroke-dashoffset`의 조정과 동시에 다음과 같이 패턴이 변경됩니다.
 
-<img width="100%" alt="14" src="https://user-images.githubusercontent.com/40762111/141094774-41e8d3a8-c6b2-406c-b8f2-1d19699a7aa7.png">
+<img width="100%" alt="14" src="https://user-images.githubusercontent.com/40762111/141143093-2d2d07b5-ed87-4e52-a85f-4b613ea75a4a.png">
 
 최종 코드는 다음과 같습니다.
 
@@ -165,8 +167,8 @@ const App = () => (
           fill="none"
           stroke="green"
           strokeWidth="20"
-          strokeDasharray="423.75 141.25"
-          strokeDashoffset="141.25"
+          strokeDasharray={`${2 * Math.PI * 90 * 0.75} ${2 * Math.PI * 90 * 0.25}`}
+          strokeDashoffset={2 * Math.PI * 90 * 0.25}
         />
       </svg>
     </div>
@@ -210,8 +212,8 @@ const App = () => (
           fill="none"
           stroke="green"
           strokeWidth="20"
-          strokeDasharray="423.75 141.25"
-          strokeDashoffset="141.25"
+          strokeDasharray={`${2 * Math.PI * 90 * 0.75} ${2 * Math.PI * 90 * 0.25}`}
+          strokeDashoffset={2 * Math.PI * 90 * 0.25}
         />
       </svg>
     </div>
@@ -231,7 +233,7 @@ const AnimatedCircle = styled.circle`
 
   @keyframes circle-fill-animation {
     0% {
-      stroke-dasharray: 0 565;
+      stroke-dasharray: 0 ${2 * Math.PI * 90};
     }
   }
 `;
@@ -239,7 +241,7 @@ const AnimatedCircle = styled.circle`
 export { AnimatedCircle };
 ```
 
-`App.styles.js` 파일의 `@keyframes`에서 `0%`는 애니메이션의 시작을 의미합니다. 즉, 애니메이션 초기에는 `stroke-dasharray: 0 565` 속성으로 각 stroke의 길이를 정의하지 않고, stroke 사이 공백을 원 전체 둘레로 정의하는 것을 의미합니다.
+`App.styles.js` 파일의 `@keyframes`에서 `0%`는 애니메이션의 시작을 의미합니다. 즉, 애니메이션 초기에는 `stroke-dasharray: 0 ${2 * Math.PI * 90}` 속성으로 각 stroke의 길이를 정의하지 않고, stroke 사이 공백을 원 전체 둘레로 정의하는 것을 의미합니다.
 
 <video width="40%" autoplay loop>
     <source src="https://user-images.githubusercontent.com/40762111/141101301-03ad3f18-d37b-4930-962b-4aba3e1f7c5f.mov" type="video/mp4">
