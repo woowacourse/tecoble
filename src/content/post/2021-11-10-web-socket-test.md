@@ -13,7 +13,7 @@ source: https://unsplash.com/photos/vT9zeLCOpps
 
 ## 웹 소켓은 어떻게 테스트하면 좋을까?
 
-Babble 팀의 데모데이 날 부스에서 질문을 받았다. "웹 소켓은 테스트를 어떻게 해야 할 지 감이 안 잡히는데 어떻게 구현하셨나요?" 테스트 코드에 정해진 정답은 없지만, 우리 팀도 웹 소켓 테스트 작성에 꽤 많이 고민했던 적이 있다. 고생해준 포츈🍀덕에 블로킹 큐를 이용하여 메시지를 저장하고 테스트를 해보는 방식으로 웹 소켓 테스트를 구현했다. 이 방법을 한번 알아보자.
+Babble 팀의 데모데이 날 부스에서 질문을 받았다. "웹 소켓은 테스트를 어떻게 해야 할 지 감이 안 잡히는데 어떻게 구현하셨나요?" 테스트 코드에 정해진 정답은 없지만, 우리 팀도 웹 소켓 테스트 작성에 꽤 많이 고민했던 적이 있다. 고생해준 프로젝트 팀원 덕에 블로킹 큐를 이용하여 메시지를 저장하고 테스트를 해보는 방식으로 웹 소켓 테스트를 구현했다. 이 방법을 한번 알아보자.
 
 사전에 웹 소켓 구현에 필요한 코드량이 많기 때문에 코드만 언급하고 테스트 코드 구현으로 넘어간다. 웹 소켓 실습에 대해 연습하고 싶다면 [여기](https://tecoble.techcourse.co.kr/post/2021-09-05-web-socket-practice/)를 먼저 참고하는 것을 추천한다.
 
@@ -27,7 +27,7 @@ Babble 팀의 데모데이 날 부스에서 질문을 받았다. "웹 소켓은 
 
 ## 테스트 코드 만들기
 
-웹 소켓 테스트 코드에 대해 살펴본다. rest-assured 를 사용한 api 테스를 진행한다. rest-assured 는 given, when, then 패턴으로 테스트 코드를 작성하며 Json Data 를 쉽게 검증할 수 있다.
+웹 소켓 테스트 코드에 대해 살펴본다. rest-assured 를 사용한 api 테스트를 진행한다. rest-assured 는 given, when, then 패턴으로 테스트 코드를 작성하며 Json Data 를 쉽게 검증할 수 있다.
 
 
 
@@ -183,7 +183,7 @@ ListenableFuture<StompSession> connect = webSocketStompClient
         StompSession stompSession = connect.get(60, TimeUnit.SECONDS);
 ```
 
-방 입장 및 채팅을 보내는 부분이다. 컨트롤러에서 설정해둔 `@MessageMapping` 의 URI 로 접근한다. 여기서 `StompFrameHandlerImpl` 클래스는 직접 구현한 것이니 뒤에서 다루도록 한다. TimeOut 시간은 너무 짧게 설정하면 데이터가 남아있지 않기 때문에 적당하게 시간을 설정한다.
+방 입장 및 채팅을 보내는 부분이다. 컨트롤러에서 설정해둔 `@MessageMapping` 의 URI 로 접근한다. 여기서 `StompFrameHandlerImpl` 클래스는 직접 구현한 것이니 뒤에서 다루도록 한다. TimeOut 시간은 너무 짧게 설정하면 디버깅 모드로 내부를 살펴볼 때 데이터가 남아있지 않기 때문에 적당하게 시간을 설정한다.
 
 ```java
 stompSession.subscribe(String.format("/sub/rooms/%s", room.getId()), new StompFrameHandlerImpl(new SessionResponse(), users));
@@ -230,7 +230,7 @@ public class StompFrameHandlerImpl<T> implements StompFrameHandler {
 }
 ```
 
-위의 객체를 생성할 때 payload 를 받을 클래스의 타입을 지정하고, payload 가 담길 BlockingQueue 를 넣어준다. 테스트를 실행하면 테스트가 성공적으로 동작하는 것을 확인할 수 있다.
+Stomp Frame 을 어떻게 처리할지 지정해주는 부분이다. 위의 객체를 생성할 때 payload 를 받을 클래스의 타입을 지정하고, payload 가 담길 BlockingQueue 를 넣어준다. 테스트를 실행하면 테스트가 성공적으로 동작하는 것을 확인할 수 있다.
 
 
 
