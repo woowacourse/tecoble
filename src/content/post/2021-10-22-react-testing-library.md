@@ -14,7 +14,7 @@ React Testing Library(이하 RTL)는 구현 기반의 테스트 도구인 Enzyme
 
 > RTL은 이름 그대로 React 컴포넌트를 테스트 하기 위해 만들어진 도구이기 때문에, 기본적으로 CRA에 내장되어 있습니다. 만약 CRA를 사용하지 않고 개발 환경을 직접 설정한다면 `npm install --save-dev @testing-library/react` 명령어를 이용해 설치하면 됩니다.
 
-RTL을 처음 접할 때면 RTL을 Jest의 대안으로 혼동하는 경우가 더러 있는데요, 두 도구는 React 내에서 테스트를 진행할 때 같이 사용되며 상호 보완 관계라고 볼 수 있습니다.
+RTL을 처음 접할 때면 RTL을 Jest의 대안으로 혼동하는 경우가 더러 있는데요, 두 도구는 React 내에서 테스트를 진행할 때 같이 사용되기에 상호 보완 관계라고 볼 수 있습니다. (엄밀히 말하자면, RTL이 Jest를 포함하는 구조입니다.) 전반적으로 Jest를 통해 기능 테스트를 진행할 수는 있지만, React의 컴포넌트를 렌더링하고 테스트하기 위해서는 몇가지 기능이 더 필요하기 때문입니다.
 
 - Jest - 자체적인 test runner와 test util 제공
 - RTL - Jest + React 컴포넌트 test util 제공
@@ -40,14 +40,16 @@ import React, { useState } from 'react';
 const Counter = () => {
   const [count, setCount] = useState(0);
 
-	const decrement = () => setCount(count - 1);
+  const decrement = () => setCount(count - 1);
 
-	const increment = () => setCount(count + 1);
+  const increment = () => setCount(count + 1);
 
   return (
-    <div>{count}</div>
-		<button onClick={decrement}>-</button>
-		<button onClick={increment}>+</button>
+    <>
+      <div>{count}</div>
+      <button onClick={decrement}>-</button>
+      <button onClick={increment}>+</button>
+    </>
   );
 };
 
