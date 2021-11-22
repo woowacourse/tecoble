@@ -23,7 +23,9 @@ image: '../teaser/refresh-token.jpg'
 
 ### XSS와 CSRF를 잘 막아두면 access token은 절대로 탈취될 일이 없지 않나요?
 
-항상 보안 취약점이 없다고 생각하는 것은 굉장히 위험한 생각이다. react를 사용하면 XSS 공격을 방지해주고, localStorage를 사용하면 CSRF 취약점을 막아주지만, 이것이 항상 통할 것으로 생각하면 안된다. 예를 들어 SSR 방식의 렌더링을 사용할 때, html의 script 태그로 서버의 데이터를 클라이언트로 내려줄 수가 있는데 이런 경우도 XSS 문제가 발생할 수 있다.
+XSS와 CSRF는 웹에서 발생할 수 있는 가장 대표적인 취약점이다. XSS는 자바스크립트 코드를 사용자 브라우저에서 실행하여 악의적인 작업을 수행할 수 있는 공격이고, CSRF는 사용자 브라우저에서 어떤 api로의 요청을 강제함으로써 사용자가 의도하지 않은 작업을 수행하는 공격을 의미한다. 이런 문제를 잘 막아두면 access token이 탈취될 것이라는 가정을 할 필요가 없는 것이 아닐까?
+
+`하지만` 항상 보안 취약점이 없다고 생각하는 것은 굉장히 위험한 생각이다. react를 사용하면 XSS 공격을 방지해주고, localStorage를 사용하면 CSRF 취약점을 막아주지만, 이것이 항상 통할 것으로 생각하면 안된다. 예를 들어 SSR 방식의 렌더링을 사용할 때, html의 script 태그로 서버의 데이터를 클라이언트로 내려줄 수가 있는데 이런 경우도 XSS 문제가 발생할 수 있다.
 
 `그래서 항상 우리가 예측할 수 없는 보안 취약점이 발생할 수 있으므로, 탈취되었을 때를 가정하고 최대한 덜 치명적인 방향으로 개발하는 습관을 가져야 한다.`
 
@@ -42,6 +44,8 @@ refresh token을 프론트 서버의 session에 저장하여 프론트가 관리
 ### 시나리오 1) refresh token을 프론트 서버의 session에 저장하는 경우
 
 ![image](https://user-images.githubusercontent.com/48755175/138549716-eeaec98d-c246-42d8-b386-74fe75d4589a.png)
+
+refresh token과 access token을 프론트 서버의 session에 저장해두고, 클라이언트가 token이 저장된 session에 접근하기 위해 session id를 쿠키로 가지고 있는 방식이다.
 
 **장점**
 
@@ -63,6 +67,8 @@ refresh token을 프론트 서버의 session에 저장하여 프론트가 관리
 ### 시나리오 2) refresh token을 백엔드 서버에 저장하는 경우
 
 ![image](https://user-images.githubusercontent.com/48755175/138549736-cd90892d-05d1-4b58-9f9a-a087cd969856.png)
+
+refresh token을 백엔드 서버에 저장해두고 클라이언트는 refresh token에 대한 정보를 쿠키로 가지고 있는 방식이다. 새로고침했을 때 access token을 html 자원과 함께 받기 위해 반드시 백엔드 서버를 거쳐야한다.
 
 **장점**
 
