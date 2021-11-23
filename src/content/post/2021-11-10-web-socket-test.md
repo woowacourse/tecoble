@@ -27,46 +27,9 @@ Babble 팀의 데모데이 날 부스에서 질문을 받았다. "웹 소켓은 
 
 ## 테스트 코드 만들기
 
-웹 소켓 테스트 코드에 대해 살펴본다. rest-assured 를 사용한 api 테스트를 진행한다. rest-assured 는 given, when, then 패턴으로 테스트 코드를 작성하며 Json Data 를 쉽게 검증할 수 있다.
-
-
-
-## 웹 소켓 연결을 테스트
-
-웹 소켓을 연결하는 테스트는 별로 어렵지 않게 구현할 수 있다.
-
-```java
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class WebSocketConnectTest {
-
-    @LocalServerPort
-    private int port;
-
-    @BeforeEach
-    public void setUp() {
-        RestAssured.port = port;
-    }
-
-    @DisplayName("웹 소켓 연결을 시도한다.")
-    @Test
-    void webSocketConnectTest() {
-        ExtractableResponse<Response> response = given().log().all()
-            .when()
-            .get("/ws-connection")
-            .then().log().all()
-            .extract();
-
-        // then
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-    }
-}
-```
-
-`WebSocketConfig` 클래스에서 EndPoint 를 `/ws-connection` 으로 설정해두었다. 따라서 `/ws-connection` 으로 요청하면 연결되는지 확인하는 테스트다. 연결 테스트는 간단하게 구현할 수 있다.
-
 핵심 기능이라고 할 수 있는 채팅방 입장, 채팅방에서 주고받는 메시지가 올바르게 송수신 되는지, 채팅 방 퇴장을 확인하는 테스트는 어떻게 구현할 수 있을까?
 
-
+웹 소켓 테스트 코드에 대해 살펴본다. rest-assured 를 사용한 api 테스트를 진행한다. rest-assured 는 given, when, then 패턴으로 테스트 코드를 작성하며 Json Data 를 쉽게 검증할 수 있다.
 
 ## 채팅방 관련 기능 테스트
 
