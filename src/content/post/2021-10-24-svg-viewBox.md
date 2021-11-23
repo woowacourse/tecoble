@@ -17,7 +17,6 @@ source: https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:SVG_logo.svg
   - 기본 예시
   - 위치 조정 예시
   - 확대, 축소 예시
-- 정리
 
 ### SVG란
 
@@ -27,7 +26,7 @@ SVG에 대해서 간단하게 알아보자. SVG란 **S**calable **V**ector **G**
 
 ##### 의미
 
-viewBox는 svg 요소들이 그려지는 영역에서 svg 요소들의 위치를 조정하거나, 크기를 확대하거나 축소할 수 있는 속성이다. viewBox 속성이 없어도 svg 요소를 화면에 그릴 수는 있지만, viewBox를 통해 svg 요소의 크기 배율을 조절하기 때문에 크기를 확대하거나 축소할 수는 없다. 즉, 반응형 웹을 고려한 svg 요소를 만들기 위해서는 필수 속성이다.
+viewBox는 svg 요소가 그려지는 영역에서, svg 요소의 크기를 확대 또는 축소 그리고 위치를 조정할 수 있는 속성이다. svg 요소를 viewBox 속성 없이도 화면에 그릴 수는 있다. 하지만, 화면의 크기가 달라져도 svg 요소의 크기는 고정되어 반응형에 취약한 모습을 보인다. 즉, viewBox 속성을 이용하면 화면에 크기에 따라 svg 요소의 크기가 자동으로 조절된다. 이런 이유로 svg 요소를 사용하면서 반응형 웹을 설계하기 위해서 viewBox는 필수 속성이다.
 
 ##### viewBox 속성 값
 
@@ -89,7 +88,7 @@ export default App;
 
 <img width="100%" alt="SVG viewBox-4" src="https://user-images.githubusercontent.com/40762111/138591309-32277e0e-626e-45f8-8117-a22f2f36825c.png">
 
-viewBox의 `min-x`, `min-y`를 변경하면 viewport에서 보이는 영역(현재 예시에서의 `width`, `height` 300px 영역)이 동일하지만, svg에서 보여주는 영역은 변경된다. viewBox가 `"0 0 200 200"`부터 `"1 1 200 200"`, `"2 2 200 200"` 이런 식으로 `"100 100 200 200"`까지 변경되면, 아래 영상과 같이 된다.
+viewBox의 `min-x`, `min-y`를 변경하면 viewport에서 보이는 영역(현재 예시에서의 `width`, `height` 300px 영역)이 동일하지만, svg에서 보여주는 영역은 변경된다. viewBox가 `"0 0 200 200"`부터 `"1 1 200 200"`, `"2 2 200 200"` 이런 식으로 `"100 100 200 200"`까지 변경되면, 아래 영상과 같이 된다. 영상은 위의 왼쪽 사진의 빨간 네모가 오른쪽 사진의 빨간 네모 위치로 이동한다고 생각하면 된다. 그런데, 빨간 네모는 실제로 화면에서 보이는 부분이므로 정지되어 있다. 즉, 빨간 네모 화면이 동남쪽으로 이동하는 것은 파란 원이 북서쪽으로 이동하는 것처럼 보이므로 영상과 같이 나타난다.
 
 <video width="50%" autoplay loop>
     <source src="https://user-images.githubusercontent.com/40762111/138588688-3d925445-a45e-4f4c-9c2f-eaaf94c77087.mov" type="video/mp4">
@@ -117,7 +116,3 @@ export default App;
 <img width="1023" alt="SVG viewBox-6" src="https://user-images.githubusercontent.com/40762111/138591367-31e26466-f18d-4158-91b2-8033b77fa7bd.png">
 
 viewBox의 속성값 중 `width`와 `height`를 각각 100, 200, 300으로 변경했다. 이 값을 변경하더라도 viewport에서 보이는 영역(`width`, `height` 300px)은 동일하지만, svg 영역 안에서의 요소를 확대하거나 축소할 수 있다.
-
-### 정리
-
-특정 영역에서 svg의 위치를 조정하거나 크기를 확대, 축소하기 위해 viewBox를 이용할 수 있다.
