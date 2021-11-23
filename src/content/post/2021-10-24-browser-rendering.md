@@ -74,7 +74,7 @@ Paint 단계에서는 Layout 단계에서 계산된 값을 이용해 Render Tree
 
 ### Composite
 
-Composite 단계에서는 Paint 단계에서 생성된 레이어를 합성하여 실제 화면에 나타낸다. 우리는 화면을 웹 페이지를 볼 수 있다.
+Composite 단계에서는 Paint 단계에서 생성된 레이어를 합성하여 실제 화면에 나타낸다. 우리는 화면에서 웹 페이지를 볼 수 있다.
 
 ## 마무리
 
