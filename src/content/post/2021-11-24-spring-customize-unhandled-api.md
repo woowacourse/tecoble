@@ -93,7 +93,7 @@ public class WebMvcProperties {
 매핑된 핸들러가 없다고 생각하고, 코드만을 기반으로 지금까지의 작업을 진행했다. 실제로는 핸들러가 매핑되고 있었다.
 
 ![ResourceHttpRequestHandler](../images/2021-11-24-spring-customize-unhandled-api-1.png)
-DEBUG로그를 확인해본 결과, 존재하지 않는 URL로의 api에 `ResourceHttpRequestHandler` 가 매핑되고 있었다.
+DEBUG로그를 확인해본 결과, 존재하지 않는 api에 `ResourceHttpRequestHandler` 가 매핑되고 있었다.
 즉, 기본적으로 해당하는 URL이 없으면 resource를 조회하도록 설계되어 있고, 존재하지 않았을 때 404의 에러 메시지를 응답하는 것이다.
 
 ---
