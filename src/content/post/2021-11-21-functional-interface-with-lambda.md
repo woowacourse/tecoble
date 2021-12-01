@@ -74,6 +74,7 @@ int min(int x, int y) {
 
 ```java
 public int getTotalHeaderAttempt() {
+    // 각 경기의 총 헤딩 시도 횟수를 가져와 더한다.
     int sumOfHeaderAttempt = 0;
     for (Match match : matches) {
         sumOfHeaderAttempt += match.getHeaderAttempt();
@@ -82,6 +83,7 @@ public int getTotalHeaderAttempt() {
 }
 
 public int getTotalMiddleShootAttempt() {
+    // 각 경기의 총 중거리 슛 시도 횟수를 가져와 더한다.
     int sumOfMiddleShootAttempt = 0;
     for (Match match : matches) {
         sumOfMiddleShootAttempt += match.getMiddleShootAttempt();
@@ -139,4 +141,4 @@ public double getTotalMiddleShootAttempt() {
 
 ## Reference
 
-http://www.yes24.com/Product/Goods/77125987
+[모던 자바 인 액션](http://www.yes24.com/Product/Goods/77125987)
