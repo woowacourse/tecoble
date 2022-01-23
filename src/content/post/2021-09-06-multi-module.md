@@ -140,4 +140,4 @@ dependencies {
 ## 참고 자료
 
 - [ORACLE - understanding-java-9-modules](https://www.oracle.com/kr/corporate/features/understanding-java-9-modules.html)
-- [Spring Docs - multi-module]([https://spring.io/guides/gs/multi-module/](https://spring.io/guides/gs/multi-module/))
+- [Spring Docs - multi-module](https://spring.io/guides/gs/multi-module)
