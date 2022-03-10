@@ -161,7 +161,7 @@ A1 댓글에 대댓글을 다는 경우를 생각해봅시다. 조회하게 될 
 
 ![image](https://user-images.githubusercontent.com/56240505/132088882-53a900e6-ad28-40d2-8733-e7bb3f247c81.png)
 
-중첩 세트 모델(The Nested Set Model)이란 계층적인 데이터 구조를 집합 구조로 생각하고 스키마를 설계하는 전략입니다. Modified Preorder Tree Traversal Algorithm(수정된 선주문 트리 순회 알고리즘, 원문 표기)이라고 일컫는데요.
+중첩 세트 모델(The Nested Set Model)이란 계층적인 데이터 구조를 집합 구조로 생각하고 스키마를 설계하는 전략입니다. Modified Preorder Tree Traversal Algorithm(수정된 전위 트리 순회 알고리즘, 원문 표기)이라고 일컫는데요.
 
 LEFT 필드와 RIGHT 필드로 레코드가 포함하는 범위를 결정하게 됩니다. 부모는 1 부터 N까지를 포함하고 자녀들은 각자의 범위를 부모 범위 내에서 결정하게 됩니다. 중간에 노드를 삽입 혹은 삭제할 때마다 관련 노드들의 값을 적절히 수정해주면 됩니다.
 
