@@ -2,7 +2,7 @@
 layout: post
 title: "Spring Profile: yml 파일 하나로 프로퍼티 관리하기"
 author: [4기_정]
-image: 기깔 나는 썹네일 만들어주세요. 감사합니다.
+image: ../teaser/acitve-profile.png
 (이하 생략)
 ---
 
