@@ -24,7 +24,7 @@ image: ../teaser/image-storage-server.png
 - binary 로 관리하게 되는 경우 너무 큰 데이터 파일로 인하여 관리가 힘들다.
 - binary의 크기가 크기 때문에 입출력 시 database에 병목현상이 발생하여 다른 데이터에 영향을 준다.
 
-저희 팀에서는 이런 문제점을 고려하여 이미지 스토리지 서버를 따로 두어 관리하는 방향을 잡게 되었습니다.
+저희 팀에서는 이런 문제점을 고려하여 이미지 스토리지 서버를 따로 두어 관리하는 방향으로 결정하였습니다.
 
 
 ## 이미지 스토리지 서버
@@ -56,6 +56,8 @@ public ResponseEntity<String> uploadImage(@RequestPart MultipartFile file) {
 
 <br>
 
+> Nginx 설정은 nginx.conf 혹은 include한 서버 설정 파일을 통해 설정할 수 있습니다.
+
 ```nginx
 server {
 	server_name image.gongcheck.shop;
@@ -65,6 +67,7 @@ server {
 	}
 
 	# ...
+}
 ```
 
 WS(nginx)에서는 요청받은 이미지 경로를 통해 이미지를 반환합니다.
