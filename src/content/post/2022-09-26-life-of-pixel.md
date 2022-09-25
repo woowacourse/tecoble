@@ -46,7 +46,7 @@ HTMLParser는 html tag를 읽으면서 DOM Tree를 생성합니다.
 
 조금 더 구체적인 parsing과정은 다음과 같습니다.
 
-![](https://develoger.kr/wp-content/uploads/parsing.webp)
+![](https://develoger.kr/wp-content/uploads/parsing-1200x665.webp)
 
 from : https://web.dev/critical-rendering-path-constructing-the-object-model/
 
