@@ -16,7 +16,7 @@ image: ../teaser/docker-basic.png
 
 ### 해상 운송업의 컨테이너
 
-![사진 출처 : https://pixabay.com/ko/photos/%ed%8f%ac%ed%8a%b8-%ec%bb%a8%ed%85%8c%ec%9d%b4%eb%84%88-%ec%84%a0%eb%b0%95-%eb%b0%a4-7418239/](../img/docker-basic-real-container.webp)
+![](../img/docker-basic-real-container.webp)
 선박을 이용하여 수출입하는 해상 운송업의 모습을 상상해보자. 모든 선적물은 거대한 상자모양의 **컨테이너를 통해 패키징** 된 후 화물선에 선적된다. 컨테이너는 **국제적으로 표준화, 규격화**된 크기를 갖고있다. 컨테이너와 관련된 보관, 운송과 관련한 장비, 제도, 프로세스 등은 모두 국제 표준에 맞게 설계된다.
 
 이런 표준화의 특징으로 인해 **해상 운송업자는 컨테이너 안에 어떤 물건이 담겨져 있는지 전혀 알 필요가 없다.** 그저 컨테이너 단위로 선적하여 운송하고 하역하고 보관하면 그만이다. 따라서 한국에서 수출한 물건을 저 멀리 미국에서도 **‘장소에 구애 받지 않고’** 손쉽게 하역하고, 운송할 수 있는 것 이다.
@@ -26,6 +26,7 @@ image: ../teaser/docker-basic.png
 ### 도커의 컨테이너
 
 ![](../img/docker-basic-docker-logo.png)
+
 도커의 컨테이너도 마찬가지이다. 도커는 서비스를 운용하는데 필요한 실행환경, 라이브러리, 소프트웨어, 시스템 도구, 코드 등을 **컨테이너라는 표준화된 단위로 추상화**한다. 이렇게 만들어진 컨테이너는 컴퓨팅 환경에 구애받지 않고 서비스가 실행될 수 있도록 한다.
 
 실제 컨테이너의 특성처럼, 서비스 관리자는 **도커라이징(Dockerizing)** 된 컨테이너가 어떤 런타임을 필요로 하는지, 어떤 라이브러리와 코드를 필요로 하는지 전혀 알 필요가 없다. 그저 컨테이너를 어딘가에서 가져와서 서비스를 운영할 컴퓨팅 환경에서 실행하기만 하면 된다. 실행된 서비스는 컴퓨팅 환경과 **독립된 가상의 환경**에서 실행되며, **일관된 결과**를 보장한다.
@@ -58,7 +59,7 @@ image: ../teaser/docker-basic.png
 
 그렇다면, 도커 같은 컨테이너 기반의 가상화 플랫폼과 VM의 차이점은 무엇일까?
 
-![사진 출처 : https://developer.nvidia.com/ko-kr/blog/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EB%B0%8F-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EC%97%90%EC%84%9C-nvidia-nsight-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/](../img/docker-basic-vm-vs-docker.png)
+![](../img/docker-basic-vm-vs-docker.png)
 
 위 그림의 왼쪽은 도커의 구조를, 오른쪽은 VM 의 구조를 나타낸다. 가장 먼저 눈에 들어오는 차이점은 **하이퍼바이저 (Hypervisor) 의 유무**이다. 하이퍼바이저란 Virtual Box 나 VM Ware 와 같은 가상 머신을 생성하고 실행하는 프로세스이다. 하이퍼바이저는 **하드웨어를 에뮬레이션하여** 하나의 컴퓨터에서 다수의 운영체제를 운영할 수 있게 해주는 소프트웨어이다.
 
@@ -370,6 +371,7 @@ $ docker pull <옵션> <이미지 이름:태그>
 ## 도커 컴포즈 (Docker Compose)
 
 ![](../img/docker-basic-docker-compose.jpeg)
+
 지금까지 우리는 도커를 모두 **CLI 으로 조작**했다. 물론 간단한 작업은 명령어만 사용해서 조작해도 상관없다. 하지만 컨테이너를 실행할때마다 **모든 옵션**을 넣어주고, **환경변수를 입력**해주는 것은 귀찮다. 이를 해결하기 위해 도커에서는 **도커 컴포즈 (Docker Compose)** 라는 것을 제공한다. 도커 컴포즈는 **여러 컨테이너를 모아 하나의 어플리케이션을 구성**할 때 사용된다.
 
 도커 컴포즈는 도커 데스크톱을 설치하면 기본으로 제공된다. 리눅스 환경인 경우 **[도커 공식 웹사이트](https://docs.docker.com/compose/install/)** 를 참고하여 설치하자.
@@ -552,7 +554,7 @@ $ docker run -p 3000:8080 node-app
 
 마지막으로 도커 이미지의 구조에 대해서 가볍게 이해하고 넘어가자.
 
-![사진 출처: https://docs.docker.com/storage/storagedriver/](../img/docker-basic-docker-image-layer.jpg)
+![](../img/docker-basic-docker-image-layer.jpg)
 
 도커 이미지는 위 그림과 같이 여러개의 **Layer 가 겹겹히 쌓여있는 구조**로 되어있다. 과연 정말인지 직전에 설치해둔 Wordpress 이미지로 확인해보자.
 
@@ -618,3 +620,8 @@ $ docker run <사용자명>/node-app
 - https://docs.docker.com
 - https://aws.amazon.com/ko/docker
 - https://azure.microsoft.com/ko-kr/overview/what-is-a-container/#overview
+- https://developer.nvidia.com/ko-kr/blog/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EB%B0%8F-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EC%97%90%EC%84%9C-nvidia-nsight-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/
+
+## 이미지 출처
+
+- https://pixabay.com/ko/photos/%ed%8f%ac%ed%8a%b8-%ec%bb%a8%ed%85%8c%ec%9d%b4%eb%84%88-%ec%84%a0%eb%b0%95-%eb%b0%a4-7418239/
