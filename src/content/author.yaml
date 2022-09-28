@@ -152,3 +152,10 @@
   website: https://brunch.co.kr/@jinyoungchoi95
   location: Seoul
   profile_image: profile/ori.jpeg
+- id: 4기_매트
+  avatar: avatars/mat.jpeg
+  bio: 우아한테크코스 4기 매트(최기현)입니다 :)
+  github: hyeonic
+  website: https://hyeonic.github.io
+  location: Seoul
+  profile_image: profile/mat.jpeg
