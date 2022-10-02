@@ -67,7 +67,13 @@ CSSParser는 CSS코드를 파싱하면서 StyleRule을 생성하고 그것을 St
 
 다시말해서,
 
-![sc_-55](https://user-images.githubusercontent.com/52737532/192159634-642884e5-fdb7-48ca-9a66-aa775212dc8b.png)
+```css
+.fancy-button {
+  background: green; 
+  border: 3px solid red;
+  font-size: 1em;
+}
+```
 
 이런 css코드를 파싱해서
 
