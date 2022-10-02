@@ -91,11 +91,11 @@ ComputedStyle은 CSS selector 우선순위까지 다 고려(cascading)해서 최
 
 ### 쉽게 말하자면
 
+CSS코드를 파싱하고, DOM의 각 노드에 대한 ComputedStyle을 구해서 적용합니다.
+
 ![sc_-59](https://user-images.githubusercontent.com/52737532/192159688-b44bf7c4-12fd-44de-a6c8-61f6e1aa504d.png)
 
 from : https://developer.chrome.com/blog/inside-browser-part3/#subresource-loading
-
-CSS코드를 파싱하고, DOM의 각 노드에 대한 ComputedStyle을 구해서 적용합니다.
 
 ## Layout
 
