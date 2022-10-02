@@ -79,7 +79,7 @@ CSSParser는 CSS코드를 파싱하면서 StyleRule을 생성하고 그것을 St
 
 StyleResolver는 StyleRule이 담겨있는 StyleSheetContents를 바탕으로 각 노드(Element)에 대한 ComputedStyle을 구해서 적용합니다.
 
-ComputedStyle은 CSS selector 우선순위 까지 다 고려(cascading)해서 최종적으로 노드에 적용될 CSS값들의 모음입니다. dev-tools에서 쉽게 확인 가능합니다.
+ComputedStyle은 CSS selector 우선순위까지 다 고려(cascading)해서 최종적으로 노드에 적용될 CSS값들의 모음입니다. dev-tools에서 쉽게 확인 가능합니다.
 
 ![sc_-58](https://user-images.githubusercontent.com/52737532/192159666-b660e116-2937-4671-90b2-b60ae29d0fbe.png)
 
