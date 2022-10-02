@@ -167,7 +167,7 @@ z-index도 잘 고려돼서 그려질 수 있도록 PO가 구성됩니다.
 
 현재 사용 중인 브라우저에서 GPU 가속이 사용되고 있는지 확인하려면 [chrome://gpu/](chrome://gpu/) 요기로 들어가면 됩니다.
 
-![sc_-71-1](https://user-images.githubusercontent.com/52737532/192159765-a776cba5-7661-4276-ba26-8a7e976c56fc.png)
+<img width="500px" alt="sc_-71-1" src="https://user-images.githubusercontent.com/52737532/192159765-a776cba5-7661-4276-ba26-8a7e976c56fc.png" />
 
 Rasterization에 Hardware accelerated가 되어있는 것을 볼 수 있습니다.
 
