@@ -159,3 +159,10 @@
   website: https://hyeonic.github.io
   location: Seoul
   profile_image: profile/mat.jpeg
+- id: 4기_정
+  avatar: avatars/jeong.jpeg
+  bio: 우아한테크코스 4기 정(정진우)입니다 :)
+  github: bugoverdose
+  website: https://bugoverdose.github.io
+  location: Seoul
+  profile_image: profile/jeong.png
