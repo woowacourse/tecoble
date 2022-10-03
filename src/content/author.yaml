@@ -145,3 +145,17 @@
   github: hybeom0720
   location: Seoul
   profile_image: profile/whybe.jpg
+- id: 4기_오리
+  avatar: avatars/ori.png
+  bio: 우아한테크코스 4기 오리(최진영)입니다 :)
+  github: jinyoungchoi95
+  website: https://brunch.co.kr/@jinyoungchoi95
+  location: Seoul
+  profile_image: profile/ori.jpeg
+- id: 4기_매트
+  avatar: avatars/mat.jpeg
+  bio: 우아한테크코스 4기 매트(최기현)입니다 :)
+  github: hyeonic
+  website: https://hyeonic.github.io
+  location: Seoul
+  profile_image: profile/mat.jpeg
