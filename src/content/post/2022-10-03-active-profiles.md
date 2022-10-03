@@ -3,9 +3,9 @@ layout: post
 title: "Spring Profile: yml 파일 하나로 프로퍼티 관리하기"
 tags: ['spring-boot', 'yml']
 author: [4기_정]
-date : 2022-09-19T13:10:00.000Z
+date : "2022-10-03T13:10:00.000Z"
 draft : false
-image: ../teaser/acitve-profile.png
+image: ../teaser/active-profile.png
 ---
 
 서비스를 개발하다보면 하나의 서버 애플리케이션을 다양한 환경에서 실행할 일이 생깁니다. 그리고 H2 DB를 사용하는 테스트 환경과 MySQL DB를 사용하는 배포 환경에서 사용되는 환경변수 값이 서로 다른 것은 당연한 일이겠죠.
