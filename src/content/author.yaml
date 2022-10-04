@@ -220,3 +220,10 @@
   website: https://velog.io/@yh20studio
   location: Seoul
   profile_image: profile/tiki.png
+- id: 4기_자스민
+  avatar: avatars/jasmin.jpeg
+  bio: 우아한테크코스 4기 자스민(황정민)입니다 :)
+  github: hwangstar156
+  website: https://velog.io/@baby_dev
+  location: Seoul
+  profile_image: profile/jasmin.jpg
