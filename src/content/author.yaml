@@ -166,3 +166,10 @@
   website: https://bugoverdose.github.io
   location: Seoul
   profile_image: profile/jeong.png
+- id: 4기_후디
+  avatar: avatars/hudi.png
+  bio: 우아한테크코스 4기 후디(조동현)입니다 :)
+  github: devhudi
+  website: https://hudi.blog
+  location: Seoul
+  profile_image: profile/hudi.jpg
