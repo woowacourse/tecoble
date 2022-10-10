@@ -22,7 +22,7 @@ F12 프로젝트에서는 서비스를 이용하는 회원을 검색하는 기�
 
 ## 동적쿼리를 사용하지 않는 경우
 
-현재 Member의 검색 조건은 gitHubId, careerLevel, jobType 총 3가지 입니다. 그렇다면, 사용자가 검색을 하기 위해서 입력할 수 있는 조건의 경우의 수는 총 8가지 입니다.  
+현재 Member의 검색 조건은 `gitHubId`, `careerLevel`, `jobType` 총 3가지 입니다. 그렇다면, 사용자가 검색을 하기 위해서 입력할 수 있는 조건의 경우의 수는 총 8가지 입니다.  
 
 ```java
 // 1. 검색 조건 없이 모두 조회
@@ -312,6 +312,5 @@ Where문에 어떤 조건들이 들어가는지 확인할 수 있어서 더 가�
 ## Reference
 - 김영한 지음, 자바 ORM 표준 JPA 프로그래밍
 - [이동욱님 블로그 Querydsl 다이나믹 쿼리 사용하기](https://jojoldu.tistory.com/394)
-- [Spring.io blog Specification and Querydsl](http://Spring.io)
-- [Advanced Spring Data JPA - Specifications and Querydsl](https://spring.io/blog/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/)
+- [Spring.io blog Specification and Querydsl](https://spring.io/blog/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/)
 - [Baeldung Criteria and Specification](https://www.baeldung.com/spring-data-criteria-queries)
