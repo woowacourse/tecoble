@@ -173,10 +173,17 @@
   website: https://velog.io/@injoon2019
   location: Seoul
   profile_image: profile/thor.png
-  - id: 4기_이스트
+- id: 4기_이스트
   avatar: avatars/east.jpeg
   bio: 우아한테크코스 4기 이스트(신동훈)입니다 :)
   github: EastHShin
   website: https://easthshin.tistory.com/
   location: Seoul
   profile_image: profile/east.png
+- id: 4기_후디
+  avatar: avatars/hudi.png
+  bio: 우아한테크코스 4기 후디(조동현)입니다 :)
+  github: devhudi
+  website: https://hudi.blog
+  location: Seoul
+  profile_image: profile/hudi.jpg

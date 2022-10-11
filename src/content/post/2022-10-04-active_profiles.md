@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Spring Profile: yml 파일 하나로 프로퍼티 관리하기"
-tags: ['spring-boot', 'yml']
 author: [4기_정]
-date : "2022-10-03T13:10:00.000Z"
+tags: ['spring-boot', 'yml']
+date : "2022-10-04T17:00:00.000Z"
 draft : false
 image: ../teaser/active-profile.png
 ---

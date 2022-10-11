@@ -145,3 +145,6 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 Gemfile.lock
+
+### package-lock ###
+package-lock.json
