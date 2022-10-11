@@ -12,7 +12,7 @@ image: ../teaser/life-of-pixel.png
 
 이 글은 Google Chrome 개발자 Steve Kobes의 [Life of Pixel영상](https://www.youtube.com/watch?v=K2QHdgAKP-s)을 보고 정리한 내용입니다. 사용된 이미지들은 Steve Kobes의 허락 하에 [slide show](https://docs.google.com/presentation/d/1boPxbgNrTU0ddsc144rcXayGA_WF53k96imRH8Mp34Y/edit#slide=id.ga884fe665f_64_6)에서 가져왔습니다.
 
-![sc_-37](https://user-images.githubusercontent.com/52737532/192159544-25046ba1-63ae-4c06-8a95-3fd8fd1a6f07.png)
+<br>
 
 # 이 글의 목표
 
