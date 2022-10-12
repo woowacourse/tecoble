@@ -287,7 +287,7 @@ paint전에 pre-paint 단계가 있습니다.
 
 ![sc_-90](https://user-images.githubusercontent.com/52737532/192159850-77d00327-0f74-490a-a16d-4880c6fd6e44.png)
 
-이 단계에서 property tree를 생성합니다. 참고로 paint tree는 아래처럼 생겼습니다.
+이 단계에서 property tree를 생성합니다. 참고로 property tree는 아래처럼 생겼습니다.
 
 ![sc_-89](https://user-images.githubusercontent.com/52737532/192159854-8e47bf6d-bb72-4fc5-b1a1-342ef656eabe.png)
 
