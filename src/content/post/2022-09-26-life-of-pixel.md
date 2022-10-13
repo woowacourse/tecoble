@@ -66,7 +66,7 @@ DOM은 두 가지를 의미합니다.
 
 CSSParser는 CSS코드를 파싱하면서 StyleRule을 생성하고 그것을 StyleSheetContents에 담습니다.
 
-다시말해서,
+다시 말해서,
 
 ```css
 .fancy-button {
