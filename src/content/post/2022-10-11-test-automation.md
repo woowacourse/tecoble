@@ -46,8 +46,6 @@ Cypress는 headless 브라우저 테스트를 지원합니다. Headless 브라�
   </figcaption>
 </figure>
 
-<br>
-
 Cypress는 headless 브라우저 테스트를 위해 여러가지 의존성을 요구합니다. 그 중 하나로 가상 메모리에서 그래픽 작업을 수행하는 in-memory 디스플레이 서버인 [xvfb](https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml)가 있습니다. Cypress는 Cypress, OS, 브라우저 별 docker 이미지를 지원하지만 이를 사용하지 않는 경우 [공식 문서](https://docs.cypress.io/guides/continuous-integration/introduction.html#Dependencies)에서 필요로 하는 의존성을 설치할 수 있게 스크립트를 제공하고 있습니다.
 
 ## 기존 Cypress configuration 파일 사용
@@ -64,8 +62,6 @@ Cypress는 configuration 파일 확장자로 json(구버전에서 사용), js, t
     서버 및 테스트 실행 시퀀스
   </figcaption>
 </figure>
-
-<br>
 
 서버는 다른 프로세스에서 실행되기 때문에 Node.js적인 방법 대신 시스템 계층에서 접근해야 했습니다. 체크메이트에서는 일정한 간격으로 서버에 HTML GET 요청을 보내 응답(상태 코드 200~206, 304)을 검사하는 방식으로 선택했습니다. 이를 위해 CLI argument로 GET 요청을 보낼 url과 timeout 시간을 입력받도록 했습니다.
 
