@@ -44,7 +44,7 @@ console.log(add('시', '짚')); // 시짚
 console.log(add('짚')); // 짚
 ```
 
-add 함수만 보고는 숫자를 더하는 함수인지, 문자를 더하는 함수인지 역할을 파악하기 어렵습니다. 가령 저는 숫자를 더하기 위해 만들었지만, 다른 팀원은 문자를 합치기 위해 사용하고 있다면 소통이 원활히 이루어졌다고 말하기 어려울 것입니다. 이때 타입스크립트가 강력한 역할을 합니다. 타입스크립트가 즉, JSDoc과 같이 코드 명세 역할을 하여 나은 협업을 이끌 수 있습니다.
+add 함수만 보고는 숫자를 더하는 함수인지, 문자를 더하는 함수인지 역할을 파악하기 어렵습니다. 가령 저는 숫자를 더하기 위해 만들었지만, 다른 팀원은 문자를 합치기 위해 사용하고 있다면 소통이 원활히 이루어졌다고 말하기 어려울 것입니다. 이때 타입스크립트가 강력한 역할을 합니다. 타입스크립트가 즉, JSDoc과 같이 코드 명세 역할을 하여 더 나은 협업을 이끌 수 있습니다.
 
 위 코드에 타입을 얹어봅시다.
 
@@ -75,9 +75,9 @@ function add(a: number | string, b?: number | string, c?: number | string): numb
 
 # 함수 오버로드는 어떻게 사용하는가?
 
-함수 오버로드는 **오버로드 시그니처(overload signature)**를 활용합니다.
+함수 오버로드는 <strong>오버로드 시그니처(overload signature)<strong>를 활용합니다.
 
-아래와 같이 **타입부(overload signature)**과 **구현부(implementation signature)**을 정의합니다.
+아래와 같이 <strong>타입부(overload signature)<strong>과 <strong>구현부(implementation signature)<strong>을 정의합니다.
 
 ```ts
 function add(a: string, b?: string, c?: string): string; // (1) overload signature
