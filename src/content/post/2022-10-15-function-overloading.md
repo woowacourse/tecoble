@@ -75,9 +75,9 @@ function add(a: number | string, b?: number | string, c?: number | string): numb
 
 # 함수 오버로드는 어떻게 사용하는가?
 
-함수 오버로드는 <strong>오버로드 시그니처(overload signature)<strong>를 활용합니다.
+함수 오버로드는 <strong>오버로드 시그니처(overload signature)</strong>를 활용합니다.
 
-아래와 같이 <strong>타입부(overload signature)<strong>과 <strong>구현부(implementation signature)<strong>을 정의합니다.
+아래와 같이 <strong>타입부(overload signature)</strong>과 <strong>구현부(implementation signature)</strong>을 정의합니다.
 
 ```ts
 function add(a: string, b?: string, c?: string): string; // (1) overload signature
