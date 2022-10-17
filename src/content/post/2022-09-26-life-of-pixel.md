@@ -4,7 +4,7 @@ title: Life of Pixel
 author: [4기_병민]
 tags: ['composite', 'layer', '렌더링']
 data: '2022-09-26T12:00:00.000Z'
-draft: true
+draft: false
 image: ../teaser/life-of-pixel.png
 ---
 
