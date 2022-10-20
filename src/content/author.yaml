@@ -187,6 +187,13 @@
   website: https://hudi.blog
   location: Seoul
   profile_image: profile/hudi.jpg
+- id: 4기_어썸오
+  avatar: avatars/awesomeo.png
+  bio: 우아한테크코스 4기 어썸오(정수현)입니다 :)
+  github: awesomeo184
+  website: https://wisdom-and-record.tistory.com
+  location: Seoul
+  profile_image: profile/awesomeo_profile.jpg
 - id: 4기_병민
   avatar: avatars/by.png
   bio: 우아한테크코스 4기 병민(윤병인)입니다 :)
@@ -199,3 +206,10 @@
   github: Ohzzi
   location: Seoul
   profile_image: profile/ohzzi.jpeg
+- id: 4기_연로그
+  avatar: avatars/yeonlog.png
+  bio: 우아한테크코스 4기 연로그(권시연)입니다 :)
+  github: yeon-06
+  website: https://yeonyeon.tistory.com/
+  location: Seoul
+  profile_image: profile/yeonlog.jpg
