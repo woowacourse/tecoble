@@ -5,7 +5,7 @@ author: [4기_어썸오]
 tags: ['sse', 'spring']
 date: "2022-10-11T12:00:00.000Z"
 draft: false
-image: ../img/sse.png
+image: ../teaser/sse.png
 ---
 
 웹 애플리케이션을 개발하다보면 클라이언트의 요청이 없어도 서버에서 데이터를 전달해줘야 하는 경우가 있습니다.
