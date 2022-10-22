@@ -4,7 +4,7 @@ title: '테스트 자동화 라이브러리 개발기'
 author: [4기_우디]
 tags: ['test', 'cypress']
 date: '2022-10-11T12:00:00.000Z'
-draft: true
+draft: false
 image: ../img/cypress-ci-xvfb.png
 ---
 
