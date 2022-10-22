@@ -37,7 +37,7 @@ image: ../img/cypress-ci-xvfb.png
 
 ## non-docker 셋업
 
-Cypress는 headless 브라우저 테스트를 지원합니다. Headless 브라우저란 GUI 없이 백그라운드에서 실행되는 브라우저를 말합니다. CI에서는 렌더링을 하지 않아 얻는 성능상의 이점, 머신의 gpu 미지원 등의 이유로 headless 테스트가 필수적입니다.
+Cypress는 headless 브라우저 테스트를 지원합니다. Headless 브라우저란 GUI 없이 백그라운드에서 실행되는 브라우저를 말합니다. CI에서는 렌더링을 하지 않아 얻는 성능상의 이점, 머신의 GPU 미지원 등의 이유로 headless 테스트가 필수적입니다.
 
 <figure>
   <img src="../img/cypress-ci-xvfb.png" alt="Headless 브라우저 테스트">
@@ -46,7 +46,7 @@ Cypress는 headless 브라우저 테스트를 지원합니다. Headless 브라�
   </figcaption>
 </figure>
 
-Cypress는 headless 브라우저 테스트를 위해 여러가지 의존성을 요구합니다. 그 중 하나로 가상 메모리에서 그래픽 작업을 수행하는 in-memory 디스플레이 서버인 [xvfb](https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml)가 있습니다. Cypress는 Cypress, OS, 브라우저 별 docker 이미지를 지원하지만 이를 사용하지 않는 경우 [공식 문서](https://docs.cypress.io/guides/continuous-integration/introduction.html#Dependencies)에서 필요로 하는 의존성을 설치할 수 있게 스크립트를 제공하고 있습니다.
+Cypress는 headless 브라우저 테스트를 위해 여러가지 의존성을 요구합니다. 그 중 하나로 가상 메모리에서 그래픽 작업을 수행하는 in-memory 디스플레이 서버인 [XVFB](https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml)가 있습니다. Cypress는 Cypress, OS, 브라우저 별 docker 이미지를 지원하지만 이를 사용하지 않는 경우 [공식 문서](https://docs.cypress.io/guides/continuous-integration/introduction.html#Dependencies)에서 필요로 하는 의존성을 설치할 수 있게 스크립트를 제공하고 있습니다.
 
 ## 기존 Cypress configuration 파일 사용
 
@@ -67,7 +67,7 @@ Cypress는 configuration 파일 확장자로 json(구버전에서 사용), js, t
 
 ## Graceful shutdown
 
-Graceful shutdown은 작업을 모두 처리한 후 종료되도록 하는 것을 말합니다. 서버 프로세스의 경우 다른 프로세스에서 실행되기 때문에 테스트 종료 후 혹은 어떤 에러 발생 시 종료하게끔 시그널을 보내야했습니다. 이를 위해 `SIGTERM`을 보내 서버를 종료시켰습니다. CI가 아닌 로컬 머신에서 사용할 경우 서버를 종료하기 위해 `Ctrl-C`로 인터럽트할 필요가 없는 장점도 있습니다.
+Graceful shutdown은 작업을 모두 처리한 후 종료되도록 하는 것을 말합니다. 서버 프로세스의 경우 다른 프로세스에서 실행되기 때문에, 테스트 종료 후 혹은 어떤 에러 발생 시 종료하게끔 시그널을 보내야했습니다. 이를 위해 `SIGTERM`을 보내 서버를 종료시켰습니다. CI가 아닌 로컬 머신에서 사용할 경우 서버를 종료하기 위해 `Ctrl-C`로 인터럽트할 필요가 없는 장점도 있습니다.
 
 <figure>
   <img src="../img/cypress-ci-sigterm.png" alt="편안">
