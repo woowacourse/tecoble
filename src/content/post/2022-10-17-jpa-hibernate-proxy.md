@@ -140,7 +140,7 @@ public boolean equals(Object o) {
     if (this == o) {
         return true;
     }
-    if (o == null || o instanceof Team) {
+    if (!(o instanceof Team)) {
         return false;
     }
     Team team = (Team) o;
