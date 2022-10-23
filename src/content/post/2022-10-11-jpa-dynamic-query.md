@@ -208,7 +208,7 @@ Root<Member> root = cq.from(Member.class);
  
 위와 같은 CriteriaQuery를 작성을 위한 준비 코드를 작성하지 않아도 되고, Spring Data JPA를 활용한 쿼리를 사용할 수 있으니 이전보다 보기 좋고 쉬운 코드가 완성되었습니다. 
 
-하지만 여전히 Criteria를 통한 동적 쿼리 생성 방식은 복잡하고 장황해 보입니다. 무엇보다 SQL 쿼리를 작성하면서 SQL스럽지 않습니다.
+하지만 여전히 Criteria를 통한 동적 쿼리 생성 방식은 복잡하고 장황해 보입니다. 무엇보다 코드의 형태가 SQL스럽지 않습니다.
 
 ## Querydsl
 
@@ -286,7 +286,8 @@ private BooleanExpression eqJobType(final JobType jobType) {
 
 Where 문에 어떤 조건들이 들어가는지 확인할 수 있어 훨씬 가독성이 좋아졌습니다. 이처럼 Querydsl을 통해서 동적 쿼리를 생성하는 방식이 Spring Data Specification에 비해서 가독성이 더 좋다는 것을 확인해 보았습니다.
 
-하지만 Querydsl에도 단점이 없는 것은 아닙니다. Criteria보다는 쉽지만, SQL 작성을 위해서 새로운 방법에 적응하고 공부하는 시간이 필요하기 마련입니다. 또한 `Q.Class`에 의존하여 쿼리를 생성하는 것도 단점이라고 볼 수 있습니다.
+하지만 Querydsl에도 단점이 없는 것은 아닙니다. Criteria보다는 쉽지만, SQL 작성을 위해서 새로운 방법에 적응하고 공부하는 시간이 필요하기 마련입니다. 
+또한 `Q.Class`에 의존하여 쿼리를 생성하는 것도 단점이라고 볼 수 있습니다. `Q.Class`를 생성하는 방법이 Gradle의 플러그인을 활용하는 방법에서 `Annotation Processor`로 바뀐 것처럼 어떤 버전과 빌드 방식을 사용하는가에 따라서 신경을 쓰고 다르게 설정해주어야 하기 때문입니다.
 
 ## 정리
 
