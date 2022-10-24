@@ -5,7 +5,7 @@ tags: ['OpenID', 'OAuth2.0']
 author: [4기_써머]
 date : "2022-10-24T13:10:00.000Z"
 draft : false
-image: ../teaser/jpa-hibernate-proxy.png
+image: ../teaser/openid.png
 ---
 
 ![OpenID_logo_2 svg](https://user-images.githubusercontent.com/80666066/197439370-1cdf7dc3-0c3b-46b1-b9a6-6f3f6ba26979.png)
