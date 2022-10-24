@@ -50,7 +50,7 @@ Cypress는 headless 브라우저 테스트를 위해 여러가지 의존성을 �
 
 ## 기존 Cypress configuration 파일 사용
 
-Cypress는 configuration 파일 확장자로 json(구버전에서 사용), js, ts을 지원합니다. 체크메이트 프론트엔드는 타입스크립트로 개발하고 있어 ts 파일로 설정 파일을 관리하고 있습니다. 그런데 빌드된 js 파일에서는 ts 파일을 불러올 수 없었습니다. 이를 위해 [ts-import](https://github.com/radarsu/ts-import) 라이브러리를 사용했습니다. ts-import는 `node_modules` 내 자신의 캐시 디렉토리에 트랜스파일한 js를 저장하여 js에서 ts를 import할 수 있게 합니다.
+Cypress는 configuration 파일 확장자로 json(구버전에서 사용), js, ts을 지원합니다. 체크메이트 프론트엔드는 타입스크립트로 개발하고 있어 ts 파일로 설정 파일을 관리하고 있습니다. 그런데 빌드된 js 파일에서는 ts 파일을 불러올 수 없었습니다. 이를 위해 [ts-import](https://github.com/radarsu/ts-import) 라이브러리를 사용했습니다. ts-import는 `node_modules` 내 자신의 캐시 디렉토리에 컴파일한 js를 저장하여 js에서 ts를 import할 수 있게 합니다.
 
 ## Polling
 
@@ -63,7 +63,7 @@ Cypress는 configuration 파일 확장자로 json(구버전에서 사용), js, t
   </figcaption>
 </figure>
 
-서버는 다른 프로세스에서 실행되기 때문에 Node.js적인 방법 대신 시스템 계층에서 접근해야 했습니다. 체크메이트에서는 일정한 간격으로 서버에 HTML GET 요청을 보내 응답(상태 코드 200~206, 304)을 검사하는 방식으로 선택했습니다. 이를 위해 CLI argument로 GET 요청을 보낼 url과 timeout 시간을 입력받도록 했습니다.
+서버는 다른 프로세스에서 실행되기 때문에 Node.js적인 방법 대신 시스템 계층에서 접근해야 했습니다. 체크메이트에서는 일정한 간격으로 서버에 HTML GET 요청을 보내 응답(상태 코드 200~206, 304)을 검사하는 방식을 선택했습니다. 이를 위해 CLI argument로 GET 요청을 보낼 url과 timeout 시간을 입력받도록 했습니다.
 
 ## Graceful shutdown
 
@@ -91,7 +91,7 @@ program
   .parse();
 ```
 
-`-s`로 입력받는 서버 시작 명령어는 npm 스크립트의 경우 `npm run`을 생략할 수 있게끔 정규화를 거치도록 했습니다. 이를 위해 `process` 객체의 `cwd` 함수로 현재 Node 프로세스가 동작하는 디렉토리를 찾아 `package.json`을 임포트해 `scripts` 객체에서 해당 명령어가 있는지 검사 후 있다면 `npm run`을 추가했습니다.
+`-s`로 입력받는 서버 시작 명령어는 npm 스크립트의 경우 `npm run`을 생략할 수 있게끔 정규화를 거치도록 했습니다. 이를 위해 `process` 객체의 `cwd` 함수로 현재 Node 프로세스가 동작하는 디렉토리를 찾아 `package.json`을 임포트해 `scripts` 객체에서 해당 명령어가 있는지 검사하여 있다면 `npm run`을 추가했습니다.
 
 ```shell
 
@@ -104,3 +104,13 @@ cypress-ci -s "npm run start" # normalized
 라이브러리 개발이 불필요했다는 생각도 듭니다. 특히 기존 Jenkins 머신에 바로 올리기 위해 non-docker 셋업으로 구현했지만 결국 docker의 편리함을 더 느꼈습니다. 서버와 테스트 자동 실행은 [start-server-and-test](https://github.com/bahmutov/start-server-and-test) 라이브러리와 기능에서 큰 차이가 없고 해당 라이브러리의 경우 테스트 실행 명령어를 인자로 받아 테스트 라이브러리에 의존적이지 않은 장점이 있습니다. 만들며 Node.js, 프로세스, npm 등에 대해 많은 공부가 되었고 멀티 리포트가 가능해졌다는 것에 의의를 두고자 합니다. 본 라이브러리는 다음 링크에서 확인하실 수 있습니다.
 
 https://github.com/greenblues1190/cypress-ci
+
+### 참고
+
+https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml
+
+https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
+
+https://github.com/cypress-io/cypress-docker-images
+
+https://www.cypress.io/blog/2020/06/18/extending-the-cypress-config-file/
