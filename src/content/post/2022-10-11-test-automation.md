@@ -107,10 +107,7 @@ https://github.com/greenblues1190/cypress-ci
 
 ### 참고
 
-https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml
-
-https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
-
-https://github.com/cypress-io/cypress-docker-images
-
-https://www.cypress.io/blog/2020/06/18/extending-the-cypress-config-file/
+- https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml
+- https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
+- https://github.com/cypress-io/cypress-docker-images
+- https://www.cypress.io/blog/2020/06/18/extending-the-cypress-config-file/
