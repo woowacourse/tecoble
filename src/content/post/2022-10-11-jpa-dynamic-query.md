@@ -3,7 +3,7 @@ layout: post
 title: "JPA의 동적 쿼리"
 author: [4기_티키]
 tags: ['JPA']
-date : "2022-10-11T17:00:00.000Z"
+date : "2022-10-24T12:00:00.000Z"
 draft : false
 image: ../teaser/jpa-dynamic-query.png
 ---
