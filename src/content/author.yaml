@@ -166,6 +166,20 @@
   website: https://bugoverdose.github.io
   location: Seoul
   profile_image: profile/jeong.png
+- id: 4기_토르
+  avatar: avatars/thor.png
+  bio: 우아한테크코스 4기 토르(손인준)입니다 :)
+  github: injoon2019
+  website: https://velog.io/@injoon2019
+  location: Seoul
+  profile_image: profile/thor.jpg
+- id: 4기_이스트
+  avatar: avatars/east.png
+  bio: 우아한테크코스 4기 이스트(신동훈)입니다 :)
+  github: EastHShin
+  website: https://easthshin.tistory.com/
+  location: Seoul
+  profile_image: profile/east.jpg
 - id: 4기_후디
   avatar: avatars/hudi.png
   bio: 우아한테크코스 4기 후디(조동현)입니다 :)
