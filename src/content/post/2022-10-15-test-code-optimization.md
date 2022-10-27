@@ -62,7 +62,7 @@ image: ../teaser/testing-server.jpg
 ### 테스트 피라미드에 맞춰서 테스트 비율 조정해보며
 
 불필요한 테스트 비용을 제거하니 같은 로직을 더 빠르게 테스트 할 수 있게 되었어요. 😀여기서 주의할 점은 **모든 경우에 항상 피라미드형 테스트 비율을 
-유지할 수는 없다**는 점이예요. 도메인이 간단해 필요한 테스트의 양이 많지 않은 경우에 API 개수만큼 인수테스트를 작성한다고 가정하면 야래처럼 인수 테스트의 
+유지할 수는 없다**는 점이예요. 도메인이 간단해 필요한 테스트의 양이 많지 않은 경우에 API 개수만큼 인수테스트를 작성한다고 가정하면 아래처럼 인수 테스트의 
 비율과 단위 테스트의 비율이 비슷할 수도 있겠죠? 따라서 현재 가지고 있는 도메인의 특성을 파악해서 테스트 비율을 조정하겠다는 유연한 사고를 한다면 더 좋겠네요.
 
 ![test pyramid](../images/2022-10-15-test-optimization2.png)
@@ -117,7 +117,7 @@ public class DatabaseCleaner {
     }
 ```
 
-### ****Context Caching****
+### **Context Caching**
 
 > Once the TestContext framework loads an ApplicationContext (or WebApplicationContext) for a test, that context is cached and reused for all subsequent tests that declare the same unique context configuration within the same test suite. To understand how caching works, it is important to understand what is meant by “unique” and “test suite.”
 
@@ -134,7 +134,7 @@ public class DatabaseCleaner {
 
 > When you are using `@SpyBean` to spy on a bean that is proxied by Spring, you may need to remove Spring’s proxy in some situations, for example when setting expectations using `given` or `when`. Use `AopTestUtils.getTargetObject(yourProxiedSpy)`to do so.
 
-해당 어노테이션을 사용하면 프록시 객체가 생성되어 실제 객체가 아니라, 대리 객체가 생성되고 있었어요. 따라서 당연하게 Context 에 생성되는 기존 객체가 아닌 대리 객체가 추가 되기 때문에 고유 컨텍스트 구성이 오염되었다고 판단해서 새로운 Context 를 띄우게 되는 것이었어요!
+해당 어노테이션을 사용하면 대리 객체가 생성되어 실제 객체가 아니라, 대리 객체가 생성되고 있었어요. 따라서 당연하게 Context 에 생성되는 기존 객체가 아닌 대리 객체가 추가 되기 때문에 고유 컨텍스트 구성이 오염되었다고 판단해서 새로운 Context 를 띄우게 되는 것이었어요!
 
 ### 재사용 가능한 테스트 구조 🤔
 
@@ -182,4 +182,8 @@ public class ControllerTestA extends WebMvcTestSupporter {
 
 ### 참고자료
 
-* [Spring API Docs](https://docs.spring.io/spring-framework/docs/current/javadoc-api/overview-summary.html)
+## 
+
+- [Spring.io Context Caching](https://docs.spring.io/spring-framework/docs/current/reference/html/testing.html#testcontext-ctx-management-caching)
+- [Spring.io Mocking and Spying Beans](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.testing.spring-boot-applications.mocking-beans)
+- [Spring.io DirtiesContext](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/annotation/DirtiesContext.html)
