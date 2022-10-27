@@ -44,7 +44,7 @@ image: ../teaser/likes.jpg
 하지만, 락을 거는 방법은 서비스의 확장성을 고려했을 때 적절하지 않다고 생각했습니다. 조회에 대한 락을 걸게 되면 트랜잭션이 끝나는 것을 다 기다려야 하기 때문에 성능이 매우 나빠지게 될 것이기 때문입니다.
 
 # 2. Native Query
-![image](https://user-images.githubusercontent.com/46641538/194886800-c9e79348-6064-49b2-bdb7-8f64d5437551.png)
+![image](https://user-images.githubusercontent.com/46641538/197536594-5155152b-4cb5-40f0-a9f6-e03b65106963.png)
 
 ![image](https://user-images.githubusercontent.com/46641538/194886836-e557a5cd-7c9c-4c11-8c7a-efcf719e3ea2.png)
 
