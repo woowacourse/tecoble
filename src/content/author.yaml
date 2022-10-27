@@ -200,6 +200,12 @@
   github: airman5573
   location: Seoul
   profile_image: profile/by.png
+- id: 4기_수달
+  avatar: avatars/sudal.jpg
+  bio: 우아한테크코스 4기 수달(허수진)입니다 :)
+  github: her0807
+  location: Seoul
+  profile_image: profile/sudal_profile.jpg
 - id: 4기_오찌
   avatar: avatars/ohzzi.jpeg
   bio: 우아한테크코스 4기 오찌(오지훈)입니다 :)
