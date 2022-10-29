@@ -29,22 +29,22 @@ OpenId Connect를 사용하는 방법입니다.
 1. Resource Owner가 슬랙으로 로그인 버튼을 눌러 Slack Authorization Server의 엔드포인트로 접속하여 로그인하고 정보 제공을 승인합니다.
 
 Slack Authorization Server의 엔드포인트
-```json
-Get https://slack.com/openid/connect/authorize?
+```
+GET https://slack.com/openid/connect/authorize?
  scope=email openid profile
 &client_id=4274003170465.4274015409041
-&redirect_uri=https://kkogkkog2.com/redirect
+&redirect_uri=https://kkogkkog.com/redirect
 &response_type=code
 ```
 ![](../images/2022-10-22-slack1.png)
 
 2. Slack Authorization Server는 설정한 Client의 URL로 리다이렉트시킵니다. 이때 QueryString으로 Authorization code를 전달합니다.
-```json
-Get https://kkogkkog.com/redirect?code=12345678.90ab
+```
+GET https://kkogkkog.com/redirect?code=12345678.90ab
 ```
 3. Client는 Resource Owner를 거치지 않고 ClientId, Client Secret, Code를 Slack Authorization Server에 전달 합니다. 만약 올바른 코드이면 엑세스 토큰을 반환합니다.
    - OpenId Connect 표준에 따라 id_token의 payload 부분에도 유저 정보가 인코딩되어 있습니다.
-```json
+```
 POST https://slack.com/api/openid.connect.token
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
@@ -53,7 +53,7 @@ client_id="4274003170465.4274015409041"
 &redirect_uri="https://kkogkkog.com/redirect"
 &code="12345678.90ab"
 ```
-```json
+```
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -65,12 +65,12 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 4. 이제 엑세스 토큰으로  Resource Server에서 유저 정보와 같은 자원을 가져와 내가 만든 서버에서 사용할 수 있습니다.
-```json
+```
 GET https://slack.com/api/openid.connect.userInfo
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 Authorization: Bearer {Access Token}
 ```
-```json
+```
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -224,20 +224,20 @@ private SlackOpenIdConnectUserInfo slackConnectUserInfo(final String token) {
 ### 앱 설치 과정
 
 1. Add To Slack 버튼을 눌러 Slack Authorization Server의 엔드포인트로 접속하여 앱 설치를 승인합니다.
-```json
-Get https://slack.com/oauth/v2/authorize?
+```
+GET https://slack.com/oauth/v2/authorize?
 client_id=4274003170465.4274015409041
 &scope=chat:write,users:read,users:read.email
 &user_scope=openid,profile,email
 ```
 
 2. Slack Authorization Server는 설정한 Client의 URL로 리다이렉트시킵니다. 유저 로그인과 마찬가지로 Slack App에서 Redirect Uri를 미리 등록해야 합니다.
-```json
-Get https://kkogkkog.com/redirect/download?code=12345678.90ab
+```
+GET https://kkogkkog.com/redirect/download?code=12345678.90ab
 ```
 
 3. Client는 Resource Owner를 거치지 않고 ClientId, Client Secret, Code를 Slack Authorization Server에 전달 합니다. 만약 올바른 코드이면 봇 엑세스 토큰을 반환합니다. 이 시점에 워크스페이스에 앱이 설치됩니다.
-```json
+```
 POST https://slack.com/api/oauth.v2.access
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
@@ -247,7 +247,7 @@ client_id="4274003170465.4274015409041"
 &code="12345678.90ab"
 ```
 
-```json
+```
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -281,7 +281,7 @@ Content-Type: application/json;charset=UTF-8
 ![](../images/2022-10-22-slack18.png)
 
 [Slack Chat PostMessage Docs](https://api.slack.com/methods/chat.postMessage)
-```json
+```
 POST https://slack.com/api/openid.connect.token
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 or Content-Type: application/json;charset=UTF-8
@@ -296,7 +296,7 @@ blocks: ,
 attachments:
 }
 ```
-```json
+```
 Content-Type: application/json;charset=UTF-8
 
 {
