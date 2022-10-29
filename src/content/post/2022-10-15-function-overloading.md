@@ -2,9 +2,9 @@
 layout: post
 title: '함수 오버로딩'
 author: [4기_시지프]
-tags: ['test', 'cypress']
+tags: ['function', 'Overloading']
 date: '2022-10-15T12:00:00.000Z'
-draft: true
+draft: false
 image: ../images/TypeScript-FunctionOverloading.png
 ---
 
@@ -16,13 +16,13 @@ image: ../images/TypeScript-FunctionOverloading.png
 
 # 서언
 
-TypeScript에는 **Function Overloading** 기능이 있습니다. 이번에 Function Overloading의 강력함을 깨닫고, 이를 공유하고자 아티클을 씁니다. 함수 오버로드가 왜 필요한지 이해하고, useRef 예시와 저희 프로젝트에 적용해본 예시를 설명드리겠습니다.
+TypeScript에는 **Function Overloading** 기능이 있습니다. 이번에 Function Overloading의 강력함을 깨닫고, 이를 공유하고자 아티클을 씁니다. 함수 오버로딩이 왜 필요한지 이해하고, `useRef` 예시와 저희 프로젝트에 적용해본 예시를 설명드리겠습니다.
 
 <br/>
 
 # 타입스크립트에서 함수 오버로딩이 왜 필요한가?
 
-자바스크립트는 인자의 개수 제한, 인자의 타입 제한이 없습니다. 코드 예시를 보겠습니다.
+자바스크립트는 인자의 개수와 타입 제한이 없습니다. 코드 예시를 보겠습니다.
 
 ```ts
 function add(a, b, c) {
@@ -63,7 +63,7 @@ function add(a: number | string, b?: number | string, c?: number | string): numb
 
 가장 먼저 떠오르는 것은 위와 같이 타이핑하는 것인데요. 공교롭게도 이러한 타이핑은 에러를 발생시킵니다. string | number에 '+' 연산을 할 수 없다는 것입니다. 다른 방식의 해결이 필요합니다.
 
-저는 타입스크립트에서 **무분별한 <유니온> 사용을 경계**해야 한다고 생각합니다. 무분별한 유니온은 가짓수 확장을 곱절로 늘립니다. 위 케이스를 보면, add 함수가 가질 수 있는 가지수는 최대 2^4 = 16 개 입니다. a, b, c, ReturnType의 가짓수를 크로스해주면 16개가 될 것입니다.
+저는 타입스크립트에서 **무분별한 <유니온> 사용을 경계**해야 한다고 생각합니다. 무분별한 유니온은 가짓수 확장을 곱절로 늘립니다. 위 케이스를 보면, add 함수가 가질 수 있는 a, b, c, ReturnType의 가짓수를 고려하면 최대 2⁴ = 16개 입니다.
 
 과연 add 함수가 16가지를 모두 커버하는 것이 좋은 타이핑일까요? 아닐 것입니다.
 
@@ -77,7 +77,7 @@ function add(a: number | string, b?: number | string, c?: number | string): numb
 
 함수 오버로드는 <strong>오버로드 시그니처(overload signature)</strong>를 활용합니다.
 
-아래와 같이 <strong>타입부(overload signature)</strong>과 <strong>구현부(implementation signature)</strong>을 정의합니다.
+아래와 같이 <strong>overload signature</strong>와 <strong>implementation signature</strong>를 정의합니다.
 
 ```ts
 function add(a: string, b?: string, c?: string): string; // (1) overload signature
@@ -140,7 +140,7 @@ function useRef<T = undefined>(): MutableRefObject<T | undefined>; // (3)
 
 useRef는 3가지 오버로드 시그니처로 정의 되어 있습니다. 뭔가 비슷한 형태이지만, 어디에 null이나 undefined이 포함되어 있습니다.
 
-(2) 초기값에 null이 포함되는지, (3) 초기값이 비어있는지(undefined) (1) null도 undefined도 아닌 제네릭 T 타입인지에 따라 ReturntType이 달라집니다.
+(2) 초기값에 null이 포함되는지, (3) 초기값이 비어있는지(undefined), (1) null도 undefined도 아닌 제네릭 T 타입인지에 따라 ReturnType이 달라집니다.
 
 MutableRefObject 또는 RefObject를 반환합니다.
 
@@ -198,7 +198,7 @@ function filterSentCoupon(coupons: Coupon[] | undefined): Coupon[] | undefined {
 1.  Coupon\[\] | undefined 이 들어오면, Coupon\[\] | undefined를 반환한다.
 2.  Coupon\[\] 이 들어오면 Coupon\[\] 을 반환한다.
 
-지금은 (2)의 경우에도 undefined일 가능성도 포함하여 반환합니다. 타입 내로잉이 얼마나 까다롭고 성가신 작업인데, T를 넣었더니 undefined를 더해서 뱉어주다니, 이는 여간 나쁜 타이핑이 아닙니다.
+지금은 (2)의 경우에도 undefined일 가능성도 포함하여 반환합니다. 타입 내로잉이 얼마나 까다롭고 성가신 작업인데, Coupon[]을 넣었더니 undefined를 더해서 뱉어주다니, 이는 여간 나쁜 타이핑이 아닙니다.
 
 저희는 이를 함수 오버로드로 통해 해결했습니다.
 
@@ -217,3 +217,7 @@ function filterSentCoupon(coupons: Coupon[] | undefined): Coupon[] | undefined {
 # 마치며
 
 함수 오버로딩은 제네릭이나 구별된 유니온에 비해 덜 주목 받는 것 같습니다. 함수의 타입을 제대로 정의하기 위해, 제네릭, 구별된 유니온 뿐만 아니라 함수 오버로딩도 필수적으로 이해해야 합니다. 이번 아티클을 통해, 라이브러리의 .d.ts 코드를 더 수월하게 읽고, 함수 타입을 좁혀나갈 수 있길 바랍니다.
+
+# 참고
+
+- https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads
