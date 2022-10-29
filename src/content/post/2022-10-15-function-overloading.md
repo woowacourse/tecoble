@@ -8,12 +8,6 @@ draft: false
 image: ../images/TypeScript-FunctionOverloading.png
 ---
 
-<br>
-
-<img src="../images/TypeScript-FunctionOverloading.png" alt="메인">
-
-<br/>
-
 # 서언
 
 TypeScript에는 **Function Overloading** 기능이 있습니다. 이번에 Function Overloading의 강력함을 깨닫고, 이를 공유하고자 아티클을 씁니다. 함수 오버로딩이 왜 필요한지 이해하고, `useRef` 예시와 저희 프로젝트에 적용해본 예시를 설명드리겠습니다.
