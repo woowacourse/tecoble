@@ -1,4 +1,14 @@
-1. 용어 설명
+---
+layout: post
+title: "데드락 해결 모험기"
+tags: ['Mysql', 'DeadLock']
+author: [4기_알파]
+date : "2022-11-01T06:10:00.000Z"
+draft : false
+image: ../teaser/deadlock_teaser.png
+---
+
+## 용어 설명
 
    현재 진행중인 우아한테크코스의 팀프로젝트(이하 스모디)에서는 사용자인 Member, 사용자가 3일동안 참가할 Challenge, 인증활동인 Cyle, <br>인증활동의 세부내역인 CycleDetail가 있다. 스모디의 정책 상, 한 명의 유저는 하나의 챌린지에 여러 개의 Cycle을 만들 수 없고 Cycle에 인증을 하는 것은 하루에 한번으로 제한한다. 따라서, 테이블 간 관계는 아래와 같다.
 <p align="center">
