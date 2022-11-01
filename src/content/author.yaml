@@ -219,6 +219,13 @@
   website: https://yeonyeon.tistory.com/
   location: Seoul
   profile_image: profile/yeonlog.jpg
+- id: 4기_써머
+  avatar: avatars/summer.png
+  bio: 우아한테크코스 4기 써머(최혜원)입니다 :)
+  github: hyewoncc
+  website: https://hyewoncc.github.io/
+  location: Seoul
+  profile_image: profile/summer_profile.jpg
 - id: 4기_티키
   avatar: avatars/tiki.png
   bio: 우아한테크코스 4기 티키(방영호)입니다 :)
