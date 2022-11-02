@@ -32,7 +32,7 @@ Slack Authorization Server의 엔드포인트
 ```
 GET https://slack.com/openid/connect/authorize?
  scope=email openid profile
-&client_id=4274003170465.4274015409041
+&client_id=4274003xxxxxx.xxxxxxxxxxxxx
 &redirect_uri=https://kkogkkog.com/redirect
 &response_type=code
 ```
@@ -48,8 +48,8 @@ GET https://kkogkkog.com/redirect?code=12345678.90ab
 POST https://slack.com/api/openid.connect.token
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
-client_id="4274003170465.4274015409041"
-&client_secret="3001a9f1f43da41ab06684f68a8ad667"
+client_id="4274003xxxxxx.xxxxxxxxxxxxx"
+&client_secret="3001a9f1xxxxxxxxxxxxxxxxxxxxxxxx"
 &redirect_uri="https://kkogkkog.com/redirect"
 &code="12345678.90ab"
 ```
@@ -147,8 +147,8 @@ private SlackOpenIdConnectTokenResponse slackOpenIdConnectToken(final String cod
         String requestUrl = "https://slack.com/api/openid.connect.token";
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("client_id", "4274003170465.4274015409041");
-        parameters.add("client_secret", "3001a9f1f43da41ab06684f68a8ad667");
+        parameters.add("client_id", "4274003xxxxxx.xxxxxxxxxxxxx");
+        parameters.add("client_secret", "3001a9f1xxxxxxxxxxxxxxxxxxxxxxxx);
         parameters.add("redirect_uri", "https://kkogkkog.com/redirect");
         parameters.add("code", code);
 
@@ -226,7 +226,7 @@ private SlackOpenIdConnectUserInfo slackConnectUserInfo(final String token) {
 1. Add To Slack 버튼을 눌러 Slack Authorization Server의 엔드포인트로 접속하여 앱 설치를 승인합니다.
 ```
 GET https://slack.com/oauth/v2/authorize?
-client_id=4274003170465.4274015409041
+client_id=4274003xxxxxx.xxxxxxxxxxxxx
 &scope=chat:write,users:read,users:read.email
 &user_scope=openid,profile,email
 ```
@@ -241,8 +241,8 @@ GET https://kkogkkog.com/redirect/download?code=12345678.90ab
 POST https://slack.com/api/oauth.v2.access
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
-client_id="4274003170465.4274015409041"
-&client_secret="3001a9f1f43da41ab06684f68a8ad667"
+client_id="4274003xxxxxx.xxxxxxxxxxxxx"
+&client_secret="3001a9f1xxxxxxxxxxxxxxxxxxxxxxxx"
 &redirect_uri="https://kkogkkog.com/redirect/download"
 &code="12345678.90ab"
 ```
