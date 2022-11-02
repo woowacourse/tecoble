@@ -219,6 +219,12 @@
   website: https://yeonyeon.tistory.com/
   location: Seoul
   profile_image: profile/yeonlog.jpg
+- id: 4기_레오
+  avatar: avatars/leo.jpeg
+  bio: 우아한테크코스 4기 레오(남궁현)입니다 :)
+  github: DWL21
+  location: Seoul
+  profile_image: profile/leo.jpeg
 - id: 4기_써머
   avatar: avatars/summer.png
   bio: 우아한테크코스 4기 써머(최혜원)입니다 :)
