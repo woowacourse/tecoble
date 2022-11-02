@@ -225,6 +225,13 @@
   github: DWL21
   location: Seoul
   profile_image: profile/leo.jpeg
+- id: 4기_써머
+  avatar: avatars/summer.png
+  bio: 우아한테크코스 4기 써머(최혜원)입니다 :)
+  github: hyewoncc
+  website: https://hyewoncc.github.io/
+  location: Seoul
+  profile_image: profile/summer_profile.jpg
 - id: 4기_티키
   avatar: avatars/tiki.png
   bio: 우아한테크코스 4기 티키(방영호)입니다 :)
@@ -239,3 +246,10 @@
   website: https://github.com/greenblues1190
   location: Seoul
   profile_image: profile/mickey.jpg
+- id: 4기_시지프
+  avatar: avatars/sisyphus.jpeg
+  bio: 우아한테크코스 4기 시지프(김의진)입니다 :)
+  github: euijinkk
+  website: https://github.com/euijinkk
+  location: Seoul
+  profile_image: profile/kyle_2.jpeg
