@@ -8,11 +8,13 @@ draft : false
 image: ../teaser/spring_aop.png
 ---
 ## 들어가며
+
 트랜잭션을 공부하다보면서 자연스럽게 AOP에 대해 접하게 되었습니다.
-제가 직접 경험하고 느꼈던 사실과 오해에 대해서 공유하려고 합니다.
+AOP를 사용하게 되면서 직접 경험했던 사실과 오해에 대해서 공유하려고 합니다.
 
 ## 첫 번째 사실: public이외의 메서드는 AOP가 걸리지 않는다.
 ![](../images/2022-11-07-aop1.png)
+
 실제 인텔리제이에서 `@Transactional` 어노테이션을 적용한 후 private 메서드를 선언하면 위와 같은 컴파일 에러를 띄워줍니다.
 해석해보자면 private을 사용하지 말라는군요!
 
@@ -73,7 +75,7 @@ main메서드에서 그림과 같이 A의 init()를 호출하고 init()에서 pr
 
 그런데 만약 Spring AOP를 쓰고있는 상황에서 이런 문제가 발생하면 어떡하죠? 이럴경우 다른 방법도 존재합니다!
 
-### 첫번째 방법으로는 **`AopContext를 이용하는 방법`**입니다.
+### 첫번째 방법으로는 `AopContext를 이용하는 방법`입니다.
 
 AopContext의 `currentProxy()` 메서드는 현재 AOP proxy를 반환합니다. 
 이번엔 코드로 확인해봅시다.
@@ -107,6 +109,7 @@ public void progress(){
 ```
 그리고 다음과 같이 실행을 해주면 아래와 같이 적용되지 않습니다.
 ![test-fail](../images/2022-11-07-aop5.png)
+
 이번에는 AopContext를 활용하여 아래와 같이 수정해보겠습니다.
 ```java
 public void init() {
@@ -119,6 +122,7 @@ public void progress() {
 ```
 그리고 `@EnableAspectJAutoProxy(exposeProxy = true)` 옵션을 적용해서 작동시켜 봅니다.
 ![test-success](../images/2022-11-07-aop6.png)
+
 aop가 작동하는 것을 확인할 수 있습니다.
 
 ### 두 번째 방법으로는 `IoC 컨테이너 Bean을 활용한 방법`이 있습니다.
@@ -158,7 +162,6 @@ public void progress(){
 
 지금까지 트랜잭션과 AOP에 대한 사실과 오해를 잠깐 맛보았습니다.
 
-트랜잭션을 공부하다보니 어쩌다가 AOP에 대해 공부하게 되었습니다.
 AOP는 내용이 많고 어렵기도 해서 추가적인 학습들이 필요합니다.
 
 AOP를 사용하면 부가 기능을 따로 추출하여 비즈니스 로직에만 집중할 수 있는 장점이 생기지만 
@@ -170,3 +173,5 @@ AOP를 사용하면 부가 기능을 따로 추출하여 비즈니스 로직에�
 
 - [공식 문서](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction-declarative-annotations)
 - [stack-overflow](https://stackoverflow.com/questions/34197964/why-doesnt-springs-transactional-work-on-protected-methods)
+- [JDK Dynamic Proxy 와 CGLIB (1)](https://www.youtube.com/watch?v=MFckVKrJLRQ&t=19s)
+- [JDK Dynamic Proxy 와 CGLIB (2)](https://www.youtube.com/watch?v=RHxTV7qFV7M&t=291s)
