@@ -1,9 +1,11 @@
 ---
 layout: post  
-title: 슬랙 소셜 로그인과 알림을 위한 앱 설치 가이드 author: [4기_레오]
+title: 슬랙 소셜 로그인과 알림을 위한 앱 설치 가이드
+author: [4기_레오]
 tags: ['slack']
 date: "2022-10-23T00:00:00.000Z"
-draft: false image: ../teaser/slack.png
+draft: false 
+image: ../teaser/slack.png
 ---
 
 # 슬랙 소셜 로그인과 알림을 위한 앱 설치 가이드
