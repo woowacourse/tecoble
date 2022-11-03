@@ -253,3 +253,10 @@
   website: https://github.com/euijinkk
   location: Seoul
   profile_image: profile/kyle_2.jpeg
+- id: 4기_기론
+  avatar: avatars/giron.jpg
+  bio: 우아한테크코스 4기 기론(김규철)입니다 :)
+  github: Gyuchool
+  website: https://giron.tistory.com
+  location: Seoul
+  profile_image: profile/dodam.jpg
