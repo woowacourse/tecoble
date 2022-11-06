@@ -213,3 +213,9 @@
   website: https://yeonyeon.tistory.com/
   location: Seoul
   profile_image: profile/yeonlog.jpg
+- id: 4기_무비
+  avatar: avatars/movie.jpeg
+  bio: 우아한테크코스 4기 무비(변영화)입니다 :)
+  github: byhhh2
+  location: Seoul
+  profile_image: profile/movie.png
