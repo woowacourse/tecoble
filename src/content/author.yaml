@@ -259,3 +259,10 @@
   website: https://github.com/euijinkk
   location: Seoul
   profile_image: profile/kyle_2.jpeg
+- id: 4기_쿼리치
+  avatar: avatars/meatsby.jpeg
+  bio: 우아한테크코스 4기 쿼리치(정석윤)입니다 :)
+  github: meatsby
+  website: https://github.com/meatsby
+  location: Seoul
+  profile_image: profile/meatsby.jpeg
