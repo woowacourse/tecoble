@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "트랜잭션과 AOP에 대한 사실과 오해"
-tags: ['transaction', 'aop', 'proxy']
+title: "AOP에 대한 사실과 오해 그런데 트랜잭션을 사알짝 곁들인.."
+tags: ['aop', 'proxy', 'transaction']
 author: [4기_기론]
-date : "2022-11-07T13:10:00.000Z"
+date : "2022-11-15T13:10:00.000Z"
 draft : false
 image: ../teaser/spring_aop.png
 ---
@@ -75,7 +75,7 @@ main메서드에서 그림과 같이 A의 init()를 호출하고 init()에서 pr
 
 그런데 만약 Spring AOP를 쓰고있는 상황에서 이런 문제가 발생하면 어떡하죠? 이럴경우 다른 방법도 존재합니다!
 
-### 첫번째 방법으로는 `AopContext를 이용하는 방법`입니다.
+### 첫번째 방법은 `AopContext를 이용하는 방법`입니다.
 
 AopContext의 `currentProxy()` 메서드는 현재 AOP proxy를 반환합니다. 
 이번엔 코드로 확인해봅시다.
@@ -125,9 +125,9 @@ public void progress() {
 
 aop가 작동하는 것을 확인할 수 있습니다.
 
-### 두 번째 방법으로는 `IoC 컨테이너 Bean을 활용한 방법`이 있습니다.
+### 두 번째 방법은 `자기 자신을 호출하는 방법`입니다.
 
-내부에서 빈을 호출하면 인터셉터가 작동하지 않으므로 외부에서 빈을 주입하는 방식으로 해결하는 것입니다.
+내부에서 프록시를 호출하면 인터셉터가 작동하지 않으므로 외부에서 호출하는 방식으로 해결하는 것입니다.
 
 - @Resource
 - @Autowired
@@ -156,7 +156,19 @@ public void progress(){
 }
 ```
 해당 방법이 성공한 이유는 외부에서 내부 빈으로 호출을 하므로 아래와 같이 aop가 정상 동작합니다.
+
 ![test-success](../images/2022-11-07-aop7.png)
+
+*주의: 해당 방식은 2.6 보다 낮은 버전에서 가능합니다. 
+스프링 부트 2.6 버전부터는 기본적으로 순환 참조를 금지하도록 변경되었습니다.
+만약 2.6 버전 이상에서 실습해보고 싶으시다면 아래의 설정을 추가하시면 됩니다.
+```yaml
+spring:
+  main:
+    allow-circular-references: true
+```
+
+[Spring Boot 2.6 Release Notes](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.6-Release-Notes)
 
 ## 마무리
 
