@@ -266,3 +266,10 @@
   website: https://velog.io/@baby_dev
   location: Seoul
   profile_image: profile/jasmin.jpg
+- id: 4기_앨버
+  avatar: avatars/albur.png
+  bio: 우아한테크코스 4기 앨버(송상민)입니다 :)
+  github: al-bur
+  website: https://al-bur.github.io/
+  location: Seoul
+  profile_image: profile/albur.jpg
