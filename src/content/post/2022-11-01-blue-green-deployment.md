@@ -47,10 +47,9 @@ Nginx를 이용하여 무중단 배포를 구현하면 저희 프로젝트에서
 
 1. Rolling 배포
 2. Canary 배포
-3. Blue/Greem 배포
+3. Blue/Green 배포
 
-각 배포 전략에 대한 자세한 설명은 [Nginx 무중단 배포 전략]( https://github.com/woowacourse-teams/2022-teatime/wiki/%EB%AC%B4%EC%A4%91%EB%8B%A8-%EB%B0%B0%ED%8F%AC%EB%9E%80%3F ) 글을 참고하면 좋을 것 같습니다.  
-
+각 배포 전략에 대한 자세한 설명은 이 글에선 생략하겠습니다.
 위 세 가지 전략중 저희 프로젝트에서 선택한 전략은 **Blue/Green 배포**이었습니다.
 
 ### Blue/Green 배포를 선택한 이유
