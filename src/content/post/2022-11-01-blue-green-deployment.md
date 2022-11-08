@@ -194,8 +194,8 @@ do
 
 			echo "> 전환할 Port: $IDLE_PORT"
 			echo "> Port 전환"
-			echo "set \$service_url http://{WAS ip주소}:${IDLE_PORT};" | ssh -i key-teatime.cer ubuntu@192.168.2.61 sudo tee /etc/nginx/conf.d/service-prod-url.inc
-			echo "set \$service_url http://{WAS ip주소}:${IDLE_PORT};" | ssh -i key-teatime.cer ubuntu@192.168.4.79 sudo tee /etc/nginx/conf.d/service-prod-url.inc
+			echo "set \$service_url http://{WAS ip주소}:${IDLE_PORT};" | ssh -i key-teatime.cer ubuntu@{ngnix1 ip주소} sudo tee /etc/nginx/conf.d/service-prod-url.inc
+			echo "set \$service_url http://{WAS ip주소}:${IDLE_PORT};" | ssh -i key-teatime.cer ubuntu@{ngnix2 ip주소} sudo tee /etc/nginx/conf.d/service-prod-url.inc
 
 			echo "> 엔진엑스 Reload"
 			ssh -i key-teatime.cer ubuntu@{ngnix1 ip주소} sudo service nginx reload
