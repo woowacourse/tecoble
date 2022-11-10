@@ -5,7 +5,7 @@ author: [4기_잉]
 tags: ['무중단배포']
 date : "2022-11-01T12:00:00.000Z"
 draft : false
-image: ../teaser/blue-green-deployment.png
+image: ../teaser/after-infra-structure.png
 ---
 
 ## 무중단 배포를 도입하게 된 계기
