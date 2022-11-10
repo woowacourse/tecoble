@@ -240,6 +240,13 @@
   website: https://github.com/euijinkk
   location: Seoul
   profile_image: profile/kyle_2.jpeg
+- id: 4기_자스민
+  avatar: avatars/jasmin.jpeg
+  bio: 우아한테크코스 4기 자스민(황정민)입니다 :)
+  github: hwangstar156
+  website: https://velog.io/@baby_dev
+  location: Seoul
+  profile_image: profile/jasmin.jpg
 - id: 4기_잉
   avatar: avatars/ing.jpg
   bio: 우아한테크코스 4기 잉(유영우)입니다 :)
