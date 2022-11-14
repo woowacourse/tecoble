@@ -294,6 +294,7 @@
   website: https://giron.tistory.com
   location: Seoul
   profile_image: profile/dodam.jpg
+<<<<<<< HEAD
 - id: 4기_알파
   avatar: avatars/alpha.png
   bio: 우아한테크코스 4기 알파(배철환)입니다 :)
@@ -302,3 +303,12 @@
   location: Seoul
   profile_image: profile/alpha_bg.png
 
+=======
+- id: 4기_토닉
+  avatar: avatars/tonic.jpeg
+  bio: 우아한테크코스 4기 토닉(최우석)입니다 :)
+  github: tonic523
+  website: https://github.com/tonic523
+  location: Seoul
+  profile_image: profile/tonic.jpeg
+>>>>>>> a00a709 (docs: 스프링 이벤트 적용기 초안 작성)
