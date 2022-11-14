@@ -7,9 +7,8 @@ date : "2022-11-07T13:10:00.000Z"
 draft : false
 image: ../teaser/openid.png
 ---
-## **Transaction Isolation Level**
 
----
+## **Transaction Isolation Level**
 
 애플리케이션을 개발 중 데이터베이스를 도입하면 격리 수준에 대한 이해가 자연스럽게 요구됩니다. 격리 수준은 데이터베이스의 ACID 성질 중 Isolation 에 해당하며, 여러 트랜잭션이 동시에 변경을 수행할 때 성능과 안정성, 일관성 및 재현성 간의 규형을 미세하게 조정하는 설정입니다. SQL:1992 표준에서 제공하는 4가지 격리 수준의 종류는 아래와 같습니다.
 
@@ -38,8 +37,6 @@ insert into test (id, name, age) values (10, 'awesomeo', 26);
 이 글에선 여러 예시들이 사용될 예정입니다. 모든 예시는 위 테이블을 바탕으로 진행되는 점을 참고하며 읽으시면 좀 더 원활한 이해가 가능할 것 같습니다.
 
 ## **InnoDB Locking**
-
----
 
 MySQL 의 `InnoDB` 에선 다양한 Locking 기법을 사용합니다. 그 중 `InnoDB` 의 트랜잭션 격리 수준을 구현하기 위해 사용되는 대표적인 3가지 Lock 에 대해 우선 살펴보고자 합니다.
 
@@ -104,16 +101,12 @@ Record lock, heap no 5 PHYSICAL RECORD: n_fields 5; compact format; info bits 0
 
 ## **Consistent Non-Locking Reads**
 
----
-
 MySQL 의 `InnoDB` 는 동시성 성능을 최대화하기 위해 Multiversion Concurrency Control, MVCC 라는 개념을 도입했습니다. 이는 격리 수준에 따라 상이하지만, 특정 시점의 `Snapshot` 정보를 바탕으로 Locking 이 필요하지 않은 Consistent Read 를 제공한다는 공통점이 있습니다. 이를 MySQL 에선 `Consistent Non-Locking Read` 라고 합니다.
 
 - `REPEATALBE READ` 격리 수준에선 최초 `SELECT` 문이 수행된 시점을 기준으로 `Snapshot` 이 생성되어 다른 트랜잭션에 의해 해당 데이터가 변경되어도 `Undo Log` 에 저장된 내용을 기반으로 기존 데이터를 재구성합니다.
 - `READ COMMITTED` 격리 수준에선 각 `SELECT` 문 마다 `Snapshot` 이 초기화되기 때문에 다른 트랜잭션의 커밋에 의해 해당 데이터가 변경되면 같은 읽기 작업이라도 다른 결과를 반환할 수 있습니다.
 
 ## **Locking Reads**
-
----
 
 기본적인 `SELECT` 문을 통해 조회한 데이터는 기본적으로 `Non-Locking Read` 입니다. 때문에 다른 트랜잭션에 의해 변경될 가능성이 높습니다. `InnoDB` 는 이를 해결하기 위해 두 가지 `Locking Read` 를 제공합니다.
 
@@ -126,8 +119,6 @@ MySQL 의 `InnoDB` 는 동시성 성능을 최대화하기 위해 Multiversion C
 
 ## **READ UNCOMMITTED**
 
----
-
 먼저 `READ UNCOMMITTED` 입니다. 트랜잭션의 변경 내용이 커밋이나 롤백 여부와 관계 없이 다른 트랜잭션에 보이는 가장 낮은 수준의 격리 레벨입니다. `READ UNCOMMITTED` 격리 수준에서 일반적인 `SELECT` 문은 `Non-Locking Read` 로 수행되지만 MVCC 를 사용하지 않아 `Consistent Read` 를 보장하지않습니다.
 
 ### **Dirty Read**
@@ -137,8 +128,6 @@ MySQL 의 `InnoDB` 는 동시성 성능을 최대화하기 위해 Multiversion C
 이는 데이터베이스의 ACID 성질을 준수하지 못하기에 이를 해결하기 위해 `InnoDB` 에선 MVCC 를 통한 `Consistent Read` 를 제공합니다.
 
 ## **READ COMMITTED**
-
----
 
 `READ COMMITTED` 격리 수준부터 MVCC 가 사용되어 `Consistent Read` 를 지원하지만 동일한 트랜잭션 내에서 각 `SELECT` 문은 자체적으로 새로운 `Snapshot` 을 생성하기 때문에 완전한 `Consistent Read` 를 보장하진 않습니다.
 
@@ -171,8 +160,6 @@ UPDATE test SET name = 'meatsby' WHERE name = 'quaritch';
 `READ COMMITTED` 격리 수준까지 발생할 수 있는 읽기 부정합 현상입니다. 앞서 설명한 것 처럼 `READ COMMITTED` 격리 수준에서 `SELECT` 문은 항상 `Snapshot` 을 초기화하기 때문에 한 트랜잭션에서 동일한 `SELECT` 문을 수행해도 일관된 데이터를 반환하지 않는 문제가 발생할 수 있습니다.
 
 ## **REPEATABLE READ**
-
----
 
 `InnoDB` 에서 기본값으로 제공하는 격리 레벨로, `READ COMMITTED` 격리 수준과는 달리 처음 생성된 `Snapshot` 을 통해 `Consistent Read` 를 보장합니다. 즉, 동일한 트랜잭션 내의 일반적인 `SELECT` 문의 일관성을 보장합니다.
 
@@ -248,8 +235,6 @@ A : SELECT * FROM test; # Snapshot 이 초기화되어 Phantom Read 발생
 
 ## **SERIALIZABLE**
 
----
-
 마지막 `SERIALIZABLE` 은 가장 높은 수준의 격리 레벨입니다. 이름처럼 직렬화된 방식처럼 작동해야합니다. `InnoDB` 에선 이를 구현하기 위해 일반적인 `SELECT` 문을 모두 `SELECT … FOR SHARE` 문으로 변환하여 `S-Lock` 을 통한 `Locking Read` 를 수행하게끔 합니다.
 
 글 초반부 설명되어있듯이 `S-Lock` 은 다른 트랜잭션도 독립적으로 설정이 가능하여 `S-Lock` 이 설정된 레코드를 읽을 수 있지만 최초로 `S-Lock` 을 설정한 트랜잭션이 종료되기 전까진 변경을 가할 수 없습니다.
@@ -266,15 +251,11 @@ SELECT * FROM test;
 
 ## **마무리**
 
----
-
 여기까지 MySQL 의 `InnoDB` 가 4가지 격리 수준을 구현한 방법에 대해 알아보았습니다. 격리 수준은 동시성과 격리성의 Trade-Off 인 만큼 자세히 알고 사용하면 더 좋은 효과를 나타낼 수 있을 것 같습니다.
 
 MySQL 은 다른 DBMS 벤더들과는 달리 `InnoDB` 를 통해 `REPEATABLE READ` 에서도 충분한 격리성을 보여주고 있습니다. 하지만 여러가지 Locking 기법을 활용하여 격리 수준을 구현했기 때문에 Locking 으로 인해 발생할 수 있는 여러 문제점 역시 충분히 이해하는 것이 중요하다고 생각합니다.
 
 ## **References**
-
----
 
 - [MySQL Docs - InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
 - [MySQL Docs - Consistent Nonlocking Reads](https://dev.mysql.com/doc/refman/8.0/en/innodb-consistent-read.html)
