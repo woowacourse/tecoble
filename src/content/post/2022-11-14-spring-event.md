@@ -10,11 +10,11 @@ image: ../teaser/spring-event.png
 
 ## 상황
 
-![](../img/smody-ranking.png)
+![](../img/spring-event-1.png)
 
 스모디 프로젝트를 하면서 랭킹 기능을 도입하기로 했습니다. 랭킹 기능은 유저가 활동을 했을 때, 활동에 따라 랭킹 점수를 부여해야 합니다. 저희 서비스는 챌린지에 도전하고 매일 챌린지에 해당하는 활동을 인증하여 총 3회 인증 시 성공하는 사이클로 이루어져 있습니다. 위 기능을 추가하기 위해선 기존 인증을 하는 서비스 로직에 랭킹 점수를 올리는 기능을 추가해야 합니다. 더즈와 페어로 구현하면서 이벤트 적용, 트랜잭션 분리, 비동기 처리 등 활동과 랭킹 관련 로직을 분리하는 과정을 글로 정리했습니다.
 
-## 용어 정리
+### 용어 정리
 
 - 인증: 사용자가 챌린지에 관련된 글과 이미지로 인증
 - 사이클(Cycle): 총 3번의 인증으로 이루어져 있으며 3번의 인증을 마치면 챌린지에 대해 한 번의 사이클을 성공(NOTHING -> FIRST -> SECOND -> SUCCESS)
@@ -33,14 +33,14 @@ public ProgressResponse increaseProgress(TokenPayload tokenPayload, ProgressRequ
         new Image(progressRequest.getProgressImage(), imageStrategy),
         progressRequest.getDescription()
     );
-	// 랭킹 관련 로직
+	// 랭킹 관련 로직 추가
     return new ProgressResponse(cycle); // response dto 반환
 }
 ```
 
 사용자가 글과 이미지로 인증을 하면 위 서비스 메서드가 호출됩니다. 기존 활동 로직이 끝나면 랭킹 로직 관련 로직 부분에 구현해주어야 합니다.
 
-## 인증과 랭킹 로직은 같은 트랜잭션인가?
+### 인증과 랭킹 로직은 같은 트랜잭션인가?
 
 페어인 더즈와 이에 대해 많은 이야기를 했습니다. 2가지 의견이 있었습니다.
 
@@ -59,7 +59,10 @@ public ProgressResponse increaseProgress(TokenPayload tokenPayload, ProgressRequ
 
 트랜잭션을 분리했을 때 문제가 되는 상황은 점수가 누락되는 것 입니다. 점수가 누락되는 문제만 해결된다면 트랜잭션을 분리하는 것이 좋겠다고 결정했습니다.
 
-## 이벤트를 적용하여 결합도 낮추기
+## 1. 관심사 분리
+
+이벤트를 사용하여 인증 로직과 랭킹 로직간의 결합도를 끊고 관심사를 분리할 수 있습니다.
+![](../img/spring-event-2.jpeg)
 
 ### Spring에서 이벤트 사용 방법
 
@@ -108,6 +111,7 @@ public ProgressResponse increaseProgress(TokenPayload tokenPayload, ProgressRequ
 ```
 
 ```java
+// 이벤트를 발행한 시점에 실행
 @EventListener
 public void handle(CycleProgressEvent event) {
 		Cycle cycle = event.getCycle();
@@ -138,9 +142,11 @@ private List<RankingActivity> findTargetActivities(Cycle cycle) {
     - 만약 랭킹 기간에 참여중이지 않는다면 랭킹 활동을 생성한다.
 3. 인증한 활동에 대한 점수를 랭킹 활동에 추가한다.
 
-## 트랜잭션 분리
+## 2. 트랜잭션 분리
 
 이벤트를 활용하여 로직을 분리했지만, 위 로직은 활동과 랭킹이 같은 트랜잭션으로 묶여있습니다. 그리고 로직은 분리했지만, 동기적으로 실행하게 됩니다.
+
+![](../img/spring-event-3.png)
 
 ```java
 @Transactional
@@ -163,7 +169,7 @@ public ProgressResponse increaseProgress(TokenPayload tokenPayload, ProgressRequ
 `@EventListener` 는 발행되자마자 실행됩니다. 하나의 스레드에서 실행되기 때문에 이벤트 처리가 끝나야 이벤트를 발행한 곳의 남은 로직을 처리하고 트랜잭션을 커밋할지 롤백할지 결정하게 됩니다.
 
 ### `@TransactionalEventListener`를 사용하여 이벤트 발행 시점 결정하기
-
+![](../img/spring-event-4.png)
 이 어노테이션을 사용하면 이벤트 발행 시점을 결정할 수 있습니다.
 
 ```java
@@ -193,7 +199,7 @@ public void beforeCommit(Event event){
 > 그럼 `@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` 을 사용해서 이벤트 발행 주체가 커밋하고 실행하도록 하면 되겠네요?
 > 
 
-커밋 후에 이벤트를 발행해서 이벤트에서 에러가 발생하더라도 이벤트를 발행한 주체는 이미 커밋이 됐기 때문에 영향을 주지 못합니다. 하지만, 같은 트랜잭션으로 묶여있는 상황에서 이벤트를 발행하기 전에 커밋이 됐기 때문에 조회는 가능하지만, 쓰기는 불가능합니다. 트랜잭션이 사라진 것이 아니라 이벤트가 이미 커밋된 트랜잭션에 참여한 상황이 발생한 것 입니다.
+커밋 후에 이벤트를 발행해서 이벤트에서 에러가 발생하더라도 이벤트를 발행한 주체는 이미 커밋이 됐기 때문에 영향을 주지 못합니다. 하지만, 같은 트랜잭션으로 묶여있는 상황에서 이벤트를 발행하기 전에 커밋이 됐기 때문에 조회는 가능하지만, **쓰기는 불가능**합니다. 트랜잭션이 사라진 것이 아니라 이벤트가 이미 커밋된 트랜잭션에 참여한 상황이 발생한 것 입니다.
 
 ```java
 @TransactionalEventListener // default = TransactionPhase.AFTER_COMMIT
@@ -253,6 +259,7 @@ private void updateActivities(CycleDetail cycleDetail, List<RankingActivity> act
 
 ### Propagation.REQUIRES_NEW
 
+![](../img/spring-event-6.png)
 트랜잭션 전파 속성을 `REQUIRES_NEW` 로 바꾸면 트랜잭션을 분리할 수 있습니다.
 
 ```java
@@ -267,7 +274,7 @@ public void handle(CycleProgressEvent event) {
 }
 ```
 
-## 비동기
+## 3. 비동기 적용
 
 앞서 말한 트랜잭션 전파 레벨을 수정하는 것으로 트랜잭션도 분리도 할 수 있었습니다. 그런데 만약 이벤트를 발행했을 때 해당 이벤트를 여러번 처리하게 된다면 어떻게 될까요?
 
@@ -281,6 +288,18 @@ public void handle(CycleProgressEvent event) {
 - 인증한다.
 - 푸시 알림을 보낸다. (에러)
 - 랭킹 점수를 올린다. (무시)
+
+위 문제는 푸시 알림에서 에러 처리를 해주면 해결할 수 있습니다.
+
+### 하나의 스레드, 다수의 커넥션
+
+```java
+# application.properties
+spring.datasource.hikari.maximum-pool-size=1
+```
+데이터 커넥션 풀 사이즈를 1로 설정하고 앞선 로직을 실행하면 커넥션을 얻기 위해 계속 기다리게 됩니다.
+
+트랜잭션을 분리하게 되면 분리된 트랜잭션은 기존의 커넥션과 다른 커넥션으로 연결됩니다. 그럼 이벤트에 따라 실행되는 로직이 n개라면 n개의 커넥션으로 연결됩니다. 이 스레드가 끝나지 않는 이상 다수의 커넥션은 연결되어 있는 상태고 이는 성능에 문제가 발생할 수 있습니다.
 
 트랜잭션 분리와 더불어 더 확실하게 이벤트가 서로 영향을 주지 않으려면 비동기를 사용해야 합니다.
 
@@ -308,6 +327,23 @@ public class SmodyApplication {
 ```
 
 메서드에 `@Async` 를 붙이고 `@SpringBootApplication` 이 붙은 main 메서드가 있는 클래스에 `@EnableAsync` 를 붙여주면 쉽게 비동기로 처리할 수 있습니다.
+
+위 처럼 구현하면 매번 이벤트가 발생할 때 마다 새로운 스레드를 생성하게 됩니다. 스레드를 생성하는 작업도 비용이 들 수 있고 메모리 영역을 차지하기 때문에 비동기 처리를 위한 스레드 풀도 설정하여 보다 효율적으로 사용할 수 있습니다.
+
+```java
+@Configuration
+public class AsyncConfig {
+
+    @Bean
+    public TaskExecutor asyncExecutor() {
+        ThreadPoolTaskExecutor asyncExecutor = new ThreadPoolTaskExecutor();
+        asyncExecutor.setThreadNamePrefix("async-pool");
+        asyncExecutor.setCorePoolSize(10);
+        asyncExecutor.initialize();
+        return asyncExecutor;
+    }
+}
+```
 
 > Event listeners are encouraged to be as efficient as possible, individually using asynchronous execution for longer-running and potentially blocking operations.
 >
