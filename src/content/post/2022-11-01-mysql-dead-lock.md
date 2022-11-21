@@ -3,7 +3,7 @@ layout: post
 title: "데드락 해결 모험기"
 tags: ['Mysql', 'DeadLock']
 author: [4기_알파]
-date : "2022-11-07T06:10:00.000Z"
+date : "2022-11-21T15:00:00.000Z"
 draft : false
 image: ../teaser/deadlock_teaser.png
 ---
