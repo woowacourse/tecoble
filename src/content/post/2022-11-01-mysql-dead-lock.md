@@ -16,7 +16,7 @@ image: ../teaser/deadlock_teaser.png
 ## 문제 상황(1)
 
    &nbsp;QA 시 일반적 시나리오에서는 Cycle의 인증이 예상한대로 동작했으나, “하나의 계정에 두 기기가 접속하여 동일한 Cycle을 인증하는 경우”가 궁금해져 QA를 진행하게 되었다. 이 때 “한번에 하나의 인증만 이루어져야 한다”라는 비즈니스 로직에 의해 인증하려는 Cycle에 대응되는 CycleDetail이 하나만 있는 것을 기대했으나, 실제로는 2개 이상의 CycleDetail이 남아있는 문제가 발생하게 되었다.
-     <p align="center">
+   <p align="center">
        <img src="https://user-images.githubusercontent.com/50986686/199098853-f7b8e40b-c5ca-4655-bfec-85b98bea4bac.png" align="center" width="1000"
             height="200"/>
       </p>
@@ -79,7 +79,7 @@ image: ../teaser/deadlock_teaser.png
    &nbsp;참조 무결성이란 외래키는 참조할 수 없는 값을 가질 수 없다는 규칙이다. CycleDetail을 삽입할 때 왜래키인 cycle_id를 참조하고 있다. 해당 쿼리를 보는 개발자의 입장에서는 모든 맥락을 이해하기 때문에 insert 쿼리에 참조하는 cycle_id는 존재한다는 사실을 알지만, DB입장에서는 전혀 그렇지 않기 때문에 현재 쿼리가 참조 무결성을 위반할 수 있다고 생각할 수 있다. 실제로 문제 해결을 위해 참고하던 Real MySQL에서도 외래키와 데드락의 연관성에 대해 지적하고 있었다.
 
    > "외래키는 부모테이블이나 자식 테이블에 데이터가 있는지 체크하는 작업이 필요하므로 잠금이 여러 테이블로 전파되고, 
-   > 그로인해 데드락이 발생할 수 있다. 그래서 실무에서는 잘 사용하지 않는다."
+   > 그로인해 데드락이 발생할 수 있다. 그래서 실무에서는 잘 사용하지 않는다."
 
 ## 해결책
 
@@ -92,15 +92,13 @@ image: ../teaser/deadlock_teaser.png
        <img src="https://user-images.githubusercontent.com/50986686/199102173-456c03e8-2c48-497a-bb60-d6070d93ac4d.png" align="center" width="800"
             height="600"/>
       </p>
-
-
+     
      초기 상황은 위 그림과 같다. 초기의 Cycle의 version은 0으로 초기화 된 상황이다. 단순히 조회만 하였기 때문에 version의 변화는 없다
      <p align="center">
        <img src="https://user-images.githubusercontent.com/50986686/199102457-4a3bf6ba-709c-41f2-879c-d7a48b994f10.png" align="center" width="800"
             height="600"/>
       </p>
-
-
+     
      &nbsp;이후 트랜잭션 1이 CycleDetail을 삽입하게 된다. 이 때 참조 무결성 원칙에 의해 트랜잭션 1은 Cycle에 대한 shared lock을 점유하게 된다. 이 때 주의해야 할 점은 비록 CycleDetail이 삽입된다고 하더라도 Cycle의 version은 증가하지 않는다는 점이다. 설명의 편의를 위해 트랜잭션 1이 Cycle에 대해 건 shared lock을 주황색 타원으로 표기하였다
      <p align="center">
        <img src="https://user-images.githubusercontent.com/50986686/199102641-54f0b393-9c56-4e56-ba01-58a642d820a9.png" align="center" width="800"
@@ -118,127 +116,106 @@ image: ../teaser/deadlock_teaser.png
        <img src="https://user-images.githubusercontent.com/50986686/199103167-3f7c8029-778d-4314-bde1-73c4621efdb2.png" align="center" width="800"
             height="600"/>
       </p>
-
-
+     
      &nbsp;현재 트랜잭션 1이 바꾸려는 Cycle의 version이 최신이므로, 트랜잭션 1의 update문이 실행되게 된다. 그러나, 트랜잭션 1도 update문이 위 그림 8에서의 논리에 의해 대기하게 된다. 따라서, 양 측이 commit이나 rollback이 되지 않는 이상 두 트랜잭션 모두 update 쿼리가 무한히 대기하게 된다. 따라서, Optimistic lock으로도 데드락을 해결할 수 없다. 결국 최종적으로 mysql에서 트랜잭션 1과 2 중 임의의 트랜잭션을 rollback하게 되고, 최종적으로는 Cycle의 versioning이 0에서 1로 이루어진다
 
-   * Pessimistic lock
+* Pessimistic lock
 
-     따라서, “데드락을 해결”하기 위해서는 남은 선택지가 Pessimistic lock밖에 없었고, 해당 방법으로 동시성 문제를 해결하게 되었다. Pessimistic lock이 데드락을 해결하는 방법은 아래 그림과 같다
-     <p align="center">
-       <img src="https://user-images.githubusercontent.com/50986686/199103706-d666402e-577f-485d-b73e-27795a7a71f6.png" align="center" width="800"
-            height="600"/>
-      </p>
+  따라서, “데드락을 해결”하기 위해서는 남은 선택지가 Pessimistic lock밖에 없었고, 해당 방법으로 동시성 문제를 해결하게 되었다. Pessimistic lock이 데드락을 해결하는 방법은 아래 그림과 같다
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/50986686/199103706-d666402e-577f-485d-b73e-27795a7a71f6.png" align="center" width="800"
+         height="600"/>
+   </p>
 
-     위 그림은 트랜잭션 1이 Cycle에 대한 exclusive lock을 거는 모습을 도식화한 모습이다. 설명의 편의를 위해 트랜잭션 1이 Cycle에 대해 건 exclusive lock을 보라색 타원으로 표기하였다
-     <p align="center">
-       <img src="https://user-images.githubusercontent.com/50986686/199103818-34934345-e924-4680-af72-d80a6488793a.png" align="center" width="800"
-            height="600"/>
-      </p>
+  위 그림은 트랜잭션 1이 Cycle에 대한 exclusive lock을 거는 모습을 도식화한 모습이다. 설명의 편의를 위해 트랜잭션 1이 Cycle에 대해 건 exclusive lock을 보라색 타원으로 표기하였다
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/50986686/199103818-34934345-e924-4680-af72-d80a6488793a.png" align="center" width="800"
+         height="600"/>
+   </p>
+     
+  exclusive lock은 exclusive lock 사이의 공유를 허용하지 않으므로 트랜잭션 2의 Cycle에 대한 select문은 대기하게 된다
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/50986686/199104101-b5f9ad83-7916-4fef-a5b2-f8d0ae8c2974.png" align="center" width="800"
+         height="600"/>
+   </p>
 
-
-     exclusive lock은 exclusive lock 사이의 공유를 허용하지 않으므로 트랜잭션 2의 Cycle에 대한 select문은 대기하게 된다
-     <p align="center">
-       <img src="https://user-images.githubusercontent.com/50986686/199104101-b5f9ad83-7916-4fef-a5b2-f8d0ae8c2974.png" align="center" width="800"
-            height="600"/>
-      </p>
-
-     &nbsp;이후 트랜잭션 1은 insert와 update를 정상적으로 진행되게 된다. 이 때 데드락은 발생하지 않는데, 트랜잭션 2가 select 조차 하지 못하고 대기 중이기 때문이다. 따라서 트랜잭션 1은 무사히 커밋되게 된다
-     <p align="center">
-       <img src="https://user-images.githubusercontent.com/50986686/199104421-05bb29a3-a6a7-4e87-a19c-33559e45729a.png" align="center" width="800"
-            height="600"/>
-      </p>
-
-
-     &nbsp;트랜잭션 1이 커밋되었기 때문에 보라색 타원으로 나타내었던 트랜잭션 1의 Cycle에 대한 exclusive lock이 해제되었다. 따라서 트랜잭션 2는 비로소 select 쿼리를 실행할 수 있다. 그러나, 이미 상태가 바뀐 Cycle에 대해 트랜잭션 2가 update를 하려하는 순간, 서비스 레이어에서 작성된 방어 로직에 의해 DB에서 예외가 발생하지 않고 Application단에서 정의된 커스텀 예외가 발생하게 된다. 따라서 데드락은 발생하지 않는다. 아래는 Pessimistic lock을 설정한 코드이다
-
-     * Repository Layer
-        <p align="center">
-          <img src="https://user-images.githubusercontent.com/50986686/199104655-b68789ff-d4d5-428d-8e0f-1f182d8f0ced.png" align="center" width="800"
-               height="300"/>
-         </p>
-
-
-     * Service Layer
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199104935-93bccacd-40f8-47df-ae00-af78b815ccf5.png" align="center" width="800"
-               height="500"/>
-       </p>
-
-
-     * Test code
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199105211-33363d22-bf61-4f21-a353-71e4873a69c2.png" align="center" width="800"
-               height="500"/>
-       </p>
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199105328-521b681a-0cba-4d4f-a20a-b9b8eccc6e79.png" align="center" width="800"
-               height="500"/>
-       </p>
-
-## 의문점
-   * 첫번째 의문점
-
-     &nbsp;그런데 데드락을 해결한 이후, 한가지 의문점이 들었다. “과연 아무것도 하지 않았을 때, 즉 락이나 unqiue 제약조건, versioning 따위를 하지 않았을 때도 데드락이 발생하는가?”이다. 실제로 테스트를 해본 결과 동시성 문제와 데드락 문제가 동시에 발생하는 것을 알 수 있었다. 동시성과 데드락이 양립할 수 없다고 생각했으나, 아래와 같은 흐름이라면 충분히 양립할 수 있다는 것을 파악하였다
+  &nbsp;이후 트랜잭션 1은 insert와 update를 정상적으로 진행되게 된다. 이 때 데드락은 발생하지 않는데, 트랜잭션 2가 select 조차 하지 못하고 대기 중이기 때문이다. 따라서 트랜잭션 1은 무사히 커밋되게 된다
+    <p align="center">
+      <img src="https://user-images.githubusercontent.com/50986686/199104421-05bb29a3-a6a7-4e87-a19c-33559e45729a.png" align="center" width="800"
+           height="600"/>
      </p>
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199105639-b1aebbc3-bb3a-465a-91a5-1a1c75de391d.png" align="center" width="800"
-               height="400"/>
+
+  &nbsp;트랜잭션 1이 커밋되었기 때문에 보라색 타원으로 나타내었던 트랜잭션 1의 Cycle에 대한 exclusive lock이 해제되었다. 따라서 트랜잭션 2는 비로소 select 쿼리를 실행할 수 있다. 그러나, 이미 상태가 바뀐 Cycle에 대해 트랜잭션 2가 update를 하려하는 순간, 서비스 레이어에서 작성된 방어 로직에 의해 DB에서 예외가 발생하지 않고 Application단에서 정의된 커스텀 예외가 발생하게 된다. 따라서 데드락은 발생하지 않는다. 아래는 Pessimistic lock을 설정한 코드이다
+
+  * Repository Layer
+    <p align="center">
+         <img src="https://user-images.githubusercontent.com/50986686/199104655-b68789ff-d4d5-428d-8e0f-1f182d8f0ced.png" align="center" width="800"
+              height="300"/>
        </p>
-
-
+  * Service Layer
+     <p align="center">
+        <img src="https://user-images.githubusercontent.com/50986686/199104935-93bccacd-40f8-47df-ae00-af78b815ccf5.png" align="center" width="800"
+              height="500"/>
+       </p>
+  * Test code
+    <p align="center">
+        <img src="https://user-images.githubusercontent.com/50986686/199105211-33363d22-bf61-4f21-a353-71e4873a69c2.png" align="center" width="800"
+              height="500"/>
+       </p>
+    <p align="center">
+        <img src="https://user-images.githubusercontent.com/50986686/199105328-521b681a-0cba-4d4f-a20a-b9b8eccc6e79.png" align="center" width="800"
+              height="500"/>
+       </p>
+  
+  
+## 의문점
+   * 첫번째 의문점 
+   
+     &nbsp;그런데 데드락을 해결한 이후, 한가지 의문점이 들었다. “과연 아무것도 하지 않았을 때, 즉 락이나 unqiue 제약조건, versioning 따위를 하지 않았을 때도 데드락이 발생하는가?”이다. 실제로 테스트를 해본 결과 동시성 문제와 데드락 문제가 동시에 발생하는 것을 알 수 있었다. 동시성과 데드락이 양립할 수 없다고 생각했으나, 아래와 같은 흐름이라면 충분히 양립할 수 있다는 것을 파악하였다
+     <p align="center">
+        <img src="https://user-images.githubusercontent.com/50986686/199105639-b1aebbc3-bb3a-465a-91a5-1a1c75de391d.png" align="center" width="800"
+                height="400"/>
+      </p>
      &nbsp;우선 트랜잭션 1과 트랜잭션 2의 관계부터 살펴보자. 트랜잭션 1은 트랜잭션 2보다 더 빨리 insert를 하였고 그에 따라 Cycle에 대한 shared lock을 획득한다. 트랜잭션 2는 트랜잭션 1이 update문을 실행하기 전에 동일한 Cycle에 대한 shared lock을 역시 획득한다. 따라서 트랜잭션 1이 update를 수행하게 되면 트랜잭션 2가 가진 shared lock에 의해 update가 대기하게 된다. 이후 트랜잭션 2가 update를 수행하려는 순간, 서로의 shared lock을 놓아야 update가 어느 한쪽에서라도 진행되기 때문에 데드락이 발생한다.
-
      &nbsp;데드락이 발생하였기 때문에 mysql에서는 트랜잭션 1과 트랜잭션 2 중 어느 하나를 롤백시켜야 한다. 이 때 설명의 편의를 위해 트랜잭션 2를 rollback한다고 하자. 따라서, 트랜잭션 1은 정상적으로 커밋이 된다
-
      &nbsp;다음으로 트랜잭션 1과 트랜잭션 3의 관계를 살펴보자. 트랜잭션 3은 트랜잭션 1이 commit되기 이전에 시작이 됨을 알 수 있다. 따라서, mysql의 기본 트랜잭션 격리 속성인 REPEATABLE READ에 의해 아직 상태가 바뀌지 않은 Cycle을 획득하게 된다. 이후 트랜잭션 1이 커밋이 되고, 그 이후에 트랜잭션 3이 insert를 수행하면서 Cycle에 대한 shared lock을 획득하게 된다. 이 시점에는 이미 트랜잭션 1이 commit 되었기 때문에 현재 Cycle에 대한 shared lock은 트랜잭션 3만 가지고 있다
-
      &nbsp;따라서, 트랜잭션 3은 무난하게 update 쿼리까지 수행하게 되고, commit까지 완료된다. 따라서, 같은 Cycle에 대해 트랜잭션 1과 트랜잭션 3에서 수행한 insert에 의해 동시성 문제가 발생하게 된다. 왜냐하면 “하루에 한번만 인증할 수 있다”라는 규칙에 의해 insert가 한번만 정상적으로 이루어져야 하기 때문이다. 따라서, 위 경우라면 충분히 데드락과 동시성 문제가 양립할 수 있다
-   * 두번째 의문점
+     
+   * 두번째 의문점 
 
      &nbsp;추가로, “이 문제를 DB에 의존하여 풀지 않고 application단에서 풀 수 없을까?”라는 의문점도 생각해보았다. 자바에서의 대표적 동시성 처리 방법인 synchronized와 동시성을 지원하는 자료구조인ConcurrentMap을 이용하여 문제를 해결할 수 있다고 생각했다. 코드는 아래와 같다
 
      * Concurrency Layer
-     </p>
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199106502-3a583879-3fea-44b4-91c9-fd0f591049b8.png" align="center" width="800"
-               height="500"/>
-       </p>
-
-     
+         <p align="center">
+             <img src="https://user-images.githubusercontent.com/50986686/199106502-3a583879-3fea-44b4-91c9-fd0f591049b8.png" align="center" width="800"
+                 height="500"/>
+            </p>
+         
      * Controller Layer
-     </p>
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199106703-ae0b869a-43cb-4787-8ac7-5ebf1c32a8f1.png" align="center" width="800"
-               height="500"/>
-       </p>
-
-
+         <p align="center">
+           <img src="https://user-images.githubusercontent.com/50986686/199106703-ae0b869a-43cb-4787-8ac7-5ebf1c32a8f1.png" align="center" width="800"
+                 height="500"/>
+         </p>
+         
      * Service Layer
-     </p>
-       <p align="center">
-         <img src="https://user-images.githubusercontent.com/50986686/199106790-9b8a8b2c-cb59-4bc2-9ffb-41e19c27dd69.png" align="center" width="800"
-               height="600"/>
-       </p>
+         <p align="center">
+           <img src="https://user-images.githubusercontent.com/50986686/199106790-9b8a8b2c-cb59-4bc2-9ffb-41e19c27dd69.png" align="center" width="800"
+                 height="600"/>
+         </p>
 
      * Test code
-     </p>
        <p align="center">
          <img src="https://user-images.githubusercontent.com/50986686/199107007-9eac3e47-96ef-49ab-9bd1-be09287589c7.png" align="center" width="800"
                height="500"/>
        </p>
-     </p>
        <p align="center">
          <img src="https://user-images.githubusercontent.com/50986686/199107093-0b19d9bb-7df8-47ca-b6a3-3e31cef208a0.png" align="center" width="800"
                height="500"/>
        </p>
-
-
-
+       
        &nbsp;위 코드가 정상적으로 동작하는 이유는 SyncManager 객체가 멀티스레드에 의해 각자 생성된다고 하더라도, 특정 id에 대한 lock 객체(여기서는 Object 객체)는 static 변수인 ConcurrentMap에 의해 공유되기 때문이다. 또한, 특정 id가 ConcurrentMap가 없다면 computeIfAbsent를 통해 락 객체를 삽입하게 되는데, ConcurrentMap의 특성 상, computeIfAbsent는 각 id별로 atomic하기 때문에 lock 객체의 동일성을 보장할 수 있다
         
        &nbsp;여기서 어차피 lock 객체가 같다면 SyncManager의 getLock을 접근 제어자를 private에서 public으로 바꾸고 Service Layer에서 별도의 synchronized block으로 처리하면 되지 않느냐고 생각할 수 있다. 하지만, 이미 비즈니스 로직을 담당하는 메소드에 @Transactional이 붙어있기 때문에 원하는 대로 동작하지 않는다. 이유를 간단히 말하면 @Transactional은 프록시로 동작하기 때문이다. 따라서, 프록시로 진행되는 부분은 동시성 제어를 받지 않는다
-       </p>
        <p align="center">
          <img src="https://user-images.githubusercontent.com/50986686/199107505-366309ca-fd6f-4736-afdd-b430fd5f35b5.png" align="center" width="800"
                height="500"/>

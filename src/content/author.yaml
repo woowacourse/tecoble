@@ -219,6 +219,25 @@
   website: https://yeonyeon.tistory.com/
   location: Seoul
   profile_image: profile/yeonlog.jpg
+- id: 4기_무비
+  avatar: avatars/movie.jpeg
+  bio: 우아한테크코스 4기 무비(변영화)입니다 :)
+  github: byhhh2
+  location: Seoul
+  profile_image: profile/movie.png
+- id: 4기_레오
+  avatar: avatars/leo.png
+  bio: 우아한테크코스 4기 레오(남궁현)입니다 :)
+  github: DWL21
+  location: Seoul
+  profile_image: profile/leo.png
+- id: 4기_써머
+  avatar: avatars/summer.png
+  bio: 우아한테크코스 4기 써머(최혜원)입니다 :)
+  github: hyewoncc
+  website: https://hyewoncc.github.io/
+  location: Seoul
+  profile_image: profile/summer_profile.jpg
 - id: 4기_티키
   avatar: avatars/tiki.png
   bio: 우아한테크코스 4기 티키(방영호)입니다 :)
@@ -240,6 +259,41 @@
   website: https://github.com/euijinkk
   location: Seoul
   profile_image: profile/kyle_2.jpeg
+- id: 4기_쿼리치
+  avatar: avatars/quaritch.jpeg
+  bio: 우아한테크코스 4기 쿼리치(정석윤)입니다 :)
+  github: meatsby
+  website: https://meatsby.github.io/
+  location: Seoul
+  profile_image: profile/quaritch.jpeg
+- id: 4기_자스민
+  avatar: avatars/jasmin.jpeg
+  bio: 우아한테크코스 4기 자스민(황정민)입니다 :)
+  github: hwangstar156
+  website: https://velog.io/@baby_dev
+  location: Seoul
+  profile_image: profile/jasmin.jpg
+- id: 4기_앨버
+  avatar: avatars/albur.png
+  bio: 우아한테크코스 4기 앨버(송상민)입니다 :)
+  github: al-bur
+  website: https://al-bur.github.io/
+  location: Seoul
+  profile_image: profile/albur.jpg
+- id: 4기_잉
+  avatar: avatars/ing.jpg
+  bio: 우아한테크코스 4기 잉(유영우)입니다 :)
+  github: Yboyu0u
+  website: https://github.com/Yboyu0u
+  location: Seoul
+  profile_image: profile/ing.jpg
+- id: 4기_기론
+  avatar: avatars/giron.jpg
+  bio: 우아한테크코스 4기 기론(김규철)입니다 :)
+  github: Gyuchool
+  website: https://giron.tistory.com
+  location: Seoul
+  profile_image: profile/dodam.jpg
 - id: 4기_알파
   avatar: avatars/alpha.png
   bio: 우아한테크코스 4기 알파(배철환)입니다 :)
@@ -247,3 +301,4 @@
   website: https://peisea0830.tistory.com/
   location: Seoul
   profile_image: profile/alpha_bg.png
+
