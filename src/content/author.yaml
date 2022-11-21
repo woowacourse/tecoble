@@ -294,3 +294,11 @@
   website: https://giron.tistory.com
   location: Seoul
   profile_image: profile/dodam.jpg
+- id: 4기_알파
+  avatar: avatars/alpha.png
+  bio: 우아한테크코스 4기 알파(배철환)입니다 :)
+  github: bcc0830
+  website: https://peisea0830.tistory.com/
+  location: Seoul
+  profile_image: profile/alpha_bg.png
+
