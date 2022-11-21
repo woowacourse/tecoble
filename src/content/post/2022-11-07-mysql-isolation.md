@@ -5,7 +5,7 @@ tags: ['Transaction', 'Isolation-Level']
 author: [4기_쿼리치]
 date : "2022-11-07T13:10:00.000Z"
 draft : false
-image: ../teaser/openid.png
+image: ../img/tecoble.png
 ---
 
 ## **Transaction Isolation Level**
