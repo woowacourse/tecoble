@@ -8,8 +8,6 @@ draft : false
 image: ../teaser/openid.png
 ---
 
-![OpenID_logo_2 svg](https://user-images.githubusercontent.com/80666066/197439370-1cdf7dc3-0c3b-46b1-b9a6-6f3f6ba26979.png)
-
 요즘 많은 서비스가 소셜 로그인을 지원합니다.
 저만 해도 새로운 서비스를 이용할 때, 네이버 또는 카카오 로그인이 있으면 거기에 손이 먼저 가는데요.
 번거로운 개인 정보 입력을 생략할 수 있는 소셜 로그인은 사용자 입장에서 참 고맙습니다.
