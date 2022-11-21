@@ -5,7 +5,7 @@ tags: ['Transaction', 'Isolation-Level']
 author: [4기_쿼리치]
 date : "2022-11-07T13:10:00.000Z"
 draft : false
-image: ../img/tecoble.png
+image: ../img/mysql_isolation.png
 ---
 
 ## **Transaction Isolation Level**
