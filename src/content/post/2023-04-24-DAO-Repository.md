@@ -5,7 +5,7 @@ author: [5기_리오]
 tags: ['DAO', 'Repository', 'Data persistence']
 date: '2023-04-29T12:00:00.000Z'
 draft: false
-image: ../teaser/dao-repository.png <- 변경해야됨
+image: ../teaser/dao-repository.png
 ---
 
 웹 자동차 경주 미션을 진행하며 많은 크루들이 DAO 클래스를 사용해서 DB에 접근을 했다. 대부분의 크루가 DAO 클래스에서 Spring의 @Repository 어노테이션을 사용하는 것을 확인했다. DAO가
