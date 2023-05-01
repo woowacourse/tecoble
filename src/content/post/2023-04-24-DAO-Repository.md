@@ -40,8 +40,9 @@ Application을 구현할 때, [영속성(Data Persistence)](https://www.mongodb.
    <br>
 2. **계층화가 깨진다.** <br>
    일반적인 웹 application의 구조는 아래와 같은 [layered architecture](https://www.baeldung.com/cs/layered-architecture)로 되어있다.
-   <br>[image:1E4EDC3A-7F21-459A-AA85-F7B55B52B9E4-75978-00000965E1BC3C5C/C5AD1391-6312-4E96-B53B-7E26A829A210.png]
-   <br>영구저장소는 infrastructure 계층에 속하고, 비즈니스 로직들은 application 계층에 속하는데, 영구저장소에 대한 API가 application 계층에 속하게 되면 계층화가 깨진다.
+   <br><img src="../img/layers.png">
+   (출처 : https://velog.io/@jeb1225/DDD%EC%9D%98-%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0Layered-architecture)
+   <br><br>영구저장소는 infrastructure 계층에 속하고, 비즈니스 로직들은 application 계층에 속하는데, 영구저장소에 대한 API가 application 계층에 속하게 되면 계층화가 깨진다.
    Layered architecture의 이점인 모듈화, 유연성 등이 사라지게 되는 문제가 있다.
 
 그러므로 비즈니스 로직과 영구저장소의 API를 분리할 필요가 있다. 즉, 데이터에 접근하는 행위를 추상화하고 캡슐화하여 비즈니스 로직과 데이터 접근 로직을 분리해야 한다. 이를 구현한 Pattern으로 DAO
