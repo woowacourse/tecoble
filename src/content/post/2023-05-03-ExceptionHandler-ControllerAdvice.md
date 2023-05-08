@@ -29,7 +29,7 @@ public class SimpleController {
 }
 ```
 
-라는 예시에서 예외를 던지는 메서드를 호출하는 URL `errorExample`에 요청을 보내봅시다.
+라는 예시에서 예외를 던지는 메서드를 호출하는 URL `/errorExample`에 요청을 보내봅시다.
 
 웹으로 요청을 보낸다면 스프링부트가 제공하는 기본 에러 페이지가 표시됩니다.
 
@@ -45,7 +45,7 @@ public class SimpleController {
 -   5xx.html: 500대 오류 페이지
 -   404.html: 404 오류 페이지
 
-만약 페이지 변경뿐 아니라 더 상세한 BasicErrorController를 상속한 @Controller 클래스를 만들어 errorHtml() 메서드와 error() 메서드를 재정의해주면 됩니다.
+만약 페이지 변경뿐 아니라 더 상세하게 예외의 내용을 응답에 담고싶다면, BasicErrorController를 상속한 @Controller 클래스를 만들어 errorHtml() 메서드와 error() 메서드를 재정의해주면 됩니다.
 
 다만 이 방법은 url만 알면 누구나 마음대로 error 페이지에 접근할 수 있다는 단점이 있습니다.
 
@@ -105,11 +105,11 @@ public class SimpleController {
 
 ## Controller Advice
 
-`@Component` 어노테이션의 특수한 케이스로 `@ConrollerAdvice`란 스프링 부트 어플리케이션에서 전역적으로 예외를 핸들링할 수 있게 해주는 어노테이션입니다.
+`@ControllerAdvice`는 `@Component` 어노테이션의 특수한 케이스로, 스프링 부트 어플리케이션에서 전역적으로 예외를 핸들링할 수 있게 해주는 어노테이션입니다.
 
 이를 통해 코드의 중복을 해결할 수 있습니다.
 
-또한, 한 클래스 내에 정상 동작시 호출되는 코드와 예외를 처리하는 코드를 분리해 낼 수 있습니다.
+또한, 하나의 클래스 내에서 정상 동작 시 호출되는 코드와 예외를 처리하는 코드를 분리할 수 있습니다.
 
 다음은 `@ControllerAdvice` 와 `@RestConrollerAdvice` 의 구현의 일부입니다.
 
@@ -222,7 +222,7 @@ public abstract class ResponseEntityExceptionHandler {
 
 또한 여러 가지 속성을 통해 직접 메서드를 오버라이딩하는 것처럼 상세하게 세부 사항들을 지정해줄 수도 있습니다.
 
-코드 또한 간결해지고, 에러처리 코드의 위치를 사용자가 유연하게 관리할 수 있는 장점도 있습니다.
+코드가 더 간결해지고, 에러 처리 코드의 위치를 사용자가 유연하게 관리할 수 있다는 장점도 있습니다.
 
 
 ## 참고
