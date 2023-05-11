@@ -8,10 +8,10 @@ draft: false
 image: ../teaser/dao-repository.png
 ---
 
-웹 자동차 경주 미션을 진행하며 많은 크루들이 DAO 클래스를 사용해서 DB에 접근을 했다. 대부분의 크루가 DAO 클래스에서 Spring의 @Repository 어노테이션을 사용하는 것을 확인했다. DAO가
+웹 자동차 경주 미션을 진행하며 많은 크루들이 DAO 클래스를 사용해서 DB에 접근했다. 대부분의 크루가 DAO 클래스에서 Spring의 @Repository 어노테이션을 사용하는 것을 확인했다. DAO가
 Repository의 일종인가, 싶었는데 DAO와 Repository를 함께 사용하는 크루도 있어서 혼란스러웠다.
 <br>
-Spring 공식 문서의 @Repository 어노테이션의 설명에는 다음과 같이 나와있다.
+Spring 공식 문서의 @Repository 어노테이션의 설명에는 다음과 같이 나와 있다.
 
 > Teams implementing traditional Jakarta EE patterns such as “Data Access Object” may also apply this stereotype to DAO
 > classes, though care should be taken to understand the distinction between Data Access Object and DDD-style
@@ -20,7 +20,7 @@ Spring 공식 문서의 @Repository 어노테이션의 설명에는 다음과 �
 
 위의 설명에 따르면 DAO 클래스에 @Repository 어노테이션을 사용할 수 있다. 다만 DAO와 [DDD](https://youtu.be/VIfNipL5KkU)에서 정의된 Repository의 차이를 잘 알고
 조심해서 사용해야 한다고 한다.
-검색을 해본 결과, 두 개념이 엄연히 다르다는 것을 알 수 있었다. 이에 대해 나름대로 이해한 바를 아래의 순서로 정리해보려 한다.
+검색을 해본 결과, 두 개념이 엄연히 다르다는 것을 알 수 있었다. 이에 대해 나름대로 이해한 바를 아래의 차례로 정리해 보려 한다.
 
 1. DAO와 Repository의 필요성
 2. DAO Pattern
@@ -30,7 +30,7 @@ Spring 공식 문서의 @Repository 어노테이션의 설명에는 다음과 �
 ## DAO와 Repository의 필요성
 
 Application을 구현할 때, [영속성(Data Persistence)](https://www.mongodb.com/databases/data-persistence)을 가진 영구저장소를 필요로 하는 경우가
-많다. 이 때, application에서 영구저장소에 접근을 하기 위해서는 각 영구저장소 벤더가 제공하는 API를 사용한다. 만약 영구저장소의 API가 다른 비즈니스 로직들과 함께 존재한다면 다음과 같은 문제들이
+많다. 이때, application에서 영구저장소에 접근하기 위해서는 각 영구저장소 벤더가 제공하는 API를 사용한다. 만약 영구저장소의 API가 다른 비즈니스 로직들과 함께 존재한다면 다음과 같은 문제들이
 발생한다.
 
 1. **구현체와 로직이 너무 강한 결합을 가진다.**<br> 만약 기존의 영구저장소와 다른 벤더의 영구저장소를 사용하게 된다면, 비즈니스 로직들 내부에서 기존 영구저장소의 API를 사용한 모든 부분을 변경해야 할
@@ -147,7 +147,7 @@ public class MongoDBCarDao implements CarDao {
 }
 ```
 
-이와 같이, 직접적인 DB와의 상호작용을 추상화하고 쿼리를 실행하는 객체를 DAO라고 하고, DAO를 이용하여 데이터에 접근하는 pattern을 DAO Pattern이라고 한다.
+이처럼, 직접적인 DB와의 상호작용을 추상화하고 쿼리를 실행하는 객체를 DAO라고 하고, DAO를 이용하여 데이터에 접근하는 pattern을 DAO Pattern이라고 한다.
 
 ## Repository Pattern
 
@@ -156,11 +156,11 @@ Spring 공식 문서에 있는 @Repository 어노테이션에 대한 설명은 �
 > Indicates that an annotated class is a “Repository”, originally defined by Domain-Driven Design (Evans, 2003) as “a
 > mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects”.
 
-위의 정의에서 나와있듯이, Repository는 단순히 저장소라는 의미이다. 이름에서는 전혀 영속성 계층과 연관이 있음을 알 수 없다. (그리고 실제로 연관이 없을 수도 있다!) 그저 객체들의 집합(collection)을 추상화한 메커니즘이다.
+위의 정의에서 나와 있듯이, Repository는 단순히 저장소라는 의미이다. 이름에서는 전혀 영속성 계층과 연관이 있음을 알 수 없다. (그리고 실제로 연관이 없을 수도 있다!) 그저 객체들의 집합(collection)을 추상화한 메커니즘이다.
 도메인과 아주 밀접한 관계가 있고, 영속성 계층과의 연관이 불확실하므로 Repository의 인터페이스는 도메인 계층에 속한다.
 
 아래는 CarRepository 인터페이스와, 메모리와 DB 각각에서 사용될 해당 인터페이스의 축약된 구현체들이다.
-<br>(아래 예시에서, DBCarRepository처럼 영속성 계층과 통신을 하는 경우는 메서드들의 파라미터로 DTO가 오는 것이 합리적일 것이다. 그러나, InMemoryCarRepository처럼 계층 내부 간의 통신인 경우가 있어서 예시에서는
+<br>(아래 예시에서, DBCarRepository처럼 영속성 계층과 통신하는 경우는 메서드들의 파라미터로 DTO가 오는 것이 합리적일 것이다. 그러나, InMemoryCarRepository처럼 계층 내부 간의 통신인 경우가 있어서 예시에서는
 Car 객체를 직접 전달받았다.)
 ```java
 public interface CarRepository {
@@ -232,7 +232,7 @@ InMemoryCarRepository는 내부의 HashMap에 Car들을 저장하여 가지고 �
 DBCarRepository는 DAO들을 내부에서 이용하거나, jdbcTemplate을 사용해서 DB에 접근하고 있다. 설명을 위해 억지스러운 예를 들었지만, 이처럼 어떤 방법을 사용하던 목적인 저장소에
 객체의 정보를 저장하고 관리한다면 Repository의 구현체로 사용될 수 있다.
 
-이와 같이, `객체의 정보를 가진 저장소에 대한 관리`에 대한 책임을 위임 받은 인터페이스인 Repository를 사용한 Pattern을 Repository Pattern이라고 한다.
+이처럼, `객체의 정보를 가진 저장소에 대한 관리`에 대한 책임을 위임받은 인터페이스인 Repository를 사용한 Pattern을 Repository Pattern이라고 한다.
 <br>
 <br>
 <br>
@@ -243,8 +243,8 @@ DBCarRepository는 DAO들을 내부에서 이용하거나, jdbcTemplate을 사�
 
 이에 따르면 일반적으로 Repository는 update 메서드를 가지는 것이 어색하다. 여기에서 DAO와 Repository의 개념적 차이가 명확하게 나타난다.
 CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접하게 연관되어 있다. 그러므로 해당 테이블에서 어떤 레코드를 update 하는 것이 DAO와 관련이 되어도 전혀 어색하지 않다. 
-<br>그러나 Repository는 DB에 국한되지 않은, 객체의 정보를 저장한 `저장소의 관리`에 대한 책임을 가지고 있다.
-"객체를 저장한다.", "저장된 객체를 조회한다.", "저장된 객체를 삭제한다."라는 행위들은 이 책임에 해당된다.
+<br>그러나 Repository는 DB에 국한되지 않은, 객체의 정보를 저장한 `저장소의 관리`에 대한 책임을 지고 있다.
+"객체를 저장한다.", "저장된 객체를 조회한다.", "저장된 객체를 삭제한다."라는 행위들은 이 책임에 해당한다.
 하지만 "update할 객체의 정보와 update될 값을 가지고, 저장소에 이미 저장된 객체를 조회해서 그 객체의 정보를 update한다"라는 행위는 객체의 저장소에 대한 책임이라고 하기에는 무리가 있다.
 또한 위의 설명대로, 엔티티의 수정 내역은 보통 분리된 "[UnitOfWork](https://zetlos.tistory.com/1179902868)"에 따르기 때문에 repository에서 일어나는 것이 적절하지 않다.
 
@@ -254,7 +254,7 @@ CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접
 
 위에서 설명했다시피, DAO와 Repository 모두 데이터에 대한 접근을 추상화하고 캡슐화하여 비즈니스 로직과 데이터 접근 로직을 분리하는 데에 사용된다.
 
-DAO는 영속성의 추상화이고, Repository는 객체들의 집합(collection)의 추상화이다.
+DAO는 영속성의 추상화이고, Repository는 객체들 집합(collection)의 추상화이다.
 DAO는 storage system에 더 가까운 개념이고 Repository는 도메인 객체에 가까운 개념이다.
 Repository가 상대적으로 더 high-level의 concept이다.
 그러므로 Repository는 DAO를 사용해 구현할 수 있으나, 그 반대는 구현할 수 없다.
