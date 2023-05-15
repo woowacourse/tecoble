@@ -30,7 +30,7 @@ Spring 공식 문서의 @Repository 어노테이션의 설명에는 다음과 �
 ## DAO와 Repository의 필요성
 
 Application을 구현할 때, [영속성(Data Persistence)](https://www.mongodb.com/databases/data-persistence)을 가진 영구저장소를 필요로 하는 경우가
-많다. 이때, application에서 영구저장소에 접근하기 위해서는 각 영구저장소 벤더가 제공하는 API를 사용한다. 만약 영구저장소의 API가 다른 비즈니스 로직들과 함께 존재한다면 다음과 같은 문제들이
+많다. 이때, Application에서 영구저장소에 접근하기 위해서는 각 영구저장소 벤더가 제공하는 API를 사용한다. 만약 영구저장소의 API가 다른 비즈니스 로직들과 함께 존재한다면 다음과 같은 문제들이
 발생한다.
 
 1. **구현체와 로직이 너무 강한 결합을 가진다.**<br> 만약 기존의 영구저장소와 다른 벤더의 영구저장소를 사용하게 된다면, 비즈니스 로직들 내부에서 기존 영구저장소의 API를 사용한 모든 부분을 변경해야 할
@@ -39,10 +39,10 @@ Application을 구현할 때, [영속성(Data Persistence)](https://www.mongodb.
    <br>
    <br>
 2. **계층화가 깨진다.** <br>
-   일반적인 웹 application의 구조는 아래와 같은 [layered architecture](https://www.baeldung.com/cs/layered-architecture)로 되어있다.
+   일반적인 웹 Application의 구조는 아래와 같은 [layered architecture](https://www.baeldung.com/cs/layered-architecture)로 되어있다.
    <br><img src="../img/layers.png">
    (출처 : https://velog.io/@jeb1225/DDD%EC%9D%98-%EA%B3%84%EC%B8%B5%EA%B5%AC%EC%A1%B0Layered-architecture)
-   <br><br>영구저장소는 infrastructure 계층에 속하고, 비즈니스 로직들은 application 계층에 속하는데, 영구저장소에 대한 API가 application 계층에 속하게 되면 계층화가 깨진다.
+   <br><br>영구저장소는 infrastructure 계층에 속하고, 비즈니스 로직들은 Application 계층에 속하는데, 영구저장소에 대한 API가 application 계층에 속하게 되면 계층화가 깨진다.
    Layered architecture의 이점인 모듈화, 유연성 등이 사라지게 되는 문제가 있다.
 
 그러므로 비즈니스 로직과 영구저장소의 API를 분리할 필요가 있다. 즉, 데이터에 접근하는 행위를 추상화하고 캡슐화하여 비즈니스 로직과 데이터 접근 로직을 분리해야 한다. 이를 구현한 Pattern으로 DAO
@@ -94,9 +94,9 @@ public class CarDto {
 ```java
 public interface CarDao {
     void create(CarDto carDto);
-  
+
     CarDto read(int id);
-  
+
     void update(CarDto carDto);
   
     void delete(int id);
@@ -147,7 +147,7 @@ public class MongoDBCarDao implements CarDao {
 }
 ```
 
-이처럼, 직접적인 DB와의 상호작용을 추상화하고 쿼리를 실행하는 객체를 DAO라고 하고, DAO를 이용하여 데이터에 접근하는 pattern을 DAO Pattern이라고 한다.
+이처럼, 직접적인 DB와의 상호작용을 추상화하고 쿼리를 실행하는 객체를 DAO라고 하고, DAO를 이용하여 데이터에 접근하는 Pattern을 DAO Pattern이라고 한다.
 
 ## Repository Pattern
 
@@ -246,7 +246,7 @@ CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접
 <br>그러나 Repository는 DB에 국한되지 않은, 객체의 정보를 저장한 `저장소의 관리`에 대한 책임을 지고 있다.
 "객체를 저장한다.", "저장된 객체를 조회한다.", "저장된 객체를 삭제한다."라는 행위들은 이 책임에 해당한다.
 하지만 "update할 객체의 정보와 update될 값을 가지고, 저장소에 이미 저장된 객체를 조회해서 그 객체의 정보를 update한다"라는 행위는 객체의 저장소에 대한 책임이라고 하기에는 무리가 있다.
-또한 위의 설명대로, 엔티티의 수정 내역은 보통 분리된 "[UnitOfWork](https://zetlos.tistory.com/1179902868)"에 따르기 때문에 repository에서 일어나는 것이 적절하지 않다.
+또한 위의 설명대로, 엔티티의 수정 내역은 보통 분리된 "[UnitOfWork](https://zetlos.tistory.com/1179902868)"에 따르기 때문에 Repository에서 일어나는 것이 적절하지 않다.
 
 
 
@@ -256,7 +256,7 @@ CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접
 
 DAO는 영속성의 추상화이고, Repository는 객체들 집합(collection)의 추상화이다.
 DAO는 storage system에 더 가까운 개념이고 Repository는 도메인 객체에 가까운 개념이다.
-Repository가 상대적으로 더 high-level의 concept이다.
+Repository가 상대적으로 더 high-level의 개념이다.
 그러므로 Repository는 DAO를 사용해 구현할 수 있으나, 그 반대는 구현할 수 없다.
 
 이상으로 DAO와 Repository에 대해 알아봤다. 간단한 어노테이션도 정확한 개념을 알고 적절하게 사용할 수 있도록 노력하자.
