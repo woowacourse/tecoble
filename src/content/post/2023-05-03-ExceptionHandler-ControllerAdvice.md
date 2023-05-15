@@ -8,15 +8,15 @@ draft: false
 image: ../teaser/cycle.png
 ---
 
-콘솔 어플리케이션을 구현할 때, 우리는 예외를 핸들링하기 위해 try / catch문을 사용했습니다.
+콘솔 애플리케이션을 구현할 때, 우리는 예외를 핸들링하기 위해 try / catch문을 사용했습니다.
 
-그러나 웹 어플리케이션에서는 예외 처리 방법이 조금 다릅니다.
+그러나 웹 애플리케이션에서는 예외 처리 방법이 조금 다릅니다.
 
-이번 글에서는 스프링을 사용한 웹 어플리케이션에 적용할 수 있는 예외처리 방법인 `@ExceptionHandler`와 `@ControllerAdvice`에 대해 알아보겠습니다.
+이번 글에서는 스프링을 사용한 웹 애플리케이션 적용할 수 있는 예외 처리 방법인 `@ExceptionHandler`와 `@ControllerAdvice`에 대해 알아보겠습니다.
 
 <!-- end -->
 
-## 스프링부트의 기본적인 예외처리
+## 스프링부트의 기본적인 예외 처리
 
 ```java
 @RestController
@@ -33,7 +33,7 @@ public class SimpleController {
 
 웹으로 요청을 보낸다면 스프링부트가 제공하는 기본 에러 페이지가 표시됩니다.
 
-`BasicErrorController` 는 요청의 Accept 헤더 값이 text/html일때, 예외가 발생하면 `/error` 라는 경로로 재요청을 보내줍니다.
+`BasicErrorController` 는 요청의 Accept 헤더 값이 text/html일 때, 예외가 발생하면 `/error` 라는 경로로 재요청을 보내줍니다.
 
 해당 페이지는 `/error` 경로에 등록된 기본 에러 페이지입니다.
 
@@ -45,7 +45,7 @@ public class SimpleController {
 -   5xx.html: 500대 오류 페이지
 -   404.html: 404 오류 페이지
 
-만약 페이지 변경뿐 아니라 더 상세하게 예외의 내용을 응답에 담고싶다면, BasicErrorController를 상속한 @Controller 클래스를 만들어 errorHtml() 메서드와 error() 메서드를 재정의해주면 됩니다.
+만약 페이지 변경뿐 아니라 더 상세하게 예외의 내용을 응답에 담고 싶다면, `BasicErrorController`를 상속한 `@Controller` 클래스를 만들어 `errorHtml()` 메서드와 `error()` 메서드를 재정의해주면 됩니다.
 
 다만 이 방법은 url만 알면 누구나 마음대로 error 페이지에 접근할 수 있다는 단점이 있습니다.
 
@@ -71,11 +71,11 @@ public class SimpleController {
 }
 ```
 
-위처럼 컨트롤러별로 반환하고자 하는 body와 메시지를 예외별로 적절하게 선택하여 세밀한 정보를 제공할 수 있습니다.
+위 처럼 컨트롤러별로 반환하고자 하는 body와 메시지를 예외별로 적절하게 선택하여 세밀한 정보를 제공할 수 있습니다.
 
 `@ExceptionHandler`는 value 속성으로 지정한 예외뿐 아니라 예외의 자식 클래스도 전부 캐치해 지정된 응답을 반환하게 됩니다. (value 속성을 지정하지 않는다면 메서드의 파라미터에 있는 예외가 자동으로 지정됩니다.)
 
-만약 자식 클래스는 다른 예외처리를 적용하고 싶다면 다음과 코드를 같이 작성하여 처리할 수 있습니다.
+만약 자식 클래스는 다른 예외 처리를 적용하고 싶다면 다음과 코드를 같이 작성하여 처리할 수 있습니다.
 
 ```java
 @RestController
@@ -103,9 +103,9 @@ public class SimpleController {
 
 즉, 코드의 중복이 발생할 수밖에 없습니다.
 
-## Controller Advice
+## ControllerAdvice
 
-`@ControllerAdvice`는 `@Component` 어노테이션의 특수한 케이스로, 스프링 부트 어플리케이션에서 전역적으로 예외를 핸들링할 수 있게 해주는 어노테이션입니다.
+`@ControllerAdvice`는 `@Component` 어노테이션의 특수한 케이스로, 스프링 부트 애플리케이션에서 전역적으로 예외를 핸들링할 수 있게 해주는 어노테이션입니다.
 
 이를 통해 코드의 중복을 해결할 수 있습니다.
 
@@ -134,7 +134,7 @@ public @interface ControllerAdvice {
 
 `@Component`어노테이션을 붙이면 Component Scan 과정을 거쳐 Bean으로 등록됩니다.
 
-즉, 이 어노테이션을 사용하는 Controller Advice 또한 Bean으로 관리된다는 것을 알 수 있습니다.
+즉, 이 어노테이션을 사용하는 `ControllerAdvice` 또한 Bean으로 관리된다는 것을 알 수 있습니다.
 
 또한, `@RestControllerAdvice`는 `@ResponseBody` 어노테이션이 붙어있으므로 응답을 Json으로 처리한다는 것을 알 수 있습니다.
 
@@ -151,17 +151,17 @@ public class SimpleControllerAdvice {
 }
 ```
 
-위 처럼 코드를 작성하게 되면 어플리케이션 내의 모든 컨트롤러에서 발생하는 IllegalArgumentException을 해당 메서드가 처리하게 됩니다.
+위 처럼 코드를 작성하게 되면 애플리케이션 내의 모든 컨트롤러에서 발생하는 `IllegalArgumentException`을 해당 메서드가 처리하게 됩니다.
 
 **주의점**
 
-여러 ControllerAdvice가 있을 때 `@Order`어노테이션으로 순서를 지정하지 않는다면 Spring은 ControllerAdvice를 임의의 순서로 호출합니다. 즉, 사용자가 예상하지 못한 예외처리가 발생할 수 있습니다.
+여러 `ControllerAdvice`가 있을 때 `@Order`어노테이션으로 순서를 지정하지 않는다면 Spring은 `ControllerAdvice`를 임의의 순서로 호출합니다. 즉, 사용자가 예상하지 못한 예외 처리가 발생할 수 있습니다.
 
-### Base Packages
+### basePackages
 
-만약 여러 Controller Advice를 세분화하고 싶다면 Base Packages 속성을 이용할 수 있습니다.
+만약 여러 `ControllerAdvice`를 세분화하고 싶다면 `basePackages` 속성을 이용할 수 있습니다.
 
-작성된 패키지와 하위 패키지에서 발생하는 예외는 해당 Controller Advice에서 처리하도록 지정할 수 있습니다.
+작성된 패키지와 하위 패키지에서 발생하는 예외는 해당 `ControllerAdvice`에서 처리하도록 지정할 수 있습니다.
 
 ```java
 @ControllerAdvice(basePackages = {"org.woowa.tmp.pkg"}
@@ -174,13 +174,13 @@ public class SimpleControllerAdvice {
 }
 ```
 
-Base Packages 속성을 통해 뷰와 모델을 이용해 직접 페이지를 반환하는 Controller는 예외가 발생하면 직접 예외 페이지를 응답하게 하고, JSON 형식으로 데이터를 주고받는 Controller는 예외가 발생하면 예외에 대한 정보를 JSON 형식으로 응답하게 할 수도 있습니다.
+`basePackages` 속성을 통해 뷰와 모델을 이용해 직접 페이지를 반환하는 Controller는 예외가 발생하면 직접 예외 페이지를 응답하게 하고, JSON 형식으로 데이터를 주고받는 Controller는 예외가 발생하면 예외에 대한 정보를 JSON 형식으로 응답하게 할 수도 있습니다.
 
-### Assignable Types
+### assignableTypes
 
-Assignable Types 속성을 이용하면 클래스 단위로도 Controller Advice를 적용할 수 있습니다.
+`assignableTypes` 속성을 이용하면 클래스 단위로도 `ControllerAdvice`를 적용할 수 있습니다.
 
-클래스 단위로 사용되는 만큼 Base Packages 속성보다 조금 더 세밀하게 처리를 분리해 주고 싶을 때 사용하면 유용합니다.
+클래스 단위로 사용되는 만큼 `basePackages` 속성보다 조금 더 세밀하게 처리를 분리해 주고 싶을 때 사용하면 유용합니다.
 
 ```java
 @ControllerAdvice(assignableTypes = {SimpleController.class}
@@ -195,11 +195,11 @@ public class SimpleControllerAdvice {
 
 ### ResponseEntityExceptionHandler
 
-Spring은 스프링 예외를 미리 처리해 둔 ResponseEntityExceptionHandler를 추상 클래스로 제공하고 있습니다.
+Spring은 스프링 예외를 미리 처리해 둔 `ResponseEntityExceptionHandler`를 추상 클래스로 제공하고 있습니다.
 
-ResponseEntityExceptionHandler에는 스프링 예외에 대한 ExceptionHandler가 모두 구현되어 있습니다.
+`ResponseEntityExceptionHandler`에는 스프링 예외에 대한 `ExceptionHandler`가 모두 구현되어 있습니다.
 
-하지만 에러 메세지는 반환하지 않으므로 스프링 예외에 대한 에러 응답을 보내려면 이 클래스를 상속하여 아래 메소드를 오버라이딩 해야 합니다.
+하지만 에러 메시지는 반환하지 않으므로 스프링 예외에 대한 에러 응답을 보내려면 이 클래스를 상속하여 아래 메서드를 오버라이딩 해야 합니다.
 
 ```java
 public abstract class ResponseEntityExceptionHandler {
@@ -218,9 +218,9 @@ public abstract class ResponseEntityExceptionHandler {
 
 ## 마무리
 
-스프링에서는 `@ExceptionHandler` `@ControllerAdvice`를 통해 편리한 예외처리 기능들을 제공합니다.
+스프링에서는 `@ExceptionHandler` `@ControllerAdvice`를 통해 편리한 예외 처리 기능들을 제공합니다.
 
-또한 여러 가지 속성을 통해 직접 메서드를 오버라이딩하는 것처럼 상세하게 세부 사항들을 지정해줄 수도 있습니다.
+또한 여러 가지 속성을 통해 직접 메서드를 오버라이딩하는 것처럼 상세하게 세부 사항들을 지정해 줄 수도 있습니다.
 
 코드가 더 간결해지고, 에러 처리 코드의 위치를 사용자가 유연하게 관리할 수 있다는 장점도 있습니다.
 
