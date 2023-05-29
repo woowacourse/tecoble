@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '@Configuration을 사용해 빈을 등록해보자'
+title: '@Configuration은 어떻게 빈을 등록하고, 싱글톤으로 관리할까?'
 author: [5기_홍고]
 tags: ['spring']
 date: '2023-05-22T12:00:00.000Z'
@@ -8,16 +8,29 @@ draft: false
 image: ../teaser/configuration.png
 ---
 
+
+
+어노테이션을 사용해서 빈을 생성하는 방법은 크게 두 가지가 있다.
+
+- `@Configuration`과 `@Bean`을 사용해 빈 설정 정보 클래스 생성
+- `@Component`와 이를 상속한 `@Repository`, `@Controller` 어노테이션등을 사용해 자바 컴포넌트 생성
+
+미션을 진행하며 `@Repository`, `@Controller`등의 어노테이션을 사용해 빈을 등록하는 것은 익숙해졌지만, `@Configuration`을 사용해 빈 설정 정보를 클래스를 생성하는 것은 조금 낯설어 이번 기회에 포스팅으로 작성해 보게 되었다.
+
+`@Configuration`은 어떻게 빈을 등록하고, 싱글톤으로 관리하는지 알아보자!
+
+
+
 ## @Configuration이란?
 
-`@Configuration`은 빈을 등록할 수 있는 어노테이션 중 하나이다.
+`@Configuration`은 빈을 등록할 수 있는 어노테이션 중 하나이다. 
 
 [Spring 공식문서](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html)에서는 다음과 같이 설명하고 있다.
 
 > Indicates that a class declares one or more [`@Bean`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html) methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime
 
 - `@Configuration` 어노테이션을 사용하면, 하나 이상의 `@Bean`메서드가 포함된 빈 설정용 클래스를 만들 수 있다.
-- 스프링 컨테이너는 `@Bean` 메서드를 통해 빈을 생성한다.
+- 스프링 컨테이너는 `@Bean`메서드를 통해 빈을 생성한다.
 
 `@Configuration`으로 어떻게 빈을 등록하는지 자세히 살펴보자!
 
@@ -38,7 +51,7 @@ public class MyBean {
 public class Config {
 
     @Bean
-    MyBean MyBean() {
+    public MyBean myBean() {
         return new MyBean();
     }
 }
@@ -48,7 +61,7 @@ public class Config {
 
 - `@Bean` 이 붙은 메서드들은 자바 객체를 반환하는 메서드이다.
 - 반환된 자바 객체는 스프링 컨테이너에 빈으로 등록된다.
-- 빈의 이름은 `@Bean`이 붙은 메서드 이름이 된다. (이 코드의 경우 메서드명과 같은 `MyBean` 빈이 생성된다.)
+- 빈의 이름은 `@Bean`이 붙은 메서드 이름이 된다. (이 코드의 경우 메서드명과 같은 `myBean` 빈이 생성된다.)
 
 ## 등록한 빈 가져오기 - getBean()
 
@@ -80,7 +93,7 @@ public class MyBean {
 public class Config {
 
     @Bean
-    MyBean MyBean() {
+    public MyBean myBean() {
         return new MyBean();
     }
 }
@@ -95,7 +108,7 @@ public class ConfigTest {
 
     @Test
     public void test(){
-        MyBean bean = applicationContext.getBean("MyBean", MyBean.class);
+        MyBean bean = applicationContext.getBean("myBean", MyBean.class);
         bean.sayHello();
     }
 }
@@ -106,32 +119,7 @@ public class ConfigTest {
 안녕하세요, MyBean입니다.
 ```
 
-## 빈의 `factoryBeanName`, `factoryMethodName` 필드
 
-어떤 빈 객체가 `@Configuration`의 `@Bean`메서드로 등록되었다면, `factoryBeanName`, `factoryMethodName` 필드를 통해 `@Configuration` 빈 정보와 `@Bean` 메서드 정보를 확인할 수 있다.
-
-- `factoryMethodName` : 해당 빈 객체를 생성한 `@Bean` 메서드의 이름
-- `factoryBeanName` : 해당 빈 객체를 등록한 `@Configuration` 빈 객체의 이름
-
-#### context -> beanFactory
-
-<img src="../img/configuration-bean-map.png">
-
-- `ApplicationContext`는 `beanFactory` 객체를 가지고 있다. `beanFactory`의 `beanDefinitionMap`에는 `ApplicationContext`가 등록한 모든 빈에 대한 정보가 들어있다.
-
-#### `@Bean` 메서드로 등록한 빈의 필드
-
-`beanDefinitionMap`에 있는 `MyBean`에 대한 정보를 봐보자.
-
-<img src="../img/configuration-bean-value.png">
-
-- `factoryBeanName`, `factoryMethodName` 필드에 `@Configuration` 빈 객체의 이름과 `MyBean`을 생성한 `@Bean`메서드의 이름이 들어가있는 것을 볼 수 있다.
-
-#### `@Bean` 메서드로 등록하지 않은 빈의 필드
-
-<img src="../img/configuration-config-value-proxy.png">
-
-- `config`는 `@Bean`메서드에 의해 생성된 빈이 아니기에 `factoryBeanName`, `factoryMethodName` 가 비어있는 것을 볼 수 있다.
 
 ## Configuration의 속성
 
@@ -151,40 +139,31 @@ public @interface Configuration {
 
 ```
 
-### 📌 value
+`@Configuration` 에는 두 개의 속성이 존재한다. 속성 `value`는 `@Configuration`이 붙은 클래스가 빈으로 등록될 때의 이름을 설정할 수 있게 해준다.
 
-`@Configuration`이 붙은 클래스의 빈 이름 설정
+우리가 이번에 자세히 알아볼 속성은 `proxyBeanMethods` 이다. `proxyBeanMethods`는 `@Configuration`이 빈을 싱글톤으로 관리하는 것과 연관이 있는 속성이다. 아래에서 더 살펴보자!
 
-```java
-@Configuration("MyConfig") // MyConfig라는 이름으로 빈이 생성된다
-public class Config {
 
-    @Bean
-    MyBean MyBean() {
-        return new MyBean();
-    }
-}
-```
 
-value를 설정하지 않으면 자동으로 클래스 이름이 빈의 이름이 된다.
-
-- 한 가지 주의할 점은 앞 글자가 소문자로 등록된다. 클래스 이름이 `Config`이고 value가 설정되지 않았을 때, 빈의 이름은 `config`가 된다.
-
-### 📌 proxyBeanMethods
+### proxyBeanMethods
 
 빈에 대한 프록시 객체를 생성할지 여부를 결정한다.
 
-- 디폴트 값은 true이다. 빈 프록시 객체 생성이 디폴트라는 뜻
+- 디폴트 값은 true이다. 즉, 디폴트로 빈에 대한 프록시 객체가 생성된다.
 
-### 왜 프록시 객체를 생성할까?
 
-[Spring 공식문서 - Configuration : proxyBeanMethods](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html)
 
-> Specify whether `@Bean` methods should get proxied in order to enforce bean lifecycle behavior, e.g. to return shared singleton bean instances even in case of direct `@Bean` method calls in user code. This feature requires method interception, implemented through a runtime-generated CGLIB subclass which comes with limitations such as the configuration class and its methods not being allowed to declare `final`.
+#### `proxyBeanMethods = true`일 때의 config빈의 상태
 
-- 싱글톤 타입인 빈을 만들기 위해 프록시 객체를 생성한다.
-- 프록시 객체는 `CGLIB`를 사용해 원본 객체를 상속해서 만든다.
-- 상속할 수 있어야 하기에 원본 클래스와 그 내부 메소드는 final로 선언될 수 없다.
+<img src="../img/configuration-config-value-proxy-true.png">
+
+#### `proxyBeanMethods = false`일 때의 config빈의 상태
+
+<img src="../img/configuration-config-value-proxy-false.png">
+
+두 `config`의 차이가 보이는가? 프록시 객체로 생성한 빈의 클래스 이름을 보면 `$$EnhancerBySpringCGLIB&&` 라는 게 추가된 것을 알 수 있다.
+
+
 
 #### CGLIB?
 
@@ -192,34 +171,28 @@ value를 설정하지 않으면 자동으로 클래스 이름이 빈의 이름�
 
 > Byte Code Generation Library is high level API to generate and transform JAVA byte code. It is used by AOP, testing, data access frameworks to generate dynamic proxy objects and intercept field access.
 
-바이트 코드를 가지고 프록시 객체를 만들어주는 라이브러리이다. 런타임에 **자바 클래스를 extend**하고 인터페이스를 구현하는 데 사용한다.
-
-동적 프록시 객체를 만든다. 바이트 코드를 가지고 프록시 객체를 만들어주는 라이브러리라고 알고 넘어가자!
-
-#### `proxyBeanMethods = true`일 때의 config빈의 상태
-
-<img src="../img/configuration-config-value-proxy.png">
-
-#### `proxyBeanMethods = false`일 때의 config빈의 상태
-
-<img src="../img/configuration-config-value.png">
-
-두 `config`의 차이가 보이는가? 프록시 객체로 생성한 빈의 클래스 이름을 보면 `$$EnhancerBySpringCGLIB&&` 라는 게 추가된 것을 알 수 있다.
+바이트 코드를 가지고 프록시 객체를 만들어주는 라이브러리이다. 런타임에 **자바 클래스를 상속**하고 인터페이스를 구현해 동적 프록시 객체를 만든다. 
 
 즉, `proxyBeanMethods`가 true인 상태에서 사용되는 `config` 빈은 우리가 직접 생성한 객체가 아니라 `CGLIB` 라이브러리에서 생성해준 프록시 객체임을 의미한다.
 
-#### 프록시 객체를 만들어서 싱글톤으로 관리하기
 
-프록시 객체로 어떻게 싱글톤타입의 빈을 만드는 걸까?
 
-스프링은 `CGLIB`라이브러리를 사용해 `Configuration` 클래스를 그대로 사용하지 않고, `Configuration`을 상속한 프록시 객체를 새로 만들어서 사용한다. 기존 클래스를 상속해야하므로, `Configuration`은 final 클래스로 생성할 수 없다고 한다.
+### 왜 프록시 객체를 생성할까?
+
+[Spring 공식문서 - Configuration : proxyBeanMethods](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html)
+
+> Specify whether `@Bean` methods should get proxied in order to enforce bean lifecycle behavior, e.g. to return shared singleton bean instances even in case of direct `@Bean` method calls in user code. This feature requires method interception, implemented through a runtime-generated CGLIB subclass which comes with limitations such as the configuration class and its methods not being allowed to declare `final`.
+
+스프링은 싱글톤 타입인 빈을 만들기 위해 프록시 객체를 생성한다.  `CGLIB`라이브러리를 사용해 `Configuration` 클래스를 그대로 사용하지 않고, `Configuration`을 상속한 프록시 객체를 새로 만든다고 한다. 
+
+아래는 그 예시이다.
 
 ```java
 @Configuration
 public class Config { // 정의한 Configuration 클래스
 
     @Bean
-    MyBean MyBean() {
+    public MyBean MyBean() {
         return new MyBean();
     }
 }
@@ -230,7 +203,7 @@ public class ConfigExt extends Config { // 실제로 빈을 반환하는데 사�
 	private Map<String, Object> beans = ...;
 
     @Override
-    MyBean MyBean() {
+    public MyBean MyBean() {
         if(!beans.containsKey("MyBean")) {
             beans.put("MyBean", super.MyBean());
         }
@@ -242,9 +215,13 @@ public class ConfigExt extends Config { // 실제로 빈을 반환하는데 사�
 
 물론 실제 코드는 이보다 더욱 복잡하다고 한다. 예시용으로 참고만 하자.
 
+기존 클래스를 상속해야하므로, `Configuration`은 final 클래스로 생성할 수 없다고 한다.
+
+
+
 ### proxyBeanMethods 적용 예시
 
-#### proxyBeanMethods가 true 일 때
+#### `proxyBeanMethods = true` 일 때
 
 사용 예시를 위해 빈으로 등록할 세 개의 클래스를 생성했다. (`BabyBean`, `MotherBean`, `FatherBean`)
 
@@ -289,17 +266,17 @@ public class FatherBean {
 public class Config {
 
     @Bean
-    BabyBean babyBean() {
+    public BabyBean babyBean() {
         return new BabyBean();
     }
 
     @Bean
-    MotherBean motherBean() {
+    public MotherBean motherBean() {
         return new MotherBean(babyBean());
     }
 
     @Bean
-    FatherBean fatherBean() {
+    public FatherBean fatherBean() {
         return new FatherBean(babyBean());
     }
 }
@@ -316,7 +293,7 @@ public class Config {
 - 실행 결과를 보면, `FatherBean`, `MotherBean`, `BabyBean` 생성자로 출력된 `BabyBean` 객체가 전부 같은 것을 확인할 수 있다.
 - 이는 `BabyBean` 객체는 한 번 생성된다는 것을 의미한다. (싱글톤)
 
-#### proxyBeanMethods를 false 일 때
+#### `proxyBeanMethods = false` 일 때
 
 <img src="../img/configuration-proxy-false.png">
 
@@ -329,7 +306,7 @@ public class Config {
 public class Config {
 
     @Bean
-    BabyBean babyBean() {
+    public BabyBean babyBean() {
         return new BabyBean();
     }
 }
@@ -342,12 +319,12 @@ public class ParentConfig {
     Config config; // babyBean을 생성하는 @Configuration 빈 객체를 주입받는다
 
     @Bean
-    MotherBean motherBean() {
+    public MotherBean motherBean() {
         return new MotherBean(config.babyBean()); // babyBean 주입
     }
 
     @Bean
-    FatherBean fatherBean() {
+    public FatherBean fatherBean() {
         return new FatherBean(config.babyBean()); // babyBean 주입
     }
 }
@@ -384,34 +361,9 @@ public class ConfigTest {
 - `proxyBeanMethods = false`로 설정하니, `babyBean`이 싱글톤으로 생성되지 않는 것을 볼 수 있다.
 - `motherBean`과 `fatherBean`에 `babyBean`을 주입할 때, `config`에서 새로운 `babyBean`객체를 생성해 주입해 주는 것을 알 수 있다.
 
-### ApplicationContext에 Configuration 등록
 
-스프링이 `@Configuration`이 붙은 클래스들을 찾기 위해선, 스프링 컨테이너를 초기화해야 한다. SpringBoot Context가 로딩되는 환경이라면, 개발자가 IoC컨테이너를 초기화해줄 필요가 없지만, SpringBoot Context가 로드 되지 않는 환경에서 빈을 테스트해보고 싶다면, `ApplicationContext` 를 직접 생성해서 `@Configuration`클래스를 등록해 줘야 한다.
 
-```java
-//@SpringBootTest <- SpringBoot Context 환경 로딩 X
-public class ConfigTest {
-
-    @Test
-    public void test(){
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-
-        MyBean bean1 = context.getBean("MyBean", MyBean.class);
-        MyBean bean2 = context.getBean("MyBean", MyBean.class);
-        System.out.println(bean1);
-        System.out.println(bean2);
-    }
-}
-
-```
-
-여러 개의 `Configuration` 클래스를 등록하고 싶다면, `ApplicationContext`의 생성자로 인자를 추가하면 된다.
-
-```java
-AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config1.class, Config2.class);
-```
-
-### @Configuration vs @Component
+## @Configuration vs @Component
 
 `@Configuration`은 내부적으로 `@Component`를 상속받고 있다.
 
@@ -434,6 +386,18 @@ public @interface Configuration {
 외부에서 구현한 클래스를 빈으로 등록하고 싶은데, 이 클래스가 read-only로 쓰였다면 `@Component`를 클래스 위에 선언할 수 없다. `@Configuration`을 사용하면, 메서드 내부에서 해당 클래스를 호출해 반환함으로써 빈으로 등록할 수 있다.
 
 또, 한곳에서 관리하고 싶은 빈들의 경우, 특정 패키지 내부에 있는 빈들만 스프링 컨테이너에 등록하고 싶은 경우는 `@Configuration`을 사용하면 편리하게 관리할 수 있다.
+
+
+
+## 마무리
+
+`@Configuration`으로 빈을 등록하는 방법과 `@Configuration`이 빈을 싱글톤으로 관리하는 방법에 대해 알아보았다.
+
+`@Configuration`은 `@Bean`메소드에서 호출한 객체를 빈으로 등록할 수 있기에 외부 라이브러리의 클래스도 빈으로 등록하는 것이 가능하다. 또한 `@Configuration`은 빈 객체를 프록시 객체로 만들어 싱글톤으로 관리한다는 것을 알 수 있었다.
+
+여러 개의 빈을 함께 관리하고 싶을 때, 외부 라이브러리 등 개발자가 관리할 수 없는 클래스를 빈으로 등록하고 싶은 경우에는 `@Configuration`을 활용해 보도록 하자.
+
+
 
 ## 참고
 
