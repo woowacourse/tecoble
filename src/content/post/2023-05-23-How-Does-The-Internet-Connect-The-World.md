@@ -27,7 +27,7 @@ image: ../teaser/cycle.png
 
 <br>
 
-- 광케이블 지도 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img1.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img1.png)
 
 전 세계에 설치된 해저 광케이블 지도입니다. 
 태평양 한가운데 무수히 많은 광케이블이 설치된 모습을 볼 수 있습니다. 
@@ -37,10 +37,10 @@ image: ../teaser/cycle.png
 소가 쟁기를 끌어 밭을 갈듯이 장비로 해저면을 파고 케이블을 매설합니다. 
 해저 1,000m가 넘는 곳에서는 직접 매설하지 않고 케이블을 가라앉힌다고 합니다.
 
+
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img2.jpeg](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img2.jpeg)
+
 <br>
-
-- 케이블 매설기 이미지
-
 만약 미국에 있는 제 친구가 우테코(우아한테크코스) 캠퍼스에 있는 저에게 이메일을 보낸다면, 해당 데이터는 광케이블을 타고 태평양을 건너 한국까지 도달할 것입니다. 
 그렇다면 이메일 데이터는 우테코 캠퍼스의 위치를 어떻게 알고 찾아올까요?
 
@@ -54,7 +54,9 @@ IP 주소는 데이터 전송의 출발지나 목적지를 나타내는 고유 �
 (다만, 구글의 서버는 개인용 컴퓨터가 아니라 수많은 컴퓨터가 모인 데이터 센터라고 할 수 있습니다.) 
 그렇다면 구글에 접속하기 위해서 구글의 IP 주소를 외우고 있어야 할까요?
 
-- ip주소 간 상호작용 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img3.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img3.png)
+
+<br>
 
 ## 모든 IP주소를 외우고 있어야 할까?
 긴 숫자로 이뤄진 IP 주소를 외우기란 힘든 일입니다. 
@@ -63,7 +65,7 @@ IP 주소는 데이터 전송의 출발지나 목적지를 나타내는 고유 �
 
 <br>
 
-- DNS 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img4.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img4.png)
 
 스마트폰 주소록에는 이름과 전화번호가 매칭되어 저장됩니다. 
 마찬가지로 도메인 이름에 해당 IP주소를 대응하여 저장하는 서버가 존재하는데, 이를 DNS(Domain Name System)라고 합니다. 
@@ -71,10 +73,9 @@ DNS 덕분에 도메인명 입력만으로 IP 주소를 찾을 수 있죠.
 혹시 IP주소가 변경되더라도 문제없습니다. 
 DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 자체적으로 바꿔주기 때문입니다.
 
-<br>
-
 도메인 이름으로 찾은 IP 주소로 데이터를 주고받는 것까지는 확인했습니다. 
 그렇다면 구체적으로 어떤 데이터를 어떻게 전달할까요?
+
 
 
 ## 어떤 데이터를 어떤 방식으로 전달할까?
@@ -86,10 +87,9 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 데이터 포장 방식은 표준화 되어 있는데 이를 인터넷 프로토콜(Internet Protocol, IP)이라고 합니다. 
 (사실 인터넷 프로토콜에는 IP주소 이외에 다양한 정보를 포함합니다.)
 
-- IP 패킷 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img5.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img5.png)
 
 <br>
-
 특이한 점은 데이터를 여럿으로 쪼개어 분할 전송한다는 사실입니다. 
 쇼핑몰에서 물건을 주문했는데 묶음 배송이 아닌 따로 배송이면 짜증만 나겠죠. 
 하지만 데이터 통신에서 분할 전송에는 큰 장점이 있습니다. 
@@ -103,21 +103,19 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 따라서 하나의 회선으로 여러 컴퓨터가 동시에 통신할 수 있습니다. 
 공유 자전거의 이용 시간을 나눠서 한 대로 여러 명이 탈 수 있는 것과 비슷한 원리입니다.
 
-- 데이터 분할 전송 이미지
-
 <br>
-
 데이터를 쪼개서 전송한 후, 받은 다음 다시 합친다니? 
 배송 사고가 우려됩니다. 
 데이터 조각 중 하나가 사라지면 어떡할까요? 
 데이터가 보낸 순서대로 도착하지 않을 수도 있지 않을까요?
 
 
-
 ## 데이터 배송 사고에 대비하는 방법은?
 택배의 출발지와 도착지를 아는 것만으로 배송사고를 막기 어려워 보입니다. 
 데이터 통신에서도 배송사고를 막기 위해 데이터를 보내기 전, 받은 후에 추가 작업을 진행합니다. 
 이에 관한 규약을 ‘전송 제어 프로토콜’(TCP, Transmission Control Protocol)이라고 합니다.
+
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img6.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img6.png)
 
 <br>
 
@@ -126,7 +124,7 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 데이터를 받는 컴퓨터가 보낸 컴퓨터에게 ‘데이터를 잘 받았음’이라는 메시지를 알려준다면 어떨까요? 
 보낸 컴퓨터 입장에서 ‘확인 응답’ 메시지를 받지 못한다면, 배송 사고가 일어났다고 판단하고 데이터를 다시 보낼 수 있습니다.
 
-- 확인 응답 메시지 관련 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img7.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img7.png)
 
 <br>
 
@@ -134,7 +132,7 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 데이터를 받는 사람은 데이터를 잘 받았다는 ‘확인 응답’ 메시지를 보낼 때, 다음 순서로 받을 데이터 조각 번호도 같이 보냅니다. 
 이로써 순서에 맞게 데이터를 받을 수 있고, 그렇지 않을 경우 재요청할 수 있습니다.
 
-- 데이터 전송 순서 관련 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img8.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img8.png)
 
 <br>
 
@@ -144,7 +142,7 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 그래서 본격적으로 데이터를 전송하기 전, 송신처와 수신처가 데이터 전송 가능 여부를 미리 소통하는 작업을 거칩니다. 
 (이러한 작업을 ‘TCP 3 way handshake’라고 합니다.) 이처럼 배송사고를 예방하기 위한 추가 정보를 덧붙이는 방식으로 실제 데이터를 포장하게 됩니다.
 
-- TCP 패킷 관련 이미지
+![2023-05-23-How-Does-The-Internet-Connect-The-World-img9.png](..%2Fimages%2F2023-05-23-How-Does-The-Internet-Connect-The-World-img9.png)
 
 <br>
 
@@ -171,4 +169,5 @@ DNS를 관리하는 서버에서 도메인 이름에 매칭되는 IP주소를 �
 - http://www.irobotnews.com/news/articlePrint.html?idxno=3160
 - https://www.submarinecablemap.com/
 - https://velog.io/@emplam27/CS-%EA%B7%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C-%EC%95%8C%EC%95%84%EB%B3%B4%EB%8A%94-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B3%84%EC%B8%B5%ED%99%94%EC%99%80-OSI-TCPIP-UDP%EC%9D%98-%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90
+- https://loopstudy.tistory.com/320
 - '하루 3분 네트워크 교실'/아미노 에이지 / 영진닷컴
