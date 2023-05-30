@@ -29,8 +29,8 @@ image: ../teaser/configuration.png
 
 > Indicates that a class declares one or more [`@Bean`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html) methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime
 
-- `@Configuration` 어노테이션을 사용하면, 하나 이상의 `@Bean`메서드가 포함된 빈 설정용 클래스를 만들 수 있다.
-- 스프링 컨테이너는 `@Bean`메서드를 통해 빈을 생성한다.
+- `@Configuration` 어노테이션을 사용하면, 하나 이상의 `@Bean`이 붙은 메서드가 포함된 빈 설정용 클래스를 만들 수 있다.
+- 스프링 컨테이너는 `@Bean`이 붙은 메서드를 통해 빈을 생성한다.
 
 `@Configuration`으로 어떻게 빈을 등록하는지 자세히 살펴보자!
 
@@ -73,31 +73,9 @@ public class Config {
 
 - `getBean(빈의 이름, 빈의 타입);`
 
-> getBean(빈의 이름)만으로도 빈을 가져올 수 있긴 하지만 Object 타입으로 반환되기 때문에 타입변환이 필요하다. 빈의 타입을 안다면 명시해주는게 좋을 것 같다.
+> getBean(빈의 이름)만으로도 빈을 가져올 수 있긴 하지만 Object 타입으로 반환되기 때문에 타입변환이 필요하다. 빈의 타입을 안다면 명시해주는게 좋다.
 
 ### getBean() 사용 예시
-
-```java
-// 빈으로 등록할 클래스
-public class MyBean {
-
-    public void sayHello() {
-        System.out.println("안녕하세요, MyBean입니다.");
-    }
-}
-```
-
-```java
-// @Configuration을 사용해서 ApplicationContext에 빈 설정 정보 제공
-@Configuration
-public class Config {
-
-    @Bean
-    public MyBean myBean() {
-        return new MyBean();
-    }
-}
-```
 
 ```java
 // getBean()을 사용해서 빈 객체를 불러올 수 있음
@@ -171,7 +149,7 @@ public @interface Configuration {
 
 > Byte Code Generation Library is high level API to generate and transform JAVA byte code. It is used by AOP, testing, data access frameworks to generate dynamic proxy objects and intercept field access.
 
-바이트 코드를 가지고 프록시 객체를 만들어주는 라이브러리이다. 런타임에 **자바 클래스를 상속**하고 인터페이스를 구현해 동적 프록시 객체를 만든다. 
+바이트 코드를 가지고 프록시 객체를 만들어주는 라이브러리이다. 런타임시에 **자바 클래스를 상속**하고 인터페이스를 구현해 동적 프록시 객체를 만든다. 
 
 즉, `proxyBeanMethods`가 true인 상태에서 사용되는 `config` 빈은 우리가 직접 생성한 객체가 아니라 `CGLIB` 라이브러리에서 생성해준 프록시 객체임을 의미한다.
 
@@ -379,7 +357,7 @@ public @interface Configuration {
 
 `@Component`를 사용해서 원하는 클래스를 빈으로 등록할 수 있는데 `@Configuration`이 왜 필요한 걸까?
 
-포인트는 `@Component`는 구현한 클래스 위에 선언해야 하지만, `@Configuration`은 `@Bean`메서드 내부에서 생성한 객체를 빈으로 등록할 수 있다는 점이다.
+포인트는 `@Component`는 구현한 클래스 위에 선언해야 하지만, `@Configuration`은 `@Bean`이 붙은 메서드 내부에서 생성한 객체를 빈으로 등록할 수 있다는 점이다.
 
 - 여러 개를 동시에 빈으로 등록하기 vs 하나를 빈으로 등록하기
 
@@ -393,7 +371,7 @@ public @interface Configuration {
 
 `@Configuration`으로 빈을 등록하는 방법과 `@Configuration`이 빈을 싱글톤으로 관리하는 방법에 대해 알아보았다.
 
-`@Configuration`은 `@Bean`메소드에서 호출한 객체를 빈으로 등록할 수 있기에 외부 라이브러리의 클래스도 빈으로 등록하는 것이 가능하다. 또한 `@Configuration`은 빈 객체를 프록시 객체로 만들어 싱글톤으로 관리한다는 것을 알 수 있었다.
+`@Configuration`은 `@Bean`이 붙은 메소드에서 호출한 객체를 빈으로 등록할 수 있기에 외부 라이브러리의 클래스도 빈으로 등록하는 것이 가능하다. 또한 `@Configuration`은 빈 객체를 프록시 객체로 만들어 싱글톤으로 관리한다는 것을 알 수 있었다.
 
 여러 개의 빈을 함께 관리하고 싶을 때, 외부 라이브러리 등 개발자가 관리할 수 없는 클래스를 빈으로 등록하고 싶은 경우에는 `@Configuration`을 활용해 보도록 하자.
 
