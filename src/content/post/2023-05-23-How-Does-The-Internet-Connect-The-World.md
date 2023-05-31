@@ -2,10 +2,10 @@
 layout: post
 title: '인터넷은 어떻게 전 세계를 연결할까?'
 author: [5기_로이]
-tags: ['network']
+tags: ['Network']
 date: '2023-05-23T12:00:00.000Z'
 draft: false
-image: ../teaser/cycle.png
+image: ../teaser/roy_teaser.png
 ---
 
 
