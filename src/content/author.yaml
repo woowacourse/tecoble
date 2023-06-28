@@ -308,6 +308,13 @@
   website: https://github.com/tonic523
   location: Seoul
   profile_image: profile/tonic.jpeg
+- id: 5기_황펭
+  avatar: avatars/hwangpeng.jpg
+  bio: 우아한테크코스 5기 황펭(양이진)입니다 :)
+  github: Leejin-Yang
+  website: https://github.com/Leejin-Yang
+  location: Seoul
+  profile_image: profile/hwangpeng.jpg
 - id: 5기_포이
   avatar: avatars/poi.png
   bio: 우아한테크코스 5기 포이(김보준)입니다 :)
