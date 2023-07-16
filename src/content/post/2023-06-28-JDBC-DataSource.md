@@ -1,12 +1,13 @@
 ---
 layout: post
-title: 'JDBC와 DataSource 이해하기
+title: 'JDBC와 DataSource 이해하기'
 author: [5기_루쿠]
 tags: ['JDBC']
 date: '2023-06-28T12:00:00.000Z'
 draft: false
 image: ../teaser/jdbc.png
 ---
+ 
 
 ## JDBC란? 
 JDBC(Java Database Connectivity)는 자바 프로그래밍 언어를 사용해 데이터베이스에 접근할 수 있도록 하는 자바 API이다.      
