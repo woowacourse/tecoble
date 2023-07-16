@@ -5,7 +5,7 @@ author: [5기_루쿠]
 tags: ['JDBC']
 date: '2023-06-28T12:00:00.000Z'
 draft: false
-image: 
+image: ../teaser/jdbc.png
 ---
 
 ## JDBC란? 
@@ -32,7 +32,7 @@ JDBC는 JDK 1.1 버전에 출시된 매우 오래된 기술이며 사용하는 �
 ## JDBC 동작 흐름
 그러면 이제 JDBC가 어떤식으로 구성되어있고 흐름은 어떻게 흘러가는지 알아보자.
 
-![흐름도1](https://www.tutorialspoint.com/jdbc/images/jdbc_architecture.jpg)   
+![흐름도1](./../images/2023-06-28-jdbc-architecture.jpeg)   
  
 먼저 JDBC API를 사용하기 위해서는 JDBC 드라이버를 먼저 로딩한 후 데이터베이스와 연결하게 된다.     
 JDBC 드라이버는 JDBC 인터페이스를 구현한 구현체라고 생각할 수 있으며    
@@ -41,8 +41,7 @@ JDBC 드라이버는 JDBC 인터페이스를 구현한 구현체라고 생각할
 JDBC가 제공하는 DriverManager가 드라이버들을 관리하고 Connection을 획득하는 기능을 제공한다. 
 이 획득한 Connection을 통해서 데이터베이스에 sql을 실행하고 결과를 응답 받을 수 있다.
 
-
-![흐름도2](https://www3.ntu.edu.sg/home/ehchua/programming/java/images/JDBC_Cycle.png) 
+![흐름도2](./../images/2023-06-28-jdbc-cycle.png)
 
 위의 과정을 코드로 간단하게 살펴보자. 
 1. DriverManager를 통해 Connection 획득
@@ -135,16 +134,6 @@ sql을 실행할때마다 커넥션을 획득해야하므로 연결하는데에 
 
 ---
 ## 참고
-https://www.tutorialspoint.com/jdbc/jdbc-introduction.htm
-https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html   
+https://www.tutorialspoint.com/jdbc/jdbc-introduction.htm   
+https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html    
 https://ittrue.tistory.com/250
-
-
- 
-
-
- 
-
-
-
-
