@@ -12,39 +12,37 @@ image: ../teaser/react-18.png
 
 2022년 3월, React 18이 발표되었습니다.
 
-여러 변경 사항이 있었지만 그 중 핵심은 동시성(Concurrent)입니다.
+여러 변경 사항이 있었지만 그 중 핵심은 Concurrency(동시성)입니다.
 
-기존 experimental 버전에서만 동작하던 `concurrent mode`를 공식 지원하게 되었고, 따라서 명칭도 `concurrent features`가 되었습니다.
+기존 experimental 버전에서만 동작하던 'concurrent mode'를 공식 지원하게 되었고, 따라서 명칭도 'concurrent features'가 되었습니다.
 
-> 즉, 동시 모드는 없고 동시 기능만 있습니다. - [React 블로그](https://react.dev/blog/2021/12/17/react-conf-2021-recap#react-18-and-concurrent-features)
+> This means there is no concurrent mode, only concurrent features. - [React 블로그 - React 18 and concurrent features](https://react.dev/blog/2021/12/17/react-conf-2021-recap#react-18-and-concurrent-features)
 
-이 글에선 React의 동시성에 대해 가볍게 살펴보고, 이를 사용하기 위해 추가된 hooks, `useTransition`과 `useDeferredValue`에 대해 알아보겠습니다.
+이 글에선 React의 Concurrency에 대해 가볍게 살펴보고, 이를 사용하기 위해 추가된 `useTransition` hook과 `useDeferredValue` hook에 대해서 알아보겠습니다.
 
-## Concurrent?
+## Concurrency?
 
-[React 공식 문서](https://react.dev/blog/2022/03/29/react-v18)에선 Concurrent를 다음과 같이 설명하고 있습니다.
+[React 공식 문서](https://react.dev/blog/2022/03/29/react-v18)에선 Concurrency를 다음과 같이 설명하고 있습니다.
 
-> React가 여러 버전의 UI를 동시에 준비할 수 있도록 하는 새로운 비하인드 메커니즘입니다. 동시성을 구현 세부 사항으로 생각할 수 있습니다. 이는 그 기능 때문에 유용합니다.
+> Concurrency is not a feature, per se. It’s a new behind-the-scenes mechanism that enables React to prepare multiple versions of your UI at the same time.
 
-이것만 봐서는 동시성이 정확히 어떤 건지 잘 모르겠네요.
+React가 여러 버전 UI를 동시에 준비할 수 있도록 하는 비하인드 메커니즘이다?
 
-주로 같이 언급되는 병렬성(Parallelism)과 비교해 보면 이해가 쉬울 것 같습니다.
+그래서 어떤 메커니즘인지, Concurrency와 함께 자주 언급되는 Parallelism(병렬성)과 비교해 보면 이해가 쉬울 것 같습니다.
 
-<img src="../images/concurrency_vs_parallelism.jpg">
-
-개발자 컨퍼런스인 [DEVIEW 2021](https://deview.kr/2021)에서 가져온 사진입니다.
+<img src="../images/concurrency_vs_parallelism.jpg" >_[- DEVIEW 2021](https://deview.kr/2021)_
 
 위에서 설명하고자 하는 것을 간단히 표로 만들어 보겠습니다.
 
-| 동시성                      | 병렬성                |
+| Concurrency                 | Parallelism           |
 | --------------------------- | --------------------- |
 | 싱글 코어에서도 작동        | 멀티 코어에서만 작동  |
 | 동시에 실행되는 것처럼 보임 | 실제로 동시에 실행 됨 |
 | 논리적 개념                 | 물리적 개념           |
 
-요약하자면, 실제론 동시에 실행하지는 않지만, CPU가 작업을 context switching 해가며 '동시에 실행되는 것처럼 보이게 하는 것'이 동시성이라고 할 수 있겠습니다.
+요약하자면, 실제론 동시에 실행하지는 않지만, CPU가 작업을 context switching 해가며 '동시에 실행되는 것처럼 보이게 하는 것'이 Concurrency라고 할 수 있겠습니다.
 
-그렇다면 왜 React에서 동시성이 필요하게 된 걸까요? 🤔
+그렇다면 왜 React에서 Concurrency가 필요하게 된 걸까요? 🤔
 
 ## Blocking Rendering
 
@@ -54,11 +52,11 @@ React 18 이전까지는 렌더링 시 발생하는 문제점이 하나 있었�
 
 HTML을 파싱하거나 JS를 실행하거나 화면에 렌더링하는 등, 모든 작업을 하나씩 처리해 나갑니다.
 
-그런데 만약, 연산이 오래 걸리는 화면을 렌더링해야 한다면?
+그런데 만약 연산이 오래 걸리는 화면을 렌더링해야 한다면 어떻게 될까요?
 
-페이지 지연이 발생하여 사용자가 불편을 겪는 Blocking Rendering 문제가 발생하게 됩니다.
+페이지 지연이 발생하여 사용자가 불편을 겪는 Blocking Rendering이 발생하게 됩니다.
 
-다음은 이를 보여주기 위한 예시 코드입니다.
+다음은 해당 문제가 발생하는 예시 코드입니다.
 
 ```js
 const App = () => {
@@ -142,7 +140,7 @@ const App = () => {
 
 바로 `useDeferredValue`입니다.
 
-이 함수는 `useTransition`과 비슷하게 우선순위를 낮춰서 동시성 기능을 사용하는 hook입니다.
+이 함수는 `useTransition`과 비슷하게 우선순위를 낮춰서 concurrent features를 사용할 수 있는 hook입니다.
 
 차이점으론 '상태를 업데이트하는 코드'를 래핑하여 우선순위를 낮추는 `useTransition`과 달리 `useDeferredValue`는 '값'의 업데이트 우선순위를 낮춘다는 것입니다.
 
@@ -188,7 +186,7 @@ const List = ({ items }) => {
 
 기존에 props로 받던 `items`를 `useDeferredValue`로 래핑하였습니다.
 
-이후 `App`에서 `useTransition`을 사용하지 않도록 바꾸고 실행해도,
+이후 `App`에서 `useTransition`을 사용하지 않고 실행해도,
 
 결과적으로 `startTransition`을 사용했을 때와 유사한 결과를 얻을 수 있었습니다.
 
@@ -196,7 +194,7 @@ const List = ({ items }) => {
 
 hook을 살펴보다 보니 비슷한 기능을 봤던 것 같습니다.
 
-바로 debounce와 throttle입니다.
+바로 'debounce'와 'throttle'입니다.
 
 다만 두 방법 Blocking Rendering을 해결하기엔 아쉬운 점이 있습니다.
 
@@ -208,15 +206,15 @@ hook을 살펴보다 보니 비슷한 기능을 봤던 것 같습니다.
 
 반대로 오래된 기기를 사용하는데 너무 자주 이벤트가 실행되어 화면이 버벅대면, 사용자는 매우 불쾌한 경험을 하게 된다는 것입니다.
 
-그러므로 동시성 기능을 잘 활용한다면, debounce와 throttle을 대체하거나, 혹은 함께 사용하여 더 좋은 사용자 경험을 제공할 수 있을 것입니다.
+그러므로 concurrent features를 잘 활용한다면, debounce와 throttle을 대체하거나, 혹은 함께 사용하여 더 좋은 사용자 경험을 제공할 수 있을 것입니다.
 
 ## 마무리
 
-지금까지 React 18에 동시성 기능이 추가된 배경과, 관련 hooks를 알아보았습니다.
+지금까지 React 18에 concurrent features가 추가된 배경과, 관련 hook들을 알아보았습니다.
 
 물론 언제나 `useTransition`, `useDeferredValue`를 사용하는 것이 좋은 최적화 방법은 아닐 것입니다.
 
-lazy loading, pagination 등의 기법을 사용하거나, 서버 사이드에서 연산하는 등 여러 방법이 존재합니다.
+lazy loading, pagination 등의 기법을 사용하거나, 서버 사이드에서 연산하는 등 다양한 방법이 존재합니다.
 
 따라서 무작정 남용하지 않고, 최적화할 수 있는 다른 방법은 없는지 충분히 고민한 후, 적용해야 하겠습니다.
 
