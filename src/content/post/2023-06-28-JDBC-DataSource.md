@@ -29,7 +29,7 @@ JDBC는 JDK 1.1 버전에 출시된 매우 오래된 기술이며 사용하는 �
 사실 SQL Mapper나 ORM은 JDBC를 기반으로 동작한다. 이들의 기술은 JDBC의 기능과 개념을 내부적으로 활용하여 데이터베이스와의 상호작용을 처리한다.        
 따라서 JDBC를 이해하면 SQL Mapper나 ORM이 어떻게 동작하는지 더 잘 이해할 수 있는 베이스가 되며 또한 문제가 발생했을 때 근본적인 문제를 해결할 수 있다.      
 
-## JDBC 동작 흐름어
+## JDBC 동작 흐름
 그러면 이제 JDBC가 어떤 식으로 구성되어 있고 흐름은 어떻게 흘러가는지 알아보자.
 
 ![흐름도1](./../images/2023-06-28-jdbc-architecture.jpeg)   
@@ -130,8 +130,8 @@ SQL을 실행할 때마다 커넥션을 획득해야 하므로 연결하는 데�
 어떤 방식으로 커넥션을 획득하는지 상관없이 DataSource 인터페이스를 통해 일관된 방식으로 데이터베이스와 통신할 수 있는 것이다.   
 또한 인터페이스를 구현한 구현체를 쉽게 교체할 수 있어 애플리케이션의 유연성을 높일 수 있다.   
 스프링과 스프링 부트에서는 DataSource 인터페이스를 구현한 여러 구현체를 제공하는데   
-대표적으로 JDBC DriverManager 기반으로 한 DriverManagerDataSource와 HikariCP 커넥션 풀을 기반으로 한 HikariDataSource가 있다.   
-그래서 만약에 DriverManger를 통해서 커넥션을 획득하다가 커넥션 풀을 통해 커넥션을 획득해야 할 경우가 생기게 되는 경우     
+대표적으로 JDBC DriverManager 기반으로 한 DriverManagerDataSource와 HikariCP 커넥션 풀을 기반으로 한 HikariDataSource가 있다.    
+그래서 만약에 DB에 연결할 때마다 커넥션을 생성해서 획득하는 게 아닌 미리 커넥션을 생성해 놓은 커넥션풀을 사용해서 커넥션을 획득하고 싶은 경우      
 DataSource의 구현체 DriverManagerDataSource를 HikariDataSource로 바꾸어 끼기만 하면 되는 것이다..!   
 
 ## 마치며
