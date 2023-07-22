@@ -17,7 +17,7 @@ JDBC(Java Database Connectivity)는 자바 프로그래밍 언어를 사용해 �
 ## JDBC가 등장하게 된 배경
 JDBC가 등장하게 된 이유는 무엇일까? 바로 결론부터 말하자면 데이터베이스 접근의 표준화를 위해서다.   
 데이터베이스에는 Oracle Database, MySQL, PostgreSQL 와 같이 여러 종류의 데이터베이스가 있다는 사실을 알고 있을 것이다.       
-각각 데이터베이스마다 SQL를 전달하거나 결과를 응답받는 방법들이 다 다르고 데이터베이스의 종류는 수십개가 존재한다.   
+각각 데이터베이스마다 SQL를 전달하거나 결과를 응답받는 방법들이 다 다르고 데이터베이스의 종류는 수십 개가 존재한다.   
 JDBC가 존재하기 전에는 이런 데이터베이스마다 존재하는 고유한 API를 직접 사용했었다.      
 이에 따라 개발자는 기존의 데이터베이스를 다른 데이터베이스로 교체해야 하는 경우에는 데이터베이스에 맞게 기존에 코드를 모두 수정해야 했으며 심지어 각각의 데이터베이스를 사용하는 방법도 새로 학습해야 했다.      
 따라서 표준이라는 게 필요했으며 JDBC의 표준 인터페이스 덕분에 개발자는 데이터베이스를 쉽게 변경할 수 있게 되었고 변경에 유연하게 대처할 수 있게 되었다.      
@@ -29,8 +29,8 @@ JDBC는 JDK 1.1 버전에 출시된 매우 오래된 기술이며 사용하는 �
 사실 SQL Mapper나 ORM은 JDBC를 기반으로 동작한다. 이들의 기술은 JDBC의 기능과 개념을 내부적으로 활용하여 데이터베이스와의 상호작용을 처리한다.        
 따라서 JDBC를 이해하면 SQL Mapper나 ORM이 어떻게 동작하는지 더 잘 이해할 수 있는 베이스가 되며 또한 문제가 발생했을 때 근본적인 문제를 해결할 수 있다.      
 
-## JDBC 동작 흐름
-그러면 이제 JDBC가 어떤 식으로 구성되어있고 흐름은 어떻게 흘러가는지 알아보자.
+## JDBC 동작 흐름어
+그러면 이제 JDBC가 어떤 식으로 구성되어 있고 흐름은 어떻게 흘러가는지 알아보자.
 
 ![흐름도1](./../images/2023-06-28-jdbc-architecture.jpeg)   
  
@@ -136,6 +136,6 @@ DataSource의 구현체 DriverManagerDataSource를 HikariDataSource로 바꾸어
 
 ---
 ## 참고
-https://www.tutorialspoint.com/jdbc/jdbc-introduction.htm   
-https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html    
-https://ittrue.tistory.com/250
+[What is JDBC? - JDBC 개념](https://www.tutorialspoint.com/jdbc/jdbc-introduction.htm)   
+[JDBC Programming by Examples with MySQL - JDBC 사용법](https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html)    
+[JDBC와 커넥션풀](https://ittrue.tistory.com/250)  
