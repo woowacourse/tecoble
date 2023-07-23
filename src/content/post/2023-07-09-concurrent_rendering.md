@@ -16,7 +16,7 @@ image: ../teaser/react-18.png
 
 기존 experimental 버전에서만 동작하던 'concurrent mode'를 공식 지원하게 되었고, 따라서 명칭도 'concurrent features'가 되었습니다.
 
-> This means there is no concurrent mode, only concurrent features. - [React 블로그 - React 18 and concurrent features](https://react.dev/blog/2021/12/17/react-conf-2021-recap#react-18-and-concurrent-features)
+> This means there is no concurrent mode, only concurrent features. - [React 18 and concurrent features](https://react.dev/blog/2021/12/17/react-conf-2021-recap#react-18-and-concurrent-features)
 
 이 글에선 React의 Concurrency에 대해 가볍게 살펴보고, 이를 사용하기 위해 추가된 `useTransition` hook과 `useDeferredValue` hook에 대해서 알아보겠습니다.
 
@@ -26,11 +26,11 @@ image: ../teaser/react-18.png
 
 > Concurrency is not a feature, per se. It’s a new behind-the-scenes mechanism that enables React to prepare multiple versions of your UI at the same time.
 
-React가 여러 버전 UI를 동시에 준비할 수 있도록 하는 비하인드 메커니즘이다?
+즉, 동시성 그 자체로는 기능이 아니고, React에서 여러 버전의 UI를 동시에 준비할 수 있도록 하는 메커니즘이라는 겁니다.
 
-그래서 어떤 메커니즘인지, Concurrency와 함께 자주 언급되는 Parallelism(병렬성)과 비교해 보면 이해가 쉬울 것 같습니다.
+그렇다면 어떤 메커니즘인지, Concurrency와 함께 자주 언급되는 Parallelism(병렬성)과 비교해 보면 이해가 쉬울 것 같습니다.
 
-<img src="../images/concurrency_vs_parallelism.jpg" >_[- DEVIEW 2021](https://deview.kr/2021)_
+<img src="../images/concurrency_vs_parallelism.jpg" >_[- DEVIEW 2021, Inside React (동시성을 구현하는 기술)](https://deview.kr/2021/sessions/518)_
 
 위에서 설명하고자 하는 것을 간단히 표로 만들어 보겠습니다.
 
@@ -40,7 +40,7 @@ React가 여러 버전 UI를 동시에 준비할 수 있도록 하는 비하인�
 | 동시에 실행되는 것처럼 보임 | 실제로 동시에 실행 됨 |
 | 논리적 개념                 | 물리적 개념           |
 
-요약하자면, 실제론 동시에 실행하지는 않지만, CPU가 작업을 context switching 해가며 '동시에 실행되는 것처럼 보이게 하는 것'이 Concurrency라고 할 수 있겠습니다.
+요약하자면, 실제론 동시에 실행하지는 않지만, CPU가 현재 실행중인 프로세스를 중단하고 다른 프로세스를 실행하는 작업인 context switching을 하면서 '동시에 실행되는 것처럼 보이게 하는 것'이 바로 Concurrency라고 할 수 있겠습니다.
 
 그렇다면 왜 React에서 Concurrency가 필요하게 된 걸까요? 🤔
 
@@ -81,7 +81,9 @@ const App = () => {
 
 숫자를 입력받을 수 있고, 입력한 숫자를 포함한 것만 필터링하여 출력합니다.
 
-따라서 입력값이 바뀔 때마다 리스트가 바뀌어 새로 렌더링해야 합니다.
+따라서 입력값이 바뀔 때마다 리스트도 업데이트되기 때문에 새로 렌더링해야 합니다.
+
+<img src="../images/cpu-6x-slowdown.png" width= "50%">
 
 차이점을 확인하기 쉬운 무거운 작업으로 만들기 위해, 크롬 개발자 도구로 CPU 성능 제한을 걸고 테스트해 보았습니다.
 
@@ -99,9 +101,8 @@ const App = () => {
 
 ```js
 const App = () => {
-  const [isPending, startTransition] = useTransition();
   const [text, setText] = useState('');
-
+  const [isPending, startTransition] = useTransition();
   const filteredItems = filterItems(text);
 
   const updateFilter = e => {
@@ -112,8 +113,10 @@ const App = () => {
 
   return (
     <div className="container">
-      <input type="text" onChange={updateFilter} />
-      {isPending && <p>pending...</p>}
+      <input type="text" name="user-input" onChange={updateFilter} />
+      <label htmlFor="user-input" className={isPending ? 'show' : 'hide'}>
+        pending...
+      </label>
       <List items={filteredItems} />
     </div>
   );
@@ -144,15 +147,12 @@ const App = () => {
 
 차이점으론 '상태를 업데이트하는 코드'를 래핑하여 우선순위를 낮추는 `useTransition`과 달리 `useDeferredValue`는 '값'의 업데이트 우선순위를 낮춘다는 것입니다.
 
-또한 React 팀원인 Dan Abramov의 말에 따르면
+> It's useful when the value comes "from above" and you don't actually have control over the corresponding setState call.
 
-<img src="../images/Screenshot%202023-07-09%20at%2011.00.51%20PM.png">
+또한 React 팀원인 [Dan Abramov의 말](https://github.com/reactjs/rfcs/pull/212#issuecomment-1077901737)에 따르면
+`useDeferredValue`는 상태를 props로 받는 등 제어할 수 없을 때 사용하는 것을 권장하고 있습니다.
 
-> ・・・ 이 기능은 값이 "위에서" 오고 해당 setState 호출을 실제로 제어할 수 없는 경우에 유용합니다.
-
-`useDeferredValue`는 상태를 props로 받는 등 제어할 수 없을 때 사용하는 것을 권장하는 것 같습니다.
-
-바로 예제 코드에 적용해 보겠습니다.
+그러면 이제 예제 코드에 적용해 보겠습니다.
 
 사실 현재 코드에선 상태를 `App`에서 제어할 수 있지만, 그렇게 하지 않고 하위 컴포넌트인 `List`에서 `useDeferredValue`를 사용해 보겠습니다.
 
@@ -161,7 +161,7 @@ const List = ({ items }) => {
   return (
     <ul>
       {items.map(item => (
-        <li>{item}</li>
+        <li key={item}>{item}</li>
       ))}
     </ul>
   );
@@ -175,7 +175,7 @@ const List = ({ items }) => {
   return (
     <ul>
       {deferredItems.map(item => (
-        <li>{item}</li>
+        <li key={item}>{item}</li>
       ))}
     </ul>
   );
@@ -224,7 +224,7 @@ lazy loading, pagination 등의 기법을 사용하거나, 서버 사이드에�
 
 ## 참고 자료
 
-- https://react.dev/
-- https://tecoble.techcourse.co.kr/post/2021-07-24-concurrent-mode/
-- https://github.com/reactjs/rfcs/pull/212
-- https://tv.naver.com/v/23652451
+- [React v18.0](https://react.dev/blog/2022/03/29/react-v18)
+- [Tecoble - 사용자 경험 개선 2편 - react concurrent mode](https://tecoble.techcourse.co.kr/post/2021-07-24-concurrent-mode)
+- [DEVIEW 2021 - Inside React (동시성을 구현하는 기술)](https://deview.kr/2021/sessions/518)
+- [예시 코드 저장소](https://github.com/guridaek/react-18-concurrent-rendering)
