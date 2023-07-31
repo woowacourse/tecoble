@@ -336,3 +336,10 @@
   website: https://github.com/hgo641
   location: Seoul
   profile_image: profile/hongo.jpg
+- id: 5기_가람
+  avatar: avatars/karam.png
+  bio: 우아한테크코스 5기 가람(이강산)입니다 :)
+  github: guridaek
+  website: https://github.com/guridaek
+  location: Seoul
+  profile_image: profile/karam.jpg
