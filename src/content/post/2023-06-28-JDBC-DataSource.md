@@ -136,7 +136,9 @@ SQL을 실행할 때마다 커넥션을 획득해야 하므로 연결하는 데�
 스프링과 스프링 부트에서는 DataSource 인터페이스를 구현한 여러 구현체를 제공하는데   
 대표적으로 JDBC DriverManager 기반으로 한 DriverManagerDataSource와 HikariCP 커넥션 풀을 기반으로 한 HikariDataSource가 있다.    
 그래서 만약에 DB에 연결할 때마다 커넥션을 생성해서 획득하는 게 아닌 미리 커넥션을 생성해 놓은 커넥션풀을 사용해서 커넥션을 획득하고 싶은 경우      
-DataSource의 구현체 DriverManagerDataSource를 HikariDataSource로 바꾸어 끼기만 하면 되는 것이다..!   
+DataSource의 구현체 DriverManagerDataSource를 HikariDataSource로 바꾸어 끼기만 하면 되는 것이다..!
+이로써 커넥션을 획득할 때 리소스를 효율적으로 활용할 수 있고 빠른 속도로 커넥션을 획득할 수 있다.
+
 
 ## 마치며
 지금까지 JDBC와 DataSource에 대해서 알아보았다.   
