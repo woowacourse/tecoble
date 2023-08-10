@@ -308,6 +308,13 @@
   website: https://github.com/tonic523
   location: Seoul
   profile_image: profile/tonic.jpeg
+- id: 5기_황펭
+  avatar: avatars/hwangpeng.jpg
+  bio: 우아한테크코스 5기 황펭(양이진)입니다 :)
+  github: Leejin-Yang
+  website: https://github.com/Leejin-Yang
+  location: Seoul
+  profile_image: profile/hwangpeng.jpg
 - id: 5기_포이
   avatar: avatars/poi.png
   bio: 우아한테크코스 5기 포이(김보준)입니다 :)
@@ -322,6 +329,27 @@
   website: https://github.com/jaeyoung22
   location: Seoul
   profile_image: profile/reo.jpeg
+- id: 5기_홍고
+  avatar: avatars/hongo.png
+  bio: 우아한테크코스 5기 홍고(홍여진)입니다 :)
+  github: hgo641
+  website: https://github.com/hgo641
+  location: Seoul
+  profile_image: profile/hongo.jpg
+- id: 5기_루쿠
+  avatar: avatars/lookh.png
+  bio: 우아한테크코스 5기 루쿠(백경환)입니다 :)
+  github: aiaiaiai1
+  website: https://github.com/aiaiaiai1
+  location: Seoul
+  profile_image: profile/lookh.png
+- id: 5기_가람
+  avatar: avatars/karam.png
+  bio: 우아한테크코스 5기 가람(이강산)입니다 :)
+  github: guridaek
+  website: https://github.com/guridaek
+  location: Seoul
+  profile_image: profile/karam.jpg
 - id: 5기_로이
   avatar: avatars/roy_avatar.JPG
   bio: 우아한테크코스 5기 로이(김덕우)입니다 :)
