@@ -38,7 +38,7 @@ public void deletePost(Long postId) {
 
 이런 문제점들을 해결하기 위해 JPA Cascade가 등장했습니다. JPA Cascade를 활용하면 ‘어떤 엔티티와 다른 엔티티가 밀접한 연관성이 있을 때’ 에 대한 관리가 매우 수월해집니다. 즉, A라는 엔티티에 어떤 작업을 수행했을 때, 그 작업이 연관된 B라는 엔티티에게도 이루어져야 한다면 JPA Cascade는 유용하게 사용될 수 있다는 의미입니다.
 
-<img src="../imges/2023-08-14-JPA_01.png">
+<img src="../images/2023-08-14-JPA_01.png">
 
 > Cascade는 ‘폭포수가 흐르다’ 라는 사전적 의미를 갖고 있습니다.
 
