@@ -350,3 +350,11 @@
   website: https://github.com/guridaek
   location: Seoul
   profile_image: profile/karam.jpg
+- id: 5기_테오
+  avatar: avatars/teo.jpeg
+  bio: 우아한테크코스 5기 테오(최우성)입니다:)
+  github: woosung1223
+  website: https://github.com/woosung1223
+  location: Seoul
+  profile_image: profile/teo.jpeg
+
