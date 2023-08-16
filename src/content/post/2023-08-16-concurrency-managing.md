@@ -53,14 +53,7 @@ public class Ticket {
 
     private int totalAmount;
 
-    private @Transactional
-    public void ticketing(long ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
-            .orElseThrow(() -> new IllegalArgumentException("Ticket Not Found."));
-        ticket.increaseReservedAmount();
-        int sequence = ticket.getReservedAmount();
-        reservationRepository.save(new Reservation(ticket, sequence));
-    } reservedAmount = 0;
+    private int reservedAmount = 0;
 
 		/***/
 
@@ -362,9 +355,9 @@ public synchronized void ticketing(long ticketId) {
 
 ## 락킹을 활용한 해결책
 
-**락킹(Locking)**은 데이터가 읽힌 후 사용될 때 까지 데이터가 변경되는 것을 방지하기 위한 조치이다.
+**락킹(Locking)** 은 데이터가 읽힌 후 사용될 때 까지 데이터가 변경되는 것을 방지하기 위한 조치이다.
 
-락킹 전략으로는 여러 트랜잭션 간 충돌이 일어나지 않을 것이라 가정하는 **낙관적 락(Optimistic Lock)**, 여러 트랜잭션 간 충돌이 일어날 것이라 가정하는 **비관적 락(Pessimistic Lock)**이 있다.
+락킹 전략으로는 여러 트랜잭션 간 충돌이 일어나지 않을 것이라 가정하는 **낙관적 락(Optimistic Lock)** , 여러 트랜잭션 간 충돌이 일어날 것이라 가정하는 **비관적 락(Pessimistic Lock)** 이 있다.
 
 <br>
 
