@@ -16,6 +16,8 @@ image: ../teaser/ash-concurrency.png
 
 여기서 가장 중요한 것은 신청 순서에 따라 티켓을 발급하되, 준비된 수량만큼만 발급하는 것이다.
 
+<br>
+
 이번 글에서는 위와 같이 ‘동시성’에 대한 고민을 한 경험을 공유하고자 한다.
 
 참고로, 이번 글에서는 개념에 대한 깊은 설명은 따로 하지 않는다. 모르는 개념이 있다면 아래 참고자료에서 개념을 익히도록 하자.
@@ -177,6 +179,8 @@ void 티켓_동시_예매_테스트() throws InterruptedException {
 
 티켓의 수량보다 많은 요청이 있었는데, 왜 더 적게 예매되었을까?
 
+<br>
+
 출력문을 보니 아래와 같이 `Deadlock found when trying to get lock; try restarting transaction` 이라는 문구와 함께 SQL Error가 발생했음을 확인할 수 있었다.
 
 ![동시 예매 테스트 데드락](../images/2023-08-16-ash-3.png)
@@ -208,11 +212,15 @@ public class Reservation {
 
 Reservation 엔티티에 Ticket 엔티티와의 연관관계를 설정해줌으로써, DB의 reservation 테이블에 외래키 칼럼 ticketId가 추가되었다.
 
+<br>
+
 [MySQL 공식문서](https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html)에 아래와 같은 내용이 있다.
 
 > If a `FOREIGN KEY` constraint is defined on a table, any insert, update, or delete that requires the constraint condition to be checked sets shared record-level locks on the records that it looks at to check the constraint. `InnoDB` also sets these locks in the case where the constraint fails.
 
 즉, 외래 키 제약 조건이 있는 테이블에서 레코드를 삽입, 갱신, 삭제할 때 해당 제약 조건을 위반하는지 확인하기 위해 관련된 레코드들에 S-lock을 설정한다는 뜻이다.
+
+<br>
 
 실제로 innodb의 로그를 확인해보니, 여러 트랜잭션에서 데이터에 락을 거는 과정에서 교착상태가 발생했음을 알 수 있었다. 아래는 로그 내용을 간략화 한 것이다.
 
@@ -271,11 +279,15 @@ public class Reservation {
 
 어떻게 티켓의 수량보다 많은 사용자가 티켓을 예매할 수 있었을까?
 
+<br>
+
 DB의 reservation 테이블을 확인하니 그 이유를 알 수 있었다.
 
 ![동시 실행 DB 결과](../images/2023-08-16-ash-7.png)
 
 1~10번 티켓이 각각 한 장씩 예매된게 아니라 1번티켓 10장, 2번티켓 9장, 3번티켓 9장, 4번티켓 2장이 예매되었다. 즉, 하나의 티켓이 여러 사용자에게 발급되는 문제가 발생했다.
+
+<br>
 
 순차적으로 예매를 요청할 때는 발생하지 않았던 문제였는데, 동시에 예매를 요청하는 상황에서는 왜 이와 같은 문제가 발생했을까?
 
@@ -291,6 +303,8 @@ DB의 reservation 테이블을 확인하니 그 이유를 알 수 있었다.
 
 순차적 예매와 달리, 동시 예매시 위 그림과 같이 한 스레드가 데이터를 읽고 이를 갱신하기 전, 다른 스레드에서 데이터를 읽어가 충돌이 발생한다. 이 이유로 여러개의 트랜잭션에서 동일한 티켓을 예매할 수 있었다.
 
+<br>
+
 이제부터 위 문제 상황에 대한 해결책을 알아보자.
 
 ## synchronized 키워드를 활용한 해결책
@@ -300,6 +314,8 @@ java에서 한 자원에 synchronized 키워드를 붙이면, 멀티 스레드 �
 그렇다면 ticketing 메서드에 synchronized 키워드를 붙임으로써, 동시에 들어오는 요청들을 순차적으로 처리할 수 있지 않을까?
 
 한 번 실험해보자.
+
+<br>
 
 아래와 같이 ticketing 메서드에 synchronized 키워드를 붙여주고, 동시 예매 테스트를 실행하였다.
 
@@ -320,6 +336,8 @@ public synchronized void ticketing(long ticketId) {
 
 이는 @Transactional 키워드와 synchronized 키워드를 동시에 사용했기 때문이다.
 
+<br>
+
 @Transactional이 붙은 메서드가 호출되면, Spring은 프록시 객체를 생성한다.
 
 해당 프록시 객체는 원본 객체를 감싸며, 메서드 호출 전 후로 transaction begin, commit을 수행한다.
@@ -330,11 +348,15 @@ public synchronized void ticketing(long ticketId) {
 
 즉, 위 그림과 같이 T1 스레드에서 commit 되기 전 T2 스레드는 메서드를 시작할 수 있다.
 
+<br>
+
 이와 별개로 synchronized 키워드에는 몇가지 단점이 존재한다.
 
 한 스레드가 메서드 작업을 완료할 때 까지 다른 스레드들은 대기해야한다. 이로 인해 프로그램의 성능이 저하될 수 있다.
 
 또한 이는 하나의 프로세스 안에서만 보장이 되기 때문에, 서버가 여러대인 분산 환경에서는 데이터의 정합성을 보장할 수 없다.
+
+<br>
 
 따라서, synchronized 키워드는 우리 문제 상황의 해결책으로 적절하지 않다.
 
@@ -343,6 +365,8 @@ public synchronized void ticketing(long ticketId) {
 **락킹(Locking)**은 데이터가 읽힌 후 사용될 때 까지 데이터가 변경되는 것을 방지하기 위한 조치이다.
 
 락킹 전략으로는 여러 트랜잭션 간 충돌이 일어나지 않을 것이라 가정하는 **낙관적 락(Optimistic Lock)**, 여러 트랜잭션 간 충돌이 일어날 것이라 가정하는 **비관적 락(Pessimistic Lock)**이 있다.
+
+<br>
 
 낙관적 락과 비관적 락을 통해 문제상황 해결을 시도해보자.
 
@@ -393,6 +417,8 @@ DB의 Ticket 테이블에는 아래와 같이 version 칼럼이 추가되었다.
 
 사용자 수를 100명으로 늘리고 다시 테스트를 실행하니 10장이 다 발급되었다.
 
+<br>
+
 위와 같은 상황이 발생한 이유에 대해 알아보자.
 
 낙관적 락을 사용하면 아래와 같이 버전 정보가 update문의 조건으로 포함된다.
@@ -404,6 +430,8 @@ DB의 Ticket 테이블에는 아래와 같이 version 칼럼이 추가되었다.
 ![낙관적 락 version 흐름](../images/2023-08-16-ash-17.png)
 
 위 그림과 같이 트랜잭션 1과 트랜잭션 3은 버전 충돌이 없어 티켓 예매에 성공하였지만, 트랜잭션 2는 트랜잭션 1에서 업데이트한 버전과 충돌이 생겨 update문이 성공적으로 수행되지 못하였다.
+
+<br>
 
 낙관적 락은 버전이 맞지 않은 경우에 대한 처리를 어플리케이션단에 맡긴다. 버전 충돌 문제로 티켓 예매 요청이 실패했을 때, 우리가 직접 예외를 잡아 재시도하는 코드를 작성해야함을 뜻한다.
 
@@ -447,11 +475,15 @@ public void ticketing(long ticketId) {
 
 이렇게 비관적 락을 통해 동시 예매에서 발생하는 문제상황을 해결할 수 있었다.
 
+<br>
+
 하지만 모든 상황에서 비관적 락이 효율적인 해결책인건 아니다.
 
 비관적 락은 싱글 DB 환경에만 적용가능하다. 분산 DB 환경에서는 동시성 제어의 효력을 잃는다.
 
 또한, 많은 대기 시간이 발생한다는 단점도 존재한다. 한 트랜잭션이 완료되기전까지 다른 트랜잭션들은 대기상태에 빠진다. 동시에 많은 요청이 들어왔을 때, 사실상 하나의 요청씩만 작업할 수 있으므로 요청의 수가 많아지면 대기시간이 길어진다.
+
+<br>
 
 나의 경우 싱글 DB 환경이고, 몇만건의 동시 요청이 예상되는 상황은 아니므로 위의 단점들이 치명적이진 않다고 판단했다. 따라서 간단하게 적용할 수 있으며 데이터의 정합성이 유지되는 방법인 비관적 락을 통한 해결책을 채택하였다.
 
