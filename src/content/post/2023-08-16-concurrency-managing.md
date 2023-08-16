@@ -103,13 +103,13 @@ void 티켓_순차적_예매_테스트() {
 }
 ```
 
-![순차 예매 테스트 실행 결과](../images/2023-08-16-ash-0.png)
+<img src="../images/2023-08-16-ash-0.png" alt="순차 예매 테스트 실행 결과" width="200">
 
 해당 테스트는 당연하게도 성공했다. 예상한 수량인 10장만 정확하게 예매되었다.
 
 티켓 예매 내역을 기록하는 Reservation 테이블을 조회해보니, 1~10번 티켓이 각각 한 장씩 예매된 것을 확인할 수 있었다.
 
-![순차 예매 테스트 DB](../images/2023-08-16-ash-1.png)
+<img src="../images/2023-08-16-ash-1.png" alt="순차 예매 테스트 DB" width="400">
 
 아주 성공적이다.
 
@@ -166,7 +166,7 @@ void 티켓_동시_예매_테스트() throws InterruptedException {
 
 정확히 10장의 티켓이 예매되는 것을 기대했으나, 테스트 결과는 그렇지 않았다.
 
-![동시 예매 테스트 실행 결과](../images/2023-08-16-ash-2.png)
+<img src="../images/2023-08-16-ash-2.png" alt="동시 예매 테스트 실행 결과" width="200">
 
 10장보다 적은 6장만 예매되었음을 확인할 수 있었다.
 
@@ -176,7 +176,7 @@ void 티켓_동시_예매_테스트() throws InterruptedException {
 
 출력문을 보니 아래와 같이 `Deadlock found when trying to get lock; try restarting transaction` 이라는 문구와 함께 SQL Error가 발생했음을 확인할 수 있었다.
 
-![동시 예매 테스트 데드락](../images/2023-08-16-ash-3.png)
+<img src="../images/2023-08-16-ash-3.png" alt="동시 예매 테스트 데드락" width="600">
 
 lock을 얻어오는 과정에서 Deadlock 즉, 교착상태가 발생했다. 나는 lock을 얻어오는 행위를 따로 하지 않았는데 왜 교착 상태가 발생했을까?
 
@@ -201,7 +201,7 @@ public class Reservation {
 }
 ```
 
-![DB ERD](../images/2023-08-16-ash-4.png)
+<img src="../images/2023-08-16-ash-4.png" alt="DB ERD" width="250">
 
 Reservation 엔티티에 Ticket 엔티티와의 연관관계를 설정해줌으로써, DB의 reservation 테이블에 외래키 칼럼 ticketId가 추가되었다.
 
@@ -229,7 +229,7 @@ Transaction 2 Rolled Back
 
 로그를 토대로 아래와 같이 교착상태가 걸리는 과정을 알 수 있었다.
 
-![교착 상태 과정](../images/2023-08-16-ash-5.png)
+<img src="../images/2023-08-16-ash-5.png" alt="교착 상태 과정" width="400">
 
 1. 트랜잭션 1이 id=1인 데이터에 S-lock을 얻었다.
 2. 트랜잭션 2가 id=1인 데이터에 S-lock을 얻었다.
@@ -268,7 +268,7 @@ public class Reservation {
 
 하지만 총 수량은 10장 뿐이지만, 30명의 사용자 모두 예매에 성공하는 결과가 발생했다.
 
-![연관관계 제거 후 테스트 실행 결과](../images/2023-08-16-ash-6.png)
+<img src="../images/2023-08-16-ash-6.png" alt="연관관계 제거 후 테스트 실행 결과" width="200">
 
 어떻게 티켓의 수량보다 많은 사용자가 티켓을 예매할 수 있었을까?
 
@@ -276,7 +276,7 @@ public class Reservation {
 
 DB의 reservation 테이블을 확인하니 그 이유를 알 수 있었다.
 
-![동시 실행 DB 결과](../images/2023-08-16-ash-7.png)
+<img src="../images/2023-08-16-ash-7.png" alt="동시 실행 DB 결과" width="300">
 
 1~10번 티켓이 각각 한 장씩 예매된게 아니라 1번티켓 10장, 2번티켓 9장, 3번티켓 9장, 4번티켓 2장이 예매되었다. 즉, 하나의 티켓이 여러 사용자에게 발급되는 문제가 발생했다.
 
@@ -286,13 +286,13 @@ DB의 reservation 테이블을 확인하니 그 이유를 알 수 있었다.
 
 ### 순차적 예매 실행 흐름
 
-![순차적 예매 실행 흐름](../images/2023-08-16-ash-8.png)
+<img src="../images/2023-08-16-ash-8.png" alt="순차적 예매 실행 흐름" width="500">
 
 순차적 예매시 위 그림과 같이 한 스레드의 작업이 끝난 후 다음 스레드에서의 작업이 시작되기 때문에 충돌이 일어나지 않는다.
 
 ### 동시 예매 실행 흐름
 
-![동시 예매 실행 흐름](../images/2023-08-16-ash-9.png)
+<img src="../images/2023-08-16-ash-9.png" alt="동시 예매 실행 흐름" width="500">
 
 순차적 예매와 달리, 동시 예매시 위 그림과 같이 한 스레드가 데이터를 읽고 이를 갱신하기 전, 다른 스레드에서 데이터를 읽어가 충돌이 발생한다. 이 이유로 여러개의 트랜잭션에서 동일한 티켓을 예매할 수 있었다.
 
@@ -323,7 +323,7 @@ public synchronized void ticketing(long ticketId) {
 }
 ```
 
-![synchronized 테스트 실행 결과](../images/2023-08-16-ash-10.png)
+<img src="../images/2023-08-16-ash-10.png" alt="synchronized 테스트 실행 결과" width="200">
 
 여전히 결과는 옳지 않았다. 요청이 순차적으로 진행되지 않고, 병렬적으로 진행되었다.
 
@@ -335,7 +335,7 @@ public synchronized void ticketing(long ticketId) {
 
 해당 프록시 객체는 원본 객체를 감싸며, 메서드 호출 전 후로 transaction begin, commit을 수행한다.
 
-![synchronized 실행 흐름](../images/2023-08-16-ash-11.png)
+<img src="../images/2023-08-16-ash-11.png" alt="synchronized 실행 흐름" width="500">
 
 여기서 프록시 객체에서 수행되는 transaction begin, commit 코드는 synchronized의 영향을 받지 않는다.
 
@@ -392,21 +392,21 @@ public class Ticket {
 
 DB의 Ticket 테이블에는 아래와 같이 version 칼럼이 추가되었다.
 
-![Ticket 테이블 version 칼럼](../images/2023-08-16-ash-12.png)
+<img src="../images/2023-08-16-ash-12.png" alt="Ticket 테이블 version 칼럼" width="500">
 
 이제 동시 예매 테스트를 실행해보자.
 
-![낙관적 락 테스트 실행 결과](../images/2023-08-16-ash-13.png)
+<img src="../images/2023-08-16-ash-13.png" alt="낙관적 락 테스트 실행 결과" width="200">
 
 결과는 여전히 실패이다. 여전히 10장이 아닌 5장만 예매되었다.
 
 하지만 resrvation 테이블을 조회하니, 락킹하지 않은 코드와 차이점을 발견할 수 있었다.
 
-![낙관적 락 테이블](../images/2023-08-16-ash-14.png)
+<img src="../images/2023-08-16-ash-14.png" alt="낙관적 락 테이블" width="400">
 
 한 티켓이 여러번 발급된 이전과 달리, 1~5번 티켓이 각각 한 장씩만 발급이되었다.
 
-![낙관적 락 100명 테스트 실행 결과](../images/2023-08-16-ash-15.png)
+<img src="../images/2023-08-16-ash-15.png" alt="낙관적 락 100명 테스트 실행 결과" width="200">
 
 사용자 수를 100명으로 늘리고 다시 테스트를 실행하니 10장이 다 발급되었다.
 
@@ -416,11 +416,11 @@ DB의 Ticket 테이블에는 아래와 같이 version 칼럼이 추가되었다.
 
 낙관적 락을 사용하면 아래와 같이 버전 정보가 update문의 조건으로 포함된다.
 
-![낙관적 락 query version](../images/2023-08-16-ash-16.png)
+<img src="../images/2023-08-16-ash-16.png" alt="낙관적 락 query version" width="250">
 
 일부 요청에서 데이터를 읽어왔을 때의 버전 정보와 현재 DB의 버전 정보가 일치하지 않아 요청에 실패한 것이다.
 
-![낙관적 락 version 흐름](../images/2023-08-16-ash-17.png)
+<img src="../images/2023-08-16-ash-17.png" alt="낙관적 락 version 흐름" width="500">
 
 위 그림과 같이 트랜잭션 1과 트랜잭션 3은 버전 충돌이 없어 티켓 예매에 성공하였지만, 트랜잭션 2는 트랜잭션 1에서 업데이트한 버전과 충돌이 생겨 update문이 성공적으로 수행되지 못하였다.
 
@@ -458,13 +458,13 @@ public void ticketing(long ticketId) {
 
 테스트 실행 결과 정확히 10장만 발급하는 데 성공했다.
 
-![비관적 락 테스트 실행 결과](../images/2023-08-16-ash-18.png)
+<img src="../images/2023-08-16-ash-18.png" alt="비관적 락 테스트 실행 결과" width="200">
 
-![비관적 락 테스트 실행 테이블](../images/2023-08-16-ash-19.png)
+<img src="../images/2023-08-16-ash-19.png" alt="비관적 락 테스트 실행 테이블" width="400">
 
 또한 출력 쿼리문에서 select for update문을 통해서 DB의 특정 row에 락을 거는 것을 확인할 수 있었다.
 
-![비관적 락 select for update](../images/2023-08-16-ash-20.png)
+<img src="../images/2023-08-16-ash-20.png" alt="비관적 락 select for update" width="250">
 
 이렇게 비관적 락을 통해 동시 예매에서 발생하는 문제상황을 해결할 수 있었다.
 
