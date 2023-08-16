@@ -3,7 +3,7 @@ layout: post
 title: '선착순 티켓 발급 동시성 해결하기'
 author: [5기_애쉬]
 tags: ['concurrency', 'lock']
-date: '2023-07-09T12:00:00.000Z'
+date: '2023-08-16T12:00:00.000Z'
 draft: false
 image: ../teaser/ash-concurrency.png
 ---
