@@ -281,7 +281,7 @@ Cascade는 개발편의성을 높일 수 있는 기술입니다. 하지만 이�
 
 ## 참고 자료
 
-https://www.baeldung.com/jpa-cascade-types
+[https://www.baeldung.com/jpa-cascade-types](https://www.baeldung.com/jpa-cascade-types)
 
 자바 ORM 표준 JPA 프로그래밍 - 김영한
 
