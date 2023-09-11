@@ -43,9 +43,10 @@ public void deletePost(Long postId) {
 > Cascade는 ‘폭포수가 흐르다’ 라는 사전적 의미를 갖고 있습니다.
 > 
 
-그리고 JPA에서는 총 6개의 Cascade Type을 지원하는데, 예제코드와 함께 하나씩 살펴보겠습니다. 
+그리고 JPA에서는 총 6개의 Cascade Type을 지원하는데, 예제코드와 함께 하나씩 살펴보겠습니다.
 
 편의를 위해 예제 코드에서 등장하는 Post, Comment 엔티티는 **1. 양방향 일대일(`@OneToOne`) 매핑으로 구성**되어 있고 **2. Post 엔티티에서 Cascade 옵션을 지정**하고 있다고 가정합니다.
+<img src="../images/2023-08-14-JPA_02.png">
 
 - **PERSIST**
 
@@ -154,9 +155,8 @@ entityManager.detach(post); // post, comment 모두 영속성 컨텍스트로부
 CascadeType.REMOVE 혹은 CascadeType.ALL 옵션을 잘못 사용하면 엔티티 삭제 시 연관된 엔티티들이 전부 삭제가 되기 때문에 참조 무결성 제약조건을 위반할 수도 있습니다. 
 
 > 참조 무결성 제약조건이란, 관계형 데이터베이스(RDB)에서 릴레이션(relation)은 참조할 수 없는 외래 키(foreign key)를 가져서는 안 된다는 조건을 의미합니다.
-
-이를 위반하는 경우 데이터의 모순이 발생하게 됩니다.
 > 
+> 이를 위반하는 경우 데이터의 모순이 발생하게 됩니다.
 
 예를 들어 아래와 같이 Comment와 Post가 다대일로 매핑이 된 상태이고 Comment 엔티티의 필드 post에 CascadeType.REMOVE를 지정한 상태라고 가정해보겠습니다.
 
