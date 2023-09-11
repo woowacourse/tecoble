@@ -10,7 +10,7 @@ image: ../teaser/chain.jpeg
 
 ## 들어가면서
 
-레벨 3 협업 프로젝트를 진행하면서 가장 많이 들었던 고민 중 하나는 `JPA Cascade를 언제 사용해야 하는가` 였습니다. **‘Cascade는 위험하니 조심해서 사용해야 한다!’**  와 같은 이야기도 많이 들었을뿐더러, 언제 어떻게 사용해야 할지 명확한 가이드라인을 찾기도 어려웠기 때문입니다. 따라서 이번 아티클에서 JPA Cascade에 대한 개념을 알아보고, 어떤 부분에서 위험하다고 일컬어지는 것인지까지 확인해 보도록 하겠습니다.
+레벨 3 협업 프로젝트를 진행하면서 가장 많이 들었던 고민 중 하나는 `JPA Cascade를 언제 사용해야 하는가` 였습니다. **‘Cascade는 위험하니 조심해서 사용해야 한다!’** 와 같은 이야기도 많이 들었을뿐더러, 언제 어떻게 사용해야 할지 명확한 가이드라인을 찾기도 어려웠기 때문입니다. 따라서 이번 아티클에서 JPA Cascade에 대한 개념을 알아보고, 어떤 부분에서 위험하다고 일컬어지는 것인지까지 확인해 보도록 하겠습니다.
 
 ## JPA Cascade란?
 
@@ -77,7 +77,7 @@ entityManager.persist(post);
 entityManager.persist(comment);
 
 entityManger.flush(); 
-entityManger.clear();
+entityManger.clear(); // 영속성 컨텍스트로부터 분리
 
 post.setTitle("this is changed post");
 comment.setValue("this is changed comment");
@@ -92,6 +92,8 @@ entityManager.merge(post); // post, comment 모두 변경사항 반영
 ```java
 Post post = new Post("this is post");
 Comment comment = new Comment("this is comment");
+
+post.addComment(comment);
 
 entityManager.persist(post);
 entityManager.persist(comment);
@@ -234,8 +236,8 @@ void bidirectional_bad_case() {
     commentRepository.delete(comment1);
     postRepository.save(post);
 
-    assertThat(entityManager.contains(comment1)).isTrue();
-}
+    assertThat(commentRepository.existsById(comment1.getId())).isTrue();
+  }
 ```
 
 이상하게 `commentRepository.delete(comment1)` 을 호출했음에도 삭제가 되지 않는 모습을 확인할 수 있습니다. `delete` 를 호출해 comment1이 삭제된 상태에서 post를 `save` 하니 다시 comment1 값이 복원된 것입니다. 
@@ -265,8 +267,8 @@ void bidirectional_good_case() {
     commentRepository.delete(comment1);
     postRepository.save(post);
 
-    assertThat(entityManager.contains(comment1)).isFalse();
-}
+    assertThat(commentRepository.existsById(comment1.getId())).isFalse();
+  }
 ```
 
 이는 비단 CascadeType.PERSIST만의 문제는 아니며, 다른 CascadeType을 사용하면서 양방향 연관관계 매핑을 적용하는 경우에는 항상 염두에 둬야 하는 부분입니다.
@@ -277,7 +279,7 @@ Cascade는 엔티티 간 관계가 명확할 때 사용하는 것을 추천드�
 
 ‘게시물’과 ‘댓글’의 관계처럼 부모 - 자식 구조가 명확하다면 Cascade를 사용하는 것은 괜찮은 선택입니다. 하지만 하나의 자식에 여러 부모가 대응되는 경우(‘학생’과 ‘수강 중인 수업’의 관계 등)에는 사용하지 않는 것이 좋습니다. 
 
-추가로, ‘이 엔티티들이 유일한 부모 - 자식 관계인가?’ 를 고민할 때는 미래의 상황까지 고려해야 합니다.  현재는 단 하나의 부모에 속하는 엔티티라고 해도 이후에 여러 부모에 속하도록 변경될 수도 있기 때문입니다. 
+추가로, ‘이 엔티티들이 유일한 부모 - 자식 관계인가?’ 를 고민할 때는 미래의 상황까지 고려해야 합니다. 현재는 단 하나의 부모에 속하는 엔티티라고 해도 이후에 여러 부모에 속하도록 변경될 수도 있기 때문입니다. 
 
 Cascade는 개발 편의성을 높일 수 있는 기술입니다. 하지만 이를 오용하는 경우 데이터 정합성을 깨뜨릴 수 있을뿐더러 최악의 경우에는 데이터 손실까지 발생하게 됩니다. 따라서 비즈니스, 도메인에 맞춰 유의해서 사용하시는 것을 권장합니다.
 
