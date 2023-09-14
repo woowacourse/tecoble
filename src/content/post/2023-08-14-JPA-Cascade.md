@@ -14,9 +14,9 @@ JPA를 사용한 개발을 진행하면서 가장 많이 들었던 고민 중 �
 
 ## JPA Cascade란?
 
-어떤 JPA 엔티티는 다른 엔티티의 존재에 깊게 연관되어 있기도 합니다. 가장 대표적인 예시로는 ‘댓글’과 ‘게시물’의 관계가 있습니다. ‘댓글’ 엔티티는 ‘게시물’ 엔티티가 없다면 존재 의의가 없기 때문입니다. 
+어떤 JPA 엔티티는 다른 엔티티의 존재에 깊게 연관되어 있기도 합니다. 가장 대표적인 예시로는 ‘댓글’과 ‘게시물’의 관계가 있습니다. ‘댓글’ 엔티티는 ‘게시물’ 엔티티가 없다면 존재 의의가 없기 때문입니다.  
 
-가령 게시판 어플리케이션을 만들어 본다고 가정해 봅시다. 게시물을 삭제하는 비즈니스 로직은 어떻게 작성할 수 있을까요?
+게시판 어플리케이션을 만들어 본다고 가정해 봅시다. 게시물을 삭제하는 비즈니스 로직은 어떻게 작성할 수 있을까요?
 
 ```java
 // PostService.java
@@ -47,12 +47,51 @@ public void deletePost(Long postId) {
 
 JPA에서는 총 6개의 Cascade Type을 지원하는데, 예제 코드와 함께 하나씩 살펴보겠습니다.
 
-편의를 위해 예제 코드에서 등장하는 Post, Comment 엔티티는 **1. 일대다(`@OneToMany`) 매핑으로 구성**되어 있고 **2. Post 엔티티에서 Cascade 옵션을 지정**하고 있다고 가정합니다.
-<img src="../images/2023-08-14-JPA_02.png">
+예제 코드에서 사용하는 엔티티는 앞서 설명드렸던 '게시물(Post)'과 '댓글(Comment)'이며, 실습 환경은 다음과 같습니다. Post 엔티티의 물음표로 표시된 부분을 바꿔가면서 실습을 진행할 예정입니다.
+
+- Post 엔티티
+```java
+@Entity
+public class Post {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String title;
+
+    @OneToMany(mappedBy = "post", cascade = ?) 
+    private List<Comment> comments = new ArrayList<>();
+   
+    // 생성자 생략
+  
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+  ...
+}
+```
+- Comment 엔티티
+```java
+@Entity
+public class Comment {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String value;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+    ...
+}
+```
 
 ### 1. **PERSIST**
 
-엔티티를 영속화할 때, 연관된 엔티티도 함께 영속화합니다.
+먼저 PERSIST 옵션을 살펴보도록 하겠습니다. 이는 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 옵션입니다. 
 
 ```java
 Post post = new Post();
@@ -65,7 +104,7 @@ entityManger.persist(post); // post, comment 둘 다 영속화
 
 ### 2. **MERGE**
 
-엔티티 상태를 병합할 때, 연관된 엔티티도 함께 병합합니다. 쉽게 말해서 수정사항을 반영하는 작업을 전파하겠다는 의미입니다.
+엔티티 상태를 병합할 때 연관된 엔티티도 함께 병합하는 옵션입니다. 
 
 ```java
 Post post = new Post("this is post");
@@ -76,8 +115,8 @@ post.addComment(comment);
 entityManager.persist(post);
 entityManager.persist(comment);
 
-entityManger.flush(); 
-entityManger.clear(); // 영속성 컨텍스트로부터 분리
+entityManager.flush(); 
+entityManager.clear(); // 영속성 컨텍스트로부터 분리
 
 post.setTitle("this is changed post");
 comment.setValue("this is changed comment");
@@ -87,11 +126,11 @@ entityManager.merge(post); // post, comment 모두 변경사항 반영
 
 ### 3. **REMOVE**
 
-엔티티를 제거할 때, 연관된 엔티티들도 함께 제거합니다. 
+엔티티를 제거할 때 연관된 엔티티들도 함께 제거합니다. 
 
 ```java
-Post post = new Post("this is post");
-Comment comment = new Comment("this is comment");
+Post post = new Post();
+Comment comment = new Comment();
 
 post.addComment(comment);
 
