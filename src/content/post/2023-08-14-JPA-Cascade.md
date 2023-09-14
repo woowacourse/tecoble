@@ -219,7 +219,7 @@ public class Comment {
 
 ```java
 @Test
-void ManyToOne_REMOVE() {
+void remove_bad_case() {
     Post post = new Post();
     Comment comment1 = new Comment();
     Comment comment2 = new Comment();
