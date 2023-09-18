@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '선착순 티켓 발급 동시성 해결하기'
+title: '선착순 티켓 예매의 동시성 문제: 잠금으로 안전하게 처리하기'
 author: [5기_애쉬]
 tags: ['concurrency', 'lock']
 date: '2023-08-16T12:00:00.000Z'
@@ -243,7 +243,7 @@ Transaction 2 Rolled Back
 
 실제로 교착 상태의 위험성 때문에 외래 키를 사용할 때는 신중해야 한다.
 
-교착 상태의 문제를 해결하기 위해 Ticket과 Reservation의 연관관계를 없애주었다.
+교착 상태의 문제를 해결하기 위해 Ticket과 Reservation간의 외래 키 관계를 제거했다.
 
 ```java
 @Entity
