@@ -494,17 +494,7 @@ public void ticketing(long ticketId) {
 
 ### 참고 자료
 
-[https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html](https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html)
-
-[트랜잭션]
-
-[https://tecoble.techcourse.co.kr/post/2021-07-11-database-transaction/](https://tecoble.techcourse.co.kr/post/2021-07-11-database-transaction/)
-
-[낙관적 락과 비관적 락]
-
-[https://www.baeldung.com/jpa-optimistic-locking](https://www.baeldung.com/jpa-optimistic-locking)
-[https://www.baeldung.com/jpa-pessimistic-locking](https://www.baeldung.com/jpa-pessimistic-locking)
-
-[공유락(S-lock)과 배타락(X-lock)]
-
-[https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
+- [15.7.3 Locks Set by Different SQL Statements in InnoDB | Mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html)
+- [데이터베이스 트랜잭션 | 테코블](https://tecoble.techcourse.co.kr/post/2021-07-11-database-transaction/)
+- [낙관적 잠금과 비관적 잠금 | Baeldung](https://www.baeldung.com/jpa-pessimistic-locking)
+- [공유 잠금(S-lock)과 배타적 잠금(X-lock) | Mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
