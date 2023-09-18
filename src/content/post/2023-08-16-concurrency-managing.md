@@ -329,7 +329,7 @@ public synchronized void ticketing(long ticketId) {
 
 여전히 결과는 옳지 않았다. 요청이 순차적으로 진행되지 않고, 병렬적으로 진행되었다.
 
-이는 @Transactional 키워드와 synchronized 키워드를 동시에 사용했기 때문이다.
+@Transactional 키워드와 synchronized 키워드를 동시에 사용하면 어떤 문제가 발생하는 것일까?
 
 <br>
 
