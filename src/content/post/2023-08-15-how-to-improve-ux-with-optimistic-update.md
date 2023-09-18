@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '낙관적 업데이트로 사용자 경험을 개선해보자!'
-tags: ['tanstack-query', 'optimistic-update', 'optimistic-UI']
+tags: ['TanStack Query', 'optimistic-update', 'optimistic-UI']
 author: [5기_제로]
 date: '2023-08-15T13:10:00.000Z'
 draft: false
@@ -68,19 +68,18 @@ VoTogether(보투게더)라는 투표 중심의 커뮤니티 서비스를 만들
 
 사용자는 UI가 업데이트되기를 몇 초간 기다려야 하는데, 이러한 기다림은 사용자 경험을 저하할 수 있다고 생각했습니다.
 
-VoTogether 팀은 서버 데이터로 UI를 업데이트하는 경우가 많았기 때문에 `tanstack-query`나 `swr` 같은 서버 상태 관리 라이브러리를 도입하였고, `tanstack-query`가 제공하는 메서드 중 `useMutation`(onMutate, onError, onSettled)을 이용하여 '낙관적 업데이트'를 구현하기로 하였습니다.
+VoTogether 팀은 서버 데이터로 UI를 업데이트하는 경우가 많았기 때문에 `TanStack Query`나 `swr` 같은 서버 상태 관리 라이브러리를 도입하였고, `TanStack Query`가 제공하는 메서드 중 `useMutation`(onMutate, onError, onSettled)을 이용하여 '낙관적 업데이트'를 구현하기로 하였습니다.
 
-`tanstack-query`를 사용하지 않고도 낙관적 업데이트를 구현할 수는 있지만, VoTogether 팀은 서버 상태에 대한 관리를 `tanstack-query`를 이용하고 있기에 [공식 문서](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates)의 설명을 참고하여 낙관적 업데이트를 구현해 보았습니다!
+`TanStack Query`를 사용하지 않고도 낙관적 업데이트를 구현할 수는 있지만, VoTogether 팀은 서버 상태에 대한 관리를 `TanStack Query`를 이용하고 있기에 [공식 문서](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates)의 설명을 참고하여 낙관적 업데이트를 구현해 보았습니다!
 
 ## 상태 관리 라이브러리 없이 구현하기
 
-먼저 `tanstack-query` 를 사용하지 않고, react의 `setState(useState)`으로만 투표 선택지 수정 기능을 구현해 봅시다.
+먼저 `TanStack Query` 를 사용하지 않고, react의 `setState(useState)`으로만 투표 선택지 수정 기능을 구현해 봅시다.
 
 - 투표 선택지 컴포넌트(VoteOptionList.tsx, styled-components 코드는 생략됨)
 
 ```tsx
 import React from 'react';
-import styled from 'styled-components';
 
 interface Props {
   options: string[];
@@ -141,7 +140,6 @@ export default function VoteOptionList({ options, selectedOption, onChange }: Pr
 
 ```tsx
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import VoteOptionList from './VoteOptionList';
 
 function App() {
@@ -189,9 +187,9 @@ const handleOptionClick = async (option: string) => {
 
 자세한 코드는 [링크](https://codesandbox.io/p/sandbox/xenodochial-hertz-pmllqg?file=%2Fsrc%2FApp.tsx%3A7%2C35)에서 참고할 수 있습니다.
 
-## tanstack-query로 구현하기
+## TanStack Query로 구현하기
 
-이제 `tanstack-query`를 이용하여 선택지 수정 기능에 대한 낙관적 업데이트를 구현해 봅시다.
+이제 `TanStack Query`를 이용하여 선택지 수정 기능에 대한 낙관적 업데이트를 구현해 봅시다.
 
 - useEditVote.ts
 
@@ -264,9 +262,12 @@ export default function VoteOptionList({
 
 자세한 코드는 [링크](https://codesandbox.io/p/sandbox/intelligent-gates-f999p3?file=%2Fsrc%2FVoteOptionList.tsx%3A26%2C1)에서 참고할 수 있습니다.
 
-<img width="700px" height="268px" src="./../images/2023-08-15-image4-tanstack-query-documentation.png" />
+`TanStack Query`의 [공식 문서](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates)는 어떠한 매커니즘으로 낙관적 업데이트를 구현하는지 아래와 같이 설명하고 있습니다.
 
-`tanstack-query`의 [공식 문서](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates)는 어떠한 매커니즘으로 낙관적 업데이트를 구현하는지, 예시 코드와 함께 상세히 설명하고 있습니다.
+> 낙관적으로 상태를 업데이트한 후 변경 작업을 수행할 때, 변경 작업이 실패할 가능성이 있습니다. 이러한 실패 케이스 대부분에서는 낙관적인 쿼리를 다시 가져와서 실제 서버 상태로 되돌릴 수 있습니다. 그러나 어떤 상황에서는 다시 가져오기가 올바르게 작동하지 않을 수 있으며, 변경 작업 오류가 다시 가져오기가 불가능한 종류의 서버 문제를 나타낼 수 있습니다. 이 경우에는 대신 업데이트를 롤백할 수 있습니다.
+이를 위해 `useMutation`의 `onMutate` 핸들러 옵션을 사용하여 나중에 오류 및 `onSettled` 핸들러로 전달될 값을 반환할 수 있습니다. 대부분의 경우 롤백 함수를 전달하는 것이 가장 유용합니다.
+
+이러한 업데이트 및 롤백에 대한 자세한 코드는, 이 [예시 코드](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates#updating-a-list-of-todos-when-adding-a-new-todo)에서 확인하실 수 있습니다.
 
 ### 서버의 응답이 성공한 경우
 
@@ -290,7 +291,7 @@ onError: (error, _, context) => {
 },
 ```
 
-`tanstack-query`에서 진행되는 낙관적 업데이트는 흐름도는 아래와 같습니다.
+`TanStack Query`에서 진행되는 낙관적 업데이트는 흐름도는 아래와 같습니다.
 
 <img width="700px" height="392px" src="./../images/2023-08-15-image5-optimistic-update-flow.png" />
 
@@ -330,7 +331,7 @@ onError: (error, _, context) => {
 
 낙관적 업데이트는 사용자 경험을 개선하고 더 빠른 애플리케이션 응답을 제공하기 위한 좋은 전략 중 하나입니다.
 
-`tanstack-query`는 낙관적 업데이트 기능을 제공하고 있고, 이러한 기능을 라이브러리 없이 직접 구현해 보는 것도 좋은 학습이 될 것이라 생각합니다!
+`TanStack Query`는 낙관적 업데이트 기능을 제공하고 있고, 이러한 기능을 라이브러리 없이 직접 구현해 보는 것도 좋은 학습이 될 것이라 생각합니다!
 
 나아가 낙관적 업데이트는 데이터의 종류를 고려해 보고 신중하게 구현해야 합니다. 만약 꼭 필요한 경우라면, 서버 응답 실패의 경우에도 오류 메시지를 사용자에게 보여주는 등 적절한 대처가 필요합니다.
 
