@@ -213,7 +213,11 @@ Reservation 엔티티에 Ticket 엔티티와의 연관관계를 설정해줌으�
 
 > If a `FOREIGN KEY` constraint is defined on a table, any insert, update, or delete that requires the constraint condition to be checked sets shared record-level locks on the records that it looks at to check the constraint. `InnoDB` also sets these locks in the case where the constraint fails.
 
-즉, 외래 키 제약 조건이 있는 테이블에서 레코드를 삽입, 갱신, 삭제할 때 해당 제약 조건을 위반하는지 확인하기 위해 관련된 레코드들에 S-lock을 설정한다는 뜻이다.
+즉, 외래 키 제약 조건이 있는 테이블에서 레코드를 삽입, 갱신, 삭제할 때 해당 제약 조건을 위반하는지 확인하기 위해 관련된 레코드들에 공유 잠금(S lock)을 설정한다는 뜻이다.
+
+공유 잠금이란 다른 트랜잭션의 데이터 변경을 막고 데이터 일관성을 유지하는 잠금 유형이다. 여러 트랜잭션이 동시에 공유 잠금을 얻을 수 있다. 그러나 공유 잠금을 설정한 트랜잭션이 있을 때, 다른 트랜잭션은 해당 데이터에 대해 배타적 잠금(X lock)을 얻지 못한다.
+
+배타적 잠금은 한 번에 하나의 트랜잭션만이 특정 데이터에 대한 쓰기 작업을 수행할 수 있도록 하는 잠금 유형이다. 다른 트랜잭션들은 쓰기 작업이 끝날 때까지 대기해야 하며, 이를 통해 데이터 충돌 문제를 방지한다.
 
 <br>
 
@@ -233,10 +237,10 @@ Transaction 2 Rolled Back
 
 <img src="../images/2023-08-16-ash-5.png" alt="교착 상태 과정" width="400">
 
-1. 트랜잭션 1이 id=1인 데이터에 S-lock을 얻었다.
-2. 트랜잭션 2가 id=1인 데이터에 S-lock을 얻었다.
-3. 트랜잭션 1이 id=1인 데이터에 X-lock을 얻고싶지만, 트랜잭션 2에서 해당 데이터에 S-lock을 걸어두었기 때문에 대기한다.
-4. 트랜잭션 2가 id=1인 데이터에 X-lock을 얻고싶지만, 트랜잭션 1에서 해당 데이터에 S-lock을 걸어두었기 때문에 대기한다.
+1. 트랜잭션 1이 id=1인 데이터에 공유 잠금을 얻었다.
+2. 트랜잭션 2가 id=1인 데이터에 공유 잠금을 얻었다.
+3. 트랜잭션 1이 id=1인 데이터에 배타적 잠금을 얻고싶지만, 트랜잭션 2에서 해당 데이터에 공유 잠금을 걸어두었기 때문에 대기한다.
+4. 트랜잭션 2가 id=1인 데이터에 배타적 잠금을 얻고싶지만, 트랜잭션 1에서 해당 데이터에 공유 잠금을 걸어두었기 때문에 대기한다.
 5. 무한 대기상태에 빠진다. 즉, 교착 상태가 발생한다.
 
 ### 연관관계 제거
@@ -497,4 +501,4 @@ public void ticketing(long ticketId) {
 - [15.7.3 Locks Set by Different SQL Statements in InnoDB | Mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locks-set.html)
 - [데이터베이스 트랜잭션 | 테코블](https://tecoble.techcourse.co.kr/post/2021-07-11-database-transaction/)
 - [낙관적 잠금과 비관적 잠금 | Baeldung](https://www.baeldung.com/jpa-pessimistic-locking)
-- [공유 잠금(S-lock)과 배타적 잠금(X-lock) | Mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
+- [공유 잠금(S lock)과 배타적 잠금(X lock) | Mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
