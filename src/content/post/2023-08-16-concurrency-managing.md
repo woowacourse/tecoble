@@ -444,7 +444,7 @@ reservation 테이블을 조회하니, 잠금을 걸지 않은 코드와 차이�
 
 그러면 이제 비관적 잠금을 통해 해결해 보자.
 
-아래와 같은 방법으로 비관적 잠금을 적용해 보았다. 여기서 PESSIMISTIC_WRITE는 X-lock을 건다는 뜻인데, 우리는 Ticket의 reservedAmount를 갱신해줘야 하기 때문에 X-lock을 걸었다.
+아래와 같은 방법으로 비관적 잠금을 적용해 보았다. 우리는 Ticket의 reservedAmount를 갱신해줘야 하기 때문에 PESSIMISTIC_WRITE 즉, 배타적 잠금을 걸었다.
 
 ```java
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
