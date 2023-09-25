@@ -62,7 +62,7 @@ image: ../teaser/how-to-improve-ux-with-optimistic-update.png
 
 ### 커뮤니티/SNS 서비스 속 낙관적 업데이트
 
-VoTogether(보투게더)라는 투표 중심의 커뮤니티 서비스를 만들면서, **투표 선택지 수정 기능과 댓글 수정** **기능**을 구현해야 했습니다.
+[VoTogether(보투게더)](https://votogether.com)라는 투표 중심의 커뮤니티 서비스를 만들면서, **투표 선택지 수정 기능과 댓글 수정** **기능**을 구현해야 했습니다.
 
 그런데 투표 선택지 수정 및 댓글 수정 API 요청을 한 뒤, 이에 대한 응답이 성공적으로 오기 전까지는 사용자가 바라보는 UI가 즉각적으로 수정되지 않았습니다.
 
@@ -217,12 +217,12 @@ export const useEditVote = (postId: string) => {
   const { mutate, isLoading, isError, error } = useMutation(
     (newOption: string) => updateSelectedOptionApi(newOption),
     {
-      onMutate: async () => {
+      onMutate: async (newOption: string) => {
         // 선택지 데이터에 대한 모든 퀴리요청을 취소하여 이전 서버 데이터가 낙관적 업데이트를 덮어쓰지 않도록 함 -> refetch 취소시킴
         await queryClient.cancelQueries(queryKey);
 
         const prevOption = queryClient.getQueryData(queryKey); // 기존 선택지 데이터의 snapshot
-        queryClient.setQueryData(queryKey, prevOption); // 낙관적 업데이트 실시
+        queryClient.setQueryData(queryKey, newOption); // 새로운 선택지 데이터로 낙관적 업데이트 실시
 
         return { prevOption }; // context를 return, context 예시에는 이전 스냅샷, 새로운 값(또는 롤백하는 함수)이 있음
       },
@@ -301,7 +301,7 @@ onError: (error, _, context) => {
 
 <img width="700px" height="210px" src="./../images/2023-08-15-image6-optimistic-updated-example.png" />
 
-위 이미지의 **메시지 전송, 좋아요, 찜, 투두리스트 체크, 장바구니 담기, 게시글 비공개, 파일 업로드, 북마크** 등은 모두, 낙관적 업데이트가 필요한 기능들입니다.
+위 이미지의 **메시지 전송, 좋아요, 즐겨찾기, 투두리스트 체크, 장바구니 담기, 게시글 비공개, 파일 업로드, 북마크** 등은 모두, 낙관적 업데이트가 필요한 기능들입니다.
 
 이러한 기능들의 공통점은, 모두 **기존의 데이터에 업데이트(mutate)를 일으킨다**는 점입니다. 사용자의 동작에 따라 발생한 데이터 업데이트는, 지연 시간(latency) 없이 즉각적인 피드백을 화면에 띄워야 사용자 만족도를 높일 수 있습니다.
 
