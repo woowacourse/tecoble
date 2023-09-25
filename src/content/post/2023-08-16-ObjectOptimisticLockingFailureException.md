@@ -8,9 +8,26 @@ draft: false
 image: ../teaser/object-optimistic-locking-failure-exception.jpg
 ---
 
+안녕하세요. 우아한테크코스 5기 BE 연어입니다.
+팀 프로젝트에서 열심히 `요즘카페`라는 서비스를 만들고 있습니다.
+
+[요즘카페](https://yozm.cafe)는 스크롤 내리면서 성수동의 카페들을 하나씩 볼 수 있는 **숏폼** 형식의 서비스입니다.
+최근에 무한 스크롤 기능도 추가했는데 예상치 못한 동시성 문제를 맞닥뜨렸는데요.
+
+이 글에서는 `ObjectOptimisticLockingFailureException`이 왜 발생했고, 관련 개념들과 해결 방법에 대해서 다뤄보고자 합니다.
+
+목차는 아래의 순서와 같습니다.
+
+- 문제 발생
+- 배경 설명
+- Entity Manager
+- DB Isolation Level
+- 문제 원인
+- 해결 방안
+- 정리
+
 ## 문제 발생
 
-저희 서비스 [요즘카페](https://yozm.cafe)는 스크롤 내리면서 성수동의 카페들을 하나씩 볼 수 있는 **숏폼** 형식의 서비스입니다.
 평소처럼 선릉 캠퍼스에 도착해서 로그를 보고 있었습니다.
 
 <img src="../images/2023-08-16-object-optimistic-locking-failure-exception.png" width="800" height="130">
