@@ -5,7 +5,7 @@ author: [5기_연어]
 tags: ['transaction', 'transactional']
 date: '2023-08-16T12:00:00.000Z'
 draft: false
-image: ../teaser/object-optimistic-locking-failure-exception.png
+image: ../teaser/object-optimistic-locking-failure-exception.jpg
 ---
 
 ## 문제 발생
