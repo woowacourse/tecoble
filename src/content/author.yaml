@@ -350,3 +350,10 @@
   website: https://github.com/guridaek
   location: Seoul
   profile_image: profile/karam.jpg
+- id: 5기_이레
+  avatar: avatars/irae.png
+  bio: 우아한테크코스 5기 이레(이다형)입니다 :)
+  github: zillionme
+  website: https://github.com/zillionme
+  location: Seoul
+  profile_image: profile/irae.png
