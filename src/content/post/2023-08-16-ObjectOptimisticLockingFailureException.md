@@ -43,8 +43,8 @@ image: ../teaser/object-optimistic-locking-failure-exception.jpg
 ### 문제가 발생하는 행동
 
 - 로그인을 한 상태에서 스크롤을 엄청 빠르게 내리면
-- 로그에는 위와 같이 예외가 발생해 있고
-- 사용자가 스크롤을 내려도 계속 똑같은 카페 화면이 보인다
+- 로그에는 위와 같이 `ObjectOptimisticLockingFailureException`이 발생해있고
+- 스크롤을 내려도 계속 똑같은 카페 화면이 보인다
 
 **왜 문제가 발생했을까요…?**
 
