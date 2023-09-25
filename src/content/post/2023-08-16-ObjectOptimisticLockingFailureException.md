@@ -1,8 +1,8 @@
 ---
 layout: post
-title: '@Transactional과 Repeatable Read 그리고 ObjectOptimisticLockingFailureException'
+title: '무한스크롤 기능에서 동시성 이슈 해결하기'
 author: [5기_연어]
-tags: ['transaction', 'transactional']
+tags: ['concurrency', 'transaction', 'transactional']
 date: '2023-08-16T12:00:00.000Z'
 draft: false
 image: ../teaser/object-optimistic-locking-failure-exception.jpg
