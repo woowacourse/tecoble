@@ -350,6 +350,13 @@
   website: https://github.com/guridaek
   location: Seoul
   profile_image: profile/karam.jpg
+- id: 5기_애쉬
+  avatar: avatars/ash.png
+  bio: 우아한테크코스 5기 애쉬(정설희)입니다 :)
+  github: xxeol2
+  website: https://github.com/xxeol2
+  location: Seoul
+  profile_image: profile/ash.jpeg
 - id: 5기_이레
   avatar: avatars/irae.png
   bio: 우아한테크코스 5기 이레(이다형)입니다 :)
