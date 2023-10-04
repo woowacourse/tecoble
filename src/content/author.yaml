@@ -357,3 +357,11 @@
   website: https://github.com/xxeol2
   location: Seoul
   profile_image: profile/ash.jpeg
+- id: 5기_폴로
+  avatar: avatars/polo.png
+  bio: 우아한테크코스 5기 폴로(이동훈)입니다 :)
+  github: green-kong
+  website: https://github.com/green-kong
+  location: Seoul
+  profile_image: profile/polo.jpg
+

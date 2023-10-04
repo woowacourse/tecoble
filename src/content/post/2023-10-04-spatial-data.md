@@ -1,3 +1,12 @@
+---
+layout: post
+title: 'JPA로 MySql의 공간인덱스 활용'
+author: [5기_폴로]
+tags: ['JPA', 'MYSQL', 'INDEX']
+date: '2023-10-04T12:00:00.000Z'
+draft: false
+image: ../teaser/spatial-data.png
+---
 
 # 들어가며
 
