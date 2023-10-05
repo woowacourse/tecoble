@@ -364,3 +364,10 @@
   website: https://github.com/zillionme
   location: Seoul
   profile_image: profile/irae.png
+- id: 5기_제로
+  avartar: avatars/jero.jpg
+  bio: 우아한테크코스 5기 제로(강인영)입니다 :)
+  github: inyeong-kang
+  website: https://github.com/inyeong-kang
+  location: Seoul
+  profile_image: profile/jero.jpg
