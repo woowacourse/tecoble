@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference types="@emotion/react/types/css-prop" />
+
 type CSSModule = Record<string, string>;
 
 // type shims for CSS modules
