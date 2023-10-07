@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import _ from 'lodash';
 import { lighten } from 'polished';
 import React from 'react';
@@ -36,11 +36,12 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
       {frontmatter.image && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={fields.slug}>
           <PostCardImage className="post-card-image">
-            {frontmatter?.image?.childImageSharp?.fluid && (
-              <Img
+            {frontmatter?.image && (
+              <GatsbyImage
+                image={getImage(post.frontmatter.image)!}
                 alt={`${post.frontmatter.title} cover image`}
                 style={{ height: '100%' }}
-                fluid={post.frontmatter.image.childImageSharp.fluid}
+                loading={large ? 'eager' : 'lazy'}
               />
             )}
           </PostCardImage>

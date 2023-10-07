@@ -59,7 +59,7 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
 };
 
 export const pageQuery = graphql`
-  query {
+  {
     allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
@@ -70,9 +70,7 @@ export const pageQuery = graphql`
             tags
             image {
               childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             author {
@@ -81,9 +79,7 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                   }
                 }
               }
