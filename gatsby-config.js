@@ -21,6 +21,7 @@ module.exports = {
     },
 
     'gatsby-plugin-sitemap',
+    'gatsby-plugin-image',
     {
       resolve: 'gatsby-plugin-sharp',
       options: {
@@ -38,7 +39,6 @@ module.exports = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        "excerpt_separator": `<!-- end -->`,
         plugins: [
           {
             resolve: 'gatsby-remark-responsive-iframe',
@@ -49,7 +49,6 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
-          'gatsby-remark-abbr',
           {
             resolve: 'gatsby-remark-images',
             options: {
@@ -71,7 +70,59 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-feed',
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) =>
+              allMarkdownRemark.edges.map(edge => ({
+                ...edge.node.frontmatter,
+                description: edge.node.excerpt,
+                date: edge.node.frontmatter.date,
+                url: `${site.siteMetadata.siteUrl}${edge.node.fields.slug}`,
+                guid: `${site.siteMetadata.siteUrl}${edge.node.fields.slug}`,
+                custom_elements: [{ 'content:encoded': edge.node.html }],
+              })),
+            query: `
+              {
+                allMarkdownRemark(
+                  filter: { frontmatter: { draft: { ne: true } } }
+                  sort: { frontmatter: { date: DESC } }
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { slug }
+                      frontmatter {
+                        title
+                        date
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: "Tecoble",
+            match: '^/blog/',
+          },
+        ],
+      },
+    },
     {
       resolve: 'gatsby-plugin-postcss',
       options: {
