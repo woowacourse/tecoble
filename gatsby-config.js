@@ -8,7 +8,7 @@ module.exports = {
     siteUrl: 'https://tecoble.techcourse.co.kr',
   },
   mapping: {
-    'MarkdownRemark.frontmatter.author': 'AuthorYaml',
+    'MarkdownRemark.frontmatter.author': 'AuthorYaml.name',
   },
   plugins: [
     {
