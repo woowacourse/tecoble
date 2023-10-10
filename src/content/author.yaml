@@ -371,3 +371,17 @@
   website: https://github.com/inyeong-kang
   location: Seoul
   profile_image: profile/jero.jpg
+- id: 5기_연어
+  avatar: avatars/salmon.png
+  bio: 우아한테크코스 5기 연어를 좋아하는 연어(황재현)입니다 😃
+  github: nuyh99
+  website: https://github.com/nuyh99
+  location: Busan
+  profile_image: profile/salmon.jpg
+- id: 5기_무민
+  avatar: avatars/moomin.png
+  bio: 끊임없이 생각하고 나아가는 개발자 무민(박무현)입니다
+  github: parkmuhyeun
+  website: https://github.com/parkmuhyeun
+  location: Seoul
+  profile_image: profile/moomin.png
