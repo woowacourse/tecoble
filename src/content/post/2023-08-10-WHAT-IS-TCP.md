@@ -3,7 +3,7 @@ layout: post
 title: '전송 제어 프로토콜이란?'
 author: [5기_로이]
 tags: ['Network']
-date: '2023-08-10T12:00:00.000Z'
+date: '2023-10-11T11:00:00.000Z'
 draft: false
 image: ../teaser/roy_teaser.png
 ---
