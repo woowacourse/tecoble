@@ -378,3 +378,10 @@
   website: https://github.com/the9kim
   location: Seoul
   profile_image: profile/roy_profile.JPG
+- id: 5기_센트
+  avatar: avatars/scent.jpeg
+  bio: 우아한테크코스 5기 센트(김영우)입니다 :)
+  github: kyw0716
+  website: https://velog.io/@kyw0716
+  location: Seoul
+  profile_image: profile/scent.jpg
