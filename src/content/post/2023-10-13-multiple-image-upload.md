@@ -22,7 +22,7 @@ image: ../teaser/multiple-image-upload.png
 
 클래스의 구조와 전체적인 코드의 흐름은 아래와 같다.
 
-<img src="../img/multiple-image-upload/클래스 구조도.png" width="500">
+<img src="../img/multiple-image-upload/클래스 구조도.png" width="700">
 <br>
 - `PostFacadeService`는 전체 이미지 파일 업로드를 `ImageStorageService`에 요청한다.
 - `ImageStorageService`는 각 이미지 파일 업로드를 `StorageClient`에 요청한다.
