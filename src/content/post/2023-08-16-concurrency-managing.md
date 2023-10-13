@@ -436,9 +436,70 @@ reservation 테이블을 조회하니, 잠금을 걸지 않은 코드와 차이�
 
 <br>
 
-낙관적 잠금은 버전이 맞지 않은 경우에 대한 처리를 어플리케이션단에 맡긴다. 버전 충돌 문제로 티켓 예매 요청이 실패했을 때, 직접 예외를 잡아 재시도하는 코드를 작성해야 함을 뜻한다.
+낙관적 잠금은 버전 불일치 시 처리를 어플리케이션 레벨에서 담당하게 된다. 이는 티켓 예매 요청이 버전 충돌로 인해 실패할 경우, 직접 예외를 처리하여 재시도하는 로직을 구현해야 함을 뜻한다.
 
-계속해서 재시도를 한다면 결국에는 일정 수량 예매에 성공하겠지만, 이 과정에서 많은 재시도가 발생한다. 따라서 충돌이 많이 발생할 것으로 예상되는 우리 상황에서는 낙관적 잠금은 좋지 않은 해결책이다.
+이러한 재시도 로직을 AOP를 통해 구현해보자.
+
+먼저 @Retry 어노테이션을 정의한다.
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Retry { }
+```
+
+다음은 낙관적 잠금 재시도 로직을 구현한 Aspect이다. 최대 1000번까지 0.1초 간격으로 재시도하도록 했다.
+
+```java
+@Order(Ordered.LOWEST_PRECEDENCE - 1)
+@Aspect
+@Component
+public class OptimisticLockRetryAspect {
+
+    private static final int MAX_RETRY_COUNT = 1000;
+    public Integer retryInterval = 100;
+
+    @Pointcut("@annotation(Retry)")
+    public void retry() {
+    }
+
+    @Around("retry()")
+    public Object retryOptimisticLock(ProceedingJoinPoint joinPoint) throws Throwable {
+        Exception exceptionHolder = null;
+        for (int retryCount = 0; retryCount <= MAX_RETRY_COUNT; retryCount++) {
+            try {
+                return joinPoint.proceed();
+            } catch (OptimisticLockException | ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
+                exceptionHolder = e;
+                Thread.sleep(retryInterval);
+            }
+        }
+        throw exceptionHolder;
+    }
+}
+```
+
+다음과 같이 ticketing 메서드에 @Retry 어노테이션을 적용하면 낙관적 잠금에서 버전이 맞지 않을 때 재시도한다.
+
+```java
+@Retry
+@Transactional
+public void ticketing(long ticketId, long memberId) {
+    Ticket ticket = ticketRepository.findByIdForUpdate(ticketId)
+        .orElseThrow(() -> new IllegalArgumentException("Ticket Not Found."));
+    ticket.increaseReservedAmount();
+    int sequence = ticket.getReservedAmount();
+    reservationRepository.save(new Reservation(ticket, sequence, memberId));
+}
+```
+
+<img src="../images/2023-08-16-ash-18.png" width="200">
+
+테스트 실행 결과 성공적으로 10장의 티켓이 예매되었지만, 이때 주의할 점이 있다.
+
+그것은 요청이 들어온 순서대로 처리되는 것이 아니라, 재시도의 타이밍에 따라 결정된다는 점이다.
+
+이는 요청의 순서에 따라 티켓 번호를 할당해야하는 상황에서는 적절하지 않다.
 
 #### 비관적 잠금
 
