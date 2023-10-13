@@ -22,8 +22,8 @@ image: ../teaser/multiple-image-upload.png
 
 클래스의 구조와 전체적인 코드의 흐름은 아래와 같다.
 
-![](<../img/multiple-image-upload/클래스 구조도.png>)
-
+<img src="../img/multiple-image-upload/클래스 구조도.png" width="500">
+<br>
 - `PostFacadeService`는 전체 이미지 파일 업로드를 `ImageStorageService`에 요청한다.
 - `ImageStorageService`는 각 이미지 파일 업로드를 `StorageClient`에 요청한다.
 - 이미지 업로드가 성공하면, `PostFacadeService`는 포스트 저장을 `PostService`에 요청한다.
@@ -57,13 +57,13 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 로그를 통해 모든 요청이 단일 스레드에서 순차적으로 처리되는 것을 확인할 수 있다.
 
-![](<../img/multiple-image-upload/순차적 업로드 로그.png>)
+<img src="../img/multiple-image-upload/순차적 업로드 로그.png" width="500">
 
-![](<../img/multiple-image-upload/순차적 업로드 구조.png>)
+<img src="../img/multiple-image-upload/순차적 업로드 구조.png" width="500">
 
 ## 성능 측정
 
-![](<../img/multiple-image-upload/순차적 업로드 성능.png>)
+<img src="../img/multiple-image-upload/순차적 업로드 성능.png" width="300">
 
 10장의 354KB 이미지를 업로드 하는 데에 평균 172ms가 소요되었다.
 
@@ -97,13 +97,13 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 각 이미지 업로드 요청이 병렬 스레드에서 동시에 처리되는 것을 로그를 통해 확인할 수 있다.
 
-![](<../img/multiple-image-upload/병렬 스트림 로그.png>)
+<img src="../img/multiple-image-upload/병렬 스트림 로그.png" width="500">
 
-![](<../img/multiple-image-upload/병렬 스트림 구조.png>)
+<img src="../img/multiple-image-upload/병렬 스트림 구조.png" width="400">
 
 ## 성능 측정
 
-![](<../img/multiple-image-upload/병렬 스트림 성능.png>)
+<img src="../img/multiple-image-upload/병렬 스트림 성능.png" width="300">
 
 병렬 스트림을 활용하니 처리 시간이 평균 1271ms에서 231ms로 약 **5배 이상 단축**되었다.
 
@@ -121,7 +121,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 만약 어떤 스레드의 업로드가 실패하면, 즉시 `deleteFiles(fileNames)` 메서드를 호출하여 삭제 작업을 시작한다.
 이 때 다른 스레드가 아직 업로드를 완료하지 않아 리스트에 새로운 요소를 추가하는 상황이 발생하면 `ConcurrentModificationException` 예외가 발생한다.
 
-![](<../img/multiple-image-upload/ConcurrentModificationException 발생.png>)
+<img src="../img/multiple-image-upload/ConcurrentModificationException 발생.png" width="500">
 
 ### 병렬 작업 종료 후 통합 예외 처리
 
@@ -232,7 +232,7 @@ private void handleException(AtomicBoolean catchException, List<String> fileName
 
 ## 성능 측정
 
-![](<../img/multiple-image-upload/CompletableFuture 성능.png>)
+<img src="../img/multiple-image-upload/CompletableFuture 성능.png" width="500">
 
 스레드풀을 별도로 지정하지 않았을 때의 평균 처리 시간은 272ms였다.
 반면, 커스텀 스레드풀을 적용했을 때의 평균 처리 시간은 190ms로 짧아졌다.
