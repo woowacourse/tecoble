@@ -2,7 +2,7 @@
 layout: post
 title: 조인(Join) 한방 쿼리와 여러 개 쿼리
 author:
-  - 5기_폴로
+  - 5기_무민
 tags:
   - query
   - sub-query
