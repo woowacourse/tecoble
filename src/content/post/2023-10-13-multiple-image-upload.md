@@ -23,9 +23,11 @@ image: ../teaser/multiple-image-upload.png
 클래스의 구조와 전체적인 코드의 흐름은 아래와 같다.
 
 <img src="../img/multiple-image-upload/클래스 구조도.png" width="700">
-<br>
+
 - `PostFacadeService`는 전체 이미지 파일 업로드를 `ImageStorageService`에 요청한다.
+
 - `ImageStorageService`는 각 이미지 파일 업로드를 `StorageClient`에 요청한다.
+
 - 이미지 업로드가 성공하면, `PostFacadeService`는 포스트 저장을 `PostService`에 요청한다.
 
 이 포스트에서는 주로 `ImageStorageService`에 집중하여 여러 이미지 업로드 방법을 살펴본다.
