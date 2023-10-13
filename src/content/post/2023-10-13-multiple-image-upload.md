@@ -121,7 +121,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 만약 어떤 스레드의 업로드가 실패하면, 즉시 `deleteFiles(fileNames)` 메서드를 호출하여 삭제 작업을 시작한다.
 이 때 다른 스레드가 아직 업로드를 완료하지 않아 리스트에 새로운 요소를 추가하는 상황이 발생하면 `ConcurrentModificationException` 예외가 발생한다.
 
-<img src="../img/multiple-image-upload/ConcurrentModificationException 발생.png" width="500">
+<img src="../img/multiple-image-upload/ConcurrentModificationException 발생.png" width="700">
 
 ### 병렬 작업 종료 후 통합 예외 처리
 
