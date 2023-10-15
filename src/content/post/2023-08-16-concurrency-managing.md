@@ -453,11 +453,10 @@ public @interface Retry { }
 ```java
 @Order(Ordered.LOWEST_PRECEDENCE - 1)
 @Aspect
-@Component
 public class OptimisticLockRetryAspect {
 
-    private static final int MAX_RETRY_COUNT = 1000;
-    public Integer retryInterval = 100;
+    private static final int MAX_RETRIES = 1000;
+    private static final int RETRY_DELAY_MS = 100;
 
     @Pointcut("@annotation(Retry)")
     public void retry() {
@@ -466,12 +465,12 @@ public class OptimisticLockRetryAspect {
     @Around("retry()")
     public Object retryOptimisticLock(ProceedingJoinPoint joinPoint) throws Throwable {
         Exception exceptionHolder = null;
-        for (int retryCount = 0; retryCount <= MAX_RETRY_COUNT; retryCount++) {
+        for (int attempt = 0; attempt < MAX_RETRIES; attempt++) {
             try {
                 return joinPoint.proceed();
             } catch (OptimisticLockException | ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
                 exceptionHolder = e;
-                Thread.sleep(retryInterval);
+                Thread.sleep(RETRY_DELAY_MS);
             }
         }
         throw exceptionHolder;
