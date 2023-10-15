@@ -67,7 +67,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 <img src="../img/multiple-image-upload/순차적 업로드 성능.png" width="300">
 
-10장의 354KB 이미지를 업로드하는 데에 평균 172ms가 소요되었다.
+10장의 354KB 이미지를 업로드하는 데에 평균 1272ms가 소요되었다.
 
 여러 스레드에서 이미지를 병렬로 업로드하면 처리 시간이 단축될 것으로 예상된다.
 여러 이미지를 병렬적으로 업로드하는 방식으론 어떤 게 있을까?
@@ -107,7 +107,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 <img src="../img/multiple-image-upload/병렬 스트림 성능.png" width="300">
 
-병렬 스트림을 활용하니 처리 시간이 평균 1271ms에서 231ms로 약 **5배 이상 단축**되었다.
+병렬 스트림을 활용하니 처리 시간이 평균 1272ms에서 231ms로 약 **5배 이상 단축**되었다.
 
 ## 병렬 스트림 사용 시 주의점
 
@@ -139,7 +139,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
         .map(file -> uploadFile(file, catchException))
         .filter(Objects::nonNull)
         .toList();
-	handleException(catchException, fileNames);
+    handleException(catchException, fileNames);
     return convertFileNamesToResponse(fileNames);
 }
 
