@@ -3,9 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Global, css } from '@emotion/react';
 import { lighten } from 'polished';
 
-// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
-// @ts-ignore
-import favicon from '../favicon.ico';
+import favicon from '../../src/favicon.ico';
 import { colors } from '../styles/colors';
 
 interface IndexProps {
