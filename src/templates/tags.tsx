@@ -34,7 +34,7 @@ interface TagTemplateProps {
     allTagYaml: {
       edges: Array<{
         node: {
-          id: string;
+          yamlId: string;
           description: string;
           image?: any;
         };
@@ -52,7 +52,9 @@ interface TagTemplateProps {
 const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
-  const tagData = data.allTagYaml.edges.find(n => n.node.id.toLowerCase() === tag.toLowerCase());
+  const tagData = data.allTagYaml.edges.find(
+    n => n.node.yamlId.toLowerCase() === tag.toLowerCase(),
+  );
 
   return (
     <IndexLayout>
@@ -127,7 +129,7 @@ export const pageQuery = graphql`
     allTagYaml {
       edges {
         node {
-          id
+          yamlId
           description
           image {
             childImageSharp {
