@@ -3,7 +3,7 @@ layout: post
 title: 'React 18 - 동시성 렌더링'
 author: [5기_가람]
 tags: ['react']
-date: '2023-07-09T12:00:00.000Z'
+date: '2023-07-31T12:00:00.000Z'
 draft: false
 image: ../teaser/react-18.png
 ---

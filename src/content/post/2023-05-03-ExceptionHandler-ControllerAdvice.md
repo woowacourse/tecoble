@@ -3,7 +3,7 @@ layout: post
 title: 'ExceptionHandler와 ControllerAdvice를 알아보자'
 author: [5기_포이]
 tags: ['spring']
-date: '2023-05-02T12:00:00.000Z'
+date: '2023-05-21T12:00:00.000Z'
 draft: false
 image: ../teaser/cycle.png
 ---
@@ -41,9 +41,9 @@ public class SimpleController {
 
 오류 페이지 파일명에 따라 표시되는 웹페이지를 다르게 설정할 수 있습니다.
 
--   4xx.html: 400대 오류 페이지
--   5xx.html: 500대 오류 페이지
--   404.html: 404 오류 페이지
+- 4xx.html: 400대 오류 페이지
+- 5xx.html: 500대 오류 페이지
+- 404.html: 404 오류 페이지
 
 만약 페이지 변경뿐 아니라 더 상세하게 예외의 내용을 응답에 담고 싶다면, `BasicErrorController`를 상속한 `@Controller` 클래스를 만들어 `errorHtml()` 메서드와 `error()` 메서드를 재정의해주면 됩니다.
 
@@ -224,8 +224,8 @@ public abstract class ResponseEntityExceptionHandler {
 
 코드가 더 간결해지고, 에러 처리 코드의 위치를 사용자가 유연하게 관리할 수 있다는 장점도 있습니다.
 
-
 ## 참고
-- https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc 
+
+- https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc
 - https://tecoble.techcourse.co.kr/post/2021-05-10-controller_advice_exception_handler/
 - https://www.baeldung.com/spring-controllers

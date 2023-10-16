@@ -3,7 +3,7 @@ layout: post
 title: '@Configuration은 어떻게 빈을 등록하고, 싱글톤으로 관리할까?'
 author: [5기_홍고]
 tags: ['spring']
-date: '2023-05-22T12:00:00.000Z'
+date: '2023-06-28T12:00:00.000Z'
 draft: false
 image: ../teaser/configuration.png
 ---

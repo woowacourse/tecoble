@@ -3,7 +3,7 @@ layout: post
 title: '낙관적 업데이트로 사용자 경험을 개선해보자!'
 tags: ['TanStack Query', 'optimistic-update', 'optimistic-UI']
 author: [5기_제로]
-date: '2023-08-15T13:10:00.000Z'
+date: '2023-10-05T12:00:00.000Z'
 draft: false
 image: ../teaser/how-to-improve-ux-with-optimistic-update.png
 ---
@@ -26,7 +26,7 @@ image: ../teaser/how-to-improve-ux-with-optimistic-update.png
 
 따라서 네로 씨는 서버의 응답이 오기 전에 상태를 먼저 바꿔서, 업데이트된 상태를 화면에 반영해 주기로 했습니다.
 
-사용자들은 이제 위 그림처럼, 장바구니 아이콘을 누른 순간 즉시 ‘아 장바구니에 상품이 추가되었네!’ 라고 느끼게 됩니다. 
+사용자들은 이제 위 그림처럼, 장바구니 아이콘을 누른 순간 즉시 ‘아 장바구니에 상품이 추가되었네!’ 라고 느끼게 됩니다.
 
 바로 '낙관적 업데이트'를 통해 지연 시간에 대한 불편을 해소한 것이죠!
 
@@ -265,7 +265,7 @@ export default function VoteOptionList({
 `TanStack Query`의 [공식 문서](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates)는 어떠한 매커니즘으로 낙관적 업데이트를 구현하는지 아래와 같이 설명하고 있습니다.
 
 > 낙관적으로 상태를 업데이트한 후 변경 작업을 수행할 때, 변경 작업이 실패할 가능성이 있습니다. 이러한 실패 케이스 대부분에서는 낙관적인 쿼리를 다시 가져와서 실제 서버 상태로 되돌릴 수 있습니다. 그러나 어떤 상황에서는 다시 가져오기가 올바르게 작동하지 않을 수 있으며, 변경 작업 오류가 다시 가져오기가 불가능한 종류의 서버 문제를 나타낼 수 있습니다. 이 경우에는 대신 업데이트를 롤백할 수 있습니다.
-이를 위해 `useMutation`의 `onMutate` 핸들러 옵션을 사용하여 나중에 오류 및 `onSettled` 핸들러로 전달될 값을 반환할 수 있습니다. 대부분의 경우 롤백 함수를 전달하는 것이 가장 유용합니다.
+> 이를 위해 `useMutation`의 `onMutate` 핸들러 옵션을 사용하여 나중에 오류 및 `onSettled` 핸들러로 전달될 값을 반환할 수 있습니다. 대부분의 경우 롤백 함수를 전달하는 것이 가장 유용합니다.
 
 이러한 업데이트 및 롤백에 대한 자세한 코드는, 이 [예시 코드](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates#updating-a-list-of-todos-when-adding-a-new-todo)에서 확인하실 수 있습니다.
 

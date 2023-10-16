@@ -3,7 +3,7 @@ layout: post
 title: 'JPA Cascade는 무엇이고 언제 사용해야 할까?'
 author: [5기_테오]
 tags: ['JPA', 'Cascade']
-date: '2023-08-14T12:00:00.000Z'
+date: '2023-10-16T12:00:00.000Z'
 draft: false
 image: ../teaser/chain.jpeg
 ---
@@ -14,7 +14,7 @@ JPA를 사용한 개발을 진행하면서 가장 많이 들었던 고민 중 �
 
 ## JPA Cascade란?
 
-어떤 JPA 엔티티는 다른 엔티티의 존재에 깊게 연관되어 있기도 합니다. 가장 대표적인 예시로는 ‘댓글’과 ‘게시물’의 관계가 있습니다. ‘댓글’ 엔티티는 ‘게시물’ 엔티티가 없다면 존재 의의가 없기 때문입니다.  
+어떤 JPA 엔티티는 다른 엔티티의 존재에 깊게 연관되어 있기도 합니다. 가장 대표적인 예시로는 ‘댓글’과 ‘게시물’의 관계가 있습니다. ‘댓글’ 엔티티는 ‘게시물’ 엔티티가 없다면 존재 의의가 없기 때문입니다.
 
 게시판 어플리케이션을 만들어 본다고 가정해 봅시다. 게시물을 삭제하는 비즈니스 로직은 어떻게 작성할 수 있을까요?
 
@@ -41,7 +41,6 @@ public void deletePost(Long postId) {
 <img src="../images/2023-08-14-JPA_01.png">
 
 > Cascade는 ‘폭포수가 흐르다’ 라는 사전적 의미를 갖고 있습니다.
->
 
 ## JPA Cascade Types
 
@@ -50,6 +49,7 @@ JPA에서는 총 6개의 Cascade Type을 지원하는데, 예제 코드와 함�
 예제 코드에서 사용하는 엔티티는 앞서 설명드렸던 '게시물(Post)'과 '댓글(Comment)'이며, 실습 환경은 다음과 같습니다. Post 엔티티의 물음표로 표시된 부분(CascadeType)을 바꿔가면서 실습을 진행할 예정입니다.
 
 - Post 엔티티
+
 ```java
 @Entity
 public class Post {
@@ -60,18 +60,20 @@ public class Post {
 
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = ?) 
+    @OneToMany(mappedBy = "post", cascade = ?)
     private List<Comment> comments = new ArrayList<>();
-   
+
     // 생성자 생략
-  
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }
   ...
 }
 ```
+
 - Comment 엔티티
+
 ```java
 @Entity
 public class Comment {
@@ -91,7 +93,7 @@ public class Comment {
 
 ### 1. **PERSIST**
 
-먼저 PERSIST 옵션을 살펴보도록 하겠습니다. 이는 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 옵션입니다. 
+먼저 PERSIST 옵션을 살펴보도록 하겠습니다. 이는 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화하는 옵션입니다.
 
 ```java
 Post post = new Post();
@@ -104,7 +106,7 @@ entityManger.persist(post); // post, comment 둘 다 영속화
 
 ### 2. **MERGE**
 
-엔티티 상태를 병합할 때 연관된 엔티티도 함께 병합하는 옵션입니다. 
+엔티티 상태를 병합할 때 연관된 엔티티도 함께 병합하는 옵션입니다.
 
 ```java
 Post post = new Post("this is post");
@@ -115,7 +117,7 @@ post.addComment(comment);
 entityManager.persist(post);
 entityManager.persist(comment);
 
-entityManager.flush(); 
+entityManager.flush();
 entityManager.clear(); // 영속성 컨텍스트로부터 분리
 
 post.setTitle("this is changed post");
@@ -126,7 +128,7 @@ entityManager.merge(post); // post, comment 모두 변경사항 반영
 
 ### 3. **REMOVE**
 
-엔티티를 제거할 때 연관된 엔티티들도 함께 제거합니다. 
+엔티티를 제거할 때 연관된 엔티티들도 함께 제거합니다.
 
 ```java
 Post post = new Post();
@@ -142,7 +144,7 @@ entityManager.remove(post); // post, comment 모두 삭제
 
 ### 4. **REFRESH**
 
-엔티티를 새로고침할 때, 연관된 엔티티들도 함께 새로고침합니다. 여기서 ‘새로고침’ 한다는 말의 의미는 데이터베이스로부터 실제 레코드의 값을 즉시 로딩해 덮어씌운다는 의미입니다. 
+엔티티를 새로고침할 때, 연관된 엔티티들도 함께 새로고침합니다. 여기서 ‘새로고침’ 한다는 말의 의미는 데이터베이스로부터 실제 레코드의 값을 즉시 로딩해 덮어씌운다는 의미입니다.
 
 ```java
 Post post = new Post("this is post");
@@ -166,7 +168,7 @@ System.out.println(comment.getValue()); // this is comment
 
 ### 5. **DETACH**
 
-엔티티를 영속성 컨텍스트로부터 분리하면 연관된 엔티티들도 분리됩니다. 
+엔티티를 영속성 컨텍스트로부터 분리하면 연관된 엔티티들도 분리됩니다.
 
 ```java
 Post post = new Post("this is post");
@@ -185,20 +187,19 @@ entityManager.detach(post); // post, comment 모두 영속성 컨텍스트로부
 위에서 언급한 모든 Cascade Type들이 적용됩니다.
 
 > JPA의 구현체인 Hibernate의 경우에는 추가로 3개의 Cascade Types(REPLICATE, SAVE_UPDATE, LOCK)을 지원하는데, 이번 아티클에서는 다루지 않겠습니다.
-> 
 
 ## JPA Cascade가 위험한 이유
 
 보시다시피 Cascade의 개념 자체는 어렵지 않습니다. 단순히 EntityManager의 어떤 작업이 수행되면 해당하는 작업을 연관된 엔티티들에 전파하겠다는 의미입니다. 그렇다면 ‘Cascade는 위험하다’라고 일컬어지는 이유는 무엇일까요?
 
-연관관계 매핑과 함께 Cascade를 잘못 사용하게 되면 의도치 못한 결과를 불러올 수 있기 때문입니다. 
+연관관계 매핑과 함께 Cascade를 잘못 사용하게 되면 의도치 못한 결과를 불러올 수 있기 때문입니다.
 
 ### 1. 참조 무결성 제약조건 위반 가능성
 
-CascadeType.REMOVE 혹은 CascadeType.ALL 옵션을 사용하면 엔티티 삭제 시 연관된 엔티티들이 전부 삭제가 되기 때문에 의도치 않게 참조 무결성 제약조건을 위반할 수도 있습니다. 
+CascadeType.REMOVE 혹은 CascadeType.ALL 옵션을 사용하면 엔티티 삭제 시 연관된 엔티티들이 전부 삭제가 되기 때문에 의도치 않게 참조 무결성 제약조건을 위반할 수도 있습니다.
 
 > 참조 무결성 제약조건이란, 관계형 데이터베이스(RDB)에서 릴레이션(relation)은 참조할 수 없는 외래 키(foreign key)를 가져서는 안 된다는 조건을 의미합니다.
-> 
+>
 > 이를 위반하는 경우 데이터의 모순이 발생하게 됩니다.
 
 예를 들어 아래와 같이 Comment와 Post가 다대일로 매핑이 된 상태이고 Comment 엔티티의 필드 post에 CascadeType.REMOVE를 지정한 상태라고 가정해 보겠습니다.
@@ -233,7 +234,7 @@ void remove_bad_case() {
 
     commentRepository.delete(comment1); // 관련된 엔티티(post)도 삭제
 
-    assertThatThrownBy(() -> entityManager.flush()) 
+    assertThatThrownBy(() -> entityManager.flush())
             .isInstanceOf(PersistenceException.class);
     // comment2 가 참조하는 post 엔티티가 삭제되었으므로 외래키 관련 예외 발생
     // 만약 외래키 제약조건이 없다면 예외가 발생하지 않음
@@ -243,9 +244,8 @@ void remove_bad_case() {
 comment1을 삭제했을 뿐이지만, 연관된 엔티티인 post까지 삭제되었고 기존에 post를 참조하고 있던 comment2는 참조하고 있는 값이 사라져 참조 무결성 제약조건 위반 예외가 발생합니다.
 
 > flush 시점에 참조 무결성 제약조건 위반 예외가 발생하는 이유는 ‘영속성 컨텍스트’에서는 외래키 제약조건이 존재하지 않기 때문입니다. 데이터베이스에 직접 쿼리를 날리고 나서야 예외가 발생하게 됩니다.
-> 
 
-실제 운영 환경에서는 개발 편의성을 위해 외래키 제약조건을 사용하지 않는 경우도 많은데, 그런 경우에는 예외도 발생하지 않아서 데이터 정합성에 문제가 생길 가능성이 큽니다. 
+실제 운영 환경에서는 개발 편의성을 위해 외래키 제약조건을 사용하지 않는 경우도 많은데, 그런 경우에는 예외도 발생하지 않아서 데이터 정합성에 문제가 생길 가능성이 큽니다.
 
 ### 2. 양방향 연관관계 매핑 시 충돌 가능성
 
@@ -279,9 +279,9 @@ void bidirectional_bad_case() {
   }
 ```
 
-이상하게 `commentRepository.delete(comment1)` 을 호출했음에도 삭제가 되지 않는 모습을 확인할 수 있습니다. `delete` 를 호출해 comment1이 삭제된 상태에서 post를 `save` 하니 다시 comment1 값이 복원된 것입니다. 
+이상하게 `commentRepository.delete(comment1)` 을 호출했음에도 삭제가 되지 않는 모습을 확인할 수 있습니다. `delete` 를 호출해 comment1이 삭제된 상태에서 post를 `save` 하니 다시 comment1 값이 복원된 것입니다.
 
-이처럼 영속화에 대한 관리 지점이 두 곳이면 데이터값을 예측할 수 없는 문제가 발생합니다. **‘영속성 전이(cascade)는 관리하는 부모가 단 하나일 때 사용해야 한다’** 라는 주장이 나온 배경도 비슷한 맥락입니다. 
+이처럼 영속화에 대한 관리 지점이 두 곳이면 데이터값을 예측할 수 없는 문제가 발생합니다. **‘영속성 전이(cascade)는 관리하는 부모가 단 하나일 때 사용해야 한다’** 라는 주장이 나온 배경도 비슷한 맥락입니다.
 
 이를 해결하기 위해서는 다음과 같이 post에서도 comment를 제거하도록 편의 메소드를 구현해야 합니다.
 
@@ -316,7 +316,7 @@ void bidirectional_good_case() {
 
 JPA Cascade는 엔티티 간 관계가 명확할 때 사용하는 것을 권장합니다. 단순히 편해서, 비즈니스 로직이 깔끔해진다고 해서 JPA Cascade를 사용하는 것은 추후 큰 문제를 야기할 수도 있습니다. 특히 Cascade 오용으로 인한 문제가 발생하는 경우, 앞서 설명한 예시처럼 예외가 발생하지 않는 경우도 있기 때문에 발견되지 못한 채로 운영 환경에 오랫동안 잠식할 확률이 높습니다.
 
-‘게시물’과 ‘댓글’의 관계처럼 부모 - 자식 구조가 명확하다면 Cascade를 사용하는 것은 괜찮은 선택입니다. 하지만 하나의 자식에 여러 부모가 대응되는 경우(‘수강 중인 수업’과 ‘학생’의 관계 등)에는 사용하지 않는 것이 좋습니다. 여러 부모가 대응되는 순간 예상하지 못한 충돌 문제가 발생할 확률이 높아지고, 이로 인해 비즈니스 로직을 작성하는 개발자는 항상 JPA Cascade의 부수효과를 경계해야 하기 때문입니다. 
+‘게시물’과 ‘댓글’의 관계처럼 부모 - 자식 구조가 명확하다면 Cascade를 사용하는 것은 괜찮은 선택입니다. 하지만 하나의 자식에 여러 부모가 대응되는 경우(‘수강 중인 수업’과 ‘학생’의 관계 등)에는 사용하지 않는 것이 좋습니다. 여러 부모가 대응되는 순간 예상하지 못한 충돌 문제가 발생할 확률이 높아지고, 이로 인해 비즈니스 로직을 작성하는 개발자는 항상 JPA Cascade의 부수효과를 경계해야 하기 때문입니다.
 
 JPA Cascade는 개발 편의성을 높일 수 있는 기술입니다. 하지만 이를 오용하는 경우 데이터 정합성을 깨뜨릴 수 있을뿐더러 최악의 경우에는 데이터 손실까지 발생하게 됩니다. 따라서 JPA Cascade에 대한 정확한 개념과 발생할 수 있는 문제상황들을 먼저 익힌 뒤 유의해서 사용하시면 좋을 것 같습니다.
 
