@@ -3,7 +3,7 @@ layout: post
 title: '무한스크롤 기능에서 동시성 이슈 해결하기'
 author: [5기_연어]
 tags: ['concurrency', 'transaction', 'transactional']
-date: '2023-08-16T12:00:00.000Z'
+date: '2023-10-11T12:00:00.000Z'
 draft: false
 image: ../teaser/object-optimistic-locking-failure-exception.jpg
 ---
