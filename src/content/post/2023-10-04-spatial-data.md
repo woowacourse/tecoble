@@ -124,7 +124,7 @@ CREATE SPATIAL INDEX idx_name ON ex_table(ex_column);
 `MySQL`의 공간 인덱스를 이해하기 위해선 MBR 이라는 개념을 먼저 이해해야 한다.
 
 이름이 거창해서 그렇지 그냥 사각형을 그리는 방법이다.
-MBR(**M**ininum **B**ounding **R**ectangle)의 약어로 **최소 경계 사각형**을 의미한다.
+MBR(**M**inimum **B**ounding **R**ectangle)의 약어로 **최소 경계 사각형**을 의미한다.
 글로 하는 설명보다는 그림을 보면 단박에 이해가 된다.
 
 ![공간데이터들](../images/2023-10-04-spatial-data/point_line_poly.png)
