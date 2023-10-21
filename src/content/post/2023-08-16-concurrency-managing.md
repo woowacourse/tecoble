@@ -3,7 +3,7 @@ layout: post
 title: '선착순 티켓 예매의 동시성 문제: 잠금으로 안전하게 처리하기'
 author: [5기_애쉬]
 tags: ['concurrency', 'lock']
-date: '2023-08-16T12:00:00.000Z'
+date: '2023-09-18T12:00:00.000Z'
 draft: false
 image: ../teaser/ash-concurrency.png
 ---
@@ -14,7 +14,7 @@ image: ../teaser/ash-concurrency.png
 
 티켓 오픈 시간에 많은 사용자가 동시에 티켓 예매를 요청하면 어떠한 문제가 발생할까? 그리고 그 문제를 어떻게 해결할 수 있을까?
 
-여기서 가장 중요한 것은 신청 순서에 따라 티켓을 발급하되, 준비된 수량만큼만 발급하는 것이다.
+여기서 가장 중요한 것은 요청 순서에 따라 티켓을 발급하되, 준비된 수량만큼만 발급하는 것이다.
 
 <br>
 
@@ -436,15 +436,75 @@ reservation 테이블을 조회하니, 잠금을 걸지 않은 코드와 차이�
 
 <br>
 
-낙관적 잠금은 버전이 맞지 않은 경우에 대한 처리를 어플리케이션단에 맡긴다. 버전 충돌 문제로 티켓 예매 요청이 실패했을 때, 직접 예외를 잡아 재시도하는 코드를 작성해야 함을 뜻한다.
+낙관적 잠금은 버전 불일치 시 처리를 어플리케이션 레벨에서 담당하게 된다. 이는 티켓 예매 요청이 버전 충돌로 인해 실패할 경우, 직접 예외를 처리하여 재시도하는 로직을 구현해야 함을 뜻한다.
 
-계속해서 재시도를 한다면 결국에는 일정 수량 예매에 성공하겠지만, 이 과정에서 많은 재시도가 발생한다. 따라서 충돌이 많이 발생할 것으로 예상되는 우리 상황에서는 낙관적 잠금은 좋지 않은 해결책이다.
+이러한 재시도 로직을 AOP를 통해 구현해보자.
+
+먼저 @Retry 어노테이션을 정의한다.
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Retry { }
+```
+
+다음은 낙관적 잠금 재시도 로직을 구현한 Aspect이다. 최대 1000번까지 0.1초 간격으로 재시도하도록 했다.
+
+```java
+@Order(Ordered.LOWEST_PRECEDENCE - 1)
+@Aspect
+public class OptimisticLockRetryAspect {
+
+    private static final int MAX_RETRIES = 1000;
+    private static final int RETRY_DELAY_MS = 100;
+
+    @Pointcut("@annotation(Retry)")
+    public void retry() {
+    }
+
+    @Around("retry()")
+    public Object retryOptimisticLock(ProceedingJoinPoint joinPoint) throws Throwable {
+        Exception exceptionHolder = null;
+        for (int attempt = 0; attempt < MAX_RETRIES; attempt++) {
+            try {
+                return joinPoint.proceed();
+            } catch (OptimisticLockException | ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
+                exceptionHolder = e;
+                Thread.sleep(RETRY_DELAY_MS);
+            }
+        }
+        throw exceptionHolder;
+    }
+}
+```
+
+다음과 같이 ticketing 메서드에 @Retry 어노테이션을 적용하면 낙관적 잠금에서 버전이 맞지 않을 때 재시도한다.
+
+```java
+@Retry
+@Transactional
+public void ticketing(long ticketId, long memberId) {
+    Ticket ticket = ticketRepository.findByIdForUpdate(ticketId)
+        .orElseThrow(() -> new IllegalArgumentException("Ticket Not Found."));
+    ticket.increaseReservedAmount();
+    int sequence = ticket.getReservedAmount();
+    reservationRepository.save(new Reservation(ticket, sequence, memberId));
+}
+```
+
+<img src="../images/2023-08-16-ash-18.png" width="200">
+
+테스트 실행 결과 성공적으로 10장의 티켓이 예매되었지만, 이때 주의할 점이 있다.
+
+그것은 요청이 들어온 순서대로 처리되는 것이 아니라, 재시도의 타이밍에 따라 결정된다는 점이다.
+
+이는 요청의 순서에 따라 티켓 번호를 할당해야하는 상황에서는 적절하지 않다.
 
 #### 비관적 잠금
 
 그러면 이제 비관적 잠금을 통해 해결해 보자.
 
-아래와 같은 방법으로 비관적 잠금을 적용해 보았다. 여기서 PESSIMISTIC_WRITE는 X-lock을 건다는 뜻인데, 우리는 Ticket의 reservedAmount를 갱신해줘야 하기 때문에 X-lock을 걸었다.
+아래와 같은 방법으로 비관적 잠금을 적용해 보았다. 우리는 Ticket의 reservedAmount를 갱신해줘야 하기 때문에 PESSIMISTIC_WRITE 즉, 배타적 잠금을 걸었다.
 
 ```java
 public interface TicketRepository extends JpaRepository<Ticket, Long> {

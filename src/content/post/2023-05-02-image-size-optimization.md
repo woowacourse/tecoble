@@ -3,7 +3,7 @@ layout: post
 title: '이미지 사이즈 최적화'
 tags: ['web', 'image', 'optimization']
 author: [5기_황펭]
-date: '2023-05-02T13:10:00.000Z'
+date: '2023-06-08T12:00:00.000Z'
 draft: false
 image: ../teaser/image-size-optimization.png
 ---
