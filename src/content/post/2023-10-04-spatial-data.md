@@ -3,7 +3,7 @@ layout: post
 title: '공간 데이터 개념부터 적용까지'
 author: [5기_폴로]
 tags: ['JPA', 'MYSQL', 'SPATIAL', 'INDEX']
-date: '2023-10-04T12:00:00.000Z'
+date: '2023-10-24T12:00:00.000Z'
 draft: false
 image: ../teaser/spatial-data.png
 ---
