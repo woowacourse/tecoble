@@ -20,7 +20,7 @@ image: ../teaser/chain.jpeg
 
 ## WWW(World-Wide-Web)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/02044043-30bd-44ce-b44d-bbabc64c60e4/31ae1db3-9885-468e-a2b7-fb814d909978/Untitled.png)
+![2023-10-25-HISTORY-OF-WEB-APP_001.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_001.png)
 
 1989년, 팀 버너스 리라는 사람이 CERN(유럽 입자 물리 연구소)이라는 기관에서 근무하고 있었습니다. 
 
@@ -44,13 +44,13 @@ image: ../teaser/chain.jpeg
 > CGI란, Common Gateway Interface의 약자로 서버와 애플리케이션 간에 데이터를 주고 받는 방식을 의미합니다.
 > 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/02044043-30bd-44ce-b44d-bbabc64c60e4/ce8eae16-714d-4f3e-adbe-5458189b98e6/Untitled.png)
+![2023-10-25-HISTORY-OF-WEB-APP_002.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_002.png)
 
 웹 서버는 동적 페이지를 원하는 클라이언트 요청이 들어오면 CGI 인터페이스를 통해 외부 프로그램을 실행시키면서 적절한 HTTP 응답을 반환할 수 있었습니다.
 
 예를 들어, 사용자가 장바구니 조회 요청을 보내는 경우에는 다음과 같이 동적 페이지를 구성했습니다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/02044043-30bd-44ce-b44d-bbabc64c60e4/1923f225-75f2-49be-820c-316c755c6a5e/Untitled.png)
+![2023-10-25-HISTORY-OF-WEB-APP_003.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_003.png)
 
 - 장바구니 조회 요청이 발생하면 서버에 도달합니다.
 - 서버는 CGI 인터페이스를 사용해 외부 프로그램에게 요청 처리를 위임합니다.
@@ -74,7 +74,7 @@ Servlet을 사용하는 경우 HTTP 요청 처리는 CGI 프로그램을 사용�
 
 HTTP 요청 및 응답 과정을 도식화하면 아래와 같습니다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/02044043-30bd-44ce-b44d-bbabc64c60e4/c0589f42-40f4-4813-ae2c-cdb633919f67/Untitled.png)
+![2023-10-25-HISTORY-OF-WEB-APP_004.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_004.png)
 
 - HTTP 요청이 발생하면 Servlet Container에 도달합니다.
 - Servlet Container는 적절한 Servlet(Java 프로그램)을 선택하고 실행시킵니다.
@@ -157,7 +157,7 @@ JSP의 경우 어떤 방식으로 사용하느냐에 따라 모델 1 구조와 �
 
 앞서 본 Java Beans를 활용하는 JSP 예시 코드가 모델 1에 해당합니다. JSP가 직접 Java Beans를 호출하는 등의 제어 로직을 담당하기 때문입니다.
 
-!https://blog.kakaocdn.net/dn/AwGBW/btsugkBkUzC/EfInxrJE0E6vbmrsXLF2aK/img.png
+![2023-10-25-HISTORY-OF-WEB-APP_005.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_005.png)
 
 이런 모델 1의 경우에는 구조가 단순하여 간단한 페이지를 구성하는 데에 주로 사용되었지만, 규모가 큰 프로그램을 작성할 때에는 상당한 양의 코드가 JSP 파일에 드러나게 되었습니다.
 
@@ -205,7 +205,7 @@ public class MyServlet extends HttpServlet {
 
 ## **J2EE와 EJB**
 
-!https://blog.kakaocdn.net/dn/dW3xOd/btsuICBqxn9/N5L6cF2MT4XzJpYPEIKZ8k/img.png
+![2023-10-25-HISTORY-OF-WEB-APP_006.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_006.png)
 
 앞서 설명한 Servlet, JSP와 같은 기술들이 제안된 곳이 바로 J2EE(Java to Enterprise Edition)입니다. J2EE란 기업 환경의 어플리케이션을 구성하기 위해 필요한 표준의 집합을 의미합니다.
 
@@ -219,11 +219,11 @@ EJB는 초기에 실용적으로 보였고 많은 사랑을 받았습니다. 하
 
 이처럼 J2EE 표준을 준수한 애플리케이션들이 너무나도 복잡해지니 로드 존슨이라는 사람이 나타나 ‘J2EE Development without EJB’ 라는 책에서 해결 방법을 제시합니다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/02044043-30bd-44ce-b44d-bbabc64c60e4/f77f5579-56fb-4477-b0aa-d1cbb4e8cbc6/Untitled.png)
+![2023-10-25-HISTORY-OF-WEB-APP_007.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_007.png)
 
 로드 존슨은 해당 저서에서 EJB의 문제점을 제시했습니다. 그리고 EJB를 사용하지 않고도 충분히 고품질의 애플리케이션을 개발할 수 있는 방법이 존재함을 증명했습니다. 그리고 현재 스프링의 기반이 되는 핵심 코드들이 바로 이 책에 포함되어 있습니다.
 
-!https://blog.kakaocdn.net/dn/cJ1U9F/btsuJg56ABd/gL88Q8plG8E5ErQVmzkm40/img.png
+![2023-10-25-HISTORY-OF-WEB-APP_008.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_008.png)
 
 이런 스프링의 등장으로 '추운 겨울'이 지나가고 '봄(Spring)'이 오기 시작했습니다. 스프링은 EJB와 달리 순수한 POJO(Plain Old Java Object)를 개발할 수 있도록 지원하는 프레임워크이기 때문에, 스프링을 사용하는 개발자들은 어떤 외부 기술에도 종속되지 않는 순수한 비즈니스 로직을 작성할 수 있게 되었습니다. 
 
