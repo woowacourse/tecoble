@@ -174,10 +174,10 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags.map((tag, index) => (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      {index !== 0 ? ', ' : ''}
-                      {'#' + tag}
-                    </Link>
+                    <React.Fragment key={tag}>
+                      {index > 0 && <>, &nbsp;</>}
+                      <Link to={`/tags/${_.kebabCase(tag)}/`}>{`#${tag}`}</Link>
+                    </React.Fragment>
                   ))}
                 </PostFullTags>
                 <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
@@ -190,10 +190,12 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">
                         {post.frontmatter.author.map((author, index) => (
-                          <Link key={author.name} to={`/author/${_.kebabCase(author.name)}/`}>
-                            {index !== 0 ? ', ' : ''}
-                            {author.name}
-                          </Link>
+                          <React.Fragment key={author.name}>
+                            {index > 0 && <>, &nbsp;</>}
+                            <Link key={author.name} to={`/author/${_.kebabCase(author.name)}/`}>
+                              {author.name}
+                            </Link>
+                          </React.Fragment>
                         ))}
                       </h4>
                       <div className="byline-meta-content">

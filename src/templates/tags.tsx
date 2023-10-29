@@ -92,7 +92,7 @@ function Tags({ pageContext, data, location }: TagTemplateProps) {
             className="site-header-background"
           >
             <SiteHeaderContent css={inner} className="site-header-content">
-              <SiteTitle className="site-title">{'#' + tag.toUpperCase()}</SiteTitle>
+              <SiteTitle className="site-title">{`#${tag.toUpperCase()}`}</SiteTitle>
               <SiteDescription className="site-description">
                 {tagData?.node.description ? (
                   tagData.node.description
