@@ -33,7 +33,11 @@ export function Footer() {
             </a>
           )}
 
-          <a href="https://github.com/scttcper/gatsby-casper" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/scttcper/gatsby-casper"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Casper
           </a>
 
@@ -100,4 +104,3 @@ const SiteFooterNav = styled.nav`
     }
   }
 `;
-

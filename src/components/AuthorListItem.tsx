@@ -36,8 +36,12 @@ export function AuthorListItem(props: AuthorListItemProps) {
   return (
     <AuthorListItemLi
       className="author-list-item"
-      onMouseEnter={() => handleMouseEnter()}
-      onMouseLeave={() => handleMouseLeave()}
+      onMouseEnter={() => {
+        handleMouseEnter();
+      }}
+      onMouseLeave={() => {
+        handleMouseLeave();
+      }}
     >
       {props.tooltip === 'small' && (
         <AuthorNameTooltip className="author-name-tooltip">{props.author.name}</AuthorNameTooltip>

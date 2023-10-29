@@ -14,12 +14,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-gtag',
       options: {
-        trackingIds: [
-          'G-7YLT36LV0M',
-        ],
+        trackingIds: ['G-7YLT36LV0M'],
       },
     },
-
     'gatsby-plugin-sitemap',
     'gatsby-plugin-image',
     {
@@ -118,7 +115,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "Tecoble",
+            title: 'Tecoble',
             match: '^/blog/',
           },
         ],

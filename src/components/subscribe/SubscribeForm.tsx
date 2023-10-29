@@ -143,4 +143,3 @@ const FormGroup = styled.div`
     width: 100%;
   }
 `;
-

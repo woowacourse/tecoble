@@ -154,7 +154,7 @@ const SubscribeOverlayClose = styled.a`
   height: 40px;
 
   :before {
-    content: "";
+    content: '';
     position: absolute;
     top: 20px;
     right: 4px;
@@ -167,7 +167,7 @@ const SubscribeOverlayClose = styled.a`
   }
 
   :after {
-    content: "";
+    content: '';
     position: absolute;
     top: 20px;
     right: 4px;

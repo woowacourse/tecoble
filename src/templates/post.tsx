@@ -176,7 +176,7 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                   {post.frontmatter.tags.map((tag, index) => (
                     <Link to={`/tags/${_.kebabCase(tag)}/`}>
                       {index !== 0 ? ', ' : ''}
-                      {'#'+tag}
+                      {'#' + tag}
                     </Link>
                   ))}
                 </PostFullTags>
@@ -217,9 +217,7 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     alt={post.frontmatter.title}
                   />
                   {post.frontmatter.source !== null && (
-                    <div style={{ color: 'darkgray'}}>
-                      (자료 출처 : {post.frontmatter.source})
-                    </div>
+                    <div style={{ color: 'darkgray' }}>(자료 출처 : {post.frontmatter.source})</div>
                   )}
                 </PostFullImage>
               )}
@@ -309,7 +307,7 @@ export const PostFullHeader = styled.header`
 const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};
