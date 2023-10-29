@@ -21,6 +21,7 @@ import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 import { AuthorList } from '../components/AuthorList';
 import Utterances from './Utterances';
+import defaultImage from '../content/img/tecoble-background.png';
 
 export interface Author {
   name: string;
@@ -102,8 +103,6 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
 
-  const defaultImage = require('../content/img/tecoble-background.png');
-
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -115,11 +114,11 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta property="og:url" content={config.siteUrl.split('/tecoble')[0] + location.pathname} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image && (
           <meta
             property="og:image"
-            content={config.siteUrl.split('/tecoble')[0] + getSrc(post.frontmatter.image)}
+            content={`${config.siteUrl}${getSrc(post.frontmatter.image)}`}
           />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
@@ -134,7 +133,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl.split('/tecoble')[0] + location.pathname} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image && (
           <meta
             name="twitter:image"
