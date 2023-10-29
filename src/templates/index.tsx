@@ -104,7 +104,7 @@ function IndexPage(props: IndexProps) {
                   // filter out drafts in production
                   (post.node.frontmatter.draft !== true ||
                     process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} large={index === 0} />
+                    <PostCard key={post.node.fields.slug} post={post.node} isLarge={index === 0} />
                   ),
               )}
             </div>

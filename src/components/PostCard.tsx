@@ -15,10 +15,10 @@ import defaultImage from '../content/img/tecoble-background.png';
 
 export type PostCardProps = {
   post: PageContext;
-  large?: boolean;
+  isLarge?: boolean;
 };
 
-export function PostCard({ post, large = false }: PostCardProps) {
+export function PostCard({ post, isLarge = false }: PostCardProps) {
   const { frontmatter, fields, excerpt, timeToRead } = post;
   const date = new Date(frontmatter.date);
   // 2018-08-20
@@ -29,9 +29,9 @@ export function PostCard({ post, large = false }: PostCardProps) {
   return (
     <article
       className={`post-card ${frontmatter.image ? '' : 'no-image'} ${
-        large ? 'post-card-large' : ''
+        isLarge ? 'post-card-isLarge' : ''
       }`}
-      css={[PostCardStyles, large && PostCardLarge]}
+      css={[PostCardStyles, isLarge && PostCardLarge]}
     >
       {frontmatter.image && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={fields.slug}>
@@ -41,7 +41,7 @@ export function PostCard({ post, large = false }: PostCardProps) {
                 image={getImage(post.frontmatter.image)!}
                 alt={`${post.frontmatter.title} cover image`}
                 style={{ height: '100%' }}
-                loading={large ? 'eager' : 'lazy'}
+                loading={isLarge ? 'eager' : 'lazy'}
               />
             )}
           </PostCardImage>

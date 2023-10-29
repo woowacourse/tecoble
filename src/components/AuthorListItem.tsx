@@ -17,7 +17,7 @@ type AuthorListItemProps = {
 };
 
 export function AuthorListItem(props: AuthorListItemProps) {
-  const [hovered, setHover] = useState(false);
+  const [hovered, setHovered] = useState(false);
   let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
     if (props.tooltip !== 'large') {
@@ -25,12 +25,14 @@ export function AuthorListItem(props: AuthorListItemProps) {
     }
 
     clearTimeout(timeout);
-    setHover(true);
+    setHovered(true);
   }
 
   function handleMouseLeave() {
     clearTimeout(timeout);
-    timeout = setTimeout(() => setHover(false), 600);
+    timeout = setTimeout(() => {
+      setHovered(false);
+    }, 600);
   }
 
   return (
