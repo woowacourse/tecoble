@@ -18,6 +18,7 @@ export function SubscribeForm() {
       name="mc-embedded-subscribe-form"
       className="subscribe-form"
       target="_blank"
+      rel="noopener noreferrer"
     >
       {/* This is required for the form to work correctly  */}
       <FormGroup className="form-group">
