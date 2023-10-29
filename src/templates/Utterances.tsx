@@ -2,9 +2,9 @@ import React, { createRef, useLayoutEffect } from 'react';
 
 const src = 'https://utteranc.es/client.js';
 
-export interface IUtterancesProps {
+export type IUtterancesProps = {
   repo: string;
-}
+};
 
 const Utterances: React.FC<IUtterancesProps> = React.memo(({ repo }) => {
   const containerRef = createRef<HTMLDivElement>();

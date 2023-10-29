@@ -7,16 +7,16 @@ import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { colors } from '../styles/colors';
-import { Author } from '../templates/post';
+import type { Author } from '../templates/post';
 import { AuthorProfileImage } from './PostCard';
 import styled from '@emotion/styled';
 
-interface AuthorListItemProps {
+type AuthorListItemProps = {
   tooltip: 'small' | 'large';
   author: Author;
-}
+};
 
-export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
+export function AuthorListItem(props: AuthorListItemProps) {
   const [hovered, setHover] = useState(false);
   let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
@@ -78,7 +78,7 @@ export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
       </Link>
     </AuthorListItemLi>
   );
-};
+}
 
 const Hovered = css`
   opacity: 1;

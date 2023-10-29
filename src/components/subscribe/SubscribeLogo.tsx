@@ -6,37 +6,39 @@ import { css } from '@emotion/react';
 
 import config from '../../website-config';
 
-interface SiteNavLogoProps {
+type SiteNavLogoProps = {
   logo?: any;
-}
+};
 
-const SubscribeLogo = () => (
-  <StaticQuery
-    query={graphql`
-      query SubscribeOverlayLogo {
-        logo: file(relativePath: { eq: "img/tecoble.png" }) {
-          childImageSharp {
-            gatsbyImageData(quality: 100, width: 500, layout: FIXED)
+function SubscribeLogo() {
+  return (
+    <StaticQuery
+      query={graphql`
+        query SubscribeOverlayLogo {
+          logo: file(relativePath: { eq: "img/tecoble.png" }) {
+            childImageSharp {
+              gatsbyImageData(quality: 100, width: 500, layout: FIXED)
+            }
           }
         }
-      }
-    `}
-    render={(data: SiteNavLogoProps) => {
-      if (!data.logo) {
-        return;
-      }
+      `}
+      render={(data: SiteNavLogoProps) => {
+        if (!data.logo) {
+          return;
+        }
 
-      return (
-        <img
-          css={SubscribeOverlayLogo}
-          className="subscribe-overlay-logo"
-          src={getSrc(data.logo)}
-          alt={config.title}
-        />
-      );
-    }}
-  />
-);
+        return (
+          <img
+            css={SubscribeOverlayLogo}
+            className="subscribe-overlay-logo"
+            src={getSrc(data.logo)}
+            alt={config.title}
+          />
+        );
+      }}
+    />
+  );
+}
 
 const SubscribeOverlayLogo = css`
   position: fixed;

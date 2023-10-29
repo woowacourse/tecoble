@@ -1,10 +1,10 @@
-import React, { VFC } from 'react';
+import React from 'react';
 
-interface Props {
+type Props = {
   size?: string;
-}
+};
 
-const ArrowDown: VFC<Props> = ({ size = '18px' }) => {
+function ArrowDown({ size = '18px' }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +17,6 @@ const ArrowDown: VFC<Props> = ({ size = '18px' }) => {
       <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z" />
     </svg>
   );
-};
+}
 
 export default ArrowDown;

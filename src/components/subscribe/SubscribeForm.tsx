@@ -7,7 +7,7 @@ import { css } from '@emotion/react';
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
 
-export const SubscribeForm: React.FC = () => {
+export function SubscribeForm() {
   return (
     <form
       noValidate
@@ -37,7 +37,7 @@ export const SubscribeForm: React.FC = () => {
       </SubscribeFormButton>
     </form>
   );
-};
+}
 
 const SubscribeFormStyles = css`
   display: flex;

@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import _ from 'lodash';
-import React, { useEffect, useState, VFC } from 'react';
+import React, { useEffect, useState } from 'react';
 import { colors } from '../styles/colors';
 import { inner } from '../styles/shared';
 import ArrowDown from './icons/ArrowDown';
 import ArrowUp from './icons/ArrowUp';
 
-interface TagNavQuery {
+type TagNavQuery = {
   allMarkdownRemark: {
     edges: Array<{
       node: {
@@ -18,18 +18,18 @@ interface TagNavQuery {
       };
     }>;
   };
-}
+};
 
-interface Tag {
+type Tag = {
   name: string;
   count: number;
-}
+};
 
-interface Props {
+type Props = {
   className?: string;
-}
+};
 
-const TagNav: VFC<Props> = ({ className }) => {
+function TagNav({ className }: Props) {
   const {
     allMarkdownRemark: { edges },
   } = useStaticQuery<TagNavQuery>(graphql`
@@ -71,9 +71,9 @@ const TagNav: VFC<Props> = ({ className }) => {
       });
     });
 
-    const sortedTags = Object.values(tagNameMap).sort(({ name: aTagName }, { name: bTagName }) => {
-      return aTagName.toUpperCase() >= bTagName.toUpperCase() ? 1 : -1;
-    });
+    const sortedTags = Object.values(tagNameMap).sort(({ name: aTagName }, { name: bTagName }) =>
+      aTagName.toUpperCase() >= bTagName.toUpperCase() ? 1 : -1,
+    );
 
     setTags(sortedTags);
   }, []);
@@ -102,7 +102,7 @@ const TagNav: VFC<Props> = ({ className }) => {
       </button>
     </TagNavWrapper>
   );
-};
+}
 
 const wide = css`
   height: 130px;

@@ -23,11 +23,11 @@ import {
   ResponsiveHeaderBackground,
   SiteHeaderBackground,
 } from '../styles/shared';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
-interface AuthorTemplateProps {
+type AuthorTemplateProps = {
   location: Location;
   data: {
     logo: {
@@ -52,9 +52,9 @@ interface AuthorTemplateProps {
       avatar: any;
     };
   };
-}
+};
 
-const Author = ({ data, location }: AuthorTemplateProps) => {
+function Author({ data, location }: AuthorTemplateProps) {
   const author = data.authorYaml;
 
   const edges = data.allMarkdownRemark.edges.filter(edge => {
@@ -180,9 +180,9 @@ const Author = ({ data, location }: AuthorTemplateProps) => {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed]}>
-              {edges.map(({ node }) => {
-                return <PostCard key={node.fields.slug} post={node} />;
-              })}
+              {edges.map(({ node }) => (
+                <PostCard key={node.fields.slug} post={node} />
+              ))}
             </div>
           </div>
         </main>
@@ -190,7 +190,7 @@ const Author = ({ data, location }: AuthorTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
   query ($author: String) {

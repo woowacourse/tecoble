@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface Props {
+type Props = {
   size?: string;
-}
+};
 
-const ArrowUp: VFC<Props> = ({ size = '18px' }) => {
+function ArrowUp({ size = '18px' }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +17,6 @@ const ArrowUp: VFC<Props> = ({ size = '18px' }) => {
       <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z" />
     </svg>
   );
-};
+}
 
 export default ArrowUp;

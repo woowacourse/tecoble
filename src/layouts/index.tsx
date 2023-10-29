@@ -6,11 +6,12 @@ import { lighten } from 'polished';
 import favicon from '../../src/favicon.ico';
 import { colors } from '../styles/colors';
 
-interface IndexProps {
+type IndexProps = {
   className?: string;
-}
+  children: React.ReactNode;
+};
 
-const IndexLayout: React.FC<IndexProps> = props => {
+function IndexLayout(props: IndexProps) {
   return (
     <div className={props.className}>
       <Helmet>
@@ -490,6 +491,6 @@ const IndexLayout: React.FC<IndexProps> = props => {
       {props.children}
     </div>
   );
-};
+}
 
 export default IndexLayout;

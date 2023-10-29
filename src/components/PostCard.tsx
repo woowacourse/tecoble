@@ -9,16 +9,16 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
-import { PageContext } from '../templates/post';
+import type { PageContext } from '../templates/post';
 import { AuthorList } from './AuthorList';
 import defaultImage from '../content/img/tecoble-background.png';
 
-interface PostCardProps {
+export type PostCardProps = {
   post: PageContext;
   large?: boolean;
-}
+};
 
-export const PostCard = ({ post, large = false }: PostCardProps) => {
+export function PostCard({ post, large = false }: PostCardProps) {
   const { frontmatter, fields, excerpt, timeToRead } = post;
   const date = new Date(frontmatter.date);
   // 2018-08-20
@@ -74,14 +74,12 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
           <AuthorList authors={frontmatter.author} tooltip="small" />
           <PostCardBylineContent className="post-card-byline-content">
             <span>
-              {frontmatter.author.map((author, index) => {
-                return (
-                  <React.Fragment key={author.name}>
-                    <Link to={`/author/${_.kebabCase(author.name)}/`}>{author.name}</Link>
-                    {frontmatter.author.length - 1 > index && ', '}
-                  </React.Fragment>
-                );
-              })}
+              {frontmatter.author.map((author, index) => (
+                <React.Fragment key={author.name}>
+                  <Link to={`/author/${_.kebabCase(author.name)}/`}>{author.name}</Link>
+                  {frontmatter.author.length - 1 > index && ', '}
+                </React.Fragment>
+              ))}
             </span>
             <span className="post-card-byline-date">
               <time dateTime={datetime}>{displayDatetime}</time>{' '}
@@ -92,7 +90,7 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
       </PostCardContent>
     </article>
   );
-};
+}
 
 const PostCardStyles = css`
   position: relative;

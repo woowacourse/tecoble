@@ -8,7 +8,7 @@ import { colors } from '../styles/colors';
 import { outer, inner } from '../styles/shared';
 import config from '../website-config';
 
-export const Footer: React.FC = () => {
+export function Footer() {
   return (
     <footer css={[outer, SiteFooter]}>
       <div css={[inner, SiteFooterContent]}>
@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+}
 
 const SiteFooter = css`
   position: relative;

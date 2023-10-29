@@ -6,9 +6,9 @@ import config from '../../website-config';
 import { SubscribeForm } from './SubscribeForm';
 import SubscribeLogo from './SubscribeLogo';
 
-interface SubscribeState {
+type SubscribeState = {
   isOpen: boolean;
-}
+};
 
 export class SubscribeModal extends React.Component<any, SubscribeState> {
   state = { isOpen: false };
@@ -59,9 +59,9 @@ export class SubscribeModal extends React.Component<any, SubscribeState> {
   }
 }
 
-interface SubscribeOverlayProps {
+type SubscribeOverlayProps = {
   open?: boolean;
-}
+};
 
 const SubscribeOverlay = styled.div<SubscribeOverlayProps>`
   position: fixed;

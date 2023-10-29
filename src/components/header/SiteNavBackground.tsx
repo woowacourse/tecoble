@@ -1,22 +1,22 @@
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { getSrc } from 'gatsby-plugin-image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import { outer, SiteHeader, SiteHeaderStyles } from '../../styles/shared';
 
-interface SiteNavBackgroundProps {
+type SiteNavBackgroundProps = {
   children: ReactNode;
-}
+};
 
-interface SiteNavBackgroundQuery {
+type SiteNavBackgroundQuery = {
   allImage: {
     edges: Array<{
       node: any;
     }>;
   };
-}
+};
 
-const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
+function SiteNavBackground({ children }: SiteNavBackgroundProps) {
   const IMAGE_REMAINING_DURATION = 4000;
   const {
     allImage: { edges },
@@ -69,7 +69,7 @@ const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
       {children}
     </div>
   );
-};
+}
 
 const backgroundImage = css`
   position: absolute;

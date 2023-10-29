@@ -22,9 +22,10 @@ import {
   SiteTitle,
 } from '../styles/shared';
 import config from '../website-config';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 
-export interface IndexProps {
+export type IndexProps = {
+  children: React.ReactNode;
   pageContext: {
     currentPage: number;
     numPages: number;
@@ -38,9 +39,9 @@ export interface IndexProps {
       }>;
     };
   };
-}
+};
 
-const IndexPage: React.FC<IndexProps> = props => {
+function IndexPage(props: IndexProps) {
   const width = getImage(props.data.header)?.width;
   const height = getImage(props.data.header)?.height;
 
@@ -98,15 +99,14 @@ const IndexPage: React.FC<IndexProps> = props => {
           <TagNav className="tag-nav" />
           <div css={[inner, Posts]}>
             <div css={[PostFeed]}>
-              {props.data.allMarkdownRemark.edges.map((post, index) => {
-                // filter out drafts in production
-                return (
+              {props.data.allMarkdownRemark.edges.map(
+                (post, index) =>
+                  // filter out drafts in production
                   (post.node.frontmatter.draft !== true ||
                     process.env.NODE_ENV !== 'production') && (
                     <PostCard key={post.node.fields.slug} post={post.node} large={index === 0} />
-                  )
-                );
-              })}
+                  ),
+              )}
             </div>
           </div>
         </main>
@@ -121,7 +121,7 @@ const IndexPage: React.FC<IndexProps> = props => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {

@@ -23,10 +23,10 @@ declare module '*.ico' {
 }
 
 declare module 'rehype-react' {
-  interface RehypeOptions {
+  type RehypeOptions = {
     createElement: any;
     components: any;
-  }
+  };
   class RehypeReact {
     Compiler: any;
     constructor(options: RehypeOptions);

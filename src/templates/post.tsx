@@ -23,13 +23,13 @@ import { AuthorList } from '../components/AuthorList';
 import Utterances from './Utterances';
 import defaultImage from '../content/img/tecoble-background.png';
 
-export interface Author {
+export type Author = {
   name: string;
   bio: string;
   avatar: any;
-}
+};
 
-interface PageTemplateProps {
+type PageTemplateProps = {
   location: Location;
   data: {
     markdownRemark: {
@@ -68,9 +68,9 @@ interface PageTemplateProps {
     prev: PageContext;
     next: PageContext;
   };
-}
+};
 
-export interface PageContext {
+export type PageContext = {
   excerpt: string;
   timeToRead: number;
   fields: {
@@ -86,9 +86,9 @@ export interface PageContext {
     author: Author[];
     source: string;
   };
-}
+};
 
-const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
+function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
   const post = data.markdownRemark;
   let width: number | undefined;
   let height: number | undefined;
@@ -238,7 +238,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
-          <Utterances repo={'woowacourse/tecoble-comments'} />
+          <Utterances repo="woowacourse/tecoble-comments" />
         </main>
 
         <ReadNext
@@ -252,7 +252,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 const PostTemplate = css`
   .site-main {
