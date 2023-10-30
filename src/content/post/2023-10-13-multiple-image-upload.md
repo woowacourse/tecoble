@@ -36,7 +36,7 @@ image: ../teaser/multiple-image-upload.png
 
 가장 기본적인 방법은 모든 이미지를 하나씩 순차적으로 업로드하는 것이다.
 
-아래는 `ImageStroageService`에서 파일 업로드를 담당하는 `uploadFiles()` 코드이다.
+아래는 `ImageStorageService`에서 파일 업로드를 담당하는 `uploadFiles()` 코드이다.
 
 ```java
 public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
