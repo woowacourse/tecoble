@@ -337,7 +337,7 @@
   location: Seoul
   profile_image: profile/hongo.jpg
 - id: 5기_루쿠
-  avatar: avatars/lookh.png
+  avatar: avatars/lookh.jpeg
   bio: 우아한테크코스 5기 루쿠(백경환)입니다 :)
   github: aiaiaiai1
   website: https://github.com/aiaiaiai1
@@ -350,6 +350,13 @@
   website: https://github.com/guridaek
   location: Seoul
   profile_image: profile/karam.jpg
+- id: 5기_테오
+  avatar: avatars/teo.jpeg
+  bio: 우아한테크코스 5기 테오(최우성)입니다:)
+  github: woosung1223
+  website: https://github.com/woosung1223
+  location: Seoul
+  profile_image: profile/teo.jpeg
 - id: 5기_애쉬
   avatar: avatars/ash.png
   bio: 우아한테크코스 5기 애쉬(정설희)입니다 :)
@@ -357,6 +364,13 @@
   website: https://github.com/xxeol2
   location: Seoul
   profile_image: profile/ash.jpeg
+- id: 5기_폴로
+  avatar: avatars/polo.png
+  bio: 우아한테크코스 5기 폴로(이동훈)입니다 :)
+  github: green-kong
+  website: https://github.com/green-kong
+  location: Seoul
+  profile_image: profile/polo.jpg
 - id: 5기_이레
   avatar: avatars/irae.png
   bio: 우아한테크코스 5기 이레(이다형)입니다 :)
@@ -378,6 +392,13 @@
   website: https://github.com/the9kim
   location: Seoul
   profile_image: profile/roy_profile.JPG
+- id: 5기_연어
+  avatar: avatars/salmon.jpeg
+  bio: 우아한테크코스 5기 연어를 좋아하는 연어(황재현)입니다 😃
+  github: nuyh99
+  website: https://github.com/nuyh99
+  location: Busan
+  profile_image: profile/salmone.jpeg
 - id: 5기_센트
   avatar: avatars/scent.jpeg
   bio: 우아한테크코스 5기 센트(김영우)입니다 :)

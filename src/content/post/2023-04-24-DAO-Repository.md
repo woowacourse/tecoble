@@ -3,7 +3,7 @@ layout: post
 title: 'DAO와 Repository'
 author: [5기_리오]
 tags: ['DAO', 'Repository', 'Data persistence']
-date: '2023-04-29T12:00:00.000Z'
+date: '2023-05-15T12:00:00.000Z'
 draft: false
 image: ../teaser/dao-repository.png
 ---
@@ -54,10 +54,10 @@ DAO(Data Access Object)는 이름 그대로 데이터에 접근하기 위한 객
 영속성 계층에 속한다. 따라서 일반적으로 DAO는 DB의 테이블과 일치한다. 즉, 테이블 중심이라고 할 수 있다.
 
 ```java
-public class Car { 
+public class Car {
     private final String name;
     private final int position;
-    
+
     public Car(String name, int position) {
         this.name = name;
         this.position = position;
@@ -78,11 +78,11 @@ public class CarDto {
       this.name = name;
       this.position = position;
     }
-    
+
     public Car toCar() {
       return new Car(name, position);
     }
-  
+
     //getter etc..
 }
 ```
@@ -98,28 +98,28 @@ public interface CarDao {
     CarDto read(int id);
 
     void update(CarDto carDto);
-  
+
     void delete(int id);
 }
 ```
 
 ```java
 public class MySQLCarDao implements CarDao {
-  
+
     //DB connection etc...
-  
+
     @Override
     public void create(CarDto carDto) {
         String sql = "INSERT INTO CARS(id, name, position) VALUES(?, ?, ?)";
         //parameter binding etc...
     }
-  
+
     @Override
     public CarDto read(int id) {
         String sql = "SELECT * FROM CARS WHERE id = ?";
         //parameter binding etc...
     }
-  
+
     //...
 }
 ```
@@ -128,21 +128,21 @@ public class MySQLCarDao implements CarDao {
 public class MongoDBCarDao implements CarDao {
 
     //DB connection etc...
-  
+
     @Override
     public void create(CarDto carDto) {
         //doc -> Document 인스턴스
         doc.put(carDto.getName(), carDto.getPosition());
         //etc...
     }
-  
+
     @Override
     public CarDto read(int id) {
         //MongoCollection의 find() 메서드 이용
         Document doc = collection.find(eq("id", id));
         //etc...
     }
-  
+
     //...
 }
 ```
@@ -162,14 +162,15 @@ Spring 공식 문서에 있는 @Repository 어노테이션에 대한 설명은 �
 아래는 CarRepository 인터페이스와, 메모리와 DB 각각에서 사용될 해당 인터페이스의 축약된 구현체들이다.
 <br>(아래 예시에서, DBCarRepository처럼 영속성 계층과 통신하는 경우는 메서드들의 파라미터로 DTO가 오는 것이 합리적일 것이다. 그러나, InMemoryCarRepository처럼 계층 내부 간의 통신인 경우가 있어서 예시에서는
 Car 객체를 직접 전달받았다.)
+
 ```java
 public interface CarRepository {
     Car findById(int id);
-  
+
     List<Car> findAll();
-  
+
     void save(Car car);
-  
+
     void deleteById(int id);
 }
 ```
@@ -177,12 +178,12 @@ public interface CarRepository {
 ```java
 public class InMemoryCarRepository implements CarRepository {
     private Map<int, Car> cars = new HashMap<>();
-  
+
     @Override
     public Car findById(int id) {
       return cars.get(id);
     }
-  
+
     @Override
     public List<Car> findAll() {
         return cars.values()
@@ -199,14 +200,14 @@ public class DBCarRepository implements CarRepository {
     private MySQLCarDao mySQLCarDao;
     private MongoDBCarDao mongoDBCarDao;
     private JdbcTemplate jdbcTemplate;
-  
+
     //constructor etc...
-  
+
     @Override
     public Car findById(int id) {
         return mySQLCarDao.read(id).toCar();
     }
-  
+
     @Override
     public List<Car> findAll() {
         List<Car> cars = new ArrayList<>();
@@ -215,17 +216,18 @@ public class DBCarRepository implements CarRepository {
         }
         return cars;
     }
-  
+
     @Override
     public save(Car car) {
         String sql = "INSERT INTO CARS (name, position) VALUES(?, ?)";
-    
+
         jdbcTemplate.update(sql, car.getName(), car.getPosition());
         //...
     }
     //...
 }
 ```
+
 InMemoryCarRepository는 내부의 HashMap에 Car들을 저장하여 가지고 있다. 그리고 해당 HashMap에 Car를 저장, 삭제, 검색 등을 한다. 만약 Car의 정보가 저장되는 곳이 외부
 파일이라면 FileCarRepository 등의 Repository 인터페이스의 구현체를 만들 수 있을 것이다.
 이처럼 Repository는 영구저장소와 무관하게, 객체의 정보를 저장하고 읽어오는 역할에 대한 추상화가 가능하다면 사용할 수 있다.<br>
@@ -237,18 +239,17 @@ DBCarRepository는 DAO들을 내부에서 이용하거나, jdbcTemplate을 사�
 <br>
 <br>
 눈치를 챈 사람도 있겠지만, Repository 인터페이스에는 DAO와 다르게 update 메서드가 빠져있다. [StackOverFlow](https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns)
-에는 다음과 같이 적혀있다. 
+에는 다음과 같이 적혀있다.
+
 > A method like Update is appropriate on a DAO, but not a Repository. When using a Repository, changes to entities are
-> usually tracked by a separate UnitOfWork. 
+> usually tracked by a separate UnitOfWork.
 
 이에 따르면 일반적으로 Repository는 update 메서드를 가지는 것이 어색하다. 여기에서 DAO와 Repository의 개념적 차이가 명확하게 나타난다.
-CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접하게 연관되어 있다. 그러므로 해당 테이블에서 어떤 레코드를 update 하는 것이 DAO와 관련이 되어도 전혀 어색하지 않다. 
+CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접하게 연관되어 있다. 그러므로 해당 테이블에서 어떤 레코드를 update 하는 것이 DAO와 관련이 되어도 전혀 어색하지 않다.
 <br>그러나 Repository는 DB에 국한되지 않은, 객체의 정보를 저장한 `저장소의 관리`에 대한 책임을 지고 있다.
 "객체를 저장한다.", "저장된 객체를 조회한다.", "저장된 객체를 삭제한다."라는 행위들은 이 책임에 해당한다.
 하지만 "update할 객체의 정보와 update될 값을 가지고, 저장소에 이미 저장된 객체를 조회해서 그 객체의 정보를 update한다"라는 행위는 객체의 저장소에 대한 책임이라고 하기에는 무리가 있다.
 또한 위의 설명대로, 엔티티의 수정 내역은 보통 분리된 "[UnitOfWork](https://zetlos.tistory.com/1179902868)"에 따르기 때문에 Repository에서 일어나는 것이 적절하지 않다.
-
-
 
 ## DAO와 Repository의 공통점과 차이점
 
@@ -261,8 +262,8 @@ Repository가 상대적으로 더 high-level의 개념이다.
 
 이상으로 DAO와 Repository에 대해 알아봤다. 간단한 어노테이션도 정확한 개념을 알고 적절하게 사용할 수 있도록 노력하자.
 
-
 ## 참고
+
 - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html
 - https://stackoverflow.com/questions/8550124/what-is-the-difference-between-dao-and-repository-patterns
 - https://www.baeldung.com/java-dao-vs-repository
