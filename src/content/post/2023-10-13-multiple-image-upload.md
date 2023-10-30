@@ -74,7 +74,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 # 병렬 스트림을 활용한 업로드
 
-Java8부터는 컬렉션의 병렬 처리를 지원하는 "병렬 스트림(parallel stream)"이 도입되었다.
+Java 8부터는 컬렉션의 병렬 처리를 지원하는 "병렬 스트림(parallel stream)"이 도입되었다.
 이를 활용하면, 여러 CPU 코어를 통해 작업을 효율적으로 분산시켜 더 빠르게 수행할 수 있다.
 
 이를 활용하여 이미지 업로드를 병렬적으로 처리할 수 있다.
