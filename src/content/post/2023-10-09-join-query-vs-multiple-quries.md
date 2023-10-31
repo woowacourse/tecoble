@@ -17,20 +17,22 @@ image: ../teaser/join-query-vs-multiple-quries.png
 
 ​
 ```sql
-select * from petFood
-join brand
-join petFoodPrimaryIngredient
-join petFoodfunctionality
+select * from pet_food p1_0
+join brand b1_0 on b1_0.id=p1_0.brand_id
+join pet_food_primary_ingredient p2_0 on p1_0.id=p2_0.pet_food_id
+join primary_ingredient p3_0 on p3_0.id=p2_0.primary_ingredient_id
+where p1_0.id=1
 ```
 
 
 ```sql
-select * from review
-join pet
-join breed
-join petSize
-join helpfulReaction
-join adverseReation
+select * from review r1_0
+join pet p1_0 on p1_0.id=r1_0.pet_id
+join breed b1_0 on b1_0.id=p1_0.breed_id
+join pet_size p2_0 on p2_0.id=b1_0.pet_size_id
+left join helpful_reaction h1_0 on r1_0.id=h1_0.review_id
+join adverse_reaction a1_0 on r1_0.id=a1_0.review_id
+where r1_0.id=?
 ```
 ​
 
