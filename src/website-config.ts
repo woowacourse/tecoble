@@ -53,7 +53,7 @@ const config: WebsiteConfig = {
   description: 'woowacourse code review & devlog',
   coverImage: 'img/wooteco.jpeg',
   logo: 'img/tecoble.png',
-  lang: 'en',
+  lang: 'ko',
   siteUrl: 'https://tecoble.techcourse.co.kr',
   showSubscribe: false,
   mailchimpAction:
