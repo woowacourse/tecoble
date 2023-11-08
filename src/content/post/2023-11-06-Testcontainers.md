@@ -102,31 +102,31 @@ Testcontainers의 공식 사이트에서는 다음과 같이 소개하고 있습
 ```java
 class FileUploaderTest {  
   
-	@Mock  
-	private FilePath filePath;  
-	  
-	@Mock  
-	private FileUrlMaker fileUrlMaker;  
-	  
-	@InjectMocks  
-	private FileUploader fileUploader;  
-	  
-	@Test  
-	void 파일의_URL을_반환한다() {  
-		// given  
-		UUID randomUUID = UUID.randomUUID();  
-		String baseUrl = "https://example.com/files/";  
-		String expectedFileUrl = baseUrl + randomUUID + ".jpg";  
-		MultipartFile multipartFile = mock(MultipartFile.class);  
-		given(multipartFile.getContentType()).willReturn(IMAGE.contentType());  
-		given(fileUrlMaker.make(any())).willReturn(expectedFileUrl);  
-		  
-		// when  
-		String url = fileUploader.upload(multipartFile);  
-		  
-		// then  
-		assertThat(url).isEqualTo(expectedFileUrl);  
-	}
+    @Mock  
+    private FilePath filePath;  
+      
+    @Mock  
+    private FileUrlMaker fileUrlMaker;  
+      
+    @InjectMocks  
+    private FileUploader fileUploader;  
+      
+    @Test  
+    void 파일의_URL을_반환한다() {  
+        // given  
+        UUID randomUUID = UUID.randomUUID();  
+        String baseUrl = "https://example.com/files/";  
+        String expectedFileUrl = baseUrl + randomUUID + ".jpg";  
+        MultipartFile multipartFile = mock(MultipartFile.class);  
+        given(multipartFile.getContentType()).willReturn(IMAGE.contentType());  
+        given(fileUrlMaker.make(any())).willReturn(expectedFileUrl);  
+          
+        // when  
+        String url = fileUploader.upload(multipartFile);  
+          
+        // then  
+        assertThat(url).isEqualTo(expectedFileUrl);  
+    }
 }
 ```
 
@@ -194,21 +194,21 @@ JUnit과 MySQL에 대한 모듈 의존성도 추가해줍니다. (~~이유는 to
 @ServiceTest  
 class MenuGroupServiceTest {  
   
-	@Autowired  
-	private MenuGroupRepository menuGroupRepository;  
-	  
-	@Autowired  
-	private MenuGroupService menuGroupService;  
-	  
-	@Test  
-	void 메뉴_그룹을_등록한다() {  
-		// ...
-	}  
-	  
-	@Test  
-	void 메뉴_그룹들을_조회한다() {  
-		// ...  
-	}  
+    @Autowired  
+    private MenuGroupRepository menuGroupRepository;  
+      
+    @Autowired  
+    private MenuGroupService menuGroupService;  
+      
+    @Test  
+    void 메뉴_그룹을_등록한다() {  
+        // ...
+    }  
+      
+    @Test  
+    void 메뉴_그룹들을_조회한다() {  
+        // ...  
+    }  
 }
 
 @SuppressWarnings("NonAsciiCharacters")  
@@ -238,33 +238,33 @@ public @interface ServiceTest {
 @ServiceTest  
 class MenuGroupServiceTest {  
 
-	@Autowired  
-	private MenuGroupRepository menuGroupRepository;  
-	  
-	@Autowired  
-	private MenuGroupService menuGroupService;  
-
-	private MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");  
+    @Autowired  
+    private MenuGroupRepository menuGroupRepository;  
+      
+    @Autowired  
+    private MenuGroupService menuGroupService;  
   
-	@BeforeEach  
-	void setUp() {  
-	mySQLContainer.start();  
-	}  
-	  
-	@AfterEach  
-	void tearDown() {  
-	mySQLContainer.stop();  
-	}
-	  
-	@Test  
-	void 메뉴_그룹을_등록한다() {  
-		// ...
-	}  
-	  
-	@Test  
-	void 메뉴_그룹들을_조회한다() {  
-		// ...  
-	}  
+    private MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");  
+    
+    @BeforeEach  
+    void setUp() {  
+        mySQLContainer.start();  
+    }  
+      
+    @AfterEach  
+    void tearDown() {  
+        mySQLContainer.stop();  
+    }
+      
+    @Test  
+    void 메뉴_그룹을_등록한다() {  
+        // ...
+    }  
+      
+    @Test  
+    void 메뉴_그룹들을_조회한다() {  
+        // ...  
+    }  
 }
 ```
 원래 Testcontainers 모듈에는 Container라는 인터페이스와 구현체인 GenericContainer가 존재합니다. MySQL에 대한 의존성을 위에서 추가해줬기 때문에 (~~복선 ㄷㄷ~~) GenericContainer를 상속받은 MySQLContainer를 사용할 수 있게 되었고, 이를 통해 추가적인 설정없이 바로 MySQL 컨테이너를 띄울 수 있게 되었습니다.
@@ -303,24 +303,24 @@ JUnit5의 @ExtendWith을 통해서, 테스트 인스턴스의 생명주기를 In
 @ServiceTest  
 class MenuGroupServiceTest {  
 
-	@Autowired  
-	private MenuGroupRepository menuGroupRepository;  
-	  
-	@Autowired  
-	private MenuGroupService menuGroupService;  
-
-	@Container
-	private MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");    
-	
-	@Test  
-	void 메뉴_그룹을_등록한다() {  
-		// ...
-	}  
-	  
-	@Test  
-	void 메뉴_그룹들을_조회한다() {  
-		// ...  
-	}  
+    @Autowired  
+    private MenuGroupRepository menuGroupRepository;  
+      
+    @Autowired  
+    private MenuGroupService menuGroupService;  
+  
+    @Container
+    private MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");    
+    
+    @Test  
+    void 메뉴_그룹을_등록한다() {  
+        // ...
+    }  
+      
+    @Test  
+    void 메뉴_그룹들을_조회한다() {  
+        // ...  
+    }  
 }
 ```
 @Testcontainers와 @Container 모두 위에서 추가해준 Testcontainers JUnit 모듈에서 제공하는 기능입니다. (~~복선222 ㄷㄷ~~)
@@ -333,18 +333,18 @@ class MenuGroupServiceTest {
 @ExtendWith(TestcontainersExtension.class)  
 @Inherited  
 public @interface Testcontainers {  
-	/**  
-	* Whether tests should be disabled (rather than failing) when Docker is not available. Defaults to  
-	* {@code false}.  
-	* @return if the tests should be disabled when Docker is not available  
-	*/  
-	boolean disabledWithoutDocker() default false;  
-	  
-	/**  
-	* Whether containers should start in parallel. Defaults to {@code false}.  
-	* @return if the containers should start in parallel  
-	*/  
-	boolean parallel() default false;  
+    /**  
+    * Whether tests should be disabled (rather than failing) when Docker is not available. Defaults to  
+    * {@code false}.  
+    * @return if the tests should be disabled when Docker is not available  
+    */  
+    boolean disabledWithoutDocker() default false;  
+      
+    /**  
+    * Whether containers should start in parallel. Defaults to {@code false}.  
+    * @return if the containers should start in parallel  
+    */  
+    boolean parallel() default false;  
 }
 
 ```
@@ -357,71 +357,71 @@ implements BeforeEachCallback, BeforeAllCallback, AfterEachCallback, AfterAllCal
 
 	// ...
 	
-	@Override  
-	public void beforeAll(ExtensionContext context) {  
-		
-		// ...  
-		
-		List<StoreAdapter> sharedContainersStoreAdapters = findSharedContainers(testClass);  
-		  
-		// ...
-	}  
-	  
-	@Override  
-	public void afterAll(ExtensionContext context) {  
-		// ...
-	}  
-	  
-	@Override  
-	public void beforeEach(final ExtensionContext context) {  
-	
-		// ... 
-	  
-		List<StoreAdapter> restartContainers = collectParentTestInstances(context)  
-      .parallelStream()  
-      .flatMap(this::findRestartContainers)  
-      .collect(Collectors.toList());  
-
-		// ...
-	
-	}  
-	  
-	@Override  
-	public void afterEach(ExtensionContext context) {  
-		// ...
-	}  
-	  
-	private List<StoreAdapter> findSharedContainers(Class<?> testClass) {  
-		return ReflectionSupport  
-      .findFields(testClass, isSharedContainer(), HierarchyTraversalMode.TOP_DOWN)  
-      .stream()  
-      .map(f -> getContainerInstance(null, f))  
-      .collect(Collectors.toList());  
-	}  
-	  
-	private Predicate<Field> isSharedContainer() {  
-		return isContainer().and(ModifierSupport::isStatic);  
-	}  
-	  
-	private Stream<StoreAdapter> findRestartContainers(Object testInstance) {  
-		return ReflectionSupport  
-      .findFields(testInstance.getClass(), isRestartContainer(), HierarchyTraversalMode.TOP_DOWN)  
-      .stream()  
-      .map(f -> getContainerInstance(testInstance, f));  
-	}  
-	  
-	private Predicate<Field> isRestartContainer() {  
-		return isContainer().and(ModifierSupport::isNotStatic);  
-	}  
-	  
-	private static Predicate<Field> isContainer() {  
-		return field -> {  
-			boolean isAnnotatedWithContainer = AnnotationSupport.isAnnotated(field, Container.class);  
-			
-			// ...
-			
-		};  
-	}  
+    @Override  
+    public void beforeAll(ExtensionContext context) {  
+      
+        // ...  
+        
+        List<StoreAdapter> sharedContainersStoreAdapters = findSharedContainers(testClass);  
+          
+        // ...
+    }  
+      
+    @Override  
+    public void afterAll(ExtensionContext context) {  
+        // ...
+    }  
+      
+    @Override  
+    public void beforeEach(final ExtensionContext context) {  
+    
+        // ... 
+      
+        List<StoreAdapter> restartContainers = collectParentTestInstances(context)  
+            .parallelStream()  
+            .flatMap(this::findRestartContainers)  
+            .collect(Collectors.toList());  
+  
+        // ...
+    
+    }  
+      
+    @Override  
+    public void afterEach(ExtensionContext context) {  
+        // ...
+    }  
+      
+    private List<StoreAdapter> findSharedContainers(Class<?> testClass) {  
+        return ReflectionSupport  
+            .findFields(testClass, isSharedContainer(), HierarchyTraversalMode.TOP_DOWN)  
+            .stream()  
+            .map(f -> getContainerInstance(null, f))  
+            .collect(Collectors.toList());  
+    }  
+      
+    private Predicate<Field> isSharedContainer() {  
+        return isContainer().and(ModifierSupport::isStatic);  
+    }  
+      
+    private Stream<StoreAdapter> findRestartContainers(Object testInstance) {  
+        return ReflectionSupport  
+            .findFields(testInstance.getClass(), isRestartContainer(), HierarchyTraversalMode.TOP_DOWN)  
+            .stream()  
+            .map(f -> getContainerInstance(testInstance, f));  
+    }  
+      
+    private Predicate<Field> isRestartContainer() {  
+        return isContainer().and(ModifierSupport::isNotStatic);  
+    }  
+      
+    private static Predicate<Field> isContainer() {  
+        return field -> {  
+            boolean isAnnotatedWithContainer = AnnotationSupport.isAnnotated(field, Container.class);  
+        
+            // ...
+        
+      };  
+    }  
 }
 ```
 
@@ -437,10 +437,10 @@ implements BeforeEachCallback, BeforeAllCallback, AfterEachCallback, AfterAllCal
 private MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");  
   
 {  
-	mySQLContainer.withUsername("리오")  
-    .withPassword("짱짱")  
-    .withDatabaseName("멋쟁이")  
-    .withConfigurationOverride("귀요미");  
+	  mySQLContainer.withUsername("리오")  
+        .withPassword("짱짱")  
+        .withDatabaseName("멋쟁이")  
+        .withConfigurationOverride("귀요미");  
 }
 ```
 
@@ -456,11 +456,11 @@ MySQLContainer의 Super Class인 JdbcDatabaseContainer와 GenericContainer는 �
 ```java
 class WithContainerTest {
 
-	protected static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");
+	  protected static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");
 
-	static {
-		mySQLContainer.start();
-	}
+    static {
+        mySQLContainer.start();
+    }
 }
 ```
 
@@ -468,8 +468,8 @@ class WithContainerTest {
 @Testcontainers
 class WithContainerTest {
 
-	@Container  
-	protected static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");
+	  @Container  
+	  protected static MySQLContainer mySQLContainer = new MySQLContainer("mysql:8");
 }
 ```
 ```java
