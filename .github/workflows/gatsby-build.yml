@@ -52,6 +52,8 @@ jobs:
 
       - name: Build Gatsby Project
         run: npm run build
+        env:
+          GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
