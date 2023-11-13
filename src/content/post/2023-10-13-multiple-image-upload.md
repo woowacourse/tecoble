@@ -305,7 +305,7 @@ private void handleException(AtomicBoolean catchException, List<String> fileName
 [PostFacadeService.createPost] 실행 시간(ms): 251
 [PostFacadeService.createPost] 실행 시간(ms): 241
 
-// 커스텀 스레드풀 (coreSize 10)
+// ThreadPoolTaskExecutor (coreSize 10)
 [PostFacadeService.createPost] 실행 시간(ms): 182
 [PostFacadeService.createPost] 실행 시간(ms): 161
 [PostFacadeService.createPost] 실행 시간(ms): 197
