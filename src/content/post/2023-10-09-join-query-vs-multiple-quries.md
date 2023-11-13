@@ -7,7 +7,7 @@ tags:
   - query
   - sub-query
   - join
-date: 2023-10-09T12:00:00.000Z
+date: 2023-11-13T12:00:00.000Z
 draft: false
 image: ../teaser/join-query-vs-multiple-quries.png
 ---
