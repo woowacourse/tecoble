@@ -8,7 +8,13 @@ draft: false
 image: ../teaser/multiple-image-upload.png
 ---
 
-이번 포스트에서는 예제 코드를 통해 여러 장의 이미지를 업로드하는 다양한 방법을 소개하겠다.
+사이드 프로젝트로 sns 서비스를 개발하며 사용자가 다수의 이미지를 업로드하는 기능을 개발하게 되었다.
+웹 애플리케이션에서 다중 이미지 업로드는 일반적이며, 이를 효율적으로 처리하는 것은 사용자 경험 향상에 중요한 역할을 한다.
+
+그렇다면 서버 측에서는 여러 장의 이미지를 어떻게 효율적으로 업로드할 수 있을까?
+
+이 글에서는 구체적인 이미지 저장 방법(로컬 스토리지 저장, 클라우드 서비스 사용, DB에 바이너리 데이터로 저장 등)을 떠나, 이미지 업로드 과정을 어떻게 하면 더 효율적이고 빠르게 처리할 수 있을지에 집중해보고자 한다.
+병렬 처리와 같은 기술을 활용하여 서버 성능을 최대한 활용하고, 사용자에게 빠른 응답 시간을 제공하는 방법을 예제 코드와 함께 살펴보자.
 
 # 예제 코드 소개
 
@@ -49,7 +55,7 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
         return convertFileNamesToResponse(fileNames);
     } catch (Exception e) {
         executor.execute(() -> deleteFiles(fileNames));
-        throw new InternalServerException("이미지 업로드시 예외가 발생했습니다.");
+        throw new InternalServerException("이미지 업로드 시 예외가 발생했습니다.");
     }
 }
 
@@ -57,20 +63,40 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 
 이미지 파일들을 순차적으로 `StorageClient`에 업로드 요청을 보내고, 업로드에 성공한 파일의 이름을 모아 반환한다.
 
-로그를 통해 모든 요청이 단일 스레드에서 순차적으로 처리되는 것을 확인할 수 있다.
+```
+[nio-8080-exec-1] : File Upload 시작 (871cb6aae189.png)
+[nio-8080-exec-1] : File Upload 완료 (871cb6aae189.png)
+[nio-8080-exec-1] : File Upload 시작 (1e17f3995ade.png)
+[nio-8080-exec-1] : File Upload 완료 (1e17f3995ade.png)
+[nio-8080-exec-1] : File Upload 시작 (587ab1b903d3.png)
+[nio-8080-exec-1] : File Upload 완료 (587ab1b903d3.png)
+```
 
-<img src="../img/multiple-image-upload/순차적 업로드 로그.png" width="500">
+위 로그에서 `[nio-8080-exec-1]`은 해당 작업이 진행된 스레드 이름을 나타낸다. 모든 요청이 단일 스레드에서 순차적으로 처리되는 것을 확인할 수 있다.
 
 <img src="../img/multiple-image-upload/순차적 업로드 구조.png" width="500">
 
 ## 성능 측정
 
-<img src="../img/multiple-image-upload/순차적 업로드 성능.png" width="300">
+```
+[PostFacadeService.createPost] 실행 시간(ms): 1396
+[PostFacadeService.createPost] 실행 시간(ms): 1287
+[PostFacadeService.createPost] 실행 시간(ms): 1251
+[PostFacadeService.createPost] 실행 시간(ms): 1383
+[PostFacadeService.createPost] 실행 시간(ms): 1338
+```
 
-10장의 354KB 이미지를 업로드하는 데에 평균 1272ms가 소요되었다.
+10장의 354KB 이미지를 업로드하는 데에 평균 1331ms가 소요되었다.
 
-여러 스레드에서 이미지를 병렬로 업로드하면 처리 시간이 단축될 것으로 예상된다.
-여러 이미지를 병렬적으로 업로드하는 방식으론 어떤 게 있을까?
+다중 이미지 업로드 시, 단일 스레드를 사용하여 순차적으로 처리하는 방식은 간단하고 직관적이다.
+이 방법을 사용하면, 각 이미지는 이전 이미지가 완전히 업로드된 후에 업로드된다.
+그러나 이러한 단일 스레드 방식은 이미지 하나당 소요되는 시간이 누적되어 전체 업로드 시간이 길어지는 단점이 있다.
+예를 들어, 이미지 하나를 업로드하는데 평균 130ms가 소요되고 10개의 이미지를 업로드한다면, 총 소요 시간은 약 1300ms가 된다.
+
+이에 비해, 여러 스레드를 사용하여 이미지를 병렬로 업로드하면 처리 시간을 단축할 수 있다.
+이 방식에서는 여러 이미지가 동시에 업로드되므로, 10장의 이미지를 업로드하는 데 걸리는 시간을 1331ms에서 더 단축시킬 수 있을 것으로 예상된다.
+
+이제 병렬 스트림을 활용한 이미지 업로드 방식에 대해 자세히 알아보자.
 
 # 병렬 스트림을 활용한 업로드
 
@@ -91,23 +117,43 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
         return convertFileNamesToResponse(fileNames);
     } catch (Exception e) {
         executor.execute(() -> deleteFiles(fileNames));
-        throw new InternalServerException("이미지 업로드시 예외가 발생했습니다.");
+        throw new InternalServerException("이미지 업로드 시 예외가 발생했습니다.");
     }
 }
 
 ```
 
-각 이미지 업로드 요청이 병렬 스레드에서 동시에 처리되는 것을 로그를 통해 확인할 수 있다.
+각 이미지 업로드 요청이 병렬 스레드에서 동시에 처리되는 것을 로그를 통해 확인할 수 있다. 아래 로그에서 `[onPool-worker-*]`는 해당 작업이 진헹된 스레드 이름이다.
 
-<img src="../img/multiple-image-upload/병렬 스트림 로그.png" width="500">
+```
+[onPool-worker-6] : File Upload 시작 (871cb6aae189.png)
+[onPool-worker-4] : File Upload 시작 (9af5a8a21538.png)
+[onPool-worker-2] : File Upload 시작 (1e17f3995ade.png)
+[onPool-worker-1] : File Upload 시작 (587ab1b903d3.png)
+[onPool-worker-5] : File Upload 시작 (bdc9a80b2331.png)
+[onPool-worker-7] : File Upload 시작 (faac3d412e3e.png)
+[onPool-worker-3] : File Upload 시작 (85db46aad248.png)
+[onPool-worker-1] : File Upload 완료 (587ab1b903d3.png)
+[onPool-worker-1] : File Upload 시작 (3cf2f27aacb3.png)
+[onPool-worker-5] : File Upload 완료 (bdc9a80b2331.png)
+[onPool-worker-5] : File Upload 시작 (9343ba3a01d1.png)
+[onPool-worker-2] : File Upload 완료 (1e17f3995ade.png)
+...
+```
 
 <img src="../img/multiple-image-upload/병렬 스트림 구조.png" width="400">
 
 ## 성능 측정
 
-<img src="../img/multiple-image-upload/병렬 스트림 성능.png" width="300">
+```
+[PostFacadeService.createPost] 실행 시간(ms): 256
+[PostFacadeService.createPost] 실행 시간(ms): 223
+[PostFacadeService.createPost] 실행 시간(ms): 213
+[PostFacadeService.createPost] 실행 시간(ms): 217
+[PostFacadeService.createPost] 실행 시간(ms): 238
+```
 
-병렬 스트림을 활용하니 처리 시간이 평균 1272ms에서 231ms로 약 **5배 이상 단축**되었다.
+병렬 스트림을 활용하니 처리 시간이 평균 1331ms에서 229ms로 약 **5배 이상 단축**되었다.
 
 ## 병렬 스트림 사용 시 주의점
 
@@ -123,7 +169,12 @@ public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
 만약 어떤 스레드의 업로드가 실패하면, 즉시 `deleteFiles(fileNames)` 메서드를 호출하여 삭제 작업을 시작한다.
 이때 다른 스레드가 아직 업로드를 완료하지 않아 리스트에 새로운 요소를 추가하는 상황이 발생하면 `ConcurrentModificationException` 예외가 발생한다.
 
-<img src="../img/multiple-image-upload/ConcurrentModificationException 발생.png" width="700">
+```
+Exception in thread "taskExecutor-1" java.util.ConcurrentModificationException
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1513)
+at practice.s3.application.ImageStorageService.deleteFiles(ImageStorageService.java:67)
+at practice.s3.application.ImageStorageService.lambda$uploadFiles$0(ImageStorageService.java:38) <3 internal lines>
+```
 
 ### 병렬 작업 종료 후 통합 예외 처리
 
@@ -155,37 +206,50 @@ private String uploadFile(MultipartFile file, AtomicBoolean catchException) {
 private void handleException(AtomicBoolean catchException, List<String> fileNames) {
     if (catchException.get()) {
         executor.execute(() -> deleteFiles(fileNames));
-        throw new InternalServerException("이미지 업로드시 예외가 발생했습니다.");
+        throw new InternalServerException("이미지 업로드 시 예외가 발생했습니다.");
     }
 }
 
 ```
 
-여기서 `AtomicBoolean`을 사용해 예외 발생 여부를 thread-safe하게 관리한다.
-각 스레드에서 업로드 도중 예외가 발생하면 이 값을 `true`로 설정한다.
+여기서는 `AtomicBoolean`을 활용하여 예외 발생 여부를 각 스레드에서 안전하게 추적한다. 업로드 과정에서 예외가 발생하면, 해당 변수를 true로 설정하여 상태를 기록한다.
 
-모든 병렬 작업이 종료된 후, 예외 발생 여부를 확인하여 처리한다.
+모든 병렬 작업이 종료된 후, 이 `AtomicBoolean` 상태를 검사함으로써 예외 발생 유무를 확인한다.
 이렇게 함으로써 동시성 문제를 피하면서 안정적으로 예외를 처리할 수 있게 되었다.
 
 ## 병렬 스트림의 제약점
 
-병렬 스트림은 자바 내부의 `ForkJoinPool`을 활용하여 동작한다. 이 풀은 시스템의 프로세서 수를 기반으로 적절한 수의 스레드를 할당한다. (이 포스트에서의 성능 측정은 7개의 스레드가 할당된 환경에서 진행되었다.)
+병렬 스트림은 내부적으로 `ForkJoinPool`을 사용하여 자동으로 작업을 여러 스레드에 분배한다. 이러한 분배는 시스템의 프로세서 수를 고려하여 스레드 수를 결정한다. 본 포스트의 성능 측정은 7개의 스레드가 활용된 환경에서 이루어졌다.
 
-병렬 스트림의 스레드 수를 조절하는 것이 가능하기는 하나, 이는 모든 병렬 스트림에 영향을 미치는 전역 설정이다. 이러한 특성 때문에 특정 작업에 최적화된 병렬 처리를 구현하기 쉽지 않다.
+병렬 스트림의 스레드 수를 조절하는 것은 기술적으로 가능하나, 이 조정은 `ForJoinPool.commonPool()`에 대한 전역 설정을 변경하는 것이므로, 모든 병렬 스트림 작업에 영향을 미친다.
+
+예를 들어, 작업 A에 최적화하기 위해 스레드 수를 10으로 설정한다면, 이는 작업 B,C,D 등 현재 진행 중인 다른 모든 병렬 스트림 작업에도 동일하게 적용된다. 따라서 각 작업의 특성에 따라 최적의 성능을 얻기 위해 병렬 스트림의 스레드 수를 독립적으로 조절하는 것이 쉽지 않다.
 
 그렇다면, 더 세밀한 병렬 처리 제어를 원할 땐 어떻게 해야 할까?
 
 # CompletableFuture를 활용한 병렬 업로드
 
-Java 8부터는 `CompletableFuture`라는 클래스가 도입되었다.
-이는 비동기 연산의 결과를 표현하며, 연산의 완료 시점을 명시적으로 제어할 수 있다.
+Java 8이 등장하면서, `CompletableFuture`는 비동기 프로그래밍에 큰 변화를 가져왔다. 이 클래스는 비동기 연산의 결과를 나타내는 것뿐만 아니라, 그 완료 시점과 연산의 수명 주기를 세부적으로 제어할 수 있게 해준다. 이는 단순히 결과를 기다리는 것을 넘어, 연산을 시작하고, 완료하며, 여러 작업을 결합하고, 예외를 처리하는 등의 복잡한 비동기 흐름을 명시적으로 제어할 수 있다는 의미다.
 
-`CompletableFuture`는 executor를 지정하여 병렬 처리의 스레드 풀을 명시적으로 제어할 수 있다.
-이를 통해 특정 작업에 최적화된 병렬 처리 구현이 가능하다.
+`ForkJoinPool`은 큰 작업을 작은 단위로 분할하여 병렬로 처리한 다음, 그 결과를 합치는 데 초점을 맞추고 있다. 반면, `CompletableFuture`는 기본적으로 사용하는 `ForkJoinPool` 외에도, 자체적으로 지정한 executor를 통해 스레드 풀을 직접 제어할 수 있다. 이를 통해 특정 작업에 최적화된 병렬 처리가 가능해지고, 복잡한 비동기 작업 흐름을 필요에 맞게 구성할 수 있게 된다.
 
-기본적으로 `CompletableFuture`는 executor를 지정하지 않으면, 병렬 스트림과 같이 `ForkJoinPool`을 사용한다.
+예를 들어, 이미지 업로드 작업과 같이 I/O 집약적인 작업이 있을 때,`CompletableFuture`를 사용하여 특정 `coreSize`인 `ThreadPoolTaskExecutor`를 사용함으로써, 독립적인 스레드 풀을 구성하여 업로드를 병렬로 수행할 수 있다. 이는 각각의 작업이 다른 작업의 리소스 사용에 영향을 끼치지 않으면서 효율적으로 수행할 수 있도록 해준다. 이처럼 `CompletableFuture`는 복잡한 비동기 흐름을 잘 제어하고, 각 작업에 맞는 병렬 처리를 필요로 하는 상황에서 유용한 도구이다.
 
-본 예제에서는 하나의 포스트에서 최대 10장의 이미지를 업로드할 수 있기에, `coreSize`를 10으로 설정한 `ThreadPoolTaskExecutor`를 사용하여 병렬 업로드를 진행했다.
+본 예제에서는 한 포스트에 최대 10장의 이미지를 업로드하는 상황을 가정하여, `coreSize`가 10인 `ThreadPoolTaskExecutor`를 설정해 병렬 업로드를 실행했다.
+
+```java
+@Configuration
+public class AsyncConfig {
+
+    @Bean
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(10);
+        executor.initialize();
+        return executor;
+    }
+}
+```
 
 ```java
 public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
@@ -215,7 +279,7 @@ private List<String> gatherFileNamesFromFutures(List<CompletableFuture<String>> 
 private void handleException(AtomicBoolean catchException, List<String> fileNames) {
     if (catchException.get()) {
         executor.execute(() -> deleteFiles(fileNames));
-        throw new InternalServerException("이미지 업로드시 예외가 발생했습니다.");
+        throw new InternalServerException("이미지 업로드 시 예외가 발생했습니다.");
     }
 }
 ```
@@ -233,22 +297,43 @@ private void handleException(AtomicBoolean catchException, List<String> fileName
 
 ## 성능 측정
 
-<img src="../img/multiple-image-upload/CompletableFuture 성능.png" width="500">
+```
+// CommonForkJoinPool
+[PostFacadeService.createPost] 실행 시간(ms): 312
+[PostFacadeService.createPost] 실행 시간(ms): 261
+[PostFacadeService.createPost] 실행 시간(ms): 322
+[PostFacadeService.createPost] 실행 시간(ms): 251
+[PostFacadeService.createPost] 실행 시간(ms): 241
 
-스레드풀을 별도로 지정하지 않았을 때의 평균 처리 시간은 272ms였다.
-반면, 커스텀 스레드풀을 적용했을 때의 평균 처리 시간은 190ms로 짧아졌다.
-이전에 살펴본 병렬 스트림의 처리 시간인 231ms와 비교하면 전자는 약간 더 긴 시간이, 후자는 약간 더 짧은 시간이 소요되었다.
+// 커스텀 스레드풀 (coreSize 10)
+[PostFacadeService.createPost] 실행 시간(ms): 182
+[PostFacadeService.createPost] 실행 시간(ms): 161
+[PostFacadeService.createPost] 실행 시간(ms): 197
+[PostFacadeService.createPost] 실행 시간(ms): 191
+[PostFacadeService.createPost] 실행 시간(ms): 179
+```
 
-이러한 결과를 통해, 일반적인 경우 병렬 스트림과 `CompletableFuture`의 성능 차이는 크게 나지 않는다는 것을 알 수 있다.
-그러나, 특정 작업에 최적화된 executor를 사용하면 더욱 빠른 성능을 얻을 수 있다.
-따라서 실제 사용 시나리오와 요구 사항을 고려하여 성능 테스트를 통해 최적의 선택을 하는 것이 중요하다.
+스레드풀을 별도로 지정하지 않았을 때의 평균 처리 시간은 277ms였다.
+반면, 커스텀 스레드풀을 적용했을 때의 평균 처리 시간은 182ms로 감소했으며, 이는 기존 병렬 스트림의 처리 시간 229ms와 비교하여 더 짧은 시간이다.
+
+이 결과로부터 병렬 스트림과 `CompletableFuture`를 사용한 일반적인 처리에서 성능 차이는 크지 않지만, 특정 작업에 최적화된 executor를 사용하면 성능이 향상될 수 있다는 결론을 얻을 수 있다.
+예를 들어, 대규모 파일 I/O 작업을 수행하는 경우에는 I/O 작업에 최적화된 스레드 풀 설정을 적용하여 디스크 접근과 네트워크 전송을 병렬로 처리할 수 있다. 또는, 고성능 컴퓨팅 작업에서는 CPU 사용률을 극대화할 수 있는 스레드 풀 구성으로 성능을 향상시킬 수 있다.
+
+이처럼 실제 사용 시나리오와 요구 사항을 고려하여 성능 테스트를 실시하고, 테스트 결과를 바탕으로 특정 작업에 최적화된 스레드 풀을 선택하는 것이 중요하다.
 
 # 마무리
 
-병렬 처리를 통해 다중 이미지를 효율적으로 업로드하는 방법들을 알아보았다.
-이 글에서 소개한 병렬 처리 방법들은 다중 이미지 업로드뿐만 아니라, 다른 여러 작업에도 유용하게 적용할 수 있다.
+이 글을 통해, 병렬 처리를 통해 다중 이미지를 효율적으로 업로드하는 기법들을 알아보았다.
 
-특히, 병렬 스트림과 `CompletableFuture`에 초점을 맞추어 알아보았는데, 이들은 각각의 사용 사례에 따라 장점이 있다.
+그러나 이러한 기법들은 이미지 업로드에만 국한되지 않는다.
+
+예를 들면, 웹 크롤링을 할 때 여러 사이트의 데이터를 동시에 수집하는 작업에서도 병렬 처리는 큰 이점을 가져다 준다. 배치 작업에서도, 서로 독립적인 작업 항목들을 병렬로 처리함으로써 전체 작업 시간을 대폭 줄일 수 있다.
+
+데이터베이스에서는 복잡한 쿼리나 대용량 데이터 처리를 병렬로 실행하여 응답 시간을 단축시킬 수 있다. 서버 측에서는 사용자의 다양한 요청을 동시에 처리하기 위해 요청 처리를 병렬로 수행하여, 더 빠른 서비스 제공이 가능해진다.
+
+이처럼 병렬 처리는 단순히 업로드 시간을 단축시키는 것을 넘어, 다양한 분야에서 응답성과 성능을 향상시키는 핵심 기술이다.
+
+본문에서는 특히 병렬 스트림과 `CompletableFuture`에 초점을 맞추어 알아보았는데, 이들은 각각의 사용 사례에 따라 장점이 있다.
 
 병렬 스트림은 사용이 매우 간편하다는 장점이 있으나, 고정된 스레드 풀을 사용한다는 점에서 유연성이 다소 떨어진다.
 반면, `CompletableFuture`는 보다 복잡한 비동기 작업을 우아하게 처리할 수 있으며, 특히 커스텀 스레드 풀을 사용하여 성능을 최적화할 수 있다.
