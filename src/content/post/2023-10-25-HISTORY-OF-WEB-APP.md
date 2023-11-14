@@ -125,8 +125,7 @@ Servlet을 사용하는 경우의 HTTP 요청 처리 방식은 CGI 방식과 크
 public class MyServlet extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest request,
-												HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		String account = request.getHeader("account");
 		String password = request.getHeader("password");
 		
@@ -339,20 +338,18 @@ public class HelloBean implements SessionBean {
 ![2023-10-25-HISTORY-OF-WEB-APP_008.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_008.png)
 
 로드 존슨이 주장하는 Spring의 핵심 가치는 ‘POJO를 통해 순수한 비즈니스 로직을 작성하자’ 입니다. 
-EJB를 사용하는 경우 앞서 말씀드렸듯이 프레임워크에 종속적인 코드를 작성하게 되었고, 객체지향적이고 순수한 비즈니스 로직과는 거리가 멀어졌기 때문입니다.
+EJB를 사용하는 경우 앞서 말씀드렸듯이 특정 기술에 종속적인 코드를 작성하게 되었고, 객체지향적이고 순수한 비즈니스 로직과는 거리가 멀어졌기 때문입니다.
 
 > Spring is essentially a technology dedicated to enabling you to build applications using POJOs. - Rod Johnson
 >
 
-Spring은 해당 문제를 해결하기 위한 장치들을 여럿 가지고 있습니다. 
+Spring은 EJB의 문제점을 해결하기 위한 장치들을 여럿 가지고 있습니다. 
 대표적인 장치로는 제어의 역전(Inversion Of Control), 의존성 주입(Dependency Injection), 관점 지향 프로그래밍(Aspect Oriented Programming) 등이 있습니다.
+이외에도 트랜잭션 추상화 같은 다양한 개발 편의 기술들을 제공하기도 합니다.  
 
-> Spring은 J2EE 사양을 대체하기 위해 등장한 프레임워크는 아닙니다. 
-> 로드 존슨의 저서 이름을 보시면 아시다시피, Spring은 J2EE 사양을 보완하기 위해 등장한 프레임워크입니다.
->
-
-Spring을 사용하면 EJB 스펙을 따르지 않아도 EJB와 비슷한 효과를 낼 수 있었습니다. 
-또한 오픈소스 프로젝트이기도 하면서 EJB와 다르게 상당히 컨테이너가 가벼웠기 때문에 많은 사랑을 받게 되었습니다.
+이런 Spring을 사용하면 EJB 스펙을 따르지 않아도 EJB와 비슷한 효과를 낼 수 있었습니다.
+하지만 여기서 주의해야 할 점은, Spring 자체가 J2EE 사양을 대체하기 위해 등장한 프레임워크는 아니라는 것입니다.
+로드 존슨의 저서 이름을 보시면 아시다시피, Spring은 J2EE 사양을 보완하기 위해 등장한 프레임워크임을 알아야 합니다.
 
 현재는 Spring이 단순히 J2EE 사양을 보완할 뿐만 아니라, 독자적인 생태계를 구성하고 있습니다. 
 Spring MVC 뿐만 아니라 Spring Batch, Spring Security, Spring Reactive 등 많은 기술들이 생겨나고 있으며 그 입지를 단단히 하고 있습니다.
@@ -365,7 +362,7 @@ WWW의 등장으로부터 Spring에 이르기까지의 역사를 훑어보았습
 정보 공유를 위해 WWW가 탄생했으며, 동적 페이지에 대한 요구에 대응하기 위해 CGI, Servlet, JSP 등의 기술이 생겨났습니다.
 또한, J2EE 사양의 한계를 극복하기 위해 웹 프레임워크인 Spring이 등장했었습니다.
 
-역사를 보시면 알다시피, 100% 완전무결한 기술은 없습니다.
+역사를 보시면 아시다시피, 100% 완전무결한 기술은 없습니다.
 그렇기 때문에 기술의 근본을 이해하려는 노력이 중요하다고 생각합니다.
 
 이번 아티클을 통해 평소 웹 어플리케이션의 발전 과정에 대해 궁금하셨던 분들의 니즈가 해소되었으면 하는 바람입니다.
@@ -375,7 +372,7 @@ WWW의 등장으로부터 Spring에 이르기까지의 역사를 훑어보았습
 ## 참고 자료
 프로가 되기 위한 웹기술 입문 - 위키북스
 
-구구의 웹 어플리케이션 강의
+[Introduction to the Spring Framework - Rod Johnson](https://www.theserverside.com/news/1364527/Introduction-to-the-Spring-Framework)
 
 [Information Management: A Proposal - Tim Berners-Lee, CERN](https://cds.cern.ch/record/369245/files/dd-89-001.pdf)
 
