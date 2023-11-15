@@ -453,6 +453,7 @@ public @interface Retry { }
 ```java
 @Order(Ordered.LOWEST_PRECEDENCE - 1)
 @Aspect
+@Component
 public class OptimisticLockRetryAspect {
 
     private static final int MAX_RETRIES = 1000;

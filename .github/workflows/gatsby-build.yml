@@ -1,31 +1,62 @@
-# This is a basic workflow to help you get started with Actions
+name: Deploy Tecoble
 
-name: build gatsby
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: 
+    branches:
       - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build_gatsby:
-    name: build
-    # The type of runner that the job will run on
+  deploy:
+    name: Deploy Gatsby Project
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: true
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: enriikke/gatsby-gh-pages-action@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          access-token: ${{ secrets.FOR_JAVABLE }}
-          deploy-branch: gh-pages
-          gatsby-args: --prefix-paths
+          node-version: '20.4'
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Cache Gatsby `.cache` Folder
+        uses: actions/cache@v3
+        id: gatsby-cache-folder
+        with:
+          path: .cache
+          key: ${{ runner.os }}-cache-gatsby
+          restore-keys: ${{ runner.os }}-cache-gatsby
+
+      - if: steps.gatsby-cache-folder.outputs.cache-hit == 'true'
+        run: echo 'gatsby-cache-folder cache hit!'
+
+      - name: Cache Gatsby `public` Folder
+        uses: actions/cache@v3
+        id: gatsby-public-folder
+        with:
+          path: public
+          key: ${{ runner.os }}-public-gatsby
+          restore-keys: ${{ runner.os }}-public-gatsby
+
+      - if: steps.gatsby-public-folder.outputs.cache-hit == 'true'
+        run: echo 'gatsby-public-folder cache hit!'
+
+      - name: Build Gatsby Project
+        run: npm run build
+        env:
+          GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.FOR_JAVABLE }}
+          publish_dir: ./public
