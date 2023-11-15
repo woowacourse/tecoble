@@ -245,6 +245,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-08-14-JPA-Cascade/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-04-spatial-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-09-join-query-vs-multiple-quries/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-17-image-upload/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/naming/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/convention/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/object-calisthenic/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -268,7 +269,6 @@
 <url> <loc>https://tecoble.techcourse.co.kr/tags/reflection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/static/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/static-method/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://tecoble.techcourse.co.kr/tags/architecture/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/spring/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/di/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/asynchronous/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -426,7 +426,6 @@
 <url> <loc>https://tecoble.techcourse.co.kr/tags/웹어셈블리/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/hashtable/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/concurrenthashmap/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://tecoble.techcourse.co.kr/tags/image/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/composite/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/layer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/렌더링/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -477,6 +476,11 @@
 <url> <loc>https://tecoble.techcourse.co.kr/tags/query/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/sub-query/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/join/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/android/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/multipart/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/image/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/upload/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/architecture/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-스티치/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-보스독/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-둔덩/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -537,6 +541,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-제로/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-로이/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-연어/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/author/5-기-빅스/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-무민/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
