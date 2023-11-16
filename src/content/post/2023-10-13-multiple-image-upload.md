@@ -252,6 +252,9 @@ public class AsyncConfig {
 ```
 
 ```java
+@Autowired
+private Executor executor:
+
 public ImageUploadResponse uploadFiles(MultipartFile[] imageFiles) {
     validate(imageFiles);
     List<CompletableFuture<String>> futures = Arrays.stream(imageFiles)
@@ -317,7 +320,7 @@ private void handleException(AtomicBoolean catchException, List<String> fileName
 반면, 커스텀 스레드풀을 적용했을 때의 평균 처리 시간은 182ms로 감소했으며, 이는 기존 병렬 스트림의 처리 시간 229ms와 비교하여 더 짧은 시간이다.
 
 이 결과로부터 병렬 스트림과 `CompletableFuture`를 사용한 일반적인 처리에서 성능 차이는 크지 않지만, 특정 작업에 최적화된 executor를 사용하면 성능이 향상될 수 있다는 결론을 얻을 수 있다.
-예를 들어, 대규모 파일 I/O 작업을 수행하는 경우에는 I/O 작업에 최적화된 스레드 풀 설정을 적용하여 디스크 접근과 네트워크 전송을 병렬로 처리할 수 있다. 또는, 고성능 컴퓨팅 작업에서는 CPU 사용률을 극대화할 수 있는 스레드 풀 구성으로 성능을 향상할 수 있다.
+예를 들어, 대규모 파일 I/O 작업을 수행하는 경우에는 I/O 작업에 최적화된 스레드 풀 설정을 적용하여 디스크 접근과 네트워크 전송을 병렬로 처리할 수 있다. 고성능 컴퓨팅 작업에서는 CPU 사용률을 극대화할 수 있는 스레드 풀 구성으로 성능을 향상할 수 있다.
 
 이처럼 실제 사용 시나리오와 요구 사항을 고려하여 성능 테스트를 실시하고, 테스트 결과를 바탕으로 특정 작업에 최적화된 스레드 풀을 선택하는 것이 중요하다.
 
