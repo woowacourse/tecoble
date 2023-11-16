@@ -42,7 +42,7 @@ image: ../teaser/roy_teaser.png
 원래 쓰던 하나가 고장 나더라도
 예비용 서버로 카페를 운영하고 그동안 고장 난 쪽을 수리하면 되겠구나!
 
-![](https://i.imgur.com/IVVzokc.png)
+![](https://i.imgur.com/PqGcHtd.png)
 
 ![](https://i.imgur.com/qVynmP7.png)
 
@@ -55,11 +55,11 @@ image: ../teaser/roy_teaser.png
 실행력 강한 테코는 우선 데이터베이스 서버 2대를 추가로 구입해,
 **총 3대의 데이터베이스 서버**를 가진 구조를 갖추었어요.
 
-![](https://i.imgur.com/IvIWlO9.png)
+![](https://i.imgur.com/H9Xv93x.png)
 
 굿! 하지만 관리가 필요한 서버의 숫자가 늘어나자
 테코는 이전까지 해본 적 없던 새로운 고민을 하게 되었습니다.
-
+기
 ## 여러 개의 데이터베이스가 어떻게 데이터를 똑같이 가져? - 리플리케이션 개요
 테코의 서버에 데이터베이스를 더 설치해서
 데이터베이스가 총 세 개가 되긴 했는데,
