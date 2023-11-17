@@ -143,7 +143,7 @@ class FileUploaderTest {
 여기까지 읽다보면 한 가지 의문이 들 수도 있습니다.   
 >그냥 Docker나 Docker Compose 쓰면 안 되나?
 
-사실 컨테이너를 사용하여 리소스를 래핑하는 것은, Testcontainers를 사용하는 것과 각 컨테이너를 직접 설정하고 사용하는 것 모두 동일합니다. 그러나 Testcontainers를 사용하면 이 설정과 사용의 부분이 혁신적으로 편리해집니다.
+물론 Docker와 Testcontainers 모두 컨테이너를 사용하여 리소스를 래핑하는 것은 동일합니다. 그러나 Testcontainers를 사용하면 컨테이너의 설정과 사용이 혁신적으로 편리해집니다.
 
 이를 설명하기 위해 위에서 언급한 장점들을 포함하여, **Testcontainers를 사용하여 얻는 장점들**을 아래에 정리해보겠습니다.
 
@@ -181,7 +181,7 @@ testImplementation "org.testcontainers:testcontainers:1.19.1"
 testImplementation 'org.testcontainers:junit-jupiter:1.19.1'  
 testImplementation 'org.testcontainers:mysql'
 ```
-JUnit과 MySQL에 대한 모듈 의존성도 추가해줍니다. (~~이유는 to be continue...~~)
+JUnit과 MySQL에 대한 모듈 의존성도 추가해줍니다. (이유는 to be continue...)
 
 <br>
 
