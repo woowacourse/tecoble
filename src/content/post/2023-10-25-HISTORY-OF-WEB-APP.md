@@ -96,7 +96,7 @@ CGI 방식의 경우 매 요청마다 프로세스를 할당하지만 Servlet �
 조금 더 구체적으로 이야기하면, Java Application을 미리 띄워두기 때문에 매번 프로세스를 할당할 필요가 없는 것입니다. 
 HTTP 요청이 들어오면 Java Application에게 ‘처리해줘’ 라고 의뢰를 하게 되고 Java Application은 스레드를 생성해서 요청 처리에 적합한 Servlet을 실행합니다.
 
-또한 Servlet은 Java 진영의 기술이기 때문에 순수 Java 코드로 짜여집니다. 
+또한 Servlet은 Java 진영의 기술이기 때문에 순수 Java 코드로 작성됩니다. 
 따라서 JVM 생태계에 친화적이고, Java의 특징 중 하나인 ‘플랫폼 독립성’ 가장 잘 누릴 수 있게 됩니다. 
 Servlet을 한 번만 구현해두면 어느 플랫폼에서도 쉽게 재사용할 수 있습니다. 
 이처럼 Servlet은 앞서 설명드렸던 CGI의 문제점들을 극복하는 모델입니다.
@@ -173,10 +173,7 @@ JSP는 Java Server Page의 약자로(현재는 Jakarta Server Page라고도 불�
 JSP를 사용하는 경우 프로그래머는 JSP 태그로 감싸진 부분만 다루면 되고, 디자이너는 JSP 태그 이외의 HTML만 다루면 되므로 순수 Servlet을 사용하는 방법과 대비해 유지보수성이 향상됩니다.
 
 사실 위처럼 비즈니스 로직을 직접 JSP 페이지에 작성하기보다는 재사용 가능한 컴포넌트인 Java Beans를 사용하는 경우가 많았습니다.
-
-> 글의 주제를 벗어날 것 같아 Java Beans에 대한 추가적인 설명은 생략하겠습니다. 
-> 여기서는 ‘재사용 가능하게 만든 Java 클래스’ 라고만 이해하셔도 충분합니다.
->
+참고로 Java Beans란 재사용할 수 있는 Java 클래스를 의미하는데, 구체적인 설명은 글의 주제를 벗어날 것 같아 생략하도록 하겠습니다.
 
 아래 코드는 Java Beans를 활용해 JSP 프로그래밍을 한 예시입니다. 
 userBean, dataBean이라는 Java Bean을 활용해 렌더링에 필요한 정보를 가져옵니다.
@@ -372,22 +369,22 @@ WWW의 등장으로부터 Spring에 이르기까지의 역사를 훑어보았습
 ## 참고 자료
 프로가 되기 위한 웹기술 입문 - 위키북스
 
-[Introduction to the Spring Framework - Rod Johnson](https://www.theserverside.com/news/1364527/Introduction-to-the-Spring-Framework)
+- [Introduction to the Spring Framework - Rod Johnson](https://www.theserverside.com/news/1364527/Introduction-to-the-Spring-Framework)
 
-[Information Management: A Proposal - Tim Berners-Lee, CERN](https://cds.cern.ch/record/369245/files/dd-89-001.pdf)
+- [Information Management: A Proposal - Tim Berners-Lee, CERN](https://cds.cern.ch/record/369245/files/dd-89-001.pdf)
 
-[History of World Wide Web -Wikipedia](https://en.wikipedia.org/wiki/History_of_the_World_Wide_Web)
+- [History of World Wide Web -Wikipedia](https://en.wikipedia.org/wiki/History_of_the_World_Wide_Web)
 
-[Web Server - Wikipedia](https://en.wikipedia.org/wiki/Web_server)
+- [Web Server - Wikipedia](https://en.wikipedia.org/wiki/Web_server)
 
-[HTML - MDN Web Docs](https://developer.mozilla.org/ko/docs/Web/HTML)
+- [HTML - MDN Web Docs](https://developer.mozilla.org/ko/docs/Web/HTML)
 
-[Servlet Overview - Oracle](https://docs.oracle.com/cd/B12166_01/web/B10321_01/overview.htm)
+- [Servlet Overview - Oracle](https://docs.oracle.com/cd/B12166_01/web/B10321_01/overview.htm)
 
-[JSP Overview - Oracle](https://docs.oracle.com/cd/B14099_19/web.1012/b14014/genlovw.htm#i1005577)
+- [JSP Overview - Oracle](https://docs.oracle.com/cd/B14099_19/web.1012/b14014/genlovw.htm#i1005577)
 
-[About the Model 2 Versus Model 1 Architecture - Oracle](https://download.oracle.com/otn_hosted_doc/jdeveloper/1012/developing_mvc_applications/adf_aboutmvc2.html)
+- [About the Model 2 Versus Model 1 Architecture - Oracle](https://download.oracle.com/otn_hosted_doc/jdeveloper/1012/developing_mvc_applications/adf_aboutmvc2.html)
 
-[Session Bean Interface - Oracle](https://docs.oracle.com/javaee%2F6%2Fapi%2F%2F/javax/ejb/SessionBean.html)
+- [Session Bean Interface - Oracle](https://docs.oracle.com/javaee%2F6%2Fapi%2F%2F/javax/ejb/SessionBean.html)
 
-[Spring Framework Overview - Spring](https://docs.spring.io/spring-framework/reference/overview.html)
+- [Spring Framework Overview - Spring](https://docs.spring.io/spring-framework/reference/overview.html)
