@@ -11,7 +11,14 @@ image: ../teaser/zipgo.png
 # JPA가 Fetch Join에 대한 On절을 지원하지 않는 이유
 
 ***
-집사의 고민 프로젝트에서 JPA를 사용하면서 알아본 Fetch Join시 유의해야 하는 부분들에 관해서 기술해보려고 합니다.
+
+집사의고민 프로젝트에서 조회 쿼리가 발생할 때 데이터가 삭제되는 상황이 발생하였습니다.
+그래서 이번 글에서는 간단한 JPA의 Fetch Join 동작 원리와 유의해야 하는 부분들에 관해서 기술해보려고 합니다.
+
+### 참고 ERD
+아래와 같은 테이블 구조에서 발생하는 문제입니다. 참고로 테이블의 모든 컬럼을 명시하지는 않았습니다.
+
+![ERD.png](../images/2023-11-01-jpa-fetch-join/ERD.png)
 
 우선 쿼리가 정상적으로 동작하는지와 어떤 쿼리가 발생하는지를 알아보기 위해 간단한 테스트 코드를 작성하는 것으로 시작해 보겠습니다.
 
@@ -142,16 +149,17 @@ public class PetFoodQueryRepository {
 * 키워드가 일치한 데이터만 Join
 * 브랜드가 일치한 데이터만 Join
 
-하지만 테스트 코드를 실행시키면 에러가 발생합니다.
+하지만 테스트 코드를 실행시키면 아래와 같은 에러가 발생합니다.
 
-![img_1.png](../images/2023-11-01-jpa-fetch-join/img_1.png)
+```
+java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: with-clause not allowed on fetched associations; use filters
+```
 
 에러를 자세히 읽어보면 `not allowed on fetched associations`이 발생하는 것을 확인할 수 있는데,
 이는 fetch 구문에서 on절을 지원하지 않는다는 뜻입니다.
 
 실제로 하이버네이트 공식 문서에는 이런 말이 있습니다.
-> "HQL(Hibernate Query Language)에서 Fetch Join에 별칭(Alias)이 필요한 유일한 이유는
-추가 컬렉션(N방향)을 재귀적으로 조인하여 가져오는 경우밖에 없다."
+> "HQL(Hibernate Query Language)에서 Fetch Join에 별칭(Alias)이 필요한 유일한 이유는 추가 컬렉션(N방향)을 재귀적으로 조인하여 가져오는 경우밖에 없다."
 
 이 말은 Fetch Join에 on절이 필요한 경우는 거의 없다시피 하지만,
 역설적으로 하이버네이트 상에서는 Fetch Join을 지원하긴 한다는 뜻입니다.
@@ -175,7 +183,7 @@ Fetch Join은 너무나 필수적인 기능이기도 하지만 다음과 같이 
 * (참고) 페이지네이션 사용이 불가능하다.
   * 컬렉션(xToMany) 관계에서 Fetch Join을 사용하면 페이징 처리가 불가능하다.
 
-## On에서 Where로
+## On절 대신 Where절로 사용하기
 ***
 Fetch Join에서 on절을 지원하진 않지만, where절은 사용할 수 있습니다.
 다만, 잘못 사용하면 꽤나 골치 아픈 일이 일어날 수도 있기 때문에 확실히 짚고 넘어가야 합니다.
@@ -223,8 +231,7 @@ SELECT b FROM Brand b JOIN fetch b.petFoods pf WHERE pf.name = '베베'
 on절보다 where절을 사용하는 게 더 적절합니다.
 
 ## Fetch Join과 Where절의 함정 그리고 Outer Join
-"Fetch Join은 on을 지원하지 않지만, where로 해결할 수 있다."라고 느껴질 수도 있는데,
-반은 맞고 반은 틀린 말입니다. where절도 잘못 사용하게 된다면 on절과 똑같은 문제가 발생합니다.
+"Fetch Join은 on을 지원하지 않지만, where로 해결할 수 있다."라고 느껴질 수도 있는데, 반은 맞고 반은 틀린 말입니다. where절도 잘못 사용하게 된다면 on절과 똑같은 문제가 발생합니다.
 
 우선 Brand와 PetFood 테이블에 대한 영속성 컨텍스트의 상황을 먼저 살펴보겠습니다.
 우리가 Fetch Join을 사용할 때, 영속성 컨텍스트는 Fetch Join의 대상은 모두 존재한다고 가정합니다.
@@ -238,7 +245,7 @@ on절보다 where절을 사용하는 게 더 적절합니다.
 SELECT b FROM Brand b LEFT JOIN FETCH b.petFood pf WHERE pf.name='사료'
 ```
 
-페치 조인의 대상에 대한 조건을 걸었을 때 영속성 컨텍스트가 기대하는 객체 그래프의 상태와는 달라진 것을 볼 수 있습니다.
+Fetch Join의 대상에 대한 조건을 걸었을 때 영속성 컨텍스트가 기대하는 객체 그래프의 상태와는 달라진 것을 볼 수 있습니다.
 
 ![img_3.png](../images/2023-11-01-jpa-fetch-join/img_3.png)
 
@@ -251,25 +258,82 @@ SELECT b FROM Brand b LEFT JOIN FETCH b.petFood pf WHERE pf.name='사료'
 이렇게 잘못된 where절로 해결하려고 하다가 런타임 예외로 막아둔 것 마저 무시해 버리고 db 데이터를 삭제하게 될 수도 있으니 꼭 주의해서 사용해야 합니다.
 
 ### 검증 - Outer Fetch Join과 Where절 필터링
-![img_5.png](../images/2023-11-01-jpa-fetch-join/img_5.png)
-![img_6.png](../images/2023-11-01-jpa-fetch-join/img_6.png)
-![img_7.png](../images/2023-11-01-jpa-fetch-join/img_7.png)
+
+```java
+public interface BrandRepository extends JpaRepository<Brand, Long> {
+  
+    @Query("select b from Brand b left join fetch b.petFoods pf where pf.name = :petFoodName")
+    Brand findBrandsByPetFoodName(@Param("petFoodName") final String petFoodName);
+    
+}
+```
+
+```java
+@Test 
+void outer_fetch_join_test() {
+    Brand brand = brandRepository.findBrandsByPetFoodName("사료");
+    for (PetFood petFood : brand.getPetFoods()) {
+        System.out.println("petFood.getName() = " + petFood.getName());
+    }
+}
+```
+
+```java
+petFood.getName() = 사료
+```
 
 위에서 봤던 그림처럼 brand는 데이터베이스 상에선 실제로 일료와 사료를 가지고 있지만, 조회해 보면 사료라는 데이터 단 하나만 가지고 있습니다. 그럼 여기서 좀 더 나가서 해당 영속성 컨텍스트를 데이터베이스에
 flush 하게 되면 어떨까요?
 
-![img_8.png](../images/2023-11-01-jpa-fetch-join/img_8.png)
-![img_9.png](../images/2023-11-01-jpa-fetch-join/img_9.png)
+```java
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class BrandService {
+    
+    private final BrandRepository brandRepository;
+    
+    public void getBrandByPetFoodName(final String petFoodName) {
+        Brand brand = brandRepository.findBrandsByPetFoodName(petFoodName);
+        brandRepository.saveAndFlush(brand);
+    }
+    
+}
+```
+
+```java
+@Test
+@Transactional
+void outer_join_test() {
+    brandRepository.findBrandsByPetFoodName("사료");
+    List<Brand> brands = brandRepository.findAll();
+    for (Brand brand : brands) {
+        for (PetFood petFood : brand.getPetFoods()) {
+            System.out.println(=======================);
+            System.out.println("petFood.getName() = " + petFood.getName());
+            System.out.println(=======================);
+        }
+    }
+}
+```
 
 ### 결과
-![img_10.png](../images/2023-11-01-jpa-fetch-join/img_10.png)
+```
+=======================
+petFood.getName() = 사료
+=======================
+petFood.getName() = 이료
+=======================
+petFood.getName() = 삼료
+=======================
+```
 
 저희는 분명 값을 직접적으로 update 하거나 delete 하지 않았음에도 불구하고 데이터베이스에서 다시 조회했을 때 일료 데이터가 사라졌습니다.
 실제 서비스에서 쿼리가 이렇게 나간다면, 유저들이 조회 쿼리 날릴 때마다 데이터가 사라집니다.
 
 이런 문제를 방지하기 위한 몇 가지 방안이 있습니다.
 1. outer Fetch Join에서 where절을 사용하지 않는다.
-2. 페치 조인 대상에 where절을 사용하지 않는다.
+2. Fetch Join 대상에 where절을 사용하지 않는다.
 3. 하나의 트랜잭션이 무조건 조회만 수행하도록 한다.(DB에 Flush 될 일이 절대로 없도록)
 
 만약 JPA를 사용하는 중 이런 쿼리가 발생한다면 위 3가지 중 하나를 잘 고민해 보고 적용해야 할 것 같습니다.
@@ -282,7 +346,6 @@ flush 하게 되면 어떨까요?
   * 단, Fetch Join의 컬렉션 결과 다(N) 쪽을 필터링 기준으로 작성하면 안 된다.
   * 특히 Outer Join에 대해서는 더욱 조심해야 한다.
 
-참고로 Fetch Join에서 이러한 페인 포인트를 해결할 수 있는 방법들이 존재하기도 합니다.
+Fetch Join 문법은 JPA를 사용하는 개발자들에게 필수 문법인 만큼, Fetch Join의 side-effect도 간단하게 짚고 넘어가는게 좋아보입니다.
 
-* Entity 타입이 아닌 DTO로 반환
-* Stateless Session(무상태 세션) 사용
+읽어주셔서 감사합니다.
