@@ -11,7 +11,7 @@ image: ../teaser/roy_teaser.png
 일상을 공유하는 작은 카페 사이트를 직접 개발해 운영하고 있는 테코(1세).
 사이드 프로젝트로 만든 카페에 많은 사람들이 들어와 응원의 글을 남기자 테코는 행복해해요.
 
-![](https://i.imgur.com/uRVKpvU.png)
+![2023-11-06-replication-1.png](..%2Fimages%2F2023-11-06-replication-1.png)
 
 그런데 어느 날!
 카카오톡에 '귀염둥이 우테코' 신상 이모티콘이 출시되고,
@@ -42,9 +42,9 @@ image: ../teaser/roy_teaser.png
 원래 쓰던 하나가 고장 나더라도
 예비용 서버로 카페를 운영하고 그동안 고장 난 쪽을 수리하면 되겠구나!
 
-![](https://i.imgur.com/xvrltoD.png)
+![2023-11-06-replication-2.png](..%2Fimages%2F2023-11-06-replication-2.png)
 
-![](https://i.imgur.com/NxM7rGR.png)
+![2023-11-06-replication-3.png](..%2Fimages%2F2023-11-06-replication-3.png)
 
 테코는 카페의 **단일 장애점(SPOF)** 에 해당하는 데이터베이스의 문제점을 해결하기 위해
 데이터베이스에 대한 **스케일 아웃**을 도입해 보기로 했어요.
@@ -55,7 +55,7 @@ image: ../teaser/roy_teaser.png
 실행력 강한 테코는 우선 데이터베이스 서버 2대를 추가로 구입해,
 **총 3대의 데이터베이스 서버**를 가진 구조를 갖추었어요.
 
-![](https://i.imgur.com/H9Xv93x.png)
+![2023-11-06-replication-4.png](..%2Fimages%2F2023-11-06-replication-4.png)
 
 굿! 하지만 관리가 필요한 서버의 숫자가 늘어나자
 테코는 이전까지 해본 적 없던 새로운 고민을 하게 되었습니다.
@@ -67,7 +67,7 @@ image: ../teaser/roy_teaser.png
 실시간으로 데이터가 빠르게 생겼다 수정됐다 사라지는 상황에서
 어떻게 다수의 데이터베이스 **데이터를 똑같이 동기화, 즉 리플리케이션(Replication)** 해주느냐는 문제가 생겼습니다.
 
-![](https://i.imgur.com/thjq9RP.png)
+![2023-11-06-replication-5.png](..%2Fimages%2F2023-11-06-replication-5.png)
 
 데이터베이스의 리플리케이션 방법을 사흘 밤낮으로 조사한 테코는
 자신의 서버에서 사용하고 있는 MySQL에서 리플리케이션 기능을 제공해 주고 있다는 것을 알게 되었고
@@ -84,7 +84,7 @@ image: ../teaser/roy_teaser.png
 
 테코는 MySQL의 데이터 복제 과정을 조금 더 자세히 들여이다보았어요.
 
-![](https://i.imgur.com/zmMQY4M.png)
+![2023-11-06-replication-6.png](..%2Fimages%2F2023-11-06-replication-6.png)
 
 **바이너리 로그** -> **바이너리 로그 덤프 스레드** -> **리플리케이션 I/O 스레드** -> **릴레이 로그** -> **리플리케이션 SQL 스레드**로 이어지는 긴 여정을 통해
 두 데이터베이스가 빠르게 동기화할 수 있도록 MySQL에서 도와주고 있었어요.
@@ -96,9 +96,9 @@ image: ../teaser/roy_teaser.png
 
 바로 **소스 서버에 있는 바이너리 로그의 이벤트 하나하나를 리플리카 서버에서 어떤 방식으로 읽어올 것인가**였습니다.
 
-![](https://i.imgur.com/2VivOMB.png)
+![2023-11-06-replication-7.png](..%2Fimages%2F2023-11-06-replication-7.png)
 
-![](https://i.imgur.com/WbFBfPJ.png)
+![2023-11-06-replication-8.png](..%2Fimages%2F2023-11-06-replication-8.png)
 
 # 테코의 고민 1 - 바이너리 로그를 어떻게 식별할까
 
@@ -108,7 +108,7 @@ image: ../teaser/roy_teaser.png
 '그럼 **복제하려는 파일의 이름**이랑, **복제해 올 이벤트의 위치만 정확하게 알 수 있다면**
 이걸 사용해 로그를 식별하면 되겠다!'라고 테코는 생각했어요.
 
-![](https://i.imgur.com/1SXJjhe.png)
+![2023-11-06-replication-9.png](..%2Fimages%2F2023-11-06-replication-9.png)
 
 그 생각을 그대로 재현한
 **바이너리 로그 파일 위치 기반 리플리케이션** 을 적용해 두 데이터베이스의 동기화에 성공한 테코.
@@ -130,9 +130,9 @@ image: ../teaser/roy_teaser.png
 백업용 리플리카 서버에는 소스 서버로부터의 동기화가 50분 정도 늦게 진행되어,
 소스 서버가 가지고 있던 원본 데이터와 50분만큼의 차이가 있는 상태였어요.
 
-![](https://i.imgur.com/ONrOfgu.png)
+![2023-11-06-replication-10.png](..%2Fimages%2F2023-11-06-replication-10.png)
 
-![](https://i.imgur.com/vG3AHvE.png)
+![2023-11-06-replication-11.png](..%2Fimages%2F2023-11-06-replication-11.png)
 
 '헉, 그래도 A 서버는 소스 서버와 같은 데이터를 가지고 있으니까,
 A 서버의 바이너리 로그를 읽어서 데이터 동기화를 이어가면 되겠다!'라는 똑똑한 생각을 하는 테코.
@@ -147,13 +147,13 @@ A 서버의 바이너리 로그를 읽어서 데이터 동기화를 이어가면
 
 어떤 문제가 있었던 걸까요?
 
-![](https://i.imgur.com/XGkeDjv.png)
+![2023-11-06-replication-12.png](..%2Fimages%2F2023-11-06-replication-12.png)
 
-![](https://i.imgur.com/nrRLO5e.png)
+![2023-11-06-replication-13.png](..%2Fimages%2F2023-11-06-replication-13.png)
 
-![](https://i.imgur.com/sVLiEsV.png)
+![2023-11-06-replication-14.png](..%2Fimages%2F2023-11-06-replication-14.png)
 
-![](https://i.imgur.com/3bC6xt0.png)
+![2023-11-06-replication-15.png](..%2Fimages%2F2023-11-06-replication-15.png)
 
 결국 또다시 반성문을 쓰게 된 테코.
 바이너리 로그 파일 위치 기반 복제의 문제점을 몸소 깨닫게 되었네요.
@@ -165,16 +165,16 @@ A 서버의 바이너리 로그를 읽어서 데이터 동기화를 이어가면
 뼈아픈 깨달음을 얻은 테코는
 리플리카 서버에서 소스 서버의 이벤트를 읽어올 더 나은 방법을 생각해 내야 했어요.
 
-![](https://i.imgur.com/K7eGSfh.png)
+![2023-11-06-replication-16.png](..%2Fimages%2F2023-11-06-replication-16.png)
 
 놀랍게도, 5.5 버전 이후의 MySQL은 이 아이디어를 실현하여,
 **글로벌 트랜잭션 아이디(Global Transaction Identifier, GTID)** 를 이용한 복제 방식을 제공하고 있었습니다.
 
-![](https://i.imgur.com/qPWqe1C.png)
+![2023-11-06-replication-17.png](..%2Fimages%2F2023-11-06-replication-17.png)
 
-![](https://i.imgur.com/vgPMaRV.png)
+![2023-11-06-replication-18.png](..%2Fimages%2F2023-11-06-replication-18.png)
 
-![](https://i.imgur.com/QtWjtxU.png)
+![2023-11-06-replication-19.png](..%2Fimages%2F2023-11-06-replication-19.png)
 
 ### GTID 기반 복제의 효과
 
@@ -182,11 +182,11 @@ A 서버의 바이너리 로그를 읽어서 데이터 동기화를 이어가면
 소스 데이터베이스 서버가 또 고장났어요!
 과연 GTID 기반 복제를 적용한 지금은 장애에 잘 대처할 수 있을까요?
 
-![](https://i.imgur.com/hv0QBQY.png)
+![2023-11-06-replication-20.png](..%2Fimages%2F2023-11-06-replication-20.png)
 
-![](https://i.imgur.com/i9BVSdL.png)
+![2023-11-06-replication-21.png](..%2Fimages%2F2023-11-06-replication-21.png)
 
-![](https://i.imgur.com/o0xdva8.png)
+![2023-11-06-replication-22.png](..%2Fimages%2F2023-11-06-replication-22.png)
 
 와우!
 바이너리 로그 파일 위치 기반 복제와 다르게
@@ -195,7 +195,7 @@ A 서버의 바이너리 로그를 읽어서 데이터 동기화를 이어가면
 
 만세를 부르는 테코!
 
-![](https://i.imgur.com/nDjjR5P.png)
+![2023-11-06-replication-23.png](..%2Fimages%2F2023-11-06-replication-23.png)
 
 ---
 
