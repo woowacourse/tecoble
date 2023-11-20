@@ -21,7 +21,7 @@ GTID 기반의 안정적인 복제 방식을 도입한 후
 데이터를 수정만 했지, 한꺼번에 대량으로 추가하는 작업은 하지 않았기 때문에 매우 의아해하던 테코는
 그 원인이 바이너리 로그에 있음을 알아차리고 깊은 고민에 빠졌어요.
 
-![](https://i.imgur.com/sy8H01R.png)
+![2023-11-06-replication-24.png](..%2Fimages%2F2023-11-06-replication-24.png)
 
 ## 변경된 데이터를 기록한다면 - Row 포맷
 
@@ -30,9 +30,9 @@ GTID 기반의 안정적인 복제 방식을 도입한 후
 **매우 많은 데이터를 변경한 경우**
 **그 대량의 데이터들이 전부 로그에 기록되면서 데이터베이스 공간에 과부하를 줄 수 있다**는 문제가 있음을 알게 되었어요.
 
-![](https://i.imgur.com/i4iKXKw.png)
+![2023-11-06-replication-25.png](..%2Fimages%2F2023-11-06-replication-25.png)
 
-![](https://i.imgur.com/NkgofDj.png)
+![2023-11-06-replication-26.png](..%2Fimages%2F2023-11-06-replication-26.png)
 
 그렇다면 변경된 데이터를 그대로 바이너리 로그에 기록하는 대신
 다른 방법을 쓸 수는 없을까.
@@ -40,7 +40,7 @@ GTID 기반의 안정적인 복제 방식을 도입한 후
 
 ## 실행한 SQL을 기록한다면 - Statement 포맷
 
-![](https://i.imgur.com/xMJLKTx.png)
+![2023-11-06-replication-27.png](..%2Fimages%2F2023-11-06-replication-27.png)
 
 각 이벤트에서 실행한 SQL 문을 바이너리 로그에 기록하는
 **Statement 기반 바이너리 로그 포맷**을 도입한다면
@@ -52,9 +52,9 @@ SQL 문이 동일하다고 해도,
 **실행할 때마다 결과가 다르게 나타나는 몇몇 비 확정적(Non-Deterministic) 쿼리**들이 있다면
 소스 서버와 리플리카 서버의 데이터가 다르게 기록되는 정합성 문제가 일어날 수 있기 때문이었는데요!
 
-![](https://i.imgur.com/l0nIW5Z.png)
+![2023-11-06-replication-28.png](..%2Fimages%2F2023-11-06-replication-28.png)
 
-![](https://i.imgur.com/N8EHatC.png)
+![2023-11-06-replication-29.png](..%2Fimages%2F2023-11-06-replication-29.png)
 
 Statement 포맷을 사용하게 된다면
 **데이터베이스의 저장 공간을 취하는 대신 데이터 정합성이 깨진다**는 딜레마에 빠지고 만 테코.
@@ -70,11 +70,11 @@ Statement 포맷을 사용하게 된다면
 만약 **Statement 포맷으로 복제했을 때 문제가 될 가능성이 있는 쿼리인 경우에는
 Row 포맷으로 변환하여 기록**해주는 **Mixed 포맷**을 제공하고 있습니다.
 
-![](https://i.imgur.com/zhFRwbX.png)
+![2023-11-06-replication-30.png](..%2Fimages%2F2023-11-06-replication-30.png)
 
-![](https://i.imgur.com/MlFwQZQ.png)
+![2023-11-06-replication-31.png](..%2Fimages%2F2023-11-06-replication-31.png)
 
-![](https://i.imgur.com/iK3m8Jb.png)
+![2023-11-06-replication-32.png](..%2Fimages%2F2023-11-06-replication-32.png)
 
 Mixed 포맷을 적용함으로써
 바이너리 로그의 용량과 데이터 정합성을 성공적으로 지켜낸 테코!
@@ -103,13 +103,13 @@ Mixed 포맷을 적용함으로써
 이름에서 유추할 수 있듯, 소스 서버의 이벤트가 리플리카 서버들에게 잘 전송되었는지 확인하지 않기 때문에
 서버들 간 데이터에 차이가 생길 가능성이 있습니다.
 
-![](https://i.imgur.com/gk1Iugi.png)
+![2023-11-06-replication-33.png](..%2Fimages%2F2023-11-06-replication-33.png)
 
-![](https://i.imgur.com/qF75VFA.png)
+![2023-11-06-replication-34.png](..%2Fimages%2F2023-11-06-replication-34.png)
 
-![](https://i.imgur.com/tNLoLjx.png)
+![2023-11-06-replication-35.png](..%2Fimages%2F2023-11-06-replication-35.png)
 
-![](https://i.imgur.com/UwQbvoE.png)
+![2023-11-06-replication-36.png](..%2Fimages%2F2023-11-06-replication-36.png)
 
 비동기 방식의 리플리케이션을 계속하기에는 찜찜한 테코.
 '동기 방식' 같은 더 안전한 동기화 방법은 없을까 찾아보던 중
@@ -120,11 +120,11 @@ Mixed 포맷을 적용함으로써
 **반동기(Semi-synchronous replication)**.
 특이한 이름입니다. 왜 **반**만 동기일까요?
 
-![](https://i.imgur.com/BtBQQo9.png)
+![2023-11-06-replication-37.png](..%2Fimages%2F2023-11-06-replication-37.png)
 
-![](https://i.imgur.com/836dBxK.png)
+![2023-11-06-replication-38.png](..%2Fimages%2F2023-11-06-replication-38.png)
 
-![](https://i.imgur.com/VGNpltY.png)
+![2023-11-06-replication-39.png](..%2Fimages%2F2023-11-06-replication-39.png)
 
 비동기 복제 대신 반동기 복제를 선택하면
 소스 서버와 리플리카 서버 사이의 동기화를 '어느 정도'는 보장할 수 있겠네요!
@@ -133,18 +133,18 @@ Mixed 포맷을 적용함으로써
 **정확히 어느 시점에 이벤트를 리플리카 서버로 전송하고 응답을 받느냐**에 따라
 **AFTER_SYNC**, **AFTER_COMMIT**이라는 두 종류로 나눌 수 있었습니다.
 
-![](https://i.imgur.com/OZeCa41.png)
+![2023-11-06-replication-40.png](..%2Fimages%2F2023-11-06-replication-40.png)
 
-![](https://i.imgur.com/q318cWl.png)
+![2023-11-06-replication-41.png](..%2Fimages%2F2023-11-06-replication-41.png)
 
-![](https://i.imgur.com/hQ0CJfB.png)
+![2023-11-06-replication-42.png](..%2Fimages%2F2023-11-06-replication-42.png)
 
 흔치 않은 장애 상황에서만 일어날 수 있는 문제이지만,
 **팬텀 리드**와 같은 데이터 정합성 문제가 일어날 여지가 있는 방식이 AFTER_COMMIT이군요 🤨
 
-![](https://i.imgur.com/vtl7snB.png)
+![2023-11-06-replication-43.png](..%2Fimages%2F2023-11-06-replication-43.png)
 
-![](https://i.imgur.com/h09PyjC.png)
+![2023-11-06-replication-44.png](..%2Fimages%2F2023-11-06-replication-44.png)
 
 데이터의 정합성을 지키려면
 AFTER_SYNC 방식의 반동기 복제를 적용하면 되겠다는 결론을 내린 테코.
@@ -159,9 +159,9 @@ AFTER_SYNC 방식의 반동기 복제를 적용하면 되겠다는 결론을 내
 사실 데이터의 리플리케이션 작업은
 우리의 생각보다 훨씬 짧은 시간 안에 이루어진다고 해요.
 
-![](https://i.imgur.com/HHuUHGI.png)
+![2023-11-06-replication-45.png](..%2Fimages%2F2023-11-06-replication-45.png)
 
-![](https://i.imgur.com/RjAoxJo.png)
+![2023-11-06-replication-46.png](..%2Fimages%2F2023-11-06-replication-46.png)
 
 테코는 자신이 운영하는 카페의 성격을 되짚어 보았을 때,
 비동기 복제 방식을 계속 쓴다고 하더라도 큰 불편이 일어날 일이 없으며
@@ -196,11 +196,11 @@ AFTER_SYNC 방식의 반동기 복제를 적용하면 되겠다는 결론을 내
 **소스 서버 1 + 리플리카 서버 1**로 구성된
 가장 단순한 구성 방식을 **싱글 리플리카 복제 구성**이라고 불러요!
 
-![](https://i.imgur.com/4snM0ey.png)
+![2023-11-06-replication-47.png](..%2Fimages%2F2023-11-06-replication-47.png)
 
-![](https://i.imgur.com/MuKFOkO.png)
+![2023-11-06-replication-48.png](..%2Fimages%2F2023-11-06-replication-48.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbghCbS%2FbtszoiLIMVg%2FZKwCkpvNPiaXJAkcNhg49k%2Fimg.png)
+![2023-11-06-replication-49.png](..%2Fimages%2F2023-11-06-replication-49.png)
 
 ## 멀티 리플리카 복제 구성
 
@@ -211,13 +211,13 @@ AFTER_SYNC 방식의 반동기 복제를 적용하면 되겠다는 결론을 내
 테코의 데이터베이스도 백업 용도 외에 읽기 작업을 수행하는 데이터베이스가 필요하게 되면서
 멀티 리플리카 복제를 사용하게 됐었죠!
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdL42wb%2FbtszjBzmzxd%2F59kfsre4I6NGNGiU3ZnT21%2Fimg.png)
+![2023-11-06-replication-50.png](..%2Fimages%2F2023-11-06-replication-50.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1oAwg%2FbtszhoHu5gk%2F5QSJUlGLLCsOxyxbTGptc0%2Fimg.png)
+![2023-11-06-replication-51.png](..%2Fimages%2F2023-11-06-replication-51.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbSDgUn%2FbtszluF021R%2F94TRdldDFwAU74hqKIyWlK%2Fimg.png)
+![2023-11-06-replication-52.png](..%2Fimages%2F2023-11-06-replication-52.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbNPsTq%2Fbtsy47yq3GG%2Fwa38Skk2RDw4lCCZ7O7Yv1%2Fimg.png)
+![2023-11-06-replication-53.png](..%2Fimages%2F2023-11-06-replication-53.png)
 
 ## 체인 복제 구성
 만약 소스 서버는 하나인데, 복제를 해주어야 하는 리플리카 서버가 엄청나게 많아진다면 어떻게 해야 할까요?
@@ -228,15 +228,14 @@ AFTER_SYNC 방식의 반동기 복제를 적용하면 되겠다는 결론을 내
 
 이때는 **리플리카 서버가 또다시 다른 리플리카 서버에 대한 소스 서버 역할**을 하는, 사슬같은 구조의 **체인 복제 구성**을 생각해볼 수 있습니다.
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0rL6Z%2FbtszkB6IjqF%2FDNOrh64TtKQOogKuuzX4Ok%2Fimg.png)
+![2023-11-06-replication-54.png](..%2Fimages%2F2023-11-06-replication-54.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fpp97S%2FbtszlnUzjXc%2FvHgYvvv2yju7WJ61iwosM0%2Fimg.png)
+![2023-11-06-replication-55.png](..%2Fimages%2F2023-11-06-replication-55.png)
 
 MySQL 서버를 전체적으로 업그레이드하거나, 장비를 일괄적으로 바꿀 때 복제 그룹 단위의 교체를 할 수 있는데요!
 대략 아래와 같은 과정을 통해 교체가 이루어집니다.
 
 ![](https://velog.velcdn.com/images/backfox/post/519747cb-9af2-4cc0-865f-0f7573498647/image.gif)
-BackFoxx marked this conversation as resolved.
 
 ## 듀얼 소스 복제 구성
 
@@ -247,19 +246,19 @@ BackFoxx marked this conversation as resolved.
 하지만 쓰기 작업을 아주 많이 하는 서비스인 경우에는
 **쓰기용 서버를 여러 개** 두어야 할 수도 있습니다!
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FTz72m%2FbtszjFaHWFT%2FiSxLQrgJKpt54KeklpkaxK%2Fimg.png)
+![2023-11-06-replication-57.png](..%2Fimages%2F2023-11-06-replication-57.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdaZ8GM%2FbtszhrjTcUK%2FDeeMYkX0swV5yK46PUnkIK%2Fimg.png)
+![2023-11-06-replication-58.png](..%2Fimages%2F2023-11-06-replication-58.png)
 
 ### ACTIVE-PASSIVE와 ACTIVE-ACTIVE
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb95jaA%2FbtsznCwL3Ew%2Fo8RZbkFvhLWRyyeljVOy4K%2Fimg.png)
+![2023-11-06-replication-59.png](..%2Fimages%2F2023-11-06-replication-59.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Feklma4%2Fbtszky90CSg%2F7emO5VksMsv0zOdenjJkSk%2Fimg.png)
+![2023-11-06-replication-60.png](..%2Fimages%2F2023-11-06-replication-60.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcGA6sz%2Fbtszl1DyWhJ%2FfG6vITpc4NXKnD4Ds00bBk%2Fimg.png)
+![2023-11-06-replication-61.png](..%2Fimages%2F2023-11-06-replication-61.png)
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbEHgPk%2Fbtszjso22A4%2FqCK3DwayBmEt630pORApe1%2Fimg.png)
+![2023-11-06-replication-62.png](..%2Fimages%2F2023-11-06-replication-62.png)
 
 ---
 
