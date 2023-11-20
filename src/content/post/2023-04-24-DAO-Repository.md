@@ -235,7 +235,7 @@ public void updateName() {
 > A method like Update is appropriate on a DAO, but not a Repository. When using a Repository, changes to entities are
 > usually tracked by a separate UnitOfWork.
 
-CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접하게 연관되어 있습니다. 그러므로 DAO에 Update 메서드가 존재하는턴 것이 너무나 당연합니다.  
+CRUD는 DB의 가장 기본적인 기능이고, DAO는 DB의 테이블과 밀접하게 연관되어 있습니다. 그러므로 DAO에 Update 메서드가 존재하는 것이 너무나 당연합니다.  
 그러나 Repository는 다릅니다. 위의 코드에서처럼 Car1과 Car2가 Cars 내부의 Car리스트에 담긴다고 해서 새로운 객체가 되는 것이 아니기 때문에, 이름을 변경하면 당연히 변경된 이름이 나올 겁니다.  
 그런데 저장소가 영속성 계층에 위치한다면 어떨까요? application에서 Car1과 Car2의 이름을 바꾸면 자동으로 DB Row 내용도 변할까요? 당연히 바뀌지 않을 겁니다. 그치만 Repository 패턴을 사용한다면 DB의 내용도 당연하게 바뀌어야 합니다. 저장소가 어디에 위치하냐에 따라서 Repository의 책임이 달라지면 안되니까요. 그러므로 외부 저장소(DB나 File 등)에 대한 Repository는 Update 메서드 없이 객체의 변경이 저장소에 반영되도록하는 기능을 지원해야합니다.      
 이것이 Repository가 Update 메서드를 지원하지 않는 이유이고, JPA의 영속성 컨텍스트에서 `변경 감지`가 이루어지는 이유입니다. 인용한 문장에 있는 [UnitOfWork](https://zetlos.tistory.com/1179902868)라는 디자인 패턴의 개념을 간단하게 설명해봤습니다. 더 자세히 알고 싶으시다면 링크된 블로그를 참고해주세요! 
