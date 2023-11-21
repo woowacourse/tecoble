@@ -3,9 +3,9 @@ layout: post
 title: '웹 어플리케이션의 역사'
 author: [5기_테오]
 tags: ['Web']
-date: '2023-11-17T12:00:00.000Z'
+date: '2023-11-21T12:00:00.000Z'
 draft: false
-image: ../teaser/chain.jpeg
+image: ../teaser/teo-history-of-web-app.jpg
 ---
 
 # 웹 어플리케이션의 역사
