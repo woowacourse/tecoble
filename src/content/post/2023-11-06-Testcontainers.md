@@ -3,7 +3,7 @@ layout: post
 title: '로컬에서도 프로덕션과 유사한 환경에서 테스트할 수 없을까? : Testcontainers 도입기'
 author: [5기_리오]
 tags: ['Test', 'Testcontainers']
-date: '2023-11-20T12:00:00.000Z'
+date: '2023-11-21T20:00:00.000Z'
 draft: false
 image: ../teaser/testcontainers.png
 ---
