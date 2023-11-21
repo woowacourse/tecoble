@@ -25,7 +25,7 @@ WWW의 등장부터 시간순으로 설명할 예정이니, 참고해주시면 �
 
 ## WWW(World-Wide-Web)
 
-![2023-10-25-HISTORY-OF-WEB-APP_001.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_001.png)
+![2023-10-25-HISTORY-OF-WEB-APP_001.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_001.png)
 
 웹 어플리케이션을 이해하기 위해서는 웹이란 도대체 무엇인지, 왜 등장했는지를 이해할 필요가 있습니다. WWW은 도대체 어떤 이유에서 등장했을까요?
 
@@ -63,13 +63,13 @@ WWW의 등장부터 시간순으로 설명할 예정이니, 참고해주시면 �
 > CGI란, Common Gateway Interface의 약자로 서버와 애플리케이션 간에 데이터를 주고받는 방식을 의미합니다.
 > 
 
-![2023-10-25-HISTORY-OF-WEB-APP_002.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_002.png)
+![2023-10-25-HISTORY-OF-WEB-APP_002.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_002.png)
 
 웹 서버는 동적 페이지를 원하는 클라이언트 요청이 들어오면 CGI 인터페이스를 통해 외부 프로그램을 실행시키면서 적절한 HTTP 응답을 반환할 수 있었습니다.
 
 예를 들어, 사용자가 장바구니 조회 요청을 보내는 경우에는 다음과 같이 동적 페이지를 구성했습니다.
 
-![2023-10-25-HISTORY-OF-WEB-APP_003.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_003.png)
+![2023-10-25-HISTORY-OF-WEB-APP_003.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_003.png)
 
 - 장바구니 조회 요청이 발생하면 웹 서버에 도달합니다.
 - 웹 서버는 CGI 인터페이스를 사용해 외부 프로그램에 요청 처리를 위임합니다.
@@ -104,7 +104,7 @@ Servlet을 한 번만 구현해두면 어느 플랫폼에서도 쉽게 재사용
 Servlet을 사용하는 경우의 HTTP 요청 처리 방식은 CGI 방식과 크게 다르진 않습니다. 
 도식화하면 아래와 같습니다.
 
-![2023-10-25-HISTORY-OF-WEB-APP_004.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_004.png)
+![2023-10-25-HISTORY-OF-WEB-APP_004.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_004.png)
 
 - HTTP 요청이 발생하면 웹 서버에 도달합니다.
 - 웹 서버는 Servlet Container에게 HTTP 요청을 토스합니다.
@@ -201,7 +201,7 @@ JSP를 통해 뷰의 구성과  제어 로직의 처리까지 모두 수행한�
 앞서 본 Java Beans를 활용하는 JSP 예시 코드가 모델 1에 해당합니다. 
 JSP가 직접 Java Beans를 호출하는 등의 제어 로직을 담당하기 때문입니다.
 
-![2023-10-25-HISTORY-OF-WEB-APP_005.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_005.png)
+![2023-10-25-HISTORY-OF-WEB-APP_005.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_005.png)
 
 모델 1의 경우에는 구조가 단순하여 간단한 페이지를 구성하는 데에 주로 사용되었지만, 규모가 큰 프로그램을 작성할 때에는 상당한 양의 Java 코드가 JSP 파일에 드러나게 되었습니다. 
 이는 시스템 규모가 크다면 JSP의 장점을 살릴 수 없었음을 의미합니다.
@@ -259,7 +259,7 @@ Servlet은 제어 로직을 담당하고, JSP는 뷰 로직을 담당합니다.
 
 ## **J2EE와 EJB**
 
-![2023-10-25-HISTORY-OF-WEB-APP_006.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_006.png)
+![2023-10-25-HISTORY-OF-WEB-APP_006.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_006.png)
 
 앞서서 우리는 동적 페이지를 구현하기 위한 방법으로 Servlet과 JSP를 살펴보았습니다. 
 사실 Servlet과 JSP는 J2EE에 포함되어 있는데, J2EE란 기업 환경의 어플리케이션을 구성하는 데 필요한 표준의 집합을 의미합니다.
@@ -326,12 +326,12 @@ public class HelloBean implements SessionBean {
 
 이처럼 J2EE 표준을 준수한 애플리케이션들이 너무나도 복잡해지니 로드 존슨이라는 사람이 나타나 ‘J2EE Development without EJB’ 라는 책을 출간합니다.
 
-![2023-10-25-HISTORY-OF-WEB-APP_007.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_007.png)
+![2023-10-25-HISTORY-OF-WEB-APP_007.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_007.png)
 
 로드 존슨은 해당 저서에서 EJB의 문제점을 제시하면서 EJB를 사용하지 않고도 충분히 고품질의 애플리케이션을 개발할 방법이 존재함을 증명했습니다. 
 그리고 이 저서가 바로 Spring이라는 웹 프레임워크의 시작점입니다. 
 
-![2023-10-25-HISTORY-OF-WEB-APP_008.png](..%2Fimages%2F2023-10-25-HISTORY-OF-WEB-APP_008.png)
+![2023-10-25-HISTORY-OF-WEB-APP_008.png](./../images/2023-10-25-HISTORY-OF-WEB-APP_008.png)
 
 로드 존슨이 주장하는 Spring의 핵심 가치는 ‘POJO를 통해 순수한 비즈니스 로직을 작성하자’ 입니다. 
 EJB를 사용하는 경우 앞서 말씀드렸듯이 특정 기술에 종속적인 코드를 작성하게 되었고, 객체 지향적이고 순수한 비즈니스 로직과는 거리가 멀어졌기 때문입니다.
