@@ -247,6 +247,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-09-join-query-vs-multiple-quries/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-17-image-upload/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-11-marker-rendering-optimization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-25-HISTORY-OF-WEB-APP/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/naming/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/convention/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/object-calisthenic/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -321,7 +322,6 @@
 <url> <loc>https://tecoble.techcourse.co.kr/tags/ref/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/vo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/jwt/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://tecoble.techcourse.co.kr/tags/web/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/html/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/form/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -485,6 +485,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/tags/use-layout-effect/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/rendering-optimization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/google-map-api/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/tags/web/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-스티치/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-보스독/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/2-기-둔덩/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
