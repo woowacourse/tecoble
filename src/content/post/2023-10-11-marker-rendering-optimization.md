@@ -3,7 +3,7 @@ layout: post
 title: 'useLayoutEffect를 활용한 산발적 마커 렌더링 최적화'
 author: [5기_센트]
 tags: ['useLayoutEffect', 'rendering optimization', 'react', 'google map api']
-date: '2023-10-21T12:00:00.000Z'
+date: '2023-11-21T12:00:00.000Z'
 draft: false
 image: ../teaser/scent-rendering-optimization.png
 ---
@@ -70,7 +70,7 @@ function MarkerContainer() {
 
   return (
     <>
-      {stations.map(station => (
+      {stations.map((station) => (
         <Marker key={station.id} station={station} />
       ))}
     </>
