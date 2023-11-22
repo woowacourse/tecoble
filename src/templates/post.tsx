@@ -13,7 +13,6 @@ import { Footer } from '../components/Footer';
 import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
 import PostContent from '../components/PostContent';
 import { ReadNext } from '../components/ReadNext';
-import { Subscribe } from '../components/subscribe/Subscribe';
 import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
@@ -233,9 +232,6 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
-
-              {/* The big email subscribe modal content */}
-              {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
           <Utterances repo="woowacourse/tecoble-comments" />
