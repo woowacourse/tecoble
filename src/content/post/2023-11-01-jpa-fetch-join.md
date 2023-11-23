@@ -3,7 +3,7 @@ layout: post
 title: 'JPA가 Fetch Join에 대한 On절을 지원하지 않는 이유'
 author: [5기_베베]
 tags: ['JPA']
-date: '2023-11-??T12:00:00.000Z'
+date: '2023-11-23T12:00:00.000Z'
 draft: false
 image: ../teaser/zipgo.png
 ---
