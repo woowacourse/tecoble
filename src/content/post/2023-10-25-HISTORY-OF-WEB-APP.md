@@ -8,10 +8,6 @@ draft: false
 image: ../teaser/teo-history-of-web-app.jpg
 ---
 
-# 웹 어플리케이션의 역사
-
----
-
 ## 들어가면서
 
 백엔드 개발자라면 웹 어플리케이션이라는 개념을 자주 접하게 됩니다.
@@ -366,7 +362,7 @@ WWW의 등장으로부터 Spring에 이르기까지의 역사를 훑어보았습
 감사합니다.
 
 ## 참고 자료
-프로가 되기 위한 웹기술 입문 - 위키북스
+- 프로가 되기 위한 웹기술 입문 - 위키북스
 
 - [Introduction to the Spring Framework - Rod Johnson](https://www.theserverside.com/news/1364527/Introduction-to-the-Spring-Framework)
 
