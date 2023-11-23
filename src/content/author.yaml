@@ -420,3 +420,10 @@
   website: https://velog.io/@kyw0716
   location: Seoul
   profile_image: profile/scent.jpg
+- id: 5기_여우
+  avatar: avatars/fox.png
+  bio: 우아한테크코스 5기 여우(조승현)입니다 :)
+  github: BackFoxx
+  website: https://github.com/BackFoxx
+  location: Seoul
+  profile_image: profile/fox.png
