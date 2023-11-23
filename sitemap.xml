@@ -250,6 +250,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-10-25-HISTORY-OF-WEB-APP/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-11-06-testcontainers/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-11-06-zero-downtime-deployment-1/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/post/2023-11-01-jpa-fetch-join/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/post/2023-11-06-zero-downtime-deployment-2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/naming/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/tags/convention/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -550,6 +551,7 @@
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-제로/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-로이/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-연어/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://tecoble.techcourse.co.kr/author/5-기-베베/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-빅스/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-무민/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://tecoble.techcourse.co.kr/author/5-기-센트/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
