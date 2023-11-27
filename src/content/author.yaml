@@ -399,35 +399,35 @@
   website: https://github.com/nuyh99
   location: Busan
   profile_image: profile/salmone.jpeg
-- id: 5기_베베
+- name: 5기_베베
   avatar: avatars/bebe.png
   bio: 우아한테크코스 5기 베베(최원용)입니다 :)
   github: wonyongChoi05
   website: https://github.com/wonyongChoi05
   location: Seoul
   profile_image: profile/bebe.jpeg
-- id: 5기_빅스
+- name: 5기_빅스
   avatar: avatars/vix.jpg
   bio: 우아한테크코스 5기 빅스(권용민)입니다 :)
   github: briandr97
   website: https://github.com/briandr97
   location: Seoul
   profile_image: profile/vix.jpg
-- id: 5기_무민
+- name: 5기_무민
   avatar: avatars/moomin.png
   bio: 끊임없이 생각하고 나아가는 개발자 무민(박무현)입니다
   github: parkmuhyeun
   website: https://github.com/parkmuhyeun
   location: Seoul
   profile_image: profile/moomin.png
-- id: 5기_센트
+- name: 5기_센트
   avatar: avatars/scent.jpeg
   bio: 우아한테크코스 5기 센트(김영우)입니다 :)
   github: kyw0716
   website: https://velog.io/@kyw0716
   location: Seoul
   profile_image: profile/scent.jpg
-- id: 5기_여우
+- name: 5기_여우
   avatar: avatars/fox.png
   bio: 우아한테크코스 5기 여우(조승현)입니다 :)
   github: BackFoxx
