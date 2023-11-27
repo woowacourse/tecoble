@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { FluidObject } from 'gatsby-image';
+import { getSrc } from 'gatsby-plugin-image';
 
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -21,11 +21,11 @@ import {
   ResponsiveHeaderBackground,
   SiteHeaderBackground,
 } from '../styles/shared';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
-interface TagTemplateProps {
+type TagTemplateProps = {
   location: Location;
   pageContext: {
     tag: string;
@@ -34,13 +34,9 @@ interface TagTemplateProps {
     allTagYaml: {
       edges: Array<{
         node: {
-          id: string;
+          yamlId: string;
           description: string;
-          image?: {
-            childImageSharp: {
-              fluid: FluidObject;
-            };
-          };
+          image?: any;
         };
       }>;
     };
@@ -51,12 +47,14 @@ interface TagTemplateProps {
       }>;
     };
   };
-}
+};
 
-const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
+function Tags({ pageContext, data, location }: TagTemplateProps) {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
-  const tagData = data.allTagYaml.edges.find(n => n.node.id.toLowerCase() === tag.toLowerCase());
+  const tagData = data.allTagYaml.edges.find(
+    n => n.node.yamlId.toLowerCase() === tag.toLowerCase(),
+  );
 
   return (
     <IndexLayout>
@@ -90,11 +88,11 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
           </div>
           <ResponsiveHeaderBackground
             css={[outer, SiteHeaderBackground]}
-            backgroundImage={tagData?.node?.image?.childImageSharp?.fluid?.src}
+            backgroundImage={getSrc(tagData?.node?.image)}
             className="site-header-background"
           >
             <SiteHeaderContent css={inner} className="site-header-content">
-              <SiteTitle className="site-title">{'#' + tag.toUpperCase()}</SiteTitle>
+              <SiteTitle className="site-title">{`#${tag.toUpperCase()}`}</SiteTitle>
               <SiteDescription className="site-description">
                 {tagData?.node.description ? (
                   tagData.node.description
@@ -122,22 +120,20 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export default Tags;
 
 export const pageQuery = graphql`
-  query($tag: String) {
+  query ($tag: String) {
     allTagYaml {
       edges {
         node {
-          id
+          yamlId
           description
           image {
             childImageSharp {
-              fluid(maxWidth: 3720) {
-                ...GatsbyImageSharpFluid
-              }
+              gatsbyImageData(layout: FULL_WIDTH)
             }
           }
         }
@@ -145,7 +141,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
     ) {
       totalCount
@@ -160,21 +156,15 @@ export const pageQuery = graphql`
             date
             image {
               childImageSharp {
-                fluid(maxWidth: 1240) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             author {
-              id
+              name
               bio
               avatar {
-                children {
-                  ... on ImageSharp {
-                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                      ...GatsbyImageSharpFluid
-                    }
-                  }
+                childImageSharp {
+                  gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                 }
               }
             }

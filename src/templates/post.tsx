@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
-import Img, { FluidObject } from 'gatsby-image';
+import { GatsbyImage, getSrc, getImage } from 'gatsby-plugin-image';
 import * as _ from 'lodash';
 import { lighten, setLightness } from 'polished';
 import React from 'react';
@@ -13,7 +13,6 @@ import { Footer } from '../components/Footer';
 import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
 import PostContent from '../components/PostContent';
 import { ReadNext } from '../components/ReadNext';
-import { Subscribe } from '../components/subscribe/Subscribe';
 import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
@@ -21,25 +20,17 @@ import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 import { AuthorList } from '../components/AuthorList';
 import Utterances from './Utterances';
+import defaultImage from '../content/img/tecoble-background.png';
 
-export interface Author {
-  id: string;
+export type Author = {
+  name: string;
   bio: string;
-  avatar: {
-    children: Array<{
-      fluid: FluidObject;
-    }>;
-  };
-}
+  avatar: any;
+};
 
-interface PageTemplateProps {
+type PageTemplateProps = {
   location: Location;
   data: {
-    logo: {
-      childImageSharp: {
-        fixed: any;
-      };
-    };
     markdownRemark: {
       html: string;
       htmlAst: any;
@@ -49,11 +40,7 @@ interface PageTemplateProps {
         title: string;
         date: string;
         userDate: string;
-        image: {
-          childImageSharp: {
-            fluid: any;
-          };
-        };
+        image: any;
         excerpt: string;
         tags: string[];
         author: Author[];
@@ -80,20 +67,16 @@ interface PageTemplateProps {
     prev: PageContext;
     next: PageContext;
   };
-}
+};
 
-export interface PageContext {
+export type PageContext = {
   excerpt: string;
   timeToRead: number;
   fields: {
     slug: string;
   };
   frontmatter: {
-    image: {
-      childImageSharp: {
-        fluid: FluidObject;
-      };
-    };
+    image: any;
     excerpt: string;
     title: string;
     date: string;
@@ -102,15 +85,15 @@ export interface PageContext {
     author: Author[];
     source: string;
   };
-}
+};
 
-const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
+function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
   const post = data.markdownRemark;
-  let width = '';
-  let height = '';
-  if (post.frontmatter.image?.childImageSharp) {
-    width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-    height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
+  let width: number | undefined;
+  let height: number | undefined;
+  if (post.frontmatter.image) {
+    width = getImage(post.frontmatter.image)?.width;
+    height = getImage(post.frontmatter.image)?.height;
   }
 
   const date = new Date(post.frontmatter.date);
@@ -118,8 +101,6 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   const datetime = format(date, 'yyyy-MM-dd');
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
-
-  const defaultImage = require('../content/img/tecoble-background.png');
 
   return (
     <IndexLayout className="post-template">
@@ -132,11 +113,11 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta property="og:url" content={config.siteUrl.split('/tecoble')[0] + location.pathname} />
-        {post.frontmatter.image?.childImageSharp && (
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
+        {post.frontmatter.image && (
           <meta
             property="og:image"
-            content={config.siteUrl.split('/tecoble')[0] + post.frontmatter.image.childImageSharp.fluid.src}
+            content={`${config.siteUrl}${getSrc(post.frontmatter.image)}`}
           />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
@@ -151,15 +132,15 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl.split('/tecoble')[0] + location.pathname} />
-        {post.frontmatter.image?.childImageSharp && (
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
+        {post.frontmatter.image && (
           <meta
             name="twitter:image"
-            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+            content={`${config.siteUrl}${getSrc(post.frontmatter.image)}`}
           />
         )}
         <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content={post.frontmatter.author[0].id} />
+        <meta name="twitter:data1" content={post.frontmatter.author[0].name} />
         <meta name="twitter:label2" content="Filed under" />
         {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
         {config.twitter && (
@@ -174,8 +155,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
             content={`@${config.twitter.split('https://twitter.com/')[1]}`}
           />
         )}
-        {width && <meta property="og:image:width" content={width} />}
-        {height && <meta property="og:image:height" content={height} />}
+        {width && <meta property="og:image:width" content={width?.toString()} />}
+        {height && <meta property="og:image:height" content={height?.toString()} />}
       </Helmet>
       <Wrapper css={PostTemplate}>
         <header className="site-header">
@@ -192,10 +173,10 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags.map((tag, index) => (
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>
-                      {index !== 0 ? ', ' : ''}
-                      {'#'+tag}
-                    </Link>
+                    <React.Fragment key={tag}>
+                      {index > 0 && <>, &nbsp;</>}
+                      <Link to={`/tags/${_.kebabCase(tag)}/`}>{`#${tag}`}</Link>
+                    </React.Fragment>
                   ))}
                 </PostFullTags>
                 <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
@@ -208,10 +189,12 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">
                         {post.frontmatter.author.map((author, index) => (
-                          <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
-                            {index !== 0 ? ', ' : ''}
-                            {author.id}
-                          </Link>
+                          <React.Fragment key={author.name}>
+                            {index > 0 && <>, &nbsp;</>}
+                            <Link key={author.name} to={`/author/${_.kebabCase(author.name)}/`}>
+                              {author.name}
+                            </Link>
+                          </React.Fragment>
                         ))}
                       </h4>
                       <div className="byline-meta-content">
@@ -227,21 +210,19 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                 </PostFullByline>
               </PostFullHeader>
 
-              {post.frontmatter.image?.childImageSharp && (
+              {post.frontmatter.image && (
                 <PostFullImage>
-                  <Img
+                  <GatsbyImage
+                    image={getImage(post.frontmatter.image)!}
                     style={{ height: '100%' }}
-                    fluid={post.frontmatter.image.childImageSharp.fluid}
                     alt={post.frontmatter.title}
                   />
                   {post.frontmatter.source !== null && (
-                    <div style={{ color: 'darkgray'}}>
-                      (자료 출처 : {post.frontmatter.source})
-                    </div>
+                    <div style={{ color: 'darkgray' }}>(자료 출처 : {post.frontmatter.source})</div>
                   )}
                 </PostFullImage>
               )}
-              {!post.frontmatter.image?.childImageSharp && (
+              {!post.frontmatter.image && (
                 <PostFullImage>
                   <img
                     style={{ height: '100%', width: '100%' }}
@@ -251,12 +232,9 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
-
-              {/* The big email subscribe modal content */}
-              {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
           </div>
-          <Utterances repo={'woowacourse/tecoble-comments'} />
+          <Utterances repo="woowacourse/tecoble-comments" />
         </main>
 
         <ReadNext
@@ -270,7 +248,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 const PostTemplate = css`
   .site-main {
@@ -327,7 +305,7 @@ export const PostFullHeader = styled.header`
 const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   align-items: center;
   /* color: var(--midgrey); */
   color: ${colors.midgrey};
@@ -460,12 +438,10 @@ const PostFullImage = styled.figure`
 `;
 
 export const query = graphql`
-  query($slug: String, $primaryTag: String) {
+  query ($slug: String, $primaryTag: String) {
     logo: file(relativePath: { eq: "img/tecoble.png" }) {
       childImageSharp {
-        fixed {
-          ...GatsbyImageSharpFixed
-        }
+        gatsbyImageData(quality: 100, width: 500, layout: FIXED)
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -481,21 +457,15 @@ export const query = graphql`
         excerpt
         image {
           childImageSharp {
-            fluid(maxWidth: 3720) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
           }
         }
         author {
-          id
+          name
           bio
           avatar {
-            children {
-              ... on ImageSharp {
-                fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+            childImageSharp {
+              gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
             }
           }
         }
@@ -505,7 +475,7 @@ export const query = graphql`
     relatedPosts: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }
       limit: 5
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
     ) {
       totalCount
       edges {

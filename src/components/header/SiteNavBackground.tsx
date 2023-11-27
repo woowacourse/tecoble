@@ -1,26 +1,22 @@
 import { css } from '@emotion/react';
 import { graphql, useStaticQuery } from 'gatsby';
-import { FixedObject } from 'gatsby-image';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { getSrc } from 'gatsby-plugin-image';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import { outer, SiteHeader, SiteHeaderStyles } from '../../styles/shared';
 
-interface SiteNavBackgroundProps {
+type SiteNavBackgroundProps = {
   children: ReactNode;
-}
+};
 
-interface SiteNavBackgroundQuery {
+type SiteNavBackgroundQuery = {
   allImage: {
     edges: Array<{
-      node: {
-        childImageSharp: {
-          fixed: FixedObject;
-        };
-      };
+      node: any;
     }>;
   };
-}
+};
 
-const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
+function SiteNavBackground({ children }: SiteNavBackgroundProps) {
   const IMAGE_REMAINING_DURATION = 4000;
   const {
     allImage: { edges },
@@ -30,9 +26,7 @@ const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
         edges {
           node {
             childImageSharp {
-              fixed(width: 2000, quality: 100) {
-                src
-              }
+              gatsbyImageData(width: 2000, quality: 100, layout: FIXED)
             }
           }
         }
@@ -42,7 +36,7 @@ const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
-    const urls = edges.map(edge => edge.node.childImageSharp.fixed.src);
+    const urls = edges.map(edge => getSrc(edge.node));
 
     setImageUrls(urls);
   }, [edges]);
@@ -75,7 +69,7 @@ const SiteNavBackground: React.FC<SiteNavBackgroundProps> = ({ children }) => {
       {children}
     </div>
   );
-};
+}
 
 const backgroundImage = css`
   position: absolute;

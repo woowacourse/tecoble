@@ -51,7 +51,7 @@ exports.createPages = async ({ graphql, actions }) => {
     {
       allMarkdownRemark(
         limit: 2000
-        sort: { fields: [frontmatter___date], order: ASC }
+        sort: { frontmatter: { date: ASC } }
         filter: { frontmatter: { draft: { ne: true } } }
       ) {
         edges {
@@ -66,29 +66,15 @@ exports.createPages = async ({ graphql, actions }) => {
               excerpt
               image {
                 childImageSharp {
-                  fluid(maxWidth: 3720) {
-                    aspectRatio
-                    base64
-                    sizes
-                    src
-                    srcSet
-                  }
+                  gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
                 }
               }
               author {
-                id
+                name
                 bio
                 avatar {
-                  children {
-                    ... on ImageSharp {
-                      fluid(quality: 100) {
-                        aspectRatio
-                        base64
-                        sizes
-                        src
-                        srcSet
-                      }
-                    }
+                  childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
                   }
                 }
               }
@@ -104,6 +90,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            name
           }
         }
       }
@@ -167,9 +154,9 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
   const tags = _.uniq(
     _.flatten(
-      result.data.allMarkdownRemark.edges.map(edge => {
-        return _.castArray(_.get(edge, 'node.frontmatter.tags', []));
-      }),
+      result.data.allMarkdownRemark.edges.map(edge =>
+        _.castArray(_.get(edge, 'node.frontmatter.tags', [])),
+      ),
     ),
   );
   tags.forEach(tag => {
@@ -186,10 +173,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const authorTemplate = path.resolve('./src/templates/author.tsx');
   result.data.allAuthorYaml.edges.forEach(edge => {
     createPage({
-      path: `/author/${_.kebabCase(edge.node.id)}/`,
+      path: `/author/${_.kebabCase(edge.node.name)}/`,
       component: authorTemplate,
       context: {
-        author: edge.node.id,
+        author: edge.node.name,
       },
     });
   });

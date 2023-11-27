@@ -2,21 +2,23 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { Author } from '../templates/post';
+import type { Author } from '../templates/post';
 import { AuthorListItem } from './AuthorListItem';
 
-interface AuthorListProps {
+type AuthorListProps = {
   tooltip: 'small' | 'large';
   authors: Author[];
-}
+};
 
-export const AuthorList: React.FC<AuthorListProps> = props => (
-  <AuthorListUl className="author-list">
-    {props.authors.map(author => (
-      <AuthorListItem key={author.id} author={author} tooltip={props.tooltip} />
-    ))}
-  </AuthorListUl>
-);
+export function AuthorList(props: AuthorListProps) {
+  return (
+    <AuthorListUl className="author-list">
+      {props.authors.map(author => (
+        <AuthorListItem key={author.name} author={author} tooltip={props.tooltip} />
+      ))}
+    </AuthorListUl>
+  );
+}
 
 export const AuthorListUl = styled.ul`
   display: flex;

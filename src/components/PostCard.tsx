@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import _ from 'lodash';
 import { lighten } from 'polished';
 import React from 'react';
@@ -9,16 +9,16 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
-import { PageContext } from '../templates/post';
+import type { PageContext } from '../templates/post';
 import { AuthorList } from './AuthorList';
 import defaultImage from '../content/img/tecoble-background.png';
 
-interface PostCardProps {
+export type PostCardProps = {
   post: PageContext;
-  large?: boolean;
-}
+  isLarge?: boolean;
+};
 
-export const PostCard = ({ post, large = false }: PostCardProps) => {
+export function PostCard({ post, isLarge = false }: PostCardProps) {
   const { frontmatter, fields, excerpt, timeToRead } = post;
   const date = new Date(frontmatter.date);
   // 2018-08-20
@@ -29,18 +29,19 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
   return (
     <article
       className={`post-card ${frontmatter.image ? '' : 'no-image'} ${
-        large ? 'post-card-large' : ''
+        isLarge ? 'post-card-isLarge' : ''
       }`}
-      css={[PostCardStyles, large && PostCardLarge]}
+      css={[PostCardStyles, isLarge && PostCardLarge]}
     >
       {frontmatter.image && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={fields.slug}>
           <PostCardImage className="post-card-image">
-            {frontmatter?.image?.childImageSharp?.fluid && (
-              <Img
+            {frontmatter?.image && (
+              <GatsbyImage
+                image={getImage(post.frontmatter.image)!}
                 alt={`${post.frontmatter.title} cover image`}
                 style={{ height: '100%' }}
-                fluid={post.frontmatter.image.childImageSharp.fluid}
+                loading={isLarge ? 'eager' : 'lazy'}
               />
             )}
           </PostCardImage>
@@ -73,14 +74,12 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
           <AuthorList authors={frontmatter.author} tooltip="small" />
           <PostCardBylineContent className="post-card-byline-content">
             <span>
-              {frontmatter.author.map((author, index) => {
-                return (
-                  <React.Fragment key={author.id}>
-                    <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
-                    {frontmatter.author.length - 1 > index && ', '}
-                  </React.Fragment>
-                );
-              })}
+              {frontmatter.author.map((author, index) => (
+                <React.Fragment key={author.name}>
+                  <Link to={`/author/${_.kebabCase(author.name)}/`}>{author.name}</Link>
+                  {frontmatter.author.length - 1 > index && ', '}
+                </React.Fragment>
+              ))}
             </span>
             <span className="post-card-byline-date">
               <time dateTime={datetime}>{displayDatetime}</time>{' '}
@@ -91,7 +90,7 @@ export const PostCard = ({ post, large = false }: PostCardProps) => {
       </PostCardContent>
     </article>
   );
-};
+}
 
 const PostCardStyles = css`
   position: relative;

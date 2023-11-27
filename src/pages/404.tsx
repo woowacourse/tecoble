@@ -10,9 +10,9 @@ import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, PostFeed, SiteHeader, SiteNavMain } from '../styles/shared';
-import { PageContext } from '../templates/post';
+import type { PageContext } from '../templates/post';
 
-interface NotFoundTemplateProps {
+type NotFoundTemplateProps = {
   data: {
     allMarkdownRemark: {
       totalCount: number;
@@ -21,9 +21,9 @@ interface NotFoundTemplateProps {
       }>;
     };
   };
-}
+};
 
-const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
+function NotFoundPage(props: NotFoundTemplateProps) {
   const { edges } = props.data.allMarkdownRemark;
 
   return (
@@ -41,7 +41,7 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
             <section style={{ textAlign: 'center' }}>
               <ErrorCode>404</ErrorCode>
               <ErrorDescription>Page not found</ErrorDescription>
-              <Link css={ErrorLink} to="">
+              <Link css={ErrorLink} to="/">
                 Go to the front page →
               </Link>
             </section>
@@ -56,11 +56,11 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
-  query {
-    allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
+  {
+    allMarkdownRemark(limit: 3, sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           timeToRead
@@ -70,20 +70,16 @@ export const pageQuery = graphql`
             tags
             image {
               childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             author {
-              id
+              name
               bio
               avatar {
                 children {
                   ... on ImageSharp {
-                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                   }
                 }
               }
