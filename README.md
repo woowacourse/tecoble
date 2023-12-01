@@ -27,6 +27,6 @@
 ## Installation
 
 ```bash
-yarn install
-yarn dev
+npm ci
+npm start
 ```
