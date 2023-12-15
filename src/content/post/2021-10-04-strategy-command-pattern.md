@@ -199,7 +199,7 @@ public class Main {
             //즉석복권 생성 로직 
             InstantLottery instantLottery = new InstantLottery(당첨여부);
             //즉석복권긁기행위 객체 생성 및 커맨드 목록에 추가
-            InstantScratch 즉석복권긁기커맨드 = new InstantScratch(즉석복권, 와이비통장);
+            LotteryCommand 즉석복권긁기커맨드 = new InstantScratch(즉석복권, 와이비통장);
             whybe.addLotteryCommand(즉석복권긁기커맨드);
         }
         
@@ -263,7 +263,7 @@ public class Main {
             //번호식 복권 생성 로직 
             NumberLottery 번호식복권 = new NumberLottery(선택한 번호);
             //번호식복권긁기행위 객체 생성 및 커맨드 목록에 추가
-            NumberScratch 번호식복권긁기커맨드 = new NumberScratch(이번주 당첨번호, 번호식복권, 영이통장);
+            LotteryCommand 번호식복권긁기커맨드 = new NumberScratch(이번주 당첨번호, 번호식복권, 영이통장);
             whybe.addLotteryCommand(번호식복권긁기커맨드);
         }
 
